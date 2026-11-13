@@ -322,6 +322,25 @@ button.on:not(.sw),.opts button.on:not(.sw),.pl .tile.on,.seg button.on{backgrou
 .hud #mode{width:74px;box-sizing:border-box;text-align:center;flex:0 0 74px;padding-left:4px!important;padding-right:4px!important;font-variant-numeric:tabular-nums;overflow:hidden}#v-home .menu{grid-template-columns:repeat(4,minmax(0,1fr))!important}#v-home .menu .tile{min-width:0;overflow:hidden;flex-direction:column!important;gap:2px!important;padding:2px!important;font-size:11.5px!important;line-height:1.1;text-align:center}#v-home .menu .tile svg{width:18px!important;height:18px!important}.hud .wx{flex:0 0 14px}
 .menu .pin{order:-1}
 
+
+/* ===== DIDACTICIEL ===== */
+.tuto{display:none;grid-template-columns:44px 1fr;gap:10px;align-items:start;margin:2px 0 10px;padding:10px 12px 8px 10px;background:#fffaf2;border:3px solid var(--ink,#3b2a24);border-radius:18px;box-shadow:0 4px 0 #b9875a,0 10px 22px rgba(59,42,36,.18);flex:0 0 auto}
+.tuto.on{display:grid;animation:tuIn .26s ease-out}
+@keyframes tuIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.tu-av{width:44px;height:44px;border-radius:12px;border:2px solid var(--ink,#3b2a24);background:#fbe8cf;image-rendering:pixelated}
+.tu-c{min-width:0}.tu-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tu-t{font:700 15px var(--px);color:var(--acc,#f08a24);letter-spacing:.3px}
+.tu-d{display:flex;gap:4px}.tu-d i{width:6px;height:6px;border-radius:3px;background:#e6cfae}.tu-d i.ok{background:#c79a6a}.tu-d i.on{width:14px;background:var(--acc,#f08a24)}
+.tu-x{margin:4px 0 8px;font:600 14px/1.35 var(--rd);color:var(--ink,#3b2a24);min-height:38px}
+.tu-f{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tu-skip{background:none!important;border:0!important;box-shadow:none!important;padding:6px 2px!important;height:auto!important;font:600 12.5px var(--rd)!important;color:#9a7a66!important;text-decoration:underline;text-underline-offset:2px;min-height:32px}
+.tu-next{height:36px!important;padding:0 16px!important;border:2px solid var(--ink,#3b2a24)!important;border-radius:12px!important;background:var(--ok,#ffd27a)!important;box-shadow:0 3px 0 var(--ink,#3b2a24)!important;font:700 14px var(--px)!important;color:var(--ink,#3b2a24)!important}
+.tu-next:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink,#3b2a24)!important}
+.tu-next[hidden]{display:none}
+.tu-ring{position:fixed;z-index:55;pointer-events:none;border:3px solid #f08a24;border-radius:14px;box-shadow:0 0 0 4px rgba(240,138,36,.22);animation:tuP 1.1s ease-in-out infinite}
+.tu-ring[hidden]{display:none}
+@keyframes tuP{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.65}}
+@media (prefers-reduced-motion:reduce){.tu-ring,.tuto.on{animation:none}}
 /* ===== LOT 3 : interface mobile (répartition de l'écran, lisibilité, zones de toucher) ===== */
 main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,calc(59% - 12px))!important}
 .hud .needs{width:auto!important;flex:1 1 auto;min-width:0;gap:4px!important}.hud .needs>*{min-width:0}.hud .needs span{font-size:9.5px!important;overflow:hidden;text-overflow:clip;display:block}@media (max-width:400px){.hud .needs span{font-size:7.8px!important;letter-spacing:-.1px!important}}
@@ -393,6 +412,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <button class="gi" id="gSave"><span>Enregistrer</span><b>💾</b></button>
 <button class="gi" id="gTitle"><span>Écran titre</span><b>⌂</b></button>
 <div class="gi gsh gff"><span>Police</span><div class="row"><button id="gFf0" data-ff="0">Origine</button><button id="gFf1" data-ff="1">Arrondie</button><button id="gFf2" data-ff="2">iPhone</button></div></div>
+<button class="gi" id="gTuto"><span>Didacticiel</span><b>Revoir</b></button>
 <div class="gi gsh gx"><span>Copie de la partie</span><div class="row"><button id="gExp">Exporter</button><button id="gImp">Importer</button></div></div>
 <button class="gi danger" id="gNew"><span>Nouvelle partie</span><b>↺</b></button>
 <div class="gconf" id="gXfer" hidden><p id="gXt"></p><textarea id="gXa" rows="5" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea><div class="row"><button id="gXno">Fermer</button><button id="gXok" class="on">Copier</button></div></div>
@@ -1834,14 +1854,14 @@ rd.domElement.addEventListener('pointerdown',e=>{
  {{const wc=L.find(f=>f.n=='WC');if(wc&&!draft&&C.st!='sleep'&&[0,8,16,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=wc.x&&a<=wc.x+wc.w&&b>=wc.y&&b<=wc.y+wc.h})){goWC();return}}const so=L.find(f=>f.n=='Canapé');if(so&&!draft&&C.st!='sleep'&&C.st!='sofa'&&[0,8,16].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=so.x&&a<=so.x+so.w&&b>=so.y&&b<=so.y+so.h})){goSofa();return}const sh=L.find(f=>f.n=='Douche');if(sh&&!draft&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=sh.x&&a<=sh.x+sh.w&&b>=sh.y&&b<=sh.y+sh.h})&&C.st!='sleep'){wash();return}}
  if(onBed&&!feedMode){toggleSleep();return}
  if(feedMode||C.st=='sleep'||C.st=='eat'||C.st=='dine'||C.st=='shower'||C.st=='wc'||PLAYS.includes(C.st)||tu<0||tv<0||tu>RN||tv>RN)return;
- if(seated()){if(curV=='desk'||curV=='work'||curV=='shop')show('home');if(seated())leaveDesk()}if(C.st=='sofa')C.st='idle';goto(tu*12,88+tv*5);say('Il se déplace.');talkMaybe('marche',.12);
+ if(seated()){if(curV=='desk'||curV=='work'||curV=='shop')show('home');if(seated())leaveDesk()}if(C.st=='sofa')C.st='idle';goto(tu*12,88+tv*5);say('Il se déplace.');tuEvent('move');talkMaybe('marche',.12);
 });
 // ===== 11. CRÉATION DE NORI (gratuite une seule fois, aperçu en direct sur l’écran du haut) =====
 VT.create='Création de Nori';let creating=false,dressing=false;
 const OPT=[['Couleur','c',LK.c],['Forme des yeux','e',['Ronds','Allongés','Doux','Malicieux']],['Couleur des yeux','y',LK.y],['Oreilles','r',['Pointues','Rondes','Longues']]],cr=document.getElementById('cr');
 function crDraw(){cr.innerHTML=OPT.map(([t,k,a])=>`<div class="orow"><span>${t}</span><div class="opts">${a.map((v,i)=>v[0]=='#'?`<button class="sw${N.look[k]==i?' on':''}" data-k="${k}" data-i="${i}" style="background:${v}" aria-label="${t} ${i+1}"></button>`:`<button class="${N.look[k]==i?'on':''}" data-k="${k}" data-i="${i}">${v}</button>`).join('')}</div></div>`).join('')}
 cr.onclick=e=>{const b=e.target.closest('button');if(!b)return;N.look[b.dataset.k]=+b.dataset.i;applyLook();crDraw()};
-document.getElementById('crOk').onclick=()=>{N.created=true;creating=false;save();show('home');pet();say(N.look.g=='f'?'Nori est prête. Elle vous remercie !':'Nori est prêt. Il vous remercie !');talk('Salut le joueur ! Moi c’est '+NAME()+'.')};
+document.getElementById('crOk').onclick=()=>{N.created=true;creating=false;save();show('home');pet();tutoStart();say(N.look.g=='f'?'Nori est prête. Elle vous remercie !':'Nori est prêt. Il vous remercie !');talk('Salut le joueur ! Moi c’est '+NAME()+'.')};
 function crOpen(){const ni=document.getElementById('stNameIn');if(ni)ni.value=N.name&&N.name!='Nori'?N.name:'';creating=true;show('create');back.hidden=true;crDraw();setTimeout(()=>say('Personnalisez Nori : c’est gratuit, une seule fois.'),0)}
 const ng=document.getElementById('newg');let ngc=0;
 ng.onclick=()=>{if(!ngc){ngc=1;ng.textContent='Confirmer : tout effacer ?';setTimeout(()=>{ngc=0;ng.textContent='Nouvelle partie'},4000)}else{window.__wipe=true;try{localStorage.removeItem(KEY);localStorage.removeItem(KEYB)}catch(e){}location.reload()}};
@@ -1863,7 +1883,7 @@ document.getElementById('stL').onclick=()=>{sy-=Math.PI/3};document.getElementBy
 document.getElementById('stRnd').onclick=()=>{stCats().forEach(([t,k,P])=>{N.look[k]=Math.floor(Math.random()*P.length)});stDraw()};
 function studioMode(v){}
 function crOpen(){const ni=document.getElementById('stNameIn');if(ni)ni.value=N.name&&N.name!='Nori'?N.name:'';creating=true;mainEl.classList.add('creating');studio.hidden=false;studioMode(true);fit();stDraw();zm.v=1}
-document.getElementById('crOk2').onclick=()=>{const nm=(document.getElementById('stNameIn').value||'').trim().replace(/\s+/g,' ').slice(0,12);N.name=nm?nm.charAt(0).toUpperCase()+nm.slice(1):'Nori';N.created=true;creating=false;save();studio.hidden=true;mainEl.classList.remove('creating');studioMode(false);fit();show('home');pet();say(N.look.g=='f'?'Nori est prête. Elle vous remercie !':'Nori est prêt. Il vous remercie !');talk('Salut le joueur ! Moi c’est '+NAME()+'.')};
+document.getElementById('crOk2').onclick=()=>{const nm=(document.getElementById('stNameIn').value||'').trim().replace(/\s+/g,' ').slice(0,12);N.name=nm?nm.charAt(0).toUpperCase()+nm.slice(1):'Nori';N.created=true;creating=false;save();studio.hidden=true;mainEl.classList.remove('creating');studioMode(false);fit();show('home');pet();say(N.look.g=='f'?'Nori est prête. Elle vous remercie !':'Nori est prêt. Il vous remercie !');talk('Salut le joueur ! Moi c’est '+NAME()+'.');tutoStart()};
 rd.domElement.addEventListener('pointerdown',e=>{if(creating)dx0=e.clientX});
 addEventListener('pointermove',e=>{if(creating&&dx0!=null){sy+=(e.clientX-dx0)*.012;dx0=e.clientX}});
 addEventListener('pointerup',()=>dx0=null);
@@ -2313,6 +2333,67 @@ function aquaDraw(){if(!aqOpen)return;aqStep();const c=aqx,t=tick;c.imageSmoothi
 
 document.getElementById('aqClose').onclick=closeAqua;const _shO=show;show=function(v){_shO(v);if(v=='out'){document.querySelectorAll('#v-out [data-go]').forEach(b=>b.hidden=b.dataset.go==place);const s=document.getElementById('stayS');if(s)s.textContent=place=='home'?'À la maison':'Ici'}};const _shA=show;show=function(v){if(v!='aqua'&&aqOpen){aqOpen=false;AQ.flakes=[];document.getElementById('aqBox').classList.remove('on')}_shA(v)};VT.aqua='Aquarium';
 aniTile();goalsBadge();wxUI();
+
+// ===== 13. DIDACTICIEL INTERACTIF : Nori guide le joueur, étapes à réaliser, progression sauvegardée =====
+if(N.created&&!N.tuto)N.tuto={done:1,old:1};// parties existantes : pas de tutoriel imposé (il reste dans le Menu)
+const TS=[
+ {t:'Bienvenue !',x:'Salut, moi c’est {nom} ! Dans Little Life, tu prends soin de moi : je mange, je dors, je travaille… et je compte sur toi.',btn:'Suivant'},
+ {t:'Mes besoins',x:'Ces jauges montrent comment je vais. Quand l’une baisse, aide-moi : manger, dormir, me laver…',hl:()=>document.querySelector('.hud .needs'),btn:'Suivant'},
+ {t:'Se déplacer',x:'Touche le sol de la pièce : je marche jusqu’à l’endroit touché. Essaie, là où brille le repère !',cv:'floor',wait:'move',home:1},
+ {t:'Interagir',x:'Bravo ! Pour utiliser un meuble, il suffit de le toucher. Essaie le bureau : j’y travaille et je m’y change.',cv:'desk',wait:'desk',home:1},
+ {t:'Ma tenue',x:()=>curV=='desk'?'Ici, « Habiller » ouvre ma garde-robe. Touche-le !':'Touche le bureau, puis « Habiller » : c’est là que je change de tenue.',hl:()=>{const b=document.querySelector('#v-desk [data-v="dress"]');return curV=='desk'&&b?b:null},cv:'desk2',wait:'dress',views:['desk','home']},
+ {t:'La garde-robe',x:'Je n’ai encore rien à me mettre ! Les vêtements s’achètent au magasin. Ensuite, tu choisis ici mes hauts, bas, accessoires et tenues.',hl:()=>document.getElementById('drSeg'),btn:'Suivant',views:['dress']},
+ {t:'À toi de jouer',x:'« Sortir » mène au travail, aux magasins, au café, au sport et à l’animalerie. Les « Objectifs » te guident et rapportent des pièces. Amuse-toi bien !',hl:()=>{const b=document.getElementById('bOut');return b&&b.offsetParent?b:null},btn:'C’est parti !'}];
+const TU={el:null,ring:null,s:-1,shown:-1,typed:0,full:'',t0:0,wt:0,av:null};
+function tuOn(){return !!(N.tuto&&!N.tuto.done&&N.created)}
+function tutoStart(){N.tuto={s:0,done:0};save();TU.shown=-1}
+function tuNext(){if(!tuOn())return;N.tuto.s++;if(N.tuto.s>=TS.length){N.tuto.done=1;tuHide();say('Didacticiel terminé ! Tu peux le revoir dans le Menu.')}save();TU.shown=-1}
+function tuSkip(){if(!N.tuto)N.tuto={};N.tuto.done=1;save();tuHide();say('Didacticiel passé. Tu peux le revoir à tout moment dans le Menu.')}
+function tuEvent(k){if(!tuOn())return;const st=TS[N.tuto.s];if(st&&st.wait==k)tuNext()}
+function tuBuild(){if(TU.el)return;const d=document.createElement('div');d.id='tuto';d.className='tuto';d.setAttribute('role','dialog');d.setAttribute('aria-live','polite');
+ d.innerHTML='<canvas class="tu-av" width="40" height="40" aria-hidden="true"></canvas><div class="tu-c"><div class="tu-h"><b class="tu-t"></b><span class="tu-d"></span></div><p class="tu-x"></p><div class="tu-f"><button class="tu-skip">Passer le tutoriel</button><button class="tu-next"></button></div></div>';
+ {const v=document.querySelector('.frame.low .view');if(v&&v.parentNode)v.parentNode.insertBefore(d,v);else topbox.appendChild(d)}TU.el=d;TU.av=d.querySelector('.tu-av');
+ d.querySelector('.tu-skip').onclick=e=>{e.stopPropagation();tuSkip()};
+ d.querySelector('.tu-next').onclick=e=>{e.stopPropagation();if(TU.typed<TU.full.length){TU.typed=TU.full.length;return}tuNext()};
+ d.addEventListener('pointerdown',e=>e.stopPropagation());d.onclick=()=>{TU.typed=TU.full.length};
+ const r=document.createElement('div');r.className='tu-ring';r.hidden=true;document.body.appendChild(r);TU.ring=r}
+function tuHide(){if(TU.el)TU.el.classList.remove('on');if(TU.ring)TU.ring.hidden=true}
+function tuAvatar(){try{const nm=N.look.g=='f'&&SPR['F_v_front']?'F_v_front':'v_front',f=SPR[nm];if(!f||!TU.av)return;const im=recolor(f,N.look,nm),c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').putImageData(im,0,0);
+  const x=TU.av.getContext('2d');x.clearRect(0,0,40,40);x.imageSmoothingEnabled=false;x.drawImage(c,12,1,56,56,0,0,40,40)}catch(e){}}
+function tuOk(st){if(creating||!tscr.hidden||!gmenu.hidden||tripOn)return false;if(st.home&&(place!='home'||!['home','desk'].includes(curV)))return false;if(st.views&&!st.views.includes(curV))return false;if(!st.views&&!st.home&&dressing)return false;return true}
+function tuTick(){if(!tuOn()){tuHide();return}tuBuild();const st=TS[N.tuto.s];if(!st){tuHide();return}
+ // étape dépassée par le joueur lui-même : on avance sans le bloquer
+ if(st.wait=='desk'&&(['desk','dress','table','play'].includes(curV)||['sleep','shower','wc','sofa','desk'].includes(C.st)))return tuNext();
+ if(st.wait=='dress'&&curV=='dress')return tuNext();
+ if(st.views&&st.views[0]=='dress'&&curV!='dress'&&String(TU.shown).split('|')[0]==String(N.tuto.s))return tuNext();
+ if(!tuOk(st)){tuHide();return}
+ const key=N.tuto.s+'|'+(typeof st.x=='function'?curV:'');if(TU.shown!==key){const re=String(TU.shown).split('|')[0]==String(N.tuto.s);TU.shown=key;TU.full=(typeof st.x=='function'?st.x():st.x).replace('{nom}',NAME());TU.typed=0;TU.t0=performance.now();TU.wt=performance.now();
+  TU.el.querySelector('.tu-t').textContent=st.t;TU.el.querySelector('.tu-d').innerHTML=TS.map((_,i)=>'<i class="'+(i<N.tuto.s?'ok':i==N.tuto.s?'on':'')+'"></i>').join('');
+  if(!re){TU.el.classList.remove('on');void TU.el.offsetWidth}TU.el.classList.add('on');try{TU.el.scrollIntoView({block:'nearest'})}catch(e){}tuAvatar();bub.hidden=true}
+ TU.el.classList.add('on');
+ if(TU.typed<TU.full.length){TU.typed=Math.min(TU.full.length,Math.floor((performance.now()-TU.t0)/22));}
+ TU.el.querySelector('.tu-x').textContent=TU.full.slice(0,TU.typed);
+ const nb=TU.el.querySelector('.tu-next'),late=st.wait&&performance.now()-TU.wt>20000;
+ nb.hidden=!(st.btn||late);nb.textContent=st.btn||'Passer cette étape';
+ // mise en évidence d'un bouton de l'interface
+ const tg=st.hl&&st.hl();if(tg&&tg.getBoundingClientRect().width){const r=tg.getBoundingClientRect();Object.assign(TU.ring.style,{left:(r.left-5)+'px',top:(r.top-5)+'px',width:(r.width+10)+'px',height:(r.height+10)+'px'});TU.ring.hidden=false}else TU.ring.hidden=true}
+// repères dessinés dans la pièce (sol à toucher, meuble à utiliser)
+function tuSpot(){const st=tuOn()&&TS[N.tuto.s];if(!st||!st.cv||!tuOk(st)||place!='home'||curV!='home')return null;
+ if(st.cv=='desk'||st.cv=='desk2'){const d=N.furn.find(f=>f.n=='Bureau');return d?{f:d}:null}
+ if(!TU.fs||TU.fs.rn!==RN){let best=null;for(let v=RN-3;v>=RN/2;v-=.5)for(let u=RN/2-3;u<=RN/2+3;u+=.5){if(walkable(u,v)&&walkable(u+.8,v)&&walkable(u-.8,v)&&walkable(u,v+.8)&&walkable(u,v-.8)){const dc=Math.hypot(u-C.x/12,v-(C.y-88)/5);if(dc>3&&(!best||Math.abs(u-RN/2)+Math.abs(v-RN*.62)<best.s))best={u,v,s:Math.abs(u-RN/2)+Math.abs(v-RN*.62)}}}TU.fs=best?{u:best.u,v:best.v,rn:RN}:{u:RN/2,v:RN/2+2,rn:RN}}
+ return {p:TU.fs}}
+function tuDraw(){const sp=tuSpot();if(!sp||creating||dressing)return;const t=performance.now()/1000,G0=G;G=rx;isoSetup();
+ const k=(Math.sin(t*4)+1)/2,A='#f08a24',I='#3b2a24';
+ const ring=(u,v,w,h)=>{const c=[P3(u,v,0),P3(u+w,v,0),P3(u+w,v+h,0),P3(u,v+h,0)];rx.globalAlpha=.35+.45*k;for(let i=0;i<4;i++)ln(c[i],c[(i+1)%4],A);rx.globalAlpha=1};
+ const arrow=(x,y)=>{const S=2;x=Math.round(x);y=Math.round(y-Math.abs(Math.sin(t*3))*8)-9*S;const rows=[7,7,7,7,15,13,11,9,7,5,3,1];
+  rows.forEach((w,j)=>{rx.fillStyle=I;rx.fillRect(x-Math.floor(w*S/2)-S,y+j*S-S,w*S+2*S,S*3)});rows.forEach((w,j)=>{rx.fillStyle=A;rx.fillRect(x-Math.floor(w*S/2),y+j*S,w*S,S)});rx.fillStyle='#ffd9a8';rx.fillRect(x-Math.floor(7*S/2)+S,y,S,4*S)};
+ if(sp.f){const f=sp.f;ring(f.x-.15,f.y-.15,f.w+.3,f.h+.3);const p=P3(f.x+f.w/2,f.y+f.h/2,62);arrow(p[0],p[1])}
+ else{const {u,v}=sp.p,s=.6+.2*k;ring(u-s,v-s,2*s,2*s);ring(u-s+.06,v-s+.06,2*s-.12,2*s-.12);ring(u-.3,v-.3,.6,.6);const p=P3(u,v,10);arrow(p[0],p[1])}
+ G=G0}
+{const _fr=frame;frame=function(){_fr();try{tuDraw();tuTick()}catch(e){}}}
+{const _sh=show;show=function(v){_sh(v);try{if(tuOn())TU.wt=performance.now()}catch(e){}}}
+{const _tk=talk;talk=function(k){if(tuOn()&&TU.el&&TU.el.classList.contains('on'))return;return _tk(k)}}
+document.getElementById('gTuto').onclick=e=>{e.stopPropagation();gmenu.hidden=true;gcard.classList.remove('conf');show('home');tutoStart();say('C’est reparti pour le didacticiel !')};
 
 say('Touchez le sol pour guider Nori, ou touchez Nori pour lui parler.');
 requestAnimationFrame(loop);
