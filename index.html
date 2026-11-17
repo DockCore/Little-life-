@@ -1570,7 +1570,7 @@ const DINE=[['sit',40],['reach',20],['eat',22],['chew',30],['reach',16],['eat',2
 let spName='idle';const SP={fl:false},VSEQ=[['v_front',0],['v_q',0],['v_side',0],['v_back',0],['v_side',1],['v_q',1]];
 // marche de face / de dos (personnage masculin) : 8 images chacune ; profil = marche de côté existante (retournée à gauche)
 // orientation dominante à l'écran avec hystérésis ; arrêt réel -> posture immobile
-const WKT=2.5,WK={u:0,v:0,last:-9,still:0,d:'s',sx:0,sy:0};
+const WKT=4.5,WK={u:0,v:0,last:-9,still:0,d:'s',sx:0,sy:0};
 function wkDir(){const u=C.x/12,v=(C.y-88)/5;if(tick-WK.last>3){WK.u=u;WK.v=v;WK.still=0;WK.sx=0;WK.sy=0}WK.last=tick;
  const mv=Math.hypot(u-WK.u,v-WK.v)>1e-4;WK.still=mv?0:WK.still+1;
  const w=C.path&&C.path[0];let du,dv;if(C.st=='walk'&&w){du=w[0]-u;dv=w[1]-v}else if(C.st=='walk'){du=(C.tx-C.x)/12;dv=(C.ty-C.y)/5}else{du=u-WK.u;dv=v-WK.v}
@@ -1595,7 +1595,7 @@ function spUpdate(){
  else if(dressing){name='v_front';fl=false}
  else if(sl){const bf=N.furn.find(f=>f.n=='Lit'),br=bf?(bf.r||0):0;name='si'+(br==2?0:br)+'_'+[0,1,2,1][Math.floor(C.t/25)%4]}else if(dn){const ph=dph();name=dnFrame(ph);if(!SPR[name])name=ph=='reach'?'r1':ph=='eat'||ph=='drink'?'r0':'w1'}else if(seated()&&!stg){const d=deskF(),s=d?deskSeat(d):{back:1};name=s.back?(C.st=='work'&&C.t%26<13?'dk1':'dk0'):(C.st=='work'&&C.t%26<13?'wc1':'wc0')}else if(C.st=='sofa'&&!stg)name=C.t%240<200?'wc0':'wc1';else if(C.st=='wc'){name='tl'+(Math.floor(Math.max(0,220-C.wt)/TLT)%8);fl=false}else if(C.st=='scoot'){const q=C.t%52;name=q<24?'sc0':q<32?'sc1':q<44?'sc2':'sc1'}else if(C.st=='juggle'){name=C.t%44<11?'r0':'w1';fl=Math.floor(C.t/176)%2==1}else if(C.st=='dance'){const d=DANCE[Math.floor(danceBeat())%DANCE.length];name=d[0];fl=!!d[1]}
  else if(C.st=='gym'){name=C.gk=='run'?'r'+(Math.floor(C.t/5)%4):C.gk=='bike'?(N.look.g=='f'?'bk'+(Math.floor(C.t/5)%6):'bk'+(Math.floor(C.t/6)%8)):'cu'+[0,0,1,2,3,3,3,2,1,0][Math.floor(C.t/7)%10];fl=false}else if(C.st=='cafe')name=C.ct%90<55?'drink':'idle';
- else if(C.st=='walk'||C.st=='leave'||C.st=='enter'||C.st=='trip'){const m=wkDir();if(m.stop)name='idle';else if(m.d!='s'&&N.look.g!='f'&&SPR.wf0&&SPR.wb0){name=(m.d=='f'?'wf':'wb')+(Math.floor(C.t/WKT)%8);fl=false}else name='w'+(Math.floor(C.t/(C.st=='walk'?5:7))%4)}else if(C.st=='coffee')name=C.ct%70<40?'drink':'idle';else if(C.st=='eat')name='drink';else if(C.st=='joy')name=Math.floor(C.t/12)%2?'wave':'idle';else if(C.st=='shower'){name='dc'+(Math.floor(Math.max(0,DCT-C.sw)/15)%12);fl=false}else name='idle';
+ else if(C.st=='walk'||C.st=='leave'||C.st=='enter'||C.st=='trip'){const m=wkDir();if(m.stop)name='idle';else if(m.d!='s'&&N.look.g!='f'&&SPR.wf0&&SPR.wb0){name=(m.d=='f'?'wf':'wb')+(Math.floor(C.t/WKT)%8);fl=false}else name='w'+(Math.floor(C.t/7)%4)}else if(C.st=='coffee')name=C.ct%70<40?'drink':'idle';else if(C.st=='eat')name='drink';else if(C.st=='joy')name=Math.floor(C.t/12)%2?'wave':'idle';else if(C.st=='shower'){name='dc'+(Math.floor(Math.max(0,DCT-C.sw)/15)%12);fl=false}else name='idle';
  spName=name;const LB=TRY&&place=='clothes'?TRY:N.look,LL=(C.st=='shower'||C.st=='wc')&&!stg?Object.assign({},LB,{nu:1}):LB,k=name+JSON.stringify(LL);if(k!==spKey&&drawFrame(name,LL))spKey=k;
  SP.fl=fl&&!sl&&!dn;
 }
