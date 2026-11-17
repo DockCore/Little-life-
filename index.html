@@ -421,7 +421,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <meta name="apple-mobile-web-app-title" content="Little Life">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-</head><body><div id="intro"><canvas id="introCv" width="241" height="247"></canvas><b id="introGo">Touchez pour démarrer</b><small>Touchez pour passer</small></div><script>
+</head><body><div id="intro"><canvas id="introCv" width="241" height="247"></canvas><b id="introGo">Touche l’écran pour commencer</b><small>Touche pour passer</small></div><script>
 // Animation de lancement : 24 images à 10 images par seconde + son synthétisé (iPhone : le son exige un premier toucher)
 (function(){if(!document.getElementById('introCv'))return;const el=document.getElementById('intro'),cv=document.getElementById('introCv'),x=cv.getContext('2d'),im=new Image(),FW=241,FH=247,N=24,MS=100,HOLD=900;
  let t0=0,done=false,playing=false,AC=null,M=null;x.imageSmoothingEnabled=false;x.fillStyle='#02051a';x.fillRect(0,0,FW,FH);
@@ -467,16 +467,16 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <div class="gi gsh"><span>Contour</span><div id="gShell"></div></div>
 <button class="gi" id="gSave"><span>Enregistrer</span><b>💾</b></button>
 <button class="gi" id="gTitle"><span>Écran titre</span><b>⌂</b></button>
-<div class="gi gps"><span>Ton pseudo</span><input id="gPseudo" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Joueur" enterkeyhint="done"></div>
+<div class="gi gps"><span>Ton pseudo</span><input id="gPseudo" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Facultatif" enterkeyhint="done"></div>
 <div class="gi gsh gff"><span>Police</span><div class="row"><button id="gFf0" data-ff="0">Origine</button><button id="gFf1" data-ff="1">Arrondie</button><button id="gFf2" data-ff="2">iPhone</button></div></div>
 <button class="gi" id="gTuto"><span>Didacticiel</span><b>Revoir</b></button>
 <div class="gi gsh gx"><span>Copie de la partie</span><div class="row"><button id="gExp">Exporter</button><button id="gImp">Importer</button></div></div>
 <button class="gi danger" id="gNew"><span>Nouvelle partie</span><b>↺</b></button>
 <div class="gconf" id="gXfer" hidden><p id="gXt"></p><textarea id="gXa" rows="5" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea><div class="row"><button id="gXno">Fermer</button><button id="gXok" class="on">Copier</button></div></div>
-<div class="gconf" id="gConf" hidden><p>Effacer la partie en cours et recommencer ?</p><div class="row"><button id="gNo">Annuler</button><button id="gYes" class="on">Oui, effacer</button></div></div></div></div>
-<div id="rotx"><canvas id="rotCv" width="48" height="40"></canvas><p>Tourne ton téléphone</p><small>Little Life se joue en portrait.</small></div>
+<div class="gconf" id="gConf" hidden><p>Effacer ta partie et commencer une nouvelle vie ?</p><div class="row"><button id="gNo">Annuler</button><button id="gYes" class="on">Oui, effacer</button></div></div></div></div>
+<div id="rotx"><canvas id="rotCv" width="48" height="40"></canvas><p>Tourne ton téléphone</p><small>Little Life se vit en mode portrait.</small></div>
 <main>
-<div class="frame top" id="topbox"><div class="bub" id="bub" hidden></div><div class="petbox" id="petBox"><p id="petName"></p><canvas id="petCv" width="120" height="84"></canvas></div><div class="petbox aqbox" id="aqBox"><p id="aqName"></p><canvas id="aqCv" width="128" height="96"></canvas><small class="aqh">Touchez l’eau pour lâcher des flocons</small></div><div class="trip" id="trip"><canvas id="tripCv" width="200" height="104"></canvas><p id="tripP">En route…</p></div><canvas id="c" aria-label="Pièce de Nori, sa créature"></canvas><div class="studio" id="studio" hidden><div class="st-head" id="stHead"><div class="st-title">Crée ton personnage<small>Personnalisation gratuite · une seule fois</small></div><div class="st-gen" id="stGen"><button data-g="m">Garçon</button><button data-g="f">Fille</button></div><label class="st-name-in"><span>Prénom</span><input id="stNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Nori"></label><label class="st-name-in"><span>Ton pseudo</span><input id="stPseudoIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Joueur"></label></div><div class="st-rot"><button id="stL" aria-label="Tourner vers la gauche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button id="stR" aria-label="Tourner vers la droite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div><div class="st-bottom" id="stBottom"><div class="st-tabs" id="stTabs" role="tablist"></div><div class="st-name" id="stName"></div><div class="st-opts" id="stOpts"></div><div class="st-act"><button id="stRnd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01"/></svg>Aléatoire</button><button id="crOk2">Valider</button></div></div></div><div class="hud"><div class="hl"><button id="bMenu" class="burger" aria-label="Menu"><i></i><i></i><i></i></button><span id="mode"></span><span id="wx" class="wx"></span></div><div class="needs" id="needs"></div></div></div>
+<div class="frame top" id="topbox"><div class="bub" id="bub" hidden></div><div class="petbox" id="petBox"><p id="petName"></p><canvas id="petCv" width="120" height="84"></canvas></div><div class="petbox aqbox" id="aqBox"><p id="aqName"></p><canvas id="aqCv" width="128" height="96"></canvas><small class="aqh">Touche l’eau pour lâcher des flocons</small></div><div class="trip" id="trip"><canvas id="tripCv" width="200" height="104"></canvas><p id="tripP">En route…</p></div><canvas id="c" aria-label="Pièce de Nori, sa créature"></canvas><div class="studio" id="studio" hidden><div class="st-head" id="stHead"><div class="st-title">Crée ton personnage<small>Personnalisation gratuite · une seule fois</small></div><div class="st-gen" id="stGen"><button data-g="m">Garçon</button><button data-g="f">Fille</button></div><label class="st-name-in"><span>Prénom</span><input id="stNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Nori"></label><label class="st-name-in"><span>Ton pseudo</span><input id="stPseudoIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Facultatif"></label></div><div class="st-rot"><button id="stL" aria-label="Tourner vers la gauche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button id="stR" aria-label="Tourner vers la droite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div><div class="st-bottom" id="stBottom"><div class="st-tabs" id="stTabs" role="tablist"></div><div class="st-name" id="stName"></div><div class="st-opts" id="stOpts"></div><div class="st-act"><button id="stRnd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01"/></svg>Aléatoire</button><button id="crOk2">Valider</button></div></div></div><div class="hud"><div class="hl"><button id="bMenu" class="burger" aria-label="Menu"><i></i><i></i><i></i></button><span id="mode"></span><span id="wx" class="wx"></span></div><div class="needs" id="needs"></div></div></div>
 <div class="hinge"><i class="led"></i><h1><span style="color:#ef4b4b">L</span><span style="color:#f5892a">i</span><span style="color:#f7c21c">t</span><span style="color:#7cc832">t</span><span style="color:#2fc4a8">l</span><span style="color:#2f9be0">e</span><span style="color:#7a6ae0">&nbsp;</span><span style="color:#c35ad8">L</span><span style="color:#ef5aa0">i</span><span style="color:#ef4b4b">f</span><span style="color:#f5892a">e</span></h1><i class="led"></i></div>
 <div class="frame low"><div class="lowbar"><button class="back" id="back" hidden>‹ Retour</button><span id="title">Accueil</span><div class="coins" id="coins" title="Pièces"><svg viewBox="0 0 8 8" shape-rendering="crispEdges"><path fill="#3b2a24" d="M2 0h4v1h1v1h1v4H7v1H6v1H2V7H1V6H0V2h1V1h1z"/><path fill="#f5c84c" d="M2 1h4v1h1v4H6v1H2V6H1V2h1z"/><path fill="#fff1a8" d="M2 2h1v1H2zM3 1h2v1H3z"/><path fill="#d9962a" d="M5 3h1v3H3V5h2z"/></svg><b id="coinN">0</b></div><button class="back" id="bMus" aria-label="Musique"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:var(--cy);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button></div><div id="status" aria-live="polite"></div>
 <div class="views"><section class="view on" id="v-home"><div class="menu">
@@ -487,7 +487,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <button class="tile" id="bWash"><svg viewBox="0 0 24 24"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/></svg>Laver</button>
 <button class="tile" id="bWC"><svg viewBox="0 0 24 24"><path d="M7 3h6v7H7z"/><path d="M5 10h14a7 7 0 0 1-7 7h-1l1 4H8l1-4A7 7 0 0 1 5 10z"/></svg>Toilettes</button>
 <button class="tile" data-v="play"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4l2.5 4.5-2.5 3-2.5-3zM4.6 10l4.9-1.5M19.4 10l-4.9-1.5M9 19l.5-4.5h5l.5 4.5"/></svg>Jouer</button>
-<button class="tile" id="bAni" hidden><svg viewBox="0 0 24 24"><circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5-2 3-4 3-4 0-4-3z"/></svg><span>Animal</span></button><button class="tile" data-v="goals"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg>Objectifs<i class="badge" id="gBadge" hidden></i></button><p class="hint">Touchez le bureau pour télétravailler, habiller ou décorer.</p></div></section>
+<button class="tile" id="bAni" hidden><svg viewBox="0 0 24 24"><circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5-2 3-4 3-4 0-4-3z"/></svg><span>Animal</span></button><button class="tile" data-v="goals"><svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/></svg>Objectifs<i class="badge" id="gBadge" hidden></i></button><p class="hint">Touche le bureau pour télétravailler, changer de tenue ou décorer.</p></div></section>
 <section class="view" id="v-desk"><div class="cats"><div class="cat"><h4>Travail</h4><div class="cg"><button class="tile" id="bWork"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4M7 8h5M7 11h8"/></svg>Télétravail</button></div></div><div class="cat"><h4>Personnage</h4><div class="cg"><button class="tile" data-v="dress"><svg viewBox="0 0 24 24"><path d="M8 4l-5 4 3 3 2-1v10h8V10l2 1 3-3-5-4a4 4 0 0 1-8 0z"/></svg>Habiller</button></div></div><div class="cat"><h4>Ameublement</h4><div class="cg"><button class="tile" data-v="deco"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 14h16M9 14v6"/></svg>Placer</button><button class="tile" data-v="inv"><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v9l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v9"/></svg>Inventaire</button><button class="tile" id="bBig"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 14h6M12 11v6"/></svg>Agrandir<small>400 pièces</small></button></div></div><div class="cat"><h4>Maison</h4><div class="cg"><button class="tile" data-sty="0"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M3 10h18M3 15h18M9 5v5M15 10v5M9 15v4"/></svg>Murs</button><button class="tile" data-sty="1"><svg viewBox="0 0 24 24"><path d="M12 4l9 5-9 5-9-5z"/><path d="M7.5 6.5l9 5M16.5 6.5l-9 5"/><path d="M3 9v6l9 5 9-5V9"/></svg>Sol</button><button class="tile" data-sty="2"><svg viewBox="0 0 24 24"><path d="M6 21V3h12v18"/><path d="M4 21h16"/><circle cx="15" cy="12" r="1"/></svg>Porte</button></div></div></div></section>
 <section class="view tb" id="v-table"><div class="tbc"><h4>Manger</h4><div class="tg" id="tbFood"></div></div><div class="tbc"><h4>Boire</h4><div class="tg" id="tbDrink"></div></div><div class="row"><button id="tbUp">Se lever de table</button></div></section>
 <section class="view" id="v-play"><div class="pl"><button class="tile" data-play="juggle"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M12 3l2 3.2-2 2.3-2-2.3zM7 21h10M9 17l3 4 3-4"/></svg>Ballon<small>Jongles</small></button>
@@ -495,10 +495,10 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <button class="tile" data-play="dance"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></svg>Danse<small>Hip-hop</small></button></div>
 <div class="row"><button id="plStop">Arrêter</button></div></section>
 <section class="view" id="v-work"><div class="wk"><div class="wkc"><div class="wkt"><span id="wkJob">Au travail</span><span class="wkl" id="wkLv"></span><b id="wkEarn">+0</b></div><div class="wkj" id="wkTxt">Nori s’installe devant l’ordinateur…</div><div class="wkb"><i id="wkBar"></i></div><div class="wks"><div>Énergie<i><b id="wkE" style="background:#6cc04a"></b></i></div><div>Satiété<i><b id="wkH" style="background:#f29a2e"></b></i></div></div></div></div><div class="row"><button id="wkPause" hidden>Pause café</button><button id="wkStop" class="on">Arrêter de travailler</button></div></section>
-<section class="view" id="v-out"><p class="gohead">Se dirige vers…<small>Choisis où aller</small></p><div class="gog"><button class="tile" data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Maison<small>Rentrer</small></button><button class="tile" data-go="office"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/></svg>Travail<small>Open space</small></button><button class="tile" data-go="store"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11"/><path d="M8 20v-6h8v6"/></svg>Meubles<small>Aménagement</small></button><button class="tile" data-go="clothes"><svg viewBox="0 0 24 24"><path d="M8 4l-5 4 3 3 2-1v10h8V10l2 1 3-3-5-4a4 4 0 0 1-8 0z"/></svg>Vêtements<small>Mode</small></button><button class="tile" data-go="grocery"><svg viewBox="0 0 24 24"><path d="M3 5h3l2 10h10l2-7H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>Épicerie<small>Courses</small></button><button class="tile" data-go="pets"><svg viewBox="0 0 24 24"><circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5-2 3-4 3-4 0-4-3z"/></svg>Animalerie<small>Animaux</small></button><button class="tile" data-go="cafe"><svg viewBox="0 0 24 24"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M16 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></svg>Café<small>Détente</small></button><button class="tile" data-go="gym"><svg viewBox="0 0 24 24"><path d="M3 10v4M6 8v8M18 8v8M21 10v4M6 12h12"/></svg>Sport<small>Salle</small></button><button class="tile stay" id="outStay"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Rester<small id="stayS">Ici</small></button></div></section>
+<section class="view" id="v-out"><p class="gohead">Se dirige vers…<small>Où as-tu envie d’aller ?</small></p><div class="gog"><button class="tile" data-go="home"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Maison<small>Rentrer</small></button><button class="tile" data-go="office"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18"/></svg>Travail<small>Open space</small></button><button class="tile" data-go="store"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11"/><path d="M8 20v-6h8v6"/></svg>Meubles<small>Aménagement</small></button><button class="tile" data-go="clothes"><svg viewBox="0 0 24 24"><path d="M8 4l-5 4 3 3 2-1v10h8V10l2 1 3-3-5-4a4 4 0 0 1-8 0z"/></svg>Vêtements<small>Mode</small></button><button class="tile" data-go="grocery"><svg viewBox="0 0 24 24"><path d="M3 5h3l2 10h10l2-7H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/></svg>Épicerie<small>Courses</small></button><button class="tile" data-go="pets"><svg viewBox="0 0 24 24"><circle cx="7" cy="9" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="9" r="2"/><path d="M8 17c0-3 2-5 4-5s4 2 4 5-2 3-4 3-4 0-4-3z"/></svg>Animalerie<small>Animaux</small></button><button class="tile" data-go="cafe"><svg viewBox="0 0 24 24"><path d="M4 9h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M16 11h2a2 2 0 0 1 0 4h-2M8 3v3M12 3v3"/></svg>Café<small>Détente</small></button><button class="tile" data-go="gym"><svg viewBox="0 0 24 24"><path d="M3 10v4M6 8v8M18 8v8M21 10v4M6 12h12"/></svg>Sport<small>Salle</small></button><button class="tile stay" id="outStay"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>Rester<small id="stayS">Ici</small></button></div></section>
 <section class="view" id="v-clothes"><div class="opts seg" id="clSeg"><button data-c="0" class="on">Hauts</button><button data-c="1">Chaussures</button><button data-c="2">Accessoires</button><button class="home" id="clHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div id="clList"></div></section>
 <section class="view" id="v-grocery"><div class="opts seg"><button class="on" disabled>Au rayon</button><button class="home" id="grHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="shopg" id="grocG"></div></section>
-<section class="view" id="v-pets"><div class="opts seg"><button class="on" disabled>Touchez une cage</button><button class="home" id="ptHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="petg" id="petG"></div></section>
+<section class="view" id="v-pets"><div class="opts seg"><button class="on" disabled>Touche une cage</button><button class="home" id="ptHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="petg" id="petG"></div></section>
 <section class="view" id="v-pet"><p class="hint" id="petTxt"></p><label class="pnm"><span>Son nom</span><input id="petNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" enterkeyhint="done"></label><div class="row"><button id="petBack">Retour aux cages</button><button id="petAdopt" class="on">Adopter</button></div></section>
 <section class="view" id="v-trip"><div class="tripv" id="tripTxt">En route…</div></section>
 <section class="view" id="v-shop"><div class="opts seg" id="shSeg"><button data-s="0" class="on">Meubles</button><button id="shHome" class="home"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="shopg" id="shopG"></div></section>
@@ -639,20 +639,20 @@ function pj(t){t=String(t);const P=PSEUDO();if(!P)return t.replace(/ \{P\}/g,'')
  return t.replace(/du joueur/g,(/^[aeiouyhàâéèêîïôûAEIOUYHÉÈÊÎÔÂ]/.test(P)?'d’':'de ')+P).replace(/le joueur/g,P).replace(/\{P\}/g,P)}
 // ===== PAROLE : Nori sait qu'il est dans un jeu et parle au joueur =====
 const LINES={
- tap:['Hé ! Tu me touches à travers l’écran, là ?','Je sais que tu es là, derrière la vitre.','Ton doigt est énorme, vu d’ici.','Je suis fait de pixels, mais j’ai des sentiments.','Tu es mon joueur préféré. Bon… mon seul joueur.','Quand tu fermes le jeu, il se passe quoi pour moi ?','Arrête, ça chatouille !','Tu reviens me voir demain ? Promis ?','Je crois que je vis dans un téléphone.','Parfois je fonce dans le mur pour voir s’il y a une suite.','Le développeur m’a fait une belle coiffure, non ?','Si tu t’ennuies, change la couleur des murs. Moi, ça me détend.','Tu sais que je compte sur toi pour tout ? Pas de pression.','Psst… le bouton musique, c’est moi qui l’ai composée. Non, je mens.'],
- table:['D’accord le joueur, je passe à table !','À table ! Toi tu choisis, moi je mange.','J’arrive, chef. Tu m’as lu dans les pensées.','Mon ventre de pixels gargouille. Enfin, je crois.'],
+ tap:['Hé ! Tu me touches à travers l’écran, là ?','Je sais que tu es là, derrière la vitre.','Ton doigt est énorme, vu d’ici.','Je suis fait de pixels, mais j’ai des sentiments.','Tu es mon humain préféré. Bon… mon seul humain.','Quand tu fermes le jeu, il se passe quoi pour moi ?','Arrête, ça chatouille !','Tu reviens me voir demain ? Promis ?','Je crois que je vis dans un téléphone.','Parfois je fonce dans le mur pour voir s’il y a une suite.','Le développeur m’a fait une belle coiffure, non ?','Si tu t’ennuies, change la couleur des murs. Moi, ça me détend.','Tu sais que je compte sur toi pour tout ? Pas de pression.','Psst… le bouton musique, c’est moi qui l’ai composée. Non, je mens.'],
+ table:['D’accord {P}, je passe à table !','À table ! Toi tu choisis, moi je mange.','J’arrive, chef. Tu m’as lu dans les pensées.','Mon ventre de pixels gargouille. Enfin, je crois.'],
  douche:['Message reçu, direction la douche !','Tu insinues que je sens ? …Bon, d’accord.','Pas de regard pendant que je me lave, hein.','Une douche rapide et je suis comme neuf.'],
- lit:['Bonne idée, le joueur. Je tombe de sommeil.','Je vais dormir. Ne bouge pas mes meubles pendant la nuit !','Mode veille activé…','Tu me réveilles quand tu reviens ?'],
+ lit:['Bonne idée {P}, je tombe de sommeil.','Je vais dormir. Ne bouge pas mes meubles pendant la nuit !','Mode veille activé…','Tu me réveilles quand tu reviens ?'],
  reveil:['Hmm… c’est déjà le matin ?','J’ai rêvé que j’étais en 3D. Bizarre.','Coucou ! Je t’attendais.','Encore cinq minutes… bon, d’accord.'],
- bureau:['Le bureau ? Tu vas encore changer ma tenue.','J’arrive. C’est d’ici que tu règles mon monde.','Vas-y, ouvre le menu. Je te laisse faire.','Ah, la console du joueur…'],
+ bureau:['Le bureau ? Tu vas encore changer ma tenue.','J’arrive. C’est d’ici que tu règles mon monde.','Vas-y, ouvre le menu. Je te laisse faire.','Ah, ton petit coin pour tout régler…'],
  marche:['J’y vais !','Ici ? Si tu le dis.','En route.','C’est toi le patron.','Je marche, je marche…'],
- mange:['Miam, merci le joueur !','C’est bon… pour des pixels.','Tu cuisines bien, pour quelqu’un derrière un écran.'],
+ mange:['Miam, merci {P} !','C’est bon… pour des pixels.','Tu cuisines bien, pour quelqu’un derrière un écran.'],
  poisson:['Du poisson ! Tu me connais trop bien.'],piment:['Ah non, pas le piment ! Tu fais exprès ?'],
- boit:['Merci, j’avais soif.','Glou glou… ça fait du bien.','À ta santé, le joueur !'],
+ boit:['Merci, j’avais soif.','Glou glou… ça fait du bien.','À ta santé {P} !'],
  lever:['Merci pour le repas !','Je me lève. Bonne idée.'],
- propre:['Tout propre ! Merci, le joueur.','Je brille comme un pixel neuf.'],
+ propre:['Tout propre ! Merci {P}.','Je brille comme un pixel neuf.'],
  sale:['Euh… tu sens cette odeur ? Ah. C’est moi.','Les mouches m’adorent. Ce n’est pas bon signe.'],
- seul:['Il y a quelqu’un ?','Je me demande ce qu’il y a derrière ce mur.','Tu es toujours là, le joueur ?','J’aime bien quand tu passes me voir.']};
+ seul:['Il y a quelqu’un ?','Je me demande ce qu’il y a derrière ce mur.','Tu es toujours là {P} ?','J’aime bien quand tu passes me voir.']};
 const LBAG={};function line(k){const L=LINES[k];if(!L)return'';if(!LBAG[k]||!LBAG[k].length){LBAG[k]=L.map((_,i)=>i).sort(()=>Math.random()-.5);if(LBAG[k].length>1&&LBAG[k][0]===LBAG[k+'_last'])LBAG[k].push(LBAG[k].shift())}const i=LBAG[k].shift();LBAG[k+'_last']=i;return L[i]}
 let bubT=0,HEAD=null;const bub=document.getElementById('bub');
 let talkLast=-1e9;function talkMaybe(k,p){if(!bub.hidden||tick-talkLast<900||Math.random()>p)return;talk(k)}
@@ -685,8 +685,8 @@ const DRINKS=[{n:'Eau',h:2,e:6,j:2,c:'#bfe3f2',say:'Un grand verre d’eau. Rafr
 const EATSEQ=[['reach',18],['eat',22],['chew',30],['reach',16],['eat',22],['chew',30],['sit',12]],DRINKSEQ=[['reach',14],['drink',60],['sit',14]];
 const dph=()=>C.seq&&C.dq<C.seq.length?C.seq[C.dq][0]:'sit';
 function dine(){
-if(seated())leaveDesk();if(C.st=='sofa')C.st='idle'; if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='dine'){show('table');return}
- const f=tblF();if(!f){say('Il faut une table : ajoutez-en une dans le bureau, rubrique Ameublement.');return}
+if(seated())leaveDesk();if(C.st=='sofa')C.st='idle'; if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='dine'){show('table');return}
+ const f=tblF();if(!f){say('Il te faut une table : direction le bureau, rubrique Ameublement.');return}
  if(feedMode)setFeed(false);const a=tblA();say('Nori va à table.');talkMaybe('table',.35);
  goto(a[0]*12,Math.min(YM,88+(f.y+f.h)*5+8),()=>{const b=tblA();C.st='dine';C.seq=null;C.dq=0;C.food=null;C.drk=null;C.x=b[0]*12;C.y=88+b[1]*5;show('table');say('Nori est à table. Que lui servir ?')});
 }
@@ -694,17 +694,17 @@ const LOADT=Date.now(),dirty=()=>(/[?&]sale/.test(location.search)&&(N.washAt||0
 LINES.tapP=['{P}, c’est bien toi derrière l’écran ?','Coucou {P} ! Tu m’as manqué.','Je raconte à tout le monde que je connais {P}.','{P}… j’aime bien ton pseudo.','Tiens, {P} ! Tu passes me voir ?'];
 LINES.reveilP=['Bonjour {P} ! Bien dormi, toi aussi ?','Ah, {P} ! Tu es déjà là ?'];
 LINES.litP=['Bonne nuit {P} !','À demain, {P}. Ne pars pas trop loin.'];
-LINES.wc=['Une petite pause technique…','Ne regarde pas, le joueur !','Même les pixels ont des besoins.'];LINES.presse=['Vite, les toilettes !','J’ai une envie pressante, le joueur !'];
-function goWC(){if(seated())leaveDesk();if(C.st=='sofa')C.st='idle';if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='wc')return;if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);
- const d=N.furn.find(f=>f.n=='WC');if(!d){say('Il faut des toilettes : placez-les depuis le bureau, rubrique Ameublement.');return}
+LINES.wc=['Une petite pause technique…','Ne regarde pas {P} !','Même les pixels ont des besoins.'];LINES.presse=['Vite, les toilettes !','Excuse-moi {P}, envie pressante !'];
+function goWC(){if(seated())leaveDesk();if(C.st=='sofa')C.st='idle';if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='wc')return;if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);
+ const d=N.furn.find(f=>f.n=='WC');if(!d){say('Il te faut des toilettes : direction le bureau, rubrique Ameublement.');return}
  const r=d.r||0,dir=[[0,1],[1,0],[0,-1],[-1,0]][r];let t=[d.x+d.w/2+dir[0]*1.6,d.y+d.h/2+dir[1]*1.6];if(!walkable(t[0],t[1]))t=[d.x+d.w/2,d.y+d.h+.9];
  say('Nori va aux toilettes.');talkMaybe('wc',.35);
  goto(t[0]*12,88+t[1]*5,()=>{C.st='wc';C.wt=220;C.x=(d.x+d.w/2)*12;C.y=88+(d.y+d.h/2)*5;say('Nori est aux toilettes…')})}
 // douche : place devant l'entrée et place sous le pommeau, selon l'orientation
 function shFront(d){return(d.r||0)==1&&d.x+d.w+.9<=RN-1.15?[d.x+d.w+.9,d.y+d.h/2]:[d.x+d.w/2,d.y+d.h+.9]}// tournée mais collée au mur de droite : on entre par l'avant
 function shIn(d){return(d.r||0)==1?[d.x+d.w/2+.2,d.y+d.h/2]:[d.x+d.w/2,d.y+d.h/2+.2]}
-function wash(){if(seated())leaveDesk();if(C.st=='sofa')C.st='idle';if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='shower')return;if(C.st=='dine')show('home');
- const d=N.furn.find(f=>f.n=='Douche');if(!d){say('Il faut une douche : placez-la depuis le bureau, rubrique Ameublement.');return}
+function wash(){if(seated())leaveDesk();if(C.st=='sofa')C.st='idle';if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='shower')return;if(C.st=='dine')show('home');
+ const d=N.furn.find(f=>f.n=='Douche');if(!d){say('Il te faut une douche : direction le bureau, rubrique Ameublement.');return}
  say('Nori va à la douche.');talkMaybe('douche',.35);const fr=shFront(d),ins=shIn(d);goto(fr[0]*12,88+fr[1]*5,()=>{C.st='shower';C.sw=DCT;C.x=ins[0]*12;C.y=88+ins[1]*5;say('Nori se douche…')})}
 
 // ===== ARGENT, TRAVAIL AU BUREAU, BOUTIQUE =====
@@ -712,9 +712,9 @@ const coinEl=document.getElementById('coins'),coinN=document.getElementById('coi
 function coinsUI(){const v=Math.floor(N.coins||0);if(v!==coinShown){if(coinShown>=0){coinEl.classList.add('pop');setTimeout(()=>coinEl.classList.remove('pop'),140)}coinShown=v;coinN.textContent=v}}
 function earn(n){N.coins=Math.max(0,Math.floor((N.coins||0)+n));coinsUI()}
 const COINPX=['0110','1111','1111','0110'];
-LINES.travail=['Au boulot ! Enfin… je fais semblant de taper.','Chaque pièce compte, le joueur.','Je travaille pour te payer des meubles, tu sais.','Ctrl+S, toujours. On ne sait jamais.'];
+LINES.travail=['Au boulot ! Enfin… je fais semblant de taper.','Chaque pièce compte. On avance ensemble.','Je travaille pour te payer des meubles, tu sais.','Ctrl+S, toujours. On ne sait jamais.'];
 LINES.fatigue=['Je n’en peux plus… il me faut du repos.','Mes pixels clignotent de fatigue.'];
-LINES.achat=['Merci le joueur ! Ça va être beau ici.','Oh, un nouvel objet ! Je l’adore.','On devient de vrais décorateurs.'];
+LINES.achat=['Merci {P} ! Ça va être beau ici.','Oh, un nouvel objet ! Je l’adore.','On devient de vrais décorateurs.'];
 LINES.canape=['Ah… le confort.','Je pourrais rester là toute la journée.','Une petite pause bien méritée.'];
 LINES.tele=['Ils passent un jeu vidéo à la télé. C’est moi ?','Encore une rediffusion…','Chut, c’est le meilleur moment !'];
 const JOBS=[['Développeur','Nori code un petit jeu vidéo…'],['Graphiste','Nori dessine des pixels, un par un…'],['Courrier','Nori répond à ses e-mails…'],['Musicien','Nori compose une boucle hip-hop…'],['Écrivain','Nori écrit la suite de son histoire…']];
@@ -726,9 +726,9 @@ function deskSeat(d,tuck){const r=d.r||0,o=tuck?.42:.78;
 function deskStand(d){const r=d.r||0;let t=r==1?[d.x+d.w+1,d.y+d.h/2]:r==2?[d.x+d.w/2,d.y-1]:r==3?[d.x-1,d.y+d.h/2]:[d.x+d.w/2,d.y+d.h+1];if(!walkable(t[0],t[1]))t=[d.x+d.w/2,d.y+d.h+1];if(!walkable(t[0],t[1])){const p=out(t[0]*12,88+t[1]*5);t=[p[0]/12,(p[1]-88)/5]}return t}
 const seated=()=>C.st=='desk'||C.st=='work';
 function leaveDesk(){const d=deskF();C.st='idle';C.idle=120;if(d){const t=deskStand(d);C.x=t[0]*12;C.y=88+t[1]*5}}
-function startWork(){if(C.st=='sleep'){say('Nori dort.');return}
- if(N.energy<12){say(N.look.g=='f'?'Nori est trop fatiguée pour travailler : elle doit dormir.':'Nori est trop fatigué pour travailler : il doit dormir.');talk('fatigue');return}
- if(N.hunger<12){say('Nori a trop faim pour se concentrer : passez à table.');return}
+function startWork(){if(C.st=='sleep'){say('Chut… Nori dort.');return}
+ if(N.energy<12){say(N.look.g=='f'?'Nori est trop fatiguée pour travailler : une bonne nuit lui fera du bien.':'Nori est trop fatigué pour travailler : une bonne nuit lui fera du bien.');talk('fatigue');return}
+ if(N.hunger<12){say('Nori a trop faim pour se concentrer : un petit repas d’abord ?');return}
  const go=()=>{C.st='work';C.t=0;C.dk=0;C.wk={t:0,e:0,j:Math.floor(Math.random()*JOBS.length)};show('work');workUI();talkMaybe('travail',.5);say('Nori se met au travail.')};
  if(seated())go();else{goDesk(true);C.afterDesk=go}}
 function stopWork(why){if(C.st!='work')return;const e=C.wk?C.wk.e:0;C.st='desk';C.wk=null;save();bars();if(curV=='work'&&place=='home')show('desk');else workUI();
@@ -736,9 +736,9 @@ function stopWork(why){if(C.st!='work')return;const e=C.wk?C.wk.e:0;C.st='desk';
 function workTick(){const w=C.wk;if(!w)return;w.t++;
  if(w.t%wkp()==0){let g=N.lv>=LV.length-1?(N.dl||1):1;if(Math.random()<.05){g=Math.max(3,g);say('Prime ! +'+g+' pièces.')}earn(g);w.e+=g;N.xp=(N.xp||0)+g;lvCheck();add('energy',place=='office'?-1.1:-1.6);add('hunger',place=='office'?-.7:-.9);add('happy',-.08);
   const s=deskSeat(deskF()||{x:0,y:0,w:1,h:1});fx.push({k:'$',x:s.u*12,y:88+s.v*5,l:50});if(w.t%(wkp()*8)==0)w.j=(w.j+1)%JOBS.length;
-  if(N.energy<8){stopWork(N.look.g=='f'?'Nori est épuisée : elle s’arrête de travailler.':'Nori est épuisé : il s’arrête de travailler.');talk('fatigue');return}if(N.hunger<8){stopWork('Nori a trop faim pour continuer.');return}}
+  if(N.energy<8){stopWork(N.look.g=='f'?'Nori est épuisée : elle s’arrête de travailler.':'Nori est épuisé : il s’arrête de travailler.');talk('fatigue');return}if(N.hunger<8){stopWork('Nori a trop faim pour continuer : à table !');return}}
  if(curV=='work'&&w.t%6==0)workUI()}
-function workUI(){const w=C.wk,off=place=='office',pb=document.getElementById('wkPause'),sb=document.getElementById('wkStop');{const l=N.lv||0,nx=LV[l+1],e=document.getElementById('wkLv');if(e){e.innerHTML='<b>'+lvName(l)+'</b>'+(off&&!dressedOK(N.look)?' · tenue négligée : gains réduits':nx?' · '+(N.xp||0)+'/'+nx[0]:(N.dl||1)<3?' · '+(N.xp||0)+'/'+DIRL[(N.dl||1)+1]:' · niveau max');e.title=nx?'Promotion à '+nx[0]+' pièces gagnées':(N.dl||1)<3?'Directeur niveau '+((N.dl||1)+1)+' à '+DIRL[(N.dl||1)+1]+' pièces gagnées':'Sommet de la carrière'}}
+function workUI(){const w=C.wk,off=place=='office',pb=document.getElementById('wkPause'),sb=document.getElementById('wkStop');{const l=N.lv||0,nx=LV[l+1],e=document.getElementById('wkLv');if(e){e.innerHTML='<b>'+lvName(l)+'</b>'+(off&&!dressedOK(N.look)?' · une tenue soignée rapporterait davantage':nx?' · '+(N.xp||0)+'/'+nx[0]:(N.dl||1)<3?' · '+(N.xp||0)+'/'+DIRL[(N.dl||1)+1]:' · niveau max');e.title=nx?'Promotion à '+nx[0]+' pièces gagnées':(N.dl||1)<3?'Directeur niveau '+((N.dl||1)+1)+' à '+DIRL[(N.dl||1)+1]+' pièces gagnées':'Sommet de la carrière'}}
  pb.hidden=!off;sb.textContent=off?'Rentrer à la maison':'Arrêter de travailler';pb.textContent=C.st=='work'||!off?'Pause café':'Reprendre le travail';pb.disabled=!(C.st=='work'||C.st=='desk');
  if(!w){document.getElementById('wkJob').textContent=off?'Open space':'Télétravail';document.getElementById('wkEarn').textContent='';document.getElementById('wkBar').style.width='0%';
   document.getElementById('wkTxt').textContent=(C.st=='coffee'?'Pause café : Nori boit un petit noir.':C.st=='desk'?'Nori se repose à son poste.':'Nori rejoint son poste…').replace(/Nori/g,NAME());
@@ -779,10 +779,10 @@ function placeItemHome(it){const away=awayPos(),RS=(ROTS[it.n]||[0]).filter(r=>r
  for(const[x,y,r,w,h]of c.slice(0,60)){const f={n:it.n,w,h,x,y,r,c:it.c,s:1,shop:1};L.push(f);if(reachOK(T,base))return f;L.pop()}
  return null}
 const FEM=['Lampe','Télé','Bibliothèque'],gE=n=>FEM.includes(n)?'e':'';
-function buy(i,food){if(food){const p=FOODP[i];if(N.coins<p)return;if(N.stock[i]>=9){say('Le placard est plein.');return}earn(-p);N.stock[i]++;refreshChips();save();shopDraw();say(FOODS[i].n+' acheté'+(i==0?'e':'')+' : il y en a '+N.stock[i]+'.');return}
+function buy(i,food){if(food){const p=FOODP[i];if(N.coins<p)return;if(N.stock[i]>=9){say('Ton placard est déjà bien rempli !');return}earn(-p);N.stock[i]++;refreshChips();save();shopDraw();say(FOODS[i].n+' acheté'+(i==0?'e':'')+' : il y en a '+N.stock[i]+'.');return}
  const it=SHOP[i];if(N.coins<it.p)return;earn(-it.p);const f=placeItem(it);
- if(f)say(place=='home'?it.n+' placé'+gE(it.n)+' dans la pièce. Déplacez-l'+(gE(it.n)?'a':'e')+' avec « Placer ».':it.n+' acheté'+gE(it.n)+' : livré'+gE(it.n)+' à la maison !');
- else{N.store.push(it.n);say('Plus de place : '+it.n.toLowerCase()+' rangé'+gE(it.n)+' dans l’inventaire.')}
+ if(f)say(place=='home'?it.n+' placé'+gE(it.n)+' dans ta pièce ! Déplace-l'+(gE(it.n)?'a':'e')+' avec « Placer » quand tu veux.':it.n+' acheté'+gE(it.n)+' : livré'+gE(it.n)+' à la maison !');
+ else{N.store.push(it.n);say('Plus de place dans la pièce : '+it.n.toLowerCase()+' rangé'+gE(it.n)+' dans ton inventaire.')}
  bgKey='';save();shopDraw();talkMaybe('achat',.6);hearts(2)}
 // aperçu isométrique de l'objet, dessiné avec le même moteur que la pièce
 function itemIcon(n,w,h){const c=document.createElement('canvas');c.width=140;c.height=120;const x=c.getContext('2d');const sv=[TW,TH,OX,OY,G];
@@ -798,7 +798,7 @@ function shopDraw(){document.querySelectorAll('#shSeg button[data-s]').forEach(b
  else FOODS.slice(0,3).forEach((f,i)=>{const ic=document.createElement('canvas');ic.width=60;ic.height=48;const x=ic.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(f.cv,18,12,24,24);const lack=FOODP[i]-N.coins;
   card(ic,f.n,'En stock : '+N.stock[i],FOODP[i],0,()=>buy(i,1),lack>0||N.stock[i]>=9,N.stock[i]>=9?'Plein':lack>0?'Encore '+lack:null)});
  if(!g.dataset.said){g.dataset.said=1}}
-document.getElementById('shSeg').onclick=e=>{const b=e.target.closest('button[data-s]');if(!b)return;shT=+b.dataset.s;shopDraw();say(shT?'L’épicerie : de quoi remplir le placard.':'Les meubles : ils arrivent directement dans la pièce.')};
+document.getElementById('shSeg').onclick=e=>{const b=e.target.closest('button[data-s]');if(!b)return;shT=+b.dataset.s;shopDraw();say(shT?'L’épicerie : de quoi remplir ton placard.':'Les meubles : ils arrivent directement chez toi.')};
 // --- canapé : s'asseoir, se reposer, regarder la télé ---
 const sofaF=()=>N.furn.find(f=>f.n=='Canapé'),tvF=()=>N.furn.find(f=>f.n=='Télé');
 function sofaFront(f){const r=f.r||0;let t=r==1?[f.x+f.w+.95,f.y+f.h/2]:[f.x+f.w/2,f.y+f.h+.95];if(!walkable(t[0],t[1])){const p=out(t[0]*12,88+t[1]*5);t=[p[0]/12,(p[1]-88)/5]}return t}
@@ -807,7 +807,7 @@ function goPouf(f){if(!f)return;if(C.st=='sleep'){say(NAME()+' dort.');return}if
  // tourné vers la télé s'il y en a une, sinon vers l'avant de la pièce
  let fl=true;if(tv){const sx=(tv.x+tv.w/2-f.x-.5)-(tv.y+tv.h/2-f.y-.5);fl=sx<0}
  say(NAME()+' va s’asseoir sur le pouf.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.sfl=fl;C.t=0;say(tv?NAME()+' s’installe sur le pouf devant la télé.':NAME()+' se pose sur le pouf.');talkMaybe(tv?'tele':'canape',.5)})}
-function goSofa(){const f=sofaF();if(!f)return;if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='sofa')return;if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();
+function goSofa(){const f=sofaF();if(!f)return;if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='sofa')return;if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();
  const t=sofaFront(f);say('Nori va s’asseoir sur le canapé.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.t=0;say(tvF()?'Nori s’installe devant la télé.':'Nori se repose sur le canapé.');talkMaybe(tvF()?'tele':'canape',.5)})}
 function sofaTick(){add('energy',.006);add('happy',tvF()?.004:.0015);if(C.t%900==450)talkMaybe(tvF()?'tele':'canape',.3);if(tick%20==0)bars()}
 // ===== SORTIR : la porte de l'appartement, l'open space, le magasin d'aménagement =====
@@ -850,12 +850,12 @@ LINES.habits=['Je vais être le pixel le plus stylé de la ville.','Tu crois que
 LINES.epicerie=['Ça sent bon le pain chaud… enfin, le pain en pixels.','On remplit le placard ?'];
 LINES.animaux=['Oh, regarde comme ils sont mignons !','Un jour, on adoptera quelqu’un, hein ?','Je les veux tous.'];
 LINES.openspace=['Bonjour l’open space !','Encore une journée de pixels.','Le café d’ici est imbattable.'];
-LINES.magasin=['Ouah, regarde tous ces meubles !','On fait les boutiques, le joueur ?','Je veux tout acheter. Enfin, si tu veux.'];
+LINES.magasin=['Ouah, regarde tous ces meubles !','On fait les boutiques ensemble ?','Je veux tout acheter. Enfin, si tu veux.'];
 LINES.sortie=['On sort ? Super !','Prends tes clés… ah non, c’est moi qui les ai.','Un peu d’air frais, ça fait du bien.'];
 LINES.retour=['Rien ne vaut la maison.','Home sweet home !','Me revoilà !'];
 LINES.cafe=['Un petit café et ça repart.','Ce café a un goût de pixel grillé.'];
 // --- sortir de l'appartement ---
-function goOut(){if(place!='home'||tripOn)return;if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='shower'||C.st=='wc'){say('Pas maintenant : Nori est occupé.');return}
+function goOut(){if(place!='home'||tripOn)return;if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='shower'||C.st=='wc'){say('Un petit instant, Nori a presque fini.');return}
  if(C.st=='dine')standUp();if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();if(C.st=='sofa')C.st='idle';if(feedMode)setFeed(false);
  if(curV!='home')show('home');say('Nori se dirige vers la porte.');talkMaybe('sortie',.4);
  goto(DOORS[0]*12,88+DOORS[1]*5,()=>{C.st='door';C.d=-1;C.dm=0;C.dest=null;doorT=1;say('Nori ouvre la porte.')})}
@@ -870,12 +870,12 @@ function arrive(d){bub.hidden=true;C.gf=null;place=d;setRN(d=='home'?homeRN():20
  const tp=document.getElementById('trip');tp.classList.remove('on');tripOn=false;
  if(d=='home'){C.after=()=>{show('home');say('Nori est de retour à la maison.');talkMaybe('retour',.5)};show('trip');document.getElementById('tripTxt').textContent='Retour à la maison…'}
  else if(d=='office'){show('work');C.after=()=>{say('Nori arrive à l’open space.');talkMaybe('openspace',.5);startWork();if(C.st=='idle'||C.st=='walk'&&!C.afterDesk){goDesk(true)}};workUI()}
- else if(d=='store'){shT=0;show('shop');C.after=()=>{say('Bienvenue au magasin de meubles ! Touchez un meuble pour le voir.');talkMaybe('magasin',.5);goto(9*12,88+13.5*5)}}
- else if(d=='clothes'){TRY=null;clT=0;show('clothes');C.after=()=>{say('Magasin de vêtements : touchez une couleur pour l’essayer.');talkMaybe('habits',.5);goto(15.2*12,88+11.6*5)}}
+ else if(d=='store'){shT=0;show('shop');C.after=()=>{say('Bienvenue au magasin de meubles ! Touche un meuble pour le découvrir.');talkMaybe('magasin',.5);goto(9*12,88+13.5*5)}}
+ else if(d=='clothes'){TRY=null;clT=0;show('clothes');C.after=()=>{say('Bienvenue au magasin de vêtements ! Touche une couleur pour l’essayer.');talkMaybe('habits',.5);goto(15.2*12,88+11.6*5)}}
  else if(d=='grocery'){show('grocery');C.after=()=>{say('Bienvenue à l’épicerie !');talkMaybe('epicerie',.5);goto(9*12,88+13.5*5)}}
  else if(d=='cafe'){show('cafe');C.after=()=>{say('Bienvenue au café ! Choisis une boisson en bas.');talkMaybe('cafeLieu',.6);goto(10*12,88+14*5)}}
- else if(d=='gym'){show('gym');C.after=()=>{say('La salle de sport : choisis une activité.');talkMaybe('gym',.6);goto(10*12,88+14*5)}}
- else if(d=='pets'){show('pets');C.after=()=>{say('L’animalerie : touchez une cage pour voir l’animal de près.');talkMaybe('animaux',.5);goto(9*12,88+12*5)}}
+ else if(d=='gym'){show('gym');C.after=()=>{say('Bienvenue à la salle de sport ! Choisis ton activité.');talkMaybe('gym',.6);goto(10*12,88+14*5)}}
+ else if(d=='pets'){show('pets');C.after=()=>{say('Bienvenue à l’animalerie ! Touche une cage pour faire connaissance.');talkMaybe('animaux',.5);goto(9*12,88+12*5)}}
  if(d!='home'){const fa=C.after;C.after=()=>{if(fa)fa();const m=outfitCheck(d);if(m)say(document.getElementById('status').textContent+' '+m)}}}
 function outTick(){
  if(C.st=='door'){if(doorA>.97&&!C.dm){C.dm=1;if(C.dest)leaveTo(C.dest);else show('out')}}
@@ -899,10 +899,10 @@ function placeTap(mx2,my,tu,tv){const L=PLACES[place].furn,on=(f,ks)=>ks.some(k=
  if(place=='store'){const it=L.filter(f=>f.disp).find(f=>on(f,[0,8,16,24,32,44]));
   if(it){const i=SHOP.findIndex(s=>s.n==it.n),s=SHOP[i];shT=0;if(curV!='shop')show('shop');else shopDraw();const card=document.getElementById('shopG').children[i];if(card){card.scrollIntoView({block:'nearest',behavior:'smooth'});card.classList.remove('hl');void card.offsetWidth;card.classList.add('hl')}
    say(s.n+' : '+s.p+' pièces. '+s.d+'.');const r=it.r||0,t=r==1?[it.x+it.w+1,it.y+it.h/2]:[it.x+it.w/2,it.y+it.h+1];goto(t[0]*12,88+t[1]*5);return}
-  const fr=L.find(f=>f.n=='Frigo');if(fr&&on(fr,[0,10,20,30,40])){shT=1;shopDraw();say('L’épicerie du magasin : de quoi remplir le placard.');goto((fr.x+.5)*12,88+(fr.y+1.9)*5);return}}
+  const fr=L.find(f=>f.n=='Frigo');if(fr&&on(fr,[0,10,20,30,40])){shT=1;shopDraw();say('L’épicerie du magasin : de quoi remplir ton placard.');goto((fr.x+.5)*12,88+(fr.y+1.9)*5);return}}
  else{const me=deskF();if(me&&on(me,[0,8,16,24])&&!seated()&&C.st!='coffee'){startWork();return}
   const c=L.find(f=>f.n=='Café');if(c&&on(c,[0,10,20,30])&&(C.st=='work'||C.st=='desk')){coffeeBreak();return}
-  if(C.st=='work'||C.st=='desk'||C.st=='coffee'){say('Nori est à son poste. « Pause café » ou « Rentrer à la maison » en bas.');return}}
+  if(C.st=='work'||C.st=='desk'||C.st=='coffee'){say('Nori est à son poste. Une « Pause café » ou un « Rentrer à la maison » ? C’est en bas.');return}}
  if(tu<0||tv<0||tu>RN||tv>RN)return;goto(tu*12,88+tv*5)}
 // --- porte (ouverture animée) ---
 function doorDraw(){if(doorA<=.01)return;const W=WHI,Hd=Math.round(W*.66),DC=place=='home'?DOORC[RM().d][1]:PLACES[place].door,th=doorA*1.72,L=DV1-DV0;
@@ -1190,7 +1190,7 @@ Object.assign(PLD,{Portant:isoPortant,Mannequin:isoMannequin,'Étal':isoEtal,Cab
 let petOpen=null;const petCv=document.getElementById('petCv'),pcx3=petCv.getContext('2d');
 function openPet(k){petOpen=k;document.getElementById('petBox').classList.add('on');const p=PETD[k];document.getElementById('petName').textContent=p.n;show('pet');document.getElementById('petTxt').textContent=PETINFO[k];say('Tu observes : '+p.n.toLowerCase()+'.');talkMaybe('animaux',.4)}
 function closePet(){petOpen=null;document.getElementById('petBox').classList.remove('on');show('pets')}
-const PETINFO={chien:'Un chiot joueur qui adore les balles.',chat:'Un chaton curieux, il ronronne déjà.',lapin:'Un lapin tout doux qui grignote des carottes.',hamster:'Un hamster qui fait des tours de roue la nuit.',perroquet:'Un perroquet bavard. Il répète « joueur » !',poisson:'Un poisson rouge très calme.',tortue:'Une tortue paisible, elle prend son temps.'};
+const PETINFO={chien:'Un chiot joueur qui adore les balles.',chat:'Un chaton curieux, il ronronne déjà.',lapin:'Un lapin tout doux qui grignote des carottes.',hamster:'Un hamster qui fait des tours de roue la nuit.',perroquet:'Un perroquet bavard. Il répète tout ce que tu dis !',poisson:'Un poisson rouge très calme.',tortue:'Une tortue paisible, elle prend son temps.'};
 function petDraw(){if(!petOpen)return;const c=pcx3,W=120,H=84,k=petOpen;c.imageSmoothingEnabled=false;
  const bg={chien:'#f2dcb4',chat:'#dcdcf0',lapin:'#e6f2d8',hamster:'#f8e6c8',perroquet:'#d8eef8',poisson:'#9fd0e6',tortue:'#d9ecc8'}[k]||'#eee';
  c.fillStyle=bg;c.fillRect(0,0,W,H);c.fillStyle=mx(bg,'#000',.08);for(let x=0;x<W;x+=8)c.fillRect(x,0,4,H);
@@ -1209,7 +1209,7 @@ function priceTag(f){const s=SHOP.find(o=>o.n==f.n);if(!s)return;const r=f.r||0,
 // ===== JOUER : ballon, trottinette, danse =====
 const PLAYS=['juggle','scoot','dance'],DANCE=[['idle',0,0],['wave',0,1],['w1',0,0],['r1',0,1],['idle',1,0],['wave',1,1],['w3',1,0],['r3',1,1],['idle',0,1],['r0',0,0],['wave',0,1],['w0',1,0]];
 let hhOn=false,hhNext=0,hhStep=0,hhT0=0;const HHB=60/92/4;
-LINES.juggle=['Regarde ça, le joueur !','Compte avec moi !'];LINES.scoot=['Vroum ! Attention aux meubles !','Le parquet glisse, c’est parfait.'];LINES.dance=['Monte le son, le joueur !','Tu as vu ce pas ?'];
+LINES.juggle=['Regarde ça {P} !','Compte avec moi !'];LINES.scoot=['Vroum ! Attention aux meubles !','Le parquet glisse, c’est parfait.'];LINES.dance=['Monte le son {P} !','Tu as vu ce pas ?'];
 function play(k){if(C.st=='sleep')toggleSleep();if(C.st=='dine')standUp();if(seated())leaveDesk();if(C.st=='shower'||C.st=='sofa')C.st='idle';stopPlay(true);
  C.path=null;C.t=0;C.hop=0;C.pt=k=='dance'?16*4*0+Math.round(16*60/92*60):k=='juggle'?560:640;C.st=k;C.jc=0;
  if(k=='scoot')scootNext();if(k=='dance')hhStart();
@@ -1232,7 +1232,7 @@ function hhSched(t){const s=hhStep%16,bar=Math.floor(hhStep/16)%4,sw=s%2?HHB*.18
  if(s==0&&bar%2==0)HHCH[bar].forEach(m=>hhTone(mf(m),0,t,.9,.035,'triangle'));
  if(s==3||s==11)hhTone(mf(HHCH[bar][(s+bar)%4]+12),0,t,.18,.03,'square');
  hhStep++}
-function goDesk(quiet){stopPlay(true);if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='dine')show('home');if(C.st=='work'){show('work');return}if(C.st=='desk'){if(!quiet)show('desk');return}C.afterDesk=null;
+function goDesk(quiet){stopPlay(true);if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='dine')show('home');if(C.st=='work'){show('work');return}if(C.st=='desk'){if(!quiet)show('desk');return}C.afterDesk=null;
  const d=deskF();if(!d)return;const r=d.r||0;let t=r==1?[d.x+d.w+.9,d.y+d.h/2]:r==2?[d.x+d.w/2,d.y-.9]:r==3?[d.x-.9,d.y+d.h/2]:[d.x+d.w/2,d.y+d.h+.9];
  t=deskStand(d);say(place=='office'?'Nori rejoint son poste.':'Nori va au bureau.');
  if(!quiet)talkMaybe('bureau',.35);goto(t[0]*12,88+t[1]*5,()=>{C.st='desk';C.t=0;C.dk=quiet?0:20;say('Nori s’assoit au bureau.');const f=C.afterDesk;C.afterDesk=null;if(f)f()})}
@@ -1255,7 +1255,7 @@ function toggleSleep(){
  talkMaybe('lit',.35);goto(...bedPos(),()=>{C.st='sleep';sl.textContent='Réveiller';say('Nori dort. Les lumières de la ville veillent.')});
 }
 function update(){
- tick++;cwTick();C.t++;dayCycle();needsTick();doorA+=Math.max(-.035,Math.min(.035,doorT-doorA));if(curV=='work'&&!C.wk&&tick%10==0)workUI();if(tick%600==0&&dirty()&&!N.dirtSaid&&C.st!='sleep'){N.dirtSaid=1;say('Nori commence à sentir… il faudrait le laver.');talkMaybe('sale',.35)}
+ tick++;cwTick();C.t++;dayCycle();needsTick();doorA+=Math.max(-.035,Math.min(.035,doorT-doorA));if(curV=='work'&&!C.wk&&tick%10==0)workUI();if(tick%600==0&&dirty()&&!N.dirtSaid&&C.st!='sleep'){N.dirtSaid=1;say('Nori commence à sentir un peu… il faudrait le laver.');talkMaybe('sale',.35)}
  if(C.bl>0)C.bl--;else if(--C.blink<0){C.bl=6;C.blink=110+Math.random()*200}
  if(C.wag>0)C.wag--;
  if(C.st=='idle'){if(--C.idle<=0){const r=Math.random();if(curV=='home')talkMaybe(dirty()?'sale':'seul',.05);
@@ -1299,7 +1299,7 @@ try{const ra=localStorage.getItem(KEY),rb=localStorage.getItem(KEYB),a=llParse(r
  if(!s&&(ra||rb)){saveBroken=true;try{localStorage.setItem(KEY+'_bad',ra||rb)}catch(e){}}
  if(s){Object.assign(N,s.N);if(s.tod!=null)tod=s.tod}}catch(e){}
 let CDOC=null,CLS=null,cloudDirty=false,cloudReady=false;
-const save=()=>{if(window.__wipe||(saveBroken&&!N.created))return;N.savedAt=Date.now();cloudDirty=true;try{const j=JSON.stringify({N,tod});saveSlot^=1;localStorage.setItem(saveSlot?KEYB:KEY,j)}catch(e){if(Date.now()-saveErrT>60000){saveErrT=Date.now();try{say('Impossible d’enregistrer : la mémoire du téléphone est pleine.')}catch(_){}}}};
+const save=()=>{if(window.__wipe||(saveBroken&&!N.created))return;N.savedAt=Date.now();cloudDirty=true;try{const j=JSON.stringify({N,tod});saveSlot^=1;localStorage.setItem(saveSlot?KEYB:KEY,j)}catch(e){if(Date.now()-saveErrT>60000){saveErrT=Date.now();try{say('Oups, la sauvegarde n’a pas pu se faire : la mémoire de ton téléphone est pleine.')}catch(_){}}}};
 setInterval(save,5000);
 // sauvegarde dans le compte (survit à la fermeture de l'app / au vidage du navigateur)
 const CLP=(async()=>{try{if(!window.claude||!window.claude.use)return;const db=await window.claude.use('db'),us=await window.claude.use('user');if(!db||!us)return;const id=await us.id();if(!id)return;const d=db.collection('data/users/'+id).doc('save');const s=await d.get();if(s.exists){const v=s.data();if(v&&typeof v.j=='string'){const c=JSON.parse(v.j);if(c&&c.N&&c.N.created&&(!N.created||(c.N.savedAt||0)>(N.savedAt||0)+3000))CLS=c}}CDOC=d}catch(e){}finally{cloudReady=true}})();
@@ -1336,7 +1336,7 @@ function giveFood(f){
 }
 function setFeed(v){
  feedMode=v;bowl.on=v;bowl.food=3;bowl.x=120;bowl.y=106;tray.hidden=!v;bEat.classList.toggle('on',v);
- if(v){if(C.st=='sleep'){C.st='idle';[C.x,C.y]=bedPos();sl.textContent='Dormir'}goto(84,104);say('Glissez un aliment jusqu’à la bouche de Nori.')}
+ if(v){if(C.st=='sleep'){C.st='idle';[C.x,C.y]=bedPos();sl.textContent='Dormir'}goto(84,104);say('Glisse un aliment jusqu’à la bouche de Nori.')}
  else say('Nori retrouve la pièce.');
 }
 // ===== 7. NAVIGATION DE L’ÉCRAN TACTILE (chaque mode = une vue ; l’écran du haut reste actif) =====
@@ -1363,7 +1363,7 @@ if(!N.furn||N.lay!=3){N.furn=clone(FURN0);N.lay=3}if(!N.furn.find(f=>f.n=='Douch
 let draft=null,sel=0,off=null;
 function sizePlan(){const v=document.getElementById('v-deco'),h=v.clientHeight-52,w=v.clientWidth-110;if(h<20)return;const s=Math.min(w/196,h/102);plan.style.width=Math.floor(196*s)+'px';plan.style.height=Math.floor(102*s)+'px'}
 addEventListener('resize',sizePlan);
-let stowed=[];function decoOpen(){stowed=[];draft=clone(N.furn);sel=0;sizePlan();planDraw();say('Touchez un meuble, puis faites-le glisser sur la grille.')}
+let stowed=[];function decoOpen(){stowed=[];draft=clone(N.furn);sel=0;sizePlan();planDraw();say('Touche un meuble, puis fais-le glisser sur la grille.')}
 const PX=(u,v)=>[98+(u-v)*96/RN,3+(u+v)*48/RN],pq=(u0,v0,u1,v1)=>{pg.beginPath();[PX(u0,v0),PX(u1,v0),PX(u1,v1),PX(u0,v1)].forEach((p,i)=>i?pg.lineTo(p[0],p[1]):pg.moveTo(p[0],p[1]));pg.closePath()};
 function planDraw(){
  pg.clearRect(0,0,plan.width,plan.height);pq(0,0,RN,RN);pg.fillStyle='#e9cfa8';pg.fill();
@@ -1380,8 +1380,8 @@ plan.onpointermove=e=>{if(!off)return;const[gx,gy]=cell(e),f=draft[sel],nx=gx-of
 plan.onpointerup=()=>off=null;
 const ROTS={WC:[0,1],Douche:[0,1],Lit:[0,1,3],Table:[0,1],Tapis:[0,1],Bureau:[0,1,2,3],Plante:[0,1,2,3],Lampe:[0],Pouf:[0],'Bibliothèque':[0,1],'Canapé':[0,1],'Télé':[0,1],Aquarium:[0,1]},RNM=['de face','tourné vers la droite','de dos','tourné vers la gauche'];
 document.getElementById('rot').onclick=()=>{const f=draft[sel],s=ROTS[f.n]||[0,1],r=f.r||0,nr=s[(s.indexOf(r)+1)%s.length],sw=(r%2)!=(nr%2),w=sw?f.h:f.w,hh=sw?f.w:f.h;
- if(free(sel,f.x,f.y,w,hh)){f.w=w;f.h=hh;f.r=nr;planDraw();say(f.n+(f.n=='Tapis'?' pivoté.':' '+RNM[nr]+'.'))}else say('Pas la place pour pivoter.')};
-document.querySelectorAll('.pad button').forEach(b=>b.onclick=()=>{if(!draft)return;const[du,dv]=b.dataset.m.split(',').map(Number),f=draft[sel];if(free(sel,f.x+du,f.y+dv,f.w,f.h)){f.x+=du;f.y+=dv;planDraw();say(f.n+' déplacé.')}else say(f.x+du<0||f.y+dv<0||f.x+du+f.w>RN||f.y+dv+f.h>RN?'Contre le mur.':'Un meuble gêne.')});
+ if(free(sel,f.x,f.y,w,hh)){f.w=w;f.h=hh;f.r=nr;planDraw();say(f.n+(f.n=='Tapis'?' pivoté.':' '+RNM[nr]+'.'))}else say('Pas assez d’espace pour le tourner ici.')};
+document.querySelectorAll('.pad button').forEach(b=>b.onclick=()=>{if(!draft)return;const[du,dv]=b.dataset.m.split(',').map(Number),f=draft[sel];if(free(sel,f.x+du,f.y+dv,f.w,f.h)){f.x+=du;f.y+=dv;planDraw();say(f.n+' déplacé.')}else say(f.x+du<0||f.y+dv<0||f.x+du+f.w>RN||f.y+dv+f.h>RN?'Le mur est juste là.':'Un meuble est dans le passage.')});
 const WALLC=[['Nuit','#34445B'],['Gris bleu','#7c8fa8'],['Pétrole','#3f6f8a'],['Sauge','#6f8a6a'],['Lavande','#7a6a9a'],['Terracotta','#a8634c'],['Bordeaux','#7c3a40'],['Sable','#c9b79c'],['Crème','#e2dccf'],['Anthracite','#2e2e36']],
  FLOORM=[['Parquet','pq'],['Carrelage','ca'],['Damier','da'],['Moquette','mo']],
  FLOORC=[['Noyer','#8a5a42'],['Chêne','#b7804f'],['Bois clair','#d2a878'],['Wengé','#5e3a2a'],['Gris','#9aa0a6'],['Blanc cassé','#d8d2c4'],['Anthracite','#3a3f48'],['Tomette','#c2704f'],['Vert d\'eau','#7fa8a0'],['Bleu','#4a6a9a'],['Rose','#c98f9a'],['Moutarde','#c9a040']],
@@ -1395,15 +1395,15 @@ function styDraw(){const r=RM(),T=['Murs','Sol','Porte'];
  else s=`<div class="orow"><span>Couleur de la porte · ${DOORC[r.d][0]}</span>${sw(DOORC,r.d,'d')}</div>`;
  document.getElementById('styBox').innerHTML=s}
 document.getElementById('v-style').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const r=RM();
- if(b.dataset.t!=null){styT=+b.dataset.t;styDraw();say(['Choisissez la couleur des murs.','Choisissez le sol et son coloris.','Choisissez la couleur de la porte.'][styT]);return}
+ if(b.dataset.t!=null){styT=+b.dataset.t;styDraw();say(['Choisis la couleur des murs.','Choisis le sol et son coloris.','Choisis la couleur de la porte.'][styT]);return}
  const k=b.dataset.k;if(!k)return;r[k]=(k=='m'||k=='ws')?b.dataset.i:+b.dataset.i;bgKey='';save();styDraw();
  say(k=='ws'?'Murs : '+WALLS.find(m=>m[1]==r.ws)[0].toLowerCase()+'.':k=='w'?'Murs : '+WALLC[r.w][0]+'.':k=='d'?'Porte : '+DOORC[r.d][0]+'.':'Sol : '+FLOORM.find(m=>m[1]==r.m)[0]+' '+FLOORC[r.fc][0].toLowerCase()+'.')});
-document.getElementById('stow').onclick=()=>{if(!draft)return;const f=draft[sel];if(!f)return;if(!f.shop){say(f.n+' est indispensable : il reste dans la pièce.');return}stowed.push(f.n);draft.splice(sel,1);sel=0;planDraw();say(f.n+' sera rangé à la validation.')};
-document.getElementById('cancel').onclick=()=>{stowed=[];draft=clone(N.furn);planDraw();say('Modifications annulées.')};
-document.getElementById('ok').onclick=()=>{N.furn=clone(draft);if(stowed.length){N.store.push(...stowed);stowed=[]}save();say('Disposition enregistrée.')};
+document.getElementById('stow').onclick=()=>{if(!draft)return;const f=draft[sel];if(!f)return;if(!f.shop){say(f.n+' est indispensable, il reste dans la pièce.');return}stowed.push(f.n);draft.splice(sel,1);sel=0;planDraw();say(f.n+' sera rangé à la validation.')};
+document.getElementById('cancel').onclick=()=>{stowed=[];draft=clone(N.furn);planDraw();say('Pas de souci, rien n’a changé.')};
+document.getElementById('ok').onclick=()=>{N.furn=clone(draft);if(stowed.length){N.store.push(...stowed);stowed=[]}save();say('Ta nouvelle déco est enregistrée !')};
 function invDraw(){const st=N.store.map((n,i)=>`<p><span>${n}</span><button data-pl="${i}">Placer</button></p>`).join('')||'<p><span>Rien de rangé</span></p>';
  document.getElementById('invBox').innerHTML='<h3>Porte-monnaie</h3><p><span>Pièces</span><b>'+N.coins+'</b></p><h3>Aliments</h3>'+FOODS.map((f,i)=>`<p><span>${f.n}</span><b>×${N.stock[i]}</b></p>`).join('')+'<h3>Rangés</h3>'+st+'<h3>Dans la pièce</h3>'+N.furn.map(f=>`<p><span>${f.n}</span><b>${f.w}×${f.h}</b></p>`).join('')}
-document.getElementById('invBox').onclick=e=>{const b=e.target.closest('[data-pl]');if(!b)return;const i=+b.dataset.pl,n=N.store[i],it=SHOP.find(s=>s.n==n);if(!it)return;const f=placeItem(it);if(!f){say('Pas de place dans la pièce pour '+n.toLowerCase()+'.');return}N.store.splice(i,1);save();invDraw();say(n+' remis dans la pièce.')};
+document.getElementById('invBox').onclick=e=>{const b=e.target.closest('[data-pl]');if(!b)return;const i=+b.dataset.pl,n=N.store[i],it=SHOP.find(s=>s.n==n);if(!it)return;const f=placeItem(it);if(!f){say('Il n’y a plus de place dans la pièce pour '+n.toLowerCase()+'.');return}N.store.splice(i,1);save();invDraw();say(n+' retrouve sa place dans la pièce.')};
 bars();
 
 // ===== 5. BOUCLE & ENTRÉES =====
@@ -2070,15 +2070,15 @@ rd.domElement.addEventListener('pointerdown',e=>{
  {{const wc=L.find(f=>f.n=='WC');if(wc&&!draft&&C.st!='sleep'&&[0,8,16,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=wc.x&&a<=wc.x+wc.w&&b>=wc.y&&b<=wc.y+wc.h})){goWC();return}}const pf=L.find(f=>f.n=='Pouf'&&[0,6,12].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=f.x&&a<=f.x+f.w&&b>=f.y&&b<=f.y+f.h}));if(pf&&!draft&&C.st!='sleep'&&place=='home'){goPouf(pf);return}const so=L.find(f=>f.n=='Canapé');if(so&&!draft&&C.st!='sleep'&&C.st!='sofa'&&[0,8,16].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=so.x&&a<=so.x+so.w&&b>=so.y&&b<=so.y+so.h})){goSofa();return}const sh=L.find(f=>f.n=='Douche');if(sh&&!draft&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=sh.x&&a<=sh.x+sh.w&&b>=sh.y&&b<=sh.y+sh.h})&&C.st!='sleep'){wash();return}}
  if(onBed&&!feedMode){toggleSleep();return}
  if(feedMode||C.st=='sleep'||C.st=='eat'||C.st=='dine'||C.st=='shower'||C.st=='wc'||PLAYS.includes(C.st)||tu<0||tv<0||tu>RN||tv>RN)return;
- if(seated()){if(curV=='desk'||curV=='work'||curV=='shop')show('home');if(seated())leaveDesk()}if(C.st=='sofa')C.st='idle';goto(tu*12,88+tv*5);say('Il se déplace.');tuEvent('move');talkMaybe('marche',.12);
+ if(seated()){if(curV=='desk'||curV=='work'||curV=='shop')show('home');if(seated())leaveDesk()}if(C.st=='sofa')C.st='idle';goto(tu*12,88+tv*5);say('Nori se met en route.');tuEvent('move');talkMaybe('marche',.12);
 });
 // ===== 11. CRÉATION DE NORI (gratuite une seule fois, aperçu en direct sur l’écran du haut) =====
 VT.create='Création de Nori';let creating=false,dressing=false;
 const OPT=[['Couleur','c',LK.c],['Forme des yeux','e',['Ronds','Allongés','Doux','Malicieux']],['Couleur des yeux','y',LK.y],['Oreilles','r',['Pointues','Rondes','Longues']]],cr=document.getElementById('cr');
 function crDraw(){cr.innerHTML=OPT.map(([t,k,a])=>`<div class="orow"><span>${t}</span><div class="opts">${a.map((v,i)=>v[0]=='#'?`<button class="sw${N.look[k]==i?' on':''}" data-k="${k}" data-i="${i}" style="background:${v}" aria-label="${t} ${i+1}"></button>`:`<button class="${N.look[k]==i?'on':''}" data-k="${k}" data-i="${i}">${v}</button>`).join('')}</div></div>`).join('')}
 cr.onclick=e=>{const b=e.target.closest('button');if(!b)return;N.look[b.dataset.k]=+b.dataset.i;applyLook();crDraw()};
-document.getElementById('crOk').onclick=()=>{N.created=true;creating=false;save();show('home');pet();tutoStart();say(N.look.g=='f'?'Nori est prête. Elle vous remercie !':'Nori est prêt. Il vous remercie !');talk('Salut le joueur ! Moi c’est '+NAME()+'.')};
-function crOpen(){const ni=document.getElementById('stNameIn');if(ni)ni.value=N.name&&N.name!='Nori'?N.name:'';{const pi=document.getElementById('stPseudoIn');if(pi)pi.value=N.pseudo||''}creating=true;show('create');back.hidden=true;crDraw();setTimeout(()=>say('Personnalisez Nori : c’est gratuit, une seule fois.'),0)}
+document.getElementById('crOk').onclick=()=>{N.created=true;creating=false;save();show('home');pet();tutoStart();say(N.look.g=='f'?'Nori est prête. Elle te remercie !':'Nori est prêt. Il te remercie !');talk('Salut {P} ! Moi c’est '+NAME()+'. Ravi de te rencontrer.')};
+function crOpen(){const ni=document.getElementById('stNameIn');if(ni)ni.value=N.name&&N.name!='Nori'?N.name:'';{const pi=document.getElementById('stPseudoIn');if(pi)pi.value=N.pseudo||''}creating=true;show('create');back.hidden=true;crDraw();setTimeout(()=>say('Personnalise Nori à ton goût : c’est gratuit, une seule fois.'),0)}
 const ng=document.getElementById('newg');let ngc=0;
 ng.onclick=()=>{if(!ngc){ngc=1;ng.textContent='Confirmer : tout effacer ?';setTimeout(()=>{ngc=0;ng.textContent='Nouvelle partie'},4000)}else{window.__wipe=true;try{localStorage.removeItem(KEY);localStorage.removeItem(KEYB)}catch(e){}location.reload()}};
 // ===== 12. STUDIO DE CRÉATION façon Sims : fond neutre, Nori au centre sur une plateforme, boutons tout autour =====
@@ -2099,7 +2099,7 @@ document.getElementById('stL').onclick=()=>{sy-=Math.PI/3};document.getElementBy
 document.getElementById('stRnd').onclick=()=>{stCats().forEach(([t,k,P])=>{N.look[k]=Math.floor(Math.random()*P.length)});stDraw()};
 function studioMode(v){}
 function crOpen(){const ni=document.getElementById('stNameIn');if(ni)ni.value=N.name&&N.name!='Nori'?N.name:'';{const pi=document.getElementById('stPseudoIn');if(pi)pi.value=N.pseudo||''}creating=true;mainEl.classList.add('creating');studio.hidden=false;studioMode(true);fit();stDraw();zm.v=1}
-document.getElementById('crOk2').onclick=()=>{const nm=(document.getElementById('stNameIn').value||'').trim().replace(/\s+/g,' ').slice(0,12);N.name=nm?nm.charAt(0).toUpperCase()+nm.slice(1):'Nori';setPseudo(document.getElementById('stPseudoIn').value);N.created=true;creating=false;save();studio.hidden=true;mainEl.classList.remove('creating');studioMode(false);fit();show('home');pet();say(N.look.g=='f'?'Nori est prête. Elle vous remercie !':'Nori est prêt. Il vous remercie !');talk('Salut le joueur ! Moi c’est '+NAME()+'.');tutoStart()};
+document.getElementById('crOk2').onclick=()=>{const nm=(document.getElementById('stNameIn').value||'').trim().replace(/\s+/g,' ').slice(0,12);N.name=nm?nm.charAt(0).toUpperCase()+nm.slice(1):'Nori';setPseudo(document.getElementById('stPseudoIn').value);N.created=true;creating=false;save();studio.hidden=true;mainEl.classList.remove('creating');studioMode(false);fit();show('home');pet();say(N.look.g=='f'?'Nori est prête. Elle te remercie !':'Nori est prêt. Il te remercie !');talk('Salut {P} ! Moi c’est '+NAME()+'. Ravi de te rencontrer.');tutoStart()};
 rd.domElement.addEventListener('pointerdown',e=>{if(creating)dx0=e.clientX});
 addEventListener('pointermove',e=>{if(creating&&dx0!=null){sy+=(e.clientX-dx0)*.012;dx0=e.clientX}});
 addEventListener('pointerup',()=>dx0=null);
@@ -2197,7 +2197,7 @@ addEventListener('pointerdown',()=>{startAudio();if(AC&&AC.state=='suspended')AC
 document.addEventListener('visibilitychange',()=>{if(AC)(document.hidden||rotQ.matches)?AC.suspend():AC.resume()});
 try{rotQ.addEventListener('change',()=>{if(AC)(document.hidden||rotQ.matches)?AC.suspend():AC.resume()})}catch(e){}
 bMus.classList.toggle('on',musOn);
-bMus.onclick=()=>{musOn=!musOn;N.mus=musOn;save();bMus.classList.toggle('on',musOn);startAudio();if(AC){mg.gain.setTargetAtTime(musOn?(MTH[curTh]?MTH[curTh].v:.32):0,AC.currentTime,.25);nextT=AC.currentTime+.2}say(musOn?'Musique activée.':'Musique coupée.')};
+bMus.onclick=()=>{musOn=!musOn;N.mus=musOn;save();bMus.classList.toggle('on',musOn);startAudio();if(AC){mg.gain.setTargetAtTime(musOn?(MTH[curTh]?MTH[curTh].v:.32):0,AC.currentTime,.25);nextT=AC.currentTime+.2}say(musOn?'Musique activée, bonne écoute !':'Musique coupée.')};
 
 let last=0,acc=0;
 function loop(t){if(rotQ.matches){last=t;acc=0;rotDraw(t);requestAnimationFrame(loop);return}acc+=Math.min(100,t-last);last=t;while(acc>=16.67){update();acc-=16.67}frame();requestAnimationFrame(loop)}
@@ -2218,7 +2218,7 @@ let fromTitle=false;const gcard=document.querySelector('.gcard');
 const hotPress=b=>{let t=0;b.addEventListener('pointerdown',()=>{b.classList.add('down');t=performance.now()});const up=()=>{const w=Math.max(0,130-(performance.now()-t));setTimeout(()=>b.classList.remove('down'),w)};['pointerup','pointercancel','pointerleave'].forEach(e=>b.addEventListener(e,up))};
 const hotWrap=(id,fn)=>{const b=document.getElementById(id);hotPress(b);b.onclick=e=>{startAudio();b.classList.add('down');setTimeout(()=>{b.classList.remove('down');fn(e)},140)}};
 hotWrap('tNew',()=>{startAudio();if(N.created||CLS){fromTitle=true;gcard.classList.add('conf');gmenu.hidden=false;gConf.hidden=false;return}tscr.hidden=true});
-hotWrap('tCont',async()=>{startAudio();if(!cloudReady){tmsg('Chargement de la sauvegarde…');await Promise.race([CLP,new Promise(r=>setTimeout(r,5000))])}if(CLS){try{localStorage.setItem(KEY,JSON.stringify(CLS));localStorage.removeItem(KEYB);sessionStorage.setItem('ll_skip','1')}catch(e){}window.__wipe=true;location.reload();return}if(!N.created){tmsg(saveBroken?'Sauvegarde abîmée : elle est gardée de côté. Crée un personnage, puis Menu › Importer.':'Aucune partie enregistrée : crée ton personnage !',saveBroken?5000:1800);setTimeout(()=>{tscr.hidden=true},900);return}tscr.hidden=true;fit();if(saveRestored){saveRestored=false;say('Ta partie a été restaurée depuis la copie de secours.')}});
+hotWrap('tCont',async()=>{startAudio();if(!cloudReady){tmsg('On retrouve ta partie…');await Promise.race([CLP,new Promise(r=>setTimeout(r,5000))])}if(CLS){try{localStorage.setItem(KEY,JSON.stringify(CLS));localStorage.removeItem(KEYB);sessionStorage.setItem('ll_skip','1')}catch(e){}window.__wipe=true;location.reload();return}if(!N.created){tmsg(saveBroken?'Ta sauvegarde semble abîmée : on l’a mise de côté. Crée un personnage, puis passe par Menu › Importer.':'Bienvenue ! Commence par créer ton personnage.',saveBroken?5000:1800);setTimeout(()=>{tscr.hidden=true},900);return}tscr.hidden=true;fit();if(saveRestored){saveRestored=false;say('Ta partie a été restaurée depuis la copie de secours.')}});
 const SHELLS=[['Beige','#fbe6cb','#f6dab6','#f2cfa2'],['Rose','#fde0e6','#f8ccd7','#f3b9c8'],['Menthe','#dcf3e3','#c7e8d1','#b5dcc2'],['Ciel','#dbecf9','#c4dff4','#b2d3ee'],['Lavande','#e9e0f8','#d9cdf2','#cbbcea'],['Corail','#ffdccb','#ffc7ad','#f9b293'],['Citron','#fcf3c6','#f6e7a2','#efda80'],['Gris','#ebe7e1','#dbd5cc','#cbc4b9'],['Nuit','#33405e','#252f4a','#1b2338']];
 function shellApply(){const s=SHELLS[N.shell||0],r=document.documentElement.style;r.setProperty('--sh1',s[1]);r.setProperty('--sh2',s[2]);r.setProperty('--bg',s[3]);BGRc=null}
 function gDraw(){const gs=document.getElementById('gShell');gs.innerHTML=SHELLS.map((s,i)=>`<button data-sh="${i}" class="sw${(N.shell||0)==i?' on':''}" style="background:linear-gradient(${s[1]},${s[3]})" aria-label="${s[0]}" title="${s[0]}"></button>`).join('');gs.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();N.shell=+b.dataset.sh;shellApply();save();gDraw();say('Contour : '+SHELLS[N.shell][0]+'.')});const m=document.getElementById('gMus'),t=document.getElementById('gTalk');m.querySelector('b').textContent=musOn?'Activée':'Coupée';m.classList.toggle('off',!musOn);t.querySelector('b').textContent=N.talk!==false?'Activés':'Coupés';t.classList.toggle('off',N.talk===false);document.getElementById('gSave').querySelector('b').textContent='💾';document.querySelectorAll('.gff button').forEach(b=>b.classList.toggle('on',+b.dataset.ff==(N.ff||0)))}
@@ -2239,15 +2239,15 @@ function gXopen(m){gXmode=m;gXdata=null;gcard.classList.add('conf');gConf.hidden
  if(m=='exp'){save();gXa.value=llEnc({N,tod});gXa.readOnly=true;gXt.textContent='Garde ce code dans tes notes : il contient toute ta partie.';gXok.textContent='Copier'}
  else{gXa.value='';gXa.readOnly=false;gXt.textContent='Colle ici un code de partie (il commence par LL1-).';gXok.textContent='Vérifier';setTimeout(()=>{try{gXa.focus()}catch(e){}},50)}}
 function gXclose(){gX.hidden=true;gcard.classList.remove('conf');gDraw()}
-function gXapply(s){window.__wipe=true;s.N.savedAt=Date.now();const j=JSON.stringify(s);try{localStorage.setItem(KEY,j);localStorage.setItem(KEYB,j);localStorage.removeItem(KEY+'_bad');sessionStorage.setItem('ll_skip','1')}catch(e){window.__wipe=false;gXt.textContent='Impossible d’enregistrer sur ce téléphone (mémoire pleine ?).';gXt.classList.add('err');return}
+function gXapply(s){window.__wipe=true;s.N.savedAt=Date.now();const j=JSON.stringify(s);try{localStorage.setItem(KEY,j);localStorage.setItem(KEYB,j);localStorage.removeItem(KEY+'_bad');sessionStorage.setItem('ll_skip','1')}catch(e){window.__wipe=false;gXt.textContent='Oups, la sauvegarde n’a pas pu se faire (la mémoire de ton téléphone est peut-être pleine).';gXt.classList.add('err');return}
  CLS=null;const go=()=>location.reload();if(CDOC){let d=false;const f=()=>{if(!d){d=true;go()}};try{CDOC.set({j,t:Date.now()}).then(f,f)}catch(e){f()}setTimeout(f,2500)}else go()}
 document.getElementById('gExp').onclick=e=>{e.stopPropagation();gXopen('exp')};document.getElementById('gImp').onclick=e=>{e.stopPropagation();gXopen('imp')};
 document.getElementById('gXno').onclick=gXclose;
 gXok.onclick=async()=>{if(gXmode=='exp'){let ok=false;try{await navigator.clipboard.writeText(gXa.value);ok=true}catch(e){}if(!ok){try{gXa.readOnly=false;gXa.focus();gXa.select();gXa.setSelectionRange(0,gXa.value.length);ok=document.execCommand('copy');gXa.readOnly=true}catch(e){}}
   gXt.textContent=ok?'Code copié ✓ Colle-le dans tes notes.':'Sélectionne le code et copie-le à la main.';return}
  if(gXdata){gXapply(gXdata);return}
- const s=llDec(gXa.value);if(!s){gXt.textContent='Ce code n’est pas valide. Vérifie qu’il est complet.';gXt.classList.add('err');return}
- gXt.classList.remove('err');gXdata=s;gXt.textContent='Partie de '+(s.N.name||'Nori')+' · '+Math.floor(s.N.coins||0)+' pièces. Elle remplacera la partie en cours.';gXok.textContent='Oui, importer'};
+ const s=llDec(gXa.value);if(!s){gXt.textContent='Ce code ne semble pas valide. Vérifie qu’il est bien complet.';gXt.classList.add('err');return}
+ gXt.classList.remove('err');gXdata=s;gXt.textContent='Partie de '+(s.N.name||'Nori')+' · '+Math.floor(s.N.coins||0)+' pièces. Elle remplacera ta partie actuelle.';gXok.textContent='Oui, importer'};
 gXa.addEventListener('input',()=>{if(gXmode=='imp'&&gXdata){gXdata=null;gXok.textContent='Vérifier';gXt.textContent='Colle ici un code de partie (il commence par LL1-).'}});
 // --- écran « tourne ton téléphone » (pixel art) : le jeu est en pause tant qu'il est affiché ---
 const rotCv=document.getElementById('rotCv'),rotCx=rotCv.getContext('2d');
@@ -2256,7 +2256,7 @@ function rotDraw(t){const x=rotCv.getContext('2d'),k=Math.floor((t||0)/700)%2,I=
  R(35,2,7,2,A);R(41,2,2,8,A);R(39,10,6,1,A);R(40,11,4,1,A);R(41,12,2,1,A);R(6,36,7,2,A);R(5,30,2,8,A);R(3,29,6,1,A);R(4,28,4,1,A);R(5,27,2,1,A)}
 ['gesturestart','gesturechange'].forEach(ev=>document.addEventListener(ev,e=>e.preventDefault(),{passive:false}));document.addEventListener('dblclick',e=>e.preventDefault(),{passive:false});
 shellApply();try{if(sessionStorage.getItem('ll_skip')){sessionStorage.removeItem('ll_skip');tscr.hidden=true}}catch(e){}
-document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>show(b.dataset.v));document.querySelectorAll('[data-sty]').forEach(b=>b.onclick=()=>{styT=+b.dataset.sty;show('style');say(['Choisissez le revêtement et la couleur des murs.','Choisissez le sol et son coloris.','Choisissez la couleur de la porte.'][styT])});back.onclick=()=>show(SUBD.includes(curV)?'desk':curV=='ani'&&N.pets.length?'mypets':'home');document.getElementById('tbUp').onclick=()=>show('home');document.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>play(b.dataset.play));document.getElementById('plStop').onclick=()=>{if(PLAYS.includes(C.st)){stopPlay();say('Pause.')}};fit();if(!N.created)crOpen();addEventListener('resize',fit);
+document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>show(b.dataset.v));document.querySelectorAll('[data-sty]').forEach(b=>b.onclick=()=>{styT=+b.dataset.sty;show('style');say(['Choisis le revêtement et la couleur des murs.','Choisis le sol et son coloris.','Choisis la couleur de la porte.'][styT])});back.onclick=()=>show(SUBD.includes(curV)?'desk':curV=='ani'&&N.pets.length?'mypets':'home');document.getElementById('tbUp').onclick=()=>show('home');document.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>play(b.dataset.play));document.getElementById('plStop').onclick=()=>{if(PLAYS.includes(C.st)){stopPlay();say('Pause.')}};fit();if(!N.created)crOpen();addEventListener('resize',fit);
 document.getElementById('bOut').onclick=goOut;document.getElementById('outStay').onclick=stayHome;document.getElementById('shHome').onclick=goHome;['clHome','grHome','ptHome'].forEach(id=>document.getElementById(id).onclick=goHome);document.getElementById('petBack').onclick=closePet;document.getElementById('petBox').onclick=closePet;document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>chooseDest(b.dataset.go));
 document.getElementById('bSleep').onclick=toggleSleep;document.getElementById('bWash').onclick=wash;document.getElementById('bWC').onclick=goWC;document.getElementById('bTable').onclick=dine;
 // ===== V64 : météo, tenues, animal, carrière, café, sport, objectifs, agrandissement, miroir =====
@@ -2279,7 +2279,7 @@ const _tripDraw=tripDraw;tripDraw=function(){_tripDraw();const c=tcx2;if(N.wx=='
 function outfitCheck(d){const L=N.look,m=[];
  if(inUndies(L)){m.push(NAME()+' est sorti'+(L.g=='f'?'e':'')+' en sous-vêtements… tout le monde regarde !');add('happy',-10);talk(L.g=='f'?'Euh… j’aurais dû m’habiller avant de sortir.':'Euh… j’aurais dû m’habiller avant de sortir.')}
  else if(!dressedOK(L)){m.push('Il manque quelque chose à sa tenue'+(L.nos?' : il est pieds nus':L.nop?' : pas de pantalon':'')+'.');add('happy',-3)}
- if(N.wx=='pluie'){if(L.ve){m.push('La veste le protège de la pluie.')}else{m.push('La pluie le trempe : une veste aurait été utile.');add('happy',-5);add('energy',-3)}}
+ if(N.wx=='pluie'){if(L.ve){m.push('La veste le protège de la pluie.')}else{m.push('La pluie le trempe… une veste sera bien utile la prochaine fois.');add('happy',-5);add('energy',-3)}}
  else if(N.wx=='froid'){const warm=L.ve||L.top=='p';if(!warm){m.push('Brr… il fait froid, un pull ou une veste aurait été utile.');add('energy',-6)}else m.push('Bien couvert contre le froid.');if(L.hat=='bonnet'){m.push('Le bonnet tient chaud.');add('happy',2)}}
  else if(L.gl=='sun'){m.push('Lunettes de soleil : parfait pour ce beau temps !');add('happy',3)}
  bars();return m.slice(0,1).join(' ').replace(/ il /g,L.g=='f'?' elle ':' il ').replace(/ le (trempe|protège)/g,L.g=='f'?' la $1':' le $1')}
@@ -2308,7 +2308,7 @@ const lvName=i=>LV[i][1]+(N.look.g=='f'&&i==1?'e':'')+(i==LV.length-1?' niveau '
 // directeur : paliers selon les pièces gagnées au travail ; niveau N = N pièces par paie (niveau 3 = max)
 const DIRL=[0,500,1000,2000],dlOf=x=>x>=DIRL[3]?3:x>=DIRL[2]?2:1;
 if(N.lv>=LV.length-1&&N.dl==null)N.dl=dlOf(N.xp);
-function lvCheck(){const l=lvOf(N.xp);if(l==LV.length-1&&N.lv==l){const d=dlOf(N.xp);if(d>(N.dl||1)){N.dl=d;say(NAME()+' passe '+lvName(l)+' : '+d+' pièces à chaque paie'+(d==3?' (niveau max).':'.'));hearts(3);add('happy',10);save()}return}if(l>N.lv){N.lv=l;if(l==LV.length-1)N.dl=dlOf(N.xp);say('Promotion ! '+NAME()+' devient '+lvName(l)+' : il gagne plus vite.'.replace(' il ',N.look.g=='f'?' elle ':' il '));hearts(3);add('happy',10);talkLast=-1e9;talk('Une promotion ! Merci de m’avoir fait travailler, le joueur.');save()}}
+function lvCheck(){const l=lvOf(N.xp);if(l==LV.length-1&&N.lv==l){const d=dlOf(N.xp);if(d>(N.dl||1)){N.dl=d;say(NAME()+' passe '+lvName(l)+' : '+d+' pièces à chaque paie'+(d==3?' (niveau max).':'.'));hearts(3);add('happy',10);save()}return}if(l>N.lv){N.lv=l;if(l==LV.length-1)N.dl=dlOf(N.xp);say('Promotion ! '+NAME()+' devient '+lvName(l)+' : il gagne plus vite.'.replace(' il ',N.look.g=='f'?' elle ':' il '));hearts(3);add('happy',10);talkLast=-1e9;talk('Une promotion ! Merci pour ton soutien, on forme une belle équipe.');save()}}
 // --- collègues de l'open space (le même personnage, en d'autres couleurs) ---
 const COLL=[{n:'Léa',L:{g:'f',sk:1,hr:3,ve:1,jk:3,top:'t',tco:4,nop:0,pn:1,nos:0,sz:0,hat:'',gl:''}},{n:'Karim',L:{g:'m',sk:4,hr:0,ve:0,top:'p',puc:2,nop:0,pn:2,nos:0,sz:1,hat:'',gl:'glass',glc:0}},
  {n:'Inès',L:{g:'f',sk:5,hr:1,ve:0,top:'p',puc:5,nop:0,pn:0,nos:0,sz:2,hat:'',gl:''}},{n:'Hugo',L:{g:'m',sk:0,hr:4,ve:1,jk:6,top:'t',tco:1,nop:0,pn:3,nos:0,sz:0,hat:'casq',hac:2,gl:''}},{n:'Sofia',L:{g:'f',sk:3,hr:2,ve:1,jk:1,top:'t',tco:0,nop:0,pn:2,nos:0,sz:3,hat:'',gl:''}}];
@@ -2372,7 +2372,7 @@ const GOALS=[
  {id:'big',t:'Agrandir l’appartement',r:50,ok:()=>!!N.big},
  {id:'garde',t:'Remplir la garde-robe',r:100,ok:()=>CLOTHES.every(it=>owns(it.id)),p:()=>CLOTHES.filter(it=>owns(it.id)).length+'/'+CLOTHES.length}];
 if(!N.gd)N.gd={};if(!N.gn)N.gn={};
-function goalsTick(){let nw=null;GOALS.forEach(g=>{if(!N.gn[g.id]&&g.ok()){N.gn[g.id]=1;nw=g}});if(nw){say('Objectif atteint : '+nw.t.toLowerCase()+' ! Récompense dans « Objectifs ».');hearts(2);save()}goalsBadge()}
+function goalsTick(){let nw=null;GOALS.forEach(g=>{if(!N.gn[g.id]&&g.ok()){N.gn[g.id]=1;nw=g}});if(nw){say('Objectif atteint : '+nw.t.toLowerCase()+' ! Ta récompense t’attend dans « Objectifs ».');hearts(2);save()}goalsBadge()}
 function goalsBadge(){const b=document.getElementById('gBadge');if(!b)return;const n=GOALS.filter(g=>N.gn[g.id]&&!N.gd[g.id]).length;b.textContent=n;b.hidden=!n}
 function goalsDraw(){const L=document.getElementById('goalList');if(!L)return;L.innerHTML='';const done=GOALS.filter(g=>N.gd[g.id]).length;document.getElementById('goalHd').textContent=done+' / '+GOALS.length+' objectifs terminés';
  GOALS.forEach(g=>{const ok=g.ok()||N.gn[g.id],d=document.createElement('div');d.className='gl'+(N.gd[g.id]?' done':'');const m=document.createElement('div');m.innerHTML=`<b>${g.t}</b><small>${N.gd[g.id]?'Terminé':ok?'Atteint !':'En cours'+(g.p?' · '+g.p():'')} · ${g.r} pièces</small>`;
@@ -2381,8 +2381,8 @@ function goalsDraw(){const L=document.getElementById('goalList');if(!L)return;L.
 // --- agrandir l'appartement ---
 const BIGP=400;let bigAsk=0;
 function bigBtn(){const b=document.getElementById('bBig');if(!b)return;b.querySelector('small').textContent=N.big?'Déjà fait':bigAsk>tick?'Confirmer ?':BIGP+' pièces'}
-function bigBuy(){if(N.big){say('L’appartement est déjà agrandi.');return}if(N.coins<BIGP){say('Il faut '+BIGP+' pièces pour agrandir (encore '+(BIGP-N.coins)+').');return}
- if(bigAsk<tick){bigAsk=tick+300;bigBtn();say('Agrandir l’appartement pour '+BIGP+' pièces ? Touchez encore pour confirmer.');return}
+function bigBuy(){if(N.big){say('Ton appartement est déjà agrandi.');return}if(N.coins<BIGP){say('Pour agrandir, il te faut '+BIGP+' pièces : encore '+(BIGP-N.coins)+' à gagner, courage !');return}
+ if(bigAsk<tick){bigAsk=tick+300;bigBtn();say('Agrandir l’appartement pour '+BIGP+' pièces ? Touche encore pour confirmer.');return}
  bigAsk=0;earn(-BIGP);N.big=1;setRN(homeRN());bgKey='';fit();hearts(3);add('happy',15);say('Travaux terminés : l’appartement est plus grand !');talkLast=-1e9;talk('Waouh, que d’espace ! On va pouvoir mettre plein de meubles.');save();bigBtn();goalsTick();show('home')}
 // --- animaux de compagnie : jusqu'à PETMAX animaux, un par espèce ---
 // Chaque animal a ses données sauvegardées (N.pets : id, espèce, nom, caractère, faim, affection…)
@@ -2423,7 +2423,7 @@ function adoptBtn(){const b=document.getElementById('petAdopt');if(!b||!petOpen)
 function adopt(){const k=petOpen;if(!k||PET(k)||N.pets.length>=PETMAX)return;const p=ANIP[k];if(N.coins<p)return;
  const ni=document.getElementById('petNameIn');let nm=((ni&&ni.value)||'').replace(/\s+/g,' ').trim().slice(0,12)||ANIN[k];
  if(N.pets.some(q=>q.n.toLowerCase()==nm.toLowerCase())){say('Un de tes animaux s’appelle déjà '+nm+'. Choisis un autre nom.');if(ni)ni.focus();return}
- if(HABS[k]){const[w,h]=HABS[k];const f=placeItem({n:'Cage',w,h,c:'#a65d45'});if(!f){say('Pas assez de place à la maison pour '+(k=='poisson'?'son aquarium':k=='tortue'?'son terrarium':k=='perroquet'?'son perchoir':'sa cage')+'.');return}f.pet=k;f.shop=0}
+ if(HABS[k]){const[w,h]=HABS[k];const f=placeItem({n:'Cage',w,h,c:'#a65d45'});if(!f){say('Il manque un peu de place à la maison pour '+(k=='poisson'?'son aquarium':k=='tortue'?'son terrarium':k=='perroquet'?'son perchoir':'sa cage')+'.');return}f.pet=k;f.shop=0}
  earn(-p);const a={id:(N.petSeq=(N.petSeq||0)+1),k,n:nm,ps:PERSK[Math.floor(Math.random()*PERSK.length)],h:80,l:40,at:Date.now()};N.pets.push(a);
  const r=prt(a).AP;r.u=DOORS[0]+2;r.v=DOORS[1];r.tu=r.u;r.tv=r.v;
  if(k=='chien'){Object.assign(DG,{anim:'stand',t:0,i:0,post:'stand',dir:1,path:[],act:null,actT:0,think:30,want:null,rp:0})}
@@ -2568,11 +2568,11 @@ function mpDraw(){const g=document.getElementById('mpList');if(!g)return;const n
   const bx=document.createElement('div');bx.className='mpb';const b1=document.createElement('button');b1.textContent='Fiche';b1.className='on';b1.onclick=()=>{selPet(p);show('ani')};
   const b2=document.createElement('button');b2.textContent='Vendre';b2.onclick=()=>sellAsk(p);bx.append(b1,b2);d.append(c,s,bx);g.append(d)});
  for(let i=nb;i<PETMAX;i++){const d=document.createElement('div');d.className='mpc mpe';d.textContent='Emplacement libre';g.append(d)}
- const h=document.createElement('p');h.className='hint';h.textContent=nb>=PETMAX?'Tous les emplacements sont occupés. Vends un animal pour en adopter un autre.':'Pour adopter : Sortir › Animalerie (un animal par espèce).';g.append(h);mpPix()}
+ const h=document.createElement('p');h.className='hint';h.textContent=nb>=PETMAX?'Tous les emplacements sont occupés. Vends un animal pour en adopter un autre.':'Pour adopter, direction Sortir › Animalerie (un animal par espèce).';g.append(h);mpPix()}
 function mpPix(){document.querySelectorAll('#mpList canvas').forEach(c=>{const p=N.pets.find(q=>q.id==c.dataset.pid);if(!p)return;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,48,40);x.fillStyle='rgba(0,0,0,.18)';x.fillRect(8,34,32,3);
   withPet(p,()=>{if(p.k=='chien'&&DOGOK)dogPix(x,24,37,1,tick,'idle');else petPix(p.k,8,2,2,x,tick)})})}
 let sellP=null;
-function sellAsk(p){if(!p)return;if(p.k=='chien'&&C.st=='petdog'){say('Attends la fin de la caresse.');return}sellP=p;
+function sellAsk(p){if(!p)return;if(p.k=='chien'&&C.st=='petdog'){say('Laisse-le profiter de sa caresse jusqu’au bout.');return}sellP=p;
  document.getElementById('sellTxt').innerHTML='';const t=document.getElementById('sellTxt');t.append('Vendre '+p.n+' ('+PETD[p.k].n.toLowerCase()+') pour ');const s=document.createElement('span');s.className='cn';t.append(s,petVal(p)+'\u00a0pièces\u00a0?');
  const m=document.getElementById('sellSub');m.textContent=(HABS[p.k]?(p.k=='poisson'?'Son aquarium':p.k=='tortue'?'Son terrarium':p.k=='perroquet'?'Son perchoir':'Sa cage')+' part avec '+(petFem(p.k)?'elle':'lui')+'. ':'')+'Cette action est définitive.';
  document.getElementById('sellBox').hidden=false}
@@ -2692,12 +2692,12 @@ const _update=update;update=function(){_update();if(tod<lastTod-.5)newDay();last
 document.getElementById('bAni').onclick=()=>show('mypets');document.getElementById('sellNo').onclick=sellClose;document.getElementById('sellYes').onclick=sellPet;document.getElementById('sellBox').addEventListener('pointerdown',e=>{if(e.target.id=='sellBox')sellClose()});{const ni=document.getElementById('petNameIn');if(ni){ni.addEventListener('focus',()=>{try{ni.select()}catch(e){}});ni.addEventListener('keydown',e=>{if(e.key=='Enter')ni.blur()})}}document.getElementById('aniFeed').onclick=aniFeed;document.getElementById('aniPet').onclick=aniPet;document.getElementById('aniPlay').onclick=aniPlay;document.getElementById('aniFol').onclick=aniFol;
 document.getElementById('petAdopt').onclick=adopt;document.getElementById('bBig').onclick=bigBuy;['cafeHome','gymHome'].forEach(id=>document.getElementById(id).onclick=goHome);
 Object.assign(VT,{mypets:'Mes animaux',ani:'Mon animal',goals:'Objectifs',cafe:'Café',gym:'Salle de sport'});
-const _show=show;show=function(v){_show(v);if(v=='ani'){aniDraw();say(CUR?'Que faire avec '+CUR.n+' ?':'')}if(v=='mypets'){mpDraw();say(N.pets.length?'Tes animaux : '+N.pets.length+'/'+PETMAX+'.':'Tu n’as pas encore d’animal.')}if(v=='goals'){goalsDraw();say('Tes objectifs : récupère les récompenses !')}if(v=='cafe')cafeDraw();if(v=='gym')gymDraw();if(v=='pet')adoptBtn();if(v=='desk')bigBtn();if(v=='cafe'||v=='gym')say(N.coins+' pièce'+(N.coins>1?'s':'')+' en poche.')};
+const _show=show;show=function(v){_show(v);if(v=='ani'){aniDraw();say(CUR?'Que faire avec '+CUR.n+' ?':'')}if(v=='mypets'){mpDraw();say(N.pets.length?'Tes animaux : '+N.pets.length+'/'+PETMAX+'.':'Pas encore d’animal ? Un petit compagnon t’attend peut-être à l’animalerie.')}if(v=='goals'){goalsDraw();say('Tes objectifs : chaque réussite t’apporte une récompense.')}if(v=='cafe')cafeDraw();if(v=='gym')gymDraw();if(v=='pet')adoptBtn();if(v=='desk')bigBtn();if(v=='cafe'||v=='gym')say(N.coins+' pièce'+(N.coins>1?'s':'')+' en poche.')};
 const _openPet=openPet;openPet=function(k){_openPet(k);adoptBtn();{const ni=document.getElementById('petNameIn');if(ni)ni.value=ANIN[k]}petTxtUp();adoptBtn()};
 const _grDraw=grDraw;grDraw=function(){_grDraw();const g=document.getElementById('grocG');if(!g)return;const d=document.createElement('div');d.className='sc';const ic=document.createElement('canvas');ic.width=60;ic.height=48;const x=ic.getContext('2d');
  x.fillStyle='#3b2a24';x.fillRect(19,11,22,30);x.fillStyle='#c0602a';x.fillRect(20,12,20,28);x.fillStyle='#f5c84c';x.fillRect(23,18,14,9);x.fillStyle='#6b3e30';[[26,21],[30,22],[33,20]].forEach(([a,b])=>x.fillRect(a,b,2,2));
  const s=document.createElement('span');s.textContent='Croquettes';const sm=document.createElement('small');sm.textContent='Pour ton animal · '+(N.kib||0)+' en stock';const b=document.createElement('button');const lack=6-N.coins;
- b.innerHTML=N.kib>=20?'Plein':lack>0?'Encore '+lack:'<span class="cn"></span>6';b.disabled=lack>0||N.kib>=20;b.onclick=()=>{if(N.coins<6)return;earn(-6);N.kib=Math.min(20,(N.kib||0)+5);save();say('Croquettes achetées : '+N.kib+' rations.');grDraw()};d.append(ic,s,sm,b);g.append(d)};
+ b.innerHTML=N.kib>=20?'Plein':lack>0?'Encore '+lack:'<span class="cn"></span>6';b.disabled=lack>0||N.kib>=20;b.onclick=()=>{if(N.coins<6)return;earn(-6);N.kib=Math.min(20,(N.kib||0)+5);save();say('Croquettes achetées ! Tu as maintenant '+N.kib+' rations.');grDraw()};d.append(ic,s,sm,b);g.append(d)};
 const _drawItem=drawItem;drawItem=function(f,ic){if(f.n=='Miroir'){isoMiroir(f);return}return _drawItem(f,ic)};
 SHOP.push({n:'Miroir',w:1,h:1,p:45,c:'#c0a060',d:'Pour s’admirer et s’habiller'});ROTS.Miroir=[0];
 // ===== AQUARIUM EN GROS PLAN : nourrir le poisson du doigt, décorer =====
@@ -2716,7 +2716,7 @@ function aqDecor(c,t){const D=N.aq;
  if(D.algues==2)[[30,40,'#3fa06a'],[35,28,'#2f8a55'],[116,36,'#3fa06a'],[121,48,'#2f8a55']].forEach(([x,hh,col],k)=>{for(let y=0;y<hh;y++){const sx=Math.round(Math.sin(t*.04+y*.15+k)*(y/hh)*4);c.fillStyle=col;c.fillRect(x+sx,SAND+1-y,3,1);if(y%6==3){c.fillStyle='#6cc04a';c.fillRect(x+sx+(k%2?3:-2),SAND+1-y,2,2)}}});
  if(D.corail==2)aqSpr(c,'corail',86,SAND-22,0)}
 function openAqua(){if(!CUR||CUR.k!='poisson')return;aqOpen=true;document.getElementById('aqBox').classList.add('on');document.getElementById('aqName').textContent=CUR.n;show('aqua');aqUI();
- say('Touchez l’eau pour donner à manger à '+CUR.n+'.');AQ.msg=0}
+ say('Touche l’eau pour donner à manger à '+CUR.n+'.');AQ.msg=0}
 function closeAqua(){aqOpen=false;AQ.flakes=[];document.getElementById('aqBox').classList.remove('on');show('ani')}
 function aqUI(){const g=document.getElementById('aqG');if(!g)return;g.innerHTML='';AQD.forEach(d=>{const b=document.createElement('button');b.className='tile';const st=N.aq[d.k]||0;
   b.innerHTML=d.n+'<small>'+(st==2?'Retirer':st==1?'Remettre':(N.coins<d.p?'Encore '+(d.p-N.coins):'<span class="cn"></span>'+d.p))+'</small>';if(st==2)b.classList.add('on');b.disabled=!st&&N.coins<d.p;
@@ -2772,8 +2772,8 @@ const TS=[
 const TU={el:null,ring:null,s:-1,shown:-1,typed:0,full:'',t0:0,wt:0,av:null};
 function tuOn(){return !!(N.tuto&&!N.tuto.done&&N.created)}
 function tutoStart(){N.tuto={s:0,done:0};save();TU.shown=-1}
-function tuNext(){if(!tuOn())return;N.tuto.s++;if(N.tuto.s>=TS.length){N.tuto.done=1;tuHide();say('Didacticiel terminé ! Tu peux le revoir dans le Menu.')}save();TU.shown=-1}
-function tuSkip(){if(!N.tuto)N.tuto={};N.tuto.done=1;save();tuHide();say('Didacticiel passé. Tu peux le revoir à tout moment dans le Menu.')}
+function tuNext(){if(!tuOn())return;N.tuto.s++;if(N.tuto.s>=TS.length){N.tuto.done=1;tuHide();say('Didacticiel terminé, bravo ! Il reste disponible dans le Menu.')}save();TU.shown=-1}
+function tuSkip(){if(!N.tuto)N.tuto={};N.tuto.done=1;save();tuHide();say('Didacticiel passé. Il t’attend dans le Menu si besoin.')}
 function tuEvent(k){if(!tuOn())return;const st=TS[N.tuto.s];if(st&&st.wait==k)tuNext()}
 function tuBuild(){if(TU.el)return;const d=document.createElement('div');d.id='tuto';d.className='tuto';d.setAttribute('role','dialog');d.setAttribute('aria-live','polite');
  d.innerHTML='<canvas class="tu-av" width="40" height="40" aria-hidden="true"></canvas><div class="tu-c"><div class="tu-h"><b class="tu-t"></b><span class="tu-d"></span></div><p class="tu-x"></p><div class="tu-f"><button class="tu-skip">Passer le tutoriel</button><button class="tu-next"></button></div></div>';
@@ -2827,10 +2827,10 @@ function setPseudo(v){v=String(v||'').trim().replace(/\s+/g,' ').replace(/[<>{}]
 {const gp=document.getElementById('gPseudo');if(gp){const sync=()=>{gp.value=N.pseudo||''};sync();try{new MutationObserver(sync).observe(gmenu,{attributes:true,attributeFilter:['hidden']})}catch(e){}
  gp.addEventListener('click',e=>e.stopPropagation());gp.addEventListener('keydown',e=>{e.stopPropagation();if(e.key=='Enter')gp.blur()});
  gp.addEventListener('change',()=>{const old=N.pseudo||'';setPseudo(gp.value);gp.value=N.pseudo;if(N.pseudo===old)return;save();
-  if(N.pseudo){talkLast=-1e9;talk('Coucou '+N.pseudo+' ! Je retiens ton pseudo.')}else say('Pseudo effacé : Nori dira « le joueur ».')})}}
+  if(N.pseudo){talkLast=-1e9;talk('Coucou '+N.pseudo+' ! Je retiens ton pseudo, promis.')}else say('Pseudo effacé. Nori continuera de te parler, tout simplement.')})}}
 document.getElementById('gTuto').onclick=e=>{e.stopPropagation();gmenu.hidden=true;gcard.classList.remove('conf');show('home');tutoStart();say('C’est reparti pour le didacticiel !')};
 
-say('Touchez le sol pour guider Nori, ou touchez Nori pour lui parler.');
+say('Touche le sol pour guider Nori, ou touche Nori pour lui parler.');
 requestAnimationFrame(loop);
 </script><script>
 // Little Life en application : fonctionnement hors ligne, stockage durable, son
