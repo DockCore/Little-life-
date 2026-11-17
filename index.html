@@ -802,8 +802,13 @@ document.getElementById('shSeg').onclick=e=>{const b=e.target.closest('button[da
 // --- canapé : s'asseoir, se reposer, regarder la télé ---
 const sofaF=()=>N.furn.find(f=>f.n=='Canapé'),tvF=()=>N.furn.find(f=>f.n=='Télé');
 function sofaFront(f){const r=f.r||0;let t=r==1?[f.x+f.w+.95,f.y+f.h/2]:[f.x+f.w/2,f.y+f.h+.95];if(!walkable(t[0],t[1])){const p=out(t[0]*12,88+t[1]*5);t=[p[0]/12,(p[1]-88)/5]}return t}
+function goPouf(f){if(!f)return;if(C.st=='sleep'){say(NAME()+' dort.');return}if(C.st=='sofa'&&C.seat===f)return;if(C.st=='sofa')C.st='idle';if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();
+ const c=[[f.x+.5,f.y+1.6],[f.x+1.6,f.y+.5],[f.x-.6,f.y+.5],[f.x+.5,f.y-.6]],t=c.find(q=>walkable(q[0],q[1]))||c[0],tv=tvF();
+ // tourné vers la télé s'il y en a une, sinon vers l'avant de la pièce
+ let fl=true;if(tv){const sx=(tv.x+tv.w/2-f.x-.5)-(tv.y+tv.h/2-f.y-.5);fl=sx<0}
+ say(NAME()+' va s’asseoir sur le pouf.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.sfl=fl;C.t=0;say(tv?NAME()+' s’installe sur le pouf devant la télé.':NAME()+' se pose sur le pouf.');talkMaybe(tv?'tele':'canape',.5)})}
 function goSofa(){const f=sofaF();if(!f)return;if(C.st=='sleep'){say('Nori dort.');return}if(C.st=='sofa')return;if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();
- const t=sofaFront(f);say('Nori va s’asseoir sur le canapé.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.t=0;say(tvF()?'Nori s’installe devant la télé.':'Nori se repose sur le canapé.');talkMaybe(tvF()?'tele':'canape',.5)})}
+ const t=sofaFront(f);say('Nori va s’asseoir sur le canapé.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.t=0;say(tvF()?'Nori s’installe devant la télé.':'Nori se repose sur le canapé.');talkMaybe(tvF()?'tele':'canape',.5)})}
 function sofaTick(){add('energy',.006);add('happy',tvF()?.004:.0015);if(C.t%900==450)talkMaybe(tvF()?'tele':'canape',.3);if(tick%20==0)bars()}
 // ===== SORTIR : la porte de l'appartement, l'open space, le magasin d'aménagement =====
 let place='home',doorA=0,doorT=0,tripOn=false,AWAY=false;
@@ -1593,7 +1598,7 @@ function spUpdate(){
  const stg=creating||dressing,sl=C.st=='sleep'&&!stg,dn=C.st=='dine'&&!stg;let name,fl=fa<0;
  if(creating){const a=((sy%6.2832)+6.2832)%6.2832,v=VSEQ[Math.floor(a/6.2832*6+.5)%6];name=v[0];fl=!!v[1]}
  else if(dressing){name='v_front';fl=false}
- else if(sl){const bf=N.furn.find(f=>f.n=='Lit'),br=bf?(bf.r||0):0;name='si'+(br==2?0:br)+'_'+[0,1,2,1][Math.floor(C.t/25)%4]}else if(dn){const ph=dph();name=dnFrame(ph);if(!SPR[name])name=ph=='reach'?'r1':ph=='eat'||ph=='drink'?'r0':'w1'}else if(seated()&&!stg){const d=deskF(),s=d?deskSeat(d):{back:1};name=s.back?(C.st=='work'&&C.t%26<13?'dk1':'dk0'):(C.st=='work'&&C.t%26<13?'wc1':'wc0')}else if(C.st=='sofa'&&!stg)name=C.t%240<200?'wc0':'wc1';else if(C.st=='wc'){name='tl'+(Math.floor(Math.max(0,220-C.wt)/TLT)%8);fl=false}else if(C.st=='scoot'){const q=C.t%52;name=q<24?'sc0':q<32?'sc1':q<44?'sc2':'sc1'}else if(C.st=='juggle'){name=C.t%44<11?'r0':'w1';fl=Math.floor(C.t/176)%2==1}else if(C.st=='dance'){const d=DANCE[Math.floor(danceBeat())%DANCE.length];name=d[0];fl=!!d[1]}
+ else if(sl){const bf=N.furn.find(f=>f.n=='Lit'),br=bf?(bf.r||0):0;name='si'+(br==2?0:br)+'_'+[0,1,2,1][Math.floor(C.t/25)%4]}else if(dn){const ph=dph();name=dnFrame(ph);if(!SPR[name])name=ph=='reach'?'r1':ph=='eat'||ph=='drink'?'r0':'w1'}else if(seated()&&!stg){const d=deskF(),s=d?deskSeat(d):{back:1};name=s.back?(C.st=='work'&&C.t%26<13?'dk1':'dk0'):(C.st=='work'&&C.t%26<13?'wc1':'wc0')}else if(C.st=='sofa'&&!stg)name=C.t%300<250?'dn0':'dn7';else if(C.st=='wc'){name='tl'+(Math.floor(Math.max(0,220-C.wt)/TLT)%8);fl=false}else if(C.st=='scoot'){const q=C.t%52;name=q<24?'sc0':q<32?'sc1':q<44?'sc2':'sc1'}else if(C.st=='juggle'){name=C.t%44<11?'r0':'w1';fl=Math.floor(C.t/176)%2==1}else if(C.st=='dance'){const d=DANCE[Math.floor(danceBeat())%DANCE.length];name=d[0];fl=!!d[1]}
  else if(C.st=='gym'){name=C.gk=='run'?'r'+(Math.floor(C.t/5)%4):C.gk=='bike'?(N.look.g=='f'?'bk'+(Math.floor(C.t/5)%6):'bk'+(Math.floor(C.t/6)%8)):'cu'+[0,0,1,2,3,3,3,2,1,0][Math.floor(C.t/7)%10];fl=false}else if(C.st=='cafe')name=C.ct%90<55?'drink':'idle';
  else if(C.st=='walk'||C.st=='leave'||C.st=='enter'||C.st=='trip'){const m=wkDir();if(m.stop)name='idle';else if(m.d!='s'&&N.look.g!='f'&&SPR.wf0&&SPR.wb0){name=(m.d=='f'?'wf':'wb')+(Math.floor(C.t/WKT)%8);fl=false}else name='w'+(Math.floor(C.t/7)%4)}else if(C.st=='coffee')name=C.ct%70<40?'drink':'idle';else if(C.st=='eat')name='drink';else if(C.st=='joy')name=Math.floor(C.t/12)%2?'wave':'idle';else if(C.st=='shower'){name='dc'+(Math.floor(Math.max(0,DCT-C.sw)/15)%12);fl=false}else name='idle';
  spName=name;const LB=TRY&&place=='clothes'?TRY:N.look,LL=(C.st=='shower'||C.st=='wc')&&!stg?Object.assign({},LB,{nu:1}):LB,k=name+JSON.stringify(LL);if(k!==spKey&&drawFrame(name,LL))spKey=k;
@@ -1841,7 +1846,7 @@ function fcDraw(key,f,fn,zTop){const k=key+'|'+OX+','+OY+','+TW+','+RN;let e=FCA
 const FC_PLD=['Imprimante','Caisse','Frigo','Rayon','Portant','Mannequin','Étal','Cabine','Miroir','RayonA','Fruits','Congel','RayonP'];
 function fcKey(f,sl,dn){const n=f.n;let ok=false,x='';
  if(n=='Lit')ok=!sl;else if(n=='Table')ok=!dn;else if(n=='Plante')ok=true;else if(PLD[n])ok=FC_PLD.includes(n);
- else if(n=='Pouf'||n=='Bibliothèque')ok=true;else if(n=='Lampe'){ok=true;x=night>.25?'on':'off'}
+ else if(n=='Pouf')ok=!(C.st=='sofa'&&C.seat===f);else if(n=='Bibliothèque')ok=true;else if(n=='Lampe'){ok=true;x=night>.25?'on':'off'}
  return ok?n+x+'|'+place+'|'+JSON.stringify(f):null}
 let FRC=null,FRK='';function frontRims(W){W=W||WALLC[RM().w][1];const k=W+'|'+OX+','+OY+','+TW+','+RN+','+LW+','+LH;if(k!==FRK){if(!FRC)FRC=document.createElement('canvas');FRC.width=LW;FRC.height=LH;const cx=FRC.getContext('2d');cx.imageSmoothingEnabled=false;const g0=G;G=cx;try{frontRims0(W)}finally{G=g0}FRK=k}G.drawImage(FRC,0,0)}
 function frontRims0(W){B3(RN,-.32,.32,RN+.64,0,7,mx(W,'#fff',.07),{t:mx(W,'#fff',.22)});B3(-.32,RN,RN+.32,.32,0,7,W,{t:mx(W,'#fff',.27)})}
@@ -1890,18 +1895,22 @@ function isoLamp(f,ic){const cu=f.x+.5,cv=f.y+.5;if(!ic)fshadow(f);B3(cu-.28,cv-
  G.fillStyle=on?'#fff8dc':'#c47b3a';G.fillRect(X-8,Y,16,1);G.fillStyle='#3b2a24';G.fillRect(X-7,Y+1,14,1)}
 function isoPouf(f,ic){const p=P3(f.x+.5,f.y+.5,0),x=p[0],y=p[1];if(!ic)fshadow(f);const B='#d0623f';
  const e=(cx,cy,rw,rh,c)=>{G.fillStyle=c;for(let j=-rh;j<=rh;j++){const w=Math.round(rw*Math.sqrt(1-(j*j)/(rh*rh+.01)));G.fillRect(Math.round(cx-w),Math.round(cy+j),w*2,1)}};
- e(x,y-6,12,7,'#20141c');e(x,y-7,11,6,mx(B,'#000',.18));e(x-1,y-10,10,6,B);e(x-3,y-12,6,3,mx(B,'#fff',.25));G.fillStyle=mx(B,'#000',.3);G.fillRect(Math.round(x)-1,Math.round(y)-10,3,1)}
+ e(x,y-6,12,7,'#20141c');e(x,y-7,11,6,mx(B,'#000',.18));e(x-1,y-10,10,6,B);e(x-3,y-12,6,3,mx(B,'#fff',.25));G.fillStyle=mx(B,'#000',.3);G.fillRect(Math.round(x)-1,Math.round(y)-10,3,1);
+ if(!ic&&C.st=='sofa'&&C.seat===f)sofaSit(f.x+.5,f.y+.5,11,C.sfl)}
 function isoBook(f,ic){const{x,y,w,h}=f,r=f.r||0,HT=44,WD='#6b3e30',IN='#3a2420',BK=['#c8553d','#3f8fd0','#F5C84C','#5f8f6b','#d98aa8','#8a6ab0','#e07a3a'];if(!ic)fshadow(f);
  B3(x,y,w,h,0,HT,WD,{t:'#8a5640',l:WD,r:mx(WD,'#000',.25)});
  if(r==0){poly([P3(x+.1,y+h,HT-3),P3(x+w-.1,y+h,HT-3),P3(x+w-.1,y+h,3),P3(x+.1,y+h,3)],IN);
   for(let s=0;s<4;s++){const z0=4+s*10;poly([P3(x+.1,y+h,z0),P3(x+w-.1,y+h,z0),P3(x+w-.1,y+h,z0-1.5),P3(x+.1,y+h,z0-1.5)],WD);let u=x+.14;let k=s*3;while(u<x+w-.2){const bw=.12+((k*7)%3)*.03,bh=6+((k*5)%4);poly([P3(u,y+h,z0+bh),P3(u+bw,y+h,z0+bh),P3(u+bw,y+h,z0),P3(u,y+h,z0)],BK[k%BK.length]);u+=bw+.02;k++;if((k+s)%5==0)u+=.12}}}
  else{poly([P3(x+w,y+.1,HT-3),P3(x+w,y+h-.1,HT-3),P3(x+w,y+h-.1,3),P3(x+w,y+.1,3)],IN);
   for(let s=0;s<4;s++){const z0=4+s*10;poly([P3(x+w,y+.1,z0),P3(x+w,y+h-.1,z0),P3(x+w,y+h-.1,z0-1.5),P3(x+w,y+.1,z0-1.5)],WD);let v=y+.14;let k=s*3;while(v<y+h-.2){const bw=.12+((k*7)%3)*.03,bh=6+((k*5)%4);poly([P3(x+w,v,z0+bh),P3(x+w,v+bw,z0+bh),P3(x+w,v+bw,z0),P3(x+w,v,z0)],mx(BK[k%BK.length],'#000',.12));v+=bw+.02;k++;if((k+s)%5==0)v+=.12}}}}
+// assis sur un canapé ou un pouf : point d'appui = l'assise, tourné vers l'avant du siège
+function sofaSit(u,v,z,fl){if(!/^dn\d/.test(spName)){seatedChar({u,v,fl});return}const p=P3(u,v,z),X=Math.round(p[0]),Y=Math.round(p[1]),AX=29,AY=100;
+ G.save();if(fl){G.translate(X,0);G.scale(-1,1);G.drawImage(sc2,-AX,Y-AY)}else G.drawImage(sc2,X-AX,Y-AY);G.restore();mouthL.x=X+(fl?-14:14);mouthL.y=Y-25;HEAD=[X+(fl?-12:12),Y-49]}
 function isoSofa(f,ic,sit){const{x,y,w,h}=f,r=f.r||0,B='#3f6fb0',Bt='#5a8ad0',Bd='#2a4f86';if(!ic)fshadow(f);
  if(r==0){B3(x,y,w,h,2,8,Bd,{t:B});B3(x,y,w,.32,2,22,B,{t:Bt,l:B});for(let i=0;i<3;i++)B3(x+.14+i*(w-.28)/3+.02,y+.32,(w-.28)/3-.04,h-.4,10,3,B,{t:Bt});
-  B3(x,y,.18,h,2,15,B,{t:Bt});if(sit)seatedChar({u:x+w/2,v:y+h-.05,fl:false});B3(x+w-.18,y,.18,h,2,15,B,{t:Bt});for(const a of[x+.1,x+w-.18])B3(a,y+h-.16,.08,.08,0,2,'#2a1a16',{flat:1})}
+  B3(x,y,.18,h,2,15,B,{t:Bt});if(sit)sofaSit(x+w/2,y+.62,13,true);B3(x+w-.18,y,.18,h,2,15,B,{t:Bt});for(const a of[x+.1,x+w-.18])B3(a,y+h-.16,.08,.08,0,2,'#2a1a16',{flat:1})}
  else{B3(x,y,w,h,2,8,Bd,{t:B,r:Bd});B3(x,y,.32,h,2,22,B,{t:Bt,r:mx(B,'#000',.2)});for(let i=0;i<3;i++)B3(x+.32,y+.14+i*(h-.28)/3+.02,w-.4,(h-.28)/3-.04,10,3,B,{t:Bt,r:mx(B,'#000',.2)});
-  B3(x,y,w,.18,2,15,B,{t:Bt});if(sit)seatedChar({u:x+w-.05,v:y+h/2,fl:true});B3(x,y+h-.18,w,.18,2,15,B,{t:Bt,r:mx(B,'#000',.2)})}}
+  B3(x,y,w,.18,2,15,B,{t:Bt});if(sit)sofaSit(x+.62,y+h/2,13,false);B3(x,y+h-.18,w,.18,2,15,B,{t:Bt,r:mx(B,'#000',.2)})}}
 function isoTV(f,ic){const{x,y,w,h}=f,r=f.r||0,on=(C.st=='sofa'||f.disp)&&!ic,WD='#5a4034';if(!ic)fshadow(f);B3(x+.05,y+.1,w-.1,h-.2,0,12,WD,{t:'#7a5644'});
  const scr=(t)=>{if(!on)return'#1e2638';const k=Math.floor(C.t/40+t)%4;return['#3f8fd0','#6cc04a','#e07a3a','#d98aa8'][k]};
  if(r==0){B3(x+w/2-.15,y+.35,.3,.2,12,3,'#172033',{flat:1});B3(x+.15,y+.38,w-.3,.12,15,22,'#172033',{l:'#172033'});poly([P3(x+.25,y+.5,35),P3(x+w-.25,y+.5,35),P3(x+w-.25,y+.5,17),P3(x+.25,y+.5,17)],scr(0));
@@ -1918,7 +1927,7 @@ function isoAqua(f,ic){const{x,y,w,h}=f,r=f.r||0,WD='#3a2a24';if(!ic)fshadow(f);
  // plante d'eau + bord
  const pl=r==0?P3(ax+.2,ay+ah,17):P3(ax+aw,ay+.2,17);G.fillStyle='#4a9a5a';G.fillRect(Math.round(pl[0]),Math.round(pl[1])-8,2,8);G.fillRect(Math.round(pl[0])+2,Math.round(pl[1])-5,2,5);
  B3(ax-.02,ay-.02,aw+.04,ah+.04,z1-4,2,'#26304a',{t:'#3a4a66'})}
-function drawItem(f,ic){const n=f.n;if(n=='Lampe')isoLamp(f,ic);else if(n=='Pouf')isoPouf(f,ic);else if(n=='Bibliothèque')isoBook(f,ic);else if(n=='Canapé')isoSofa(f,ic,!ic&&C.st=='sofa');else if(n=='Télé')isoTV(f,ic);else if(n=='Aquarium')isoAqua(f,ic)}
+function drawItem(f,ic){const n=f.n;if(n=='Lampe')isoLamp(f,ic);else if(n=='Pouf')isoPouf(f,ic);else if(n=='Bibliothèque')isoBook(f,ic);else if(n=='Canapé')isoSofa(f,ic,!ic&&C.st=='sofa'&&(C.seat?C.seat===f:f===sofaF()));else if(n=='Télé')isoTV(f,ic);else if(n=='Aquarium')isoAqua(f,ic)}
 function isoTable(f,dine){const{x,y,w,h}=f,r=f.r||0,TB='#b8794f',WD='#694c4c',HT=24,SZ=14;fshadow(f);
  let tb,ch,cu,cv;if(r==1){tb=[x+.8,y+.1,w-.85,h-.2];ch=[x+.08,y+h/2-.4,.7,.8];cu=x+.45;cv=y+h/2}else{tb=[x+.1,y+.8,w-.2,h-.85];ch=[x+w/2-.4,y+.08,.8,.7];cu=x+w/2;cv=y+.45}
  // chaise (derrière la table)
@@ -2011,7 +2020,7 @@ function drawWorld(){
  const box=L.filter(f=>f.n!='Tapis').concat(place=='home'&&!draft?aniBoxes():[]).sort((a,b)=>(a.x+a.w+a.y+a.h)-(b.x+b.w+b.y+b.h)),draw=f=>{if(f.n=='__ani'){aniBoxDraw(f);return}if(f.n=='__cw'){cwWalkDraw(f.i);return}const fk=draft?null:fcKey(f,sl,dn);if(fk){fcDraw(fk,f,()=>drawRaw(f),150);if(f.disp)priceTag(f);return}drawRaw(f);if(f.disp)priceTag(f)},drawRaw=f=>{if(f.n=='Lit')isoBed(f,sl);else if(f.n=='Bureau')isoDesk(f);else if(f.n=='Table')isoTable(f,dn);else if(f.n=='Plante')isoPlant(f);else if(f.n=='Douche')isoShower(f,C.st=='shower');else if(f.n=='WC')isoWC(f,C.st=='wc');else if(PLD[f.n])PLD[f.n](f);else drawItem(f,false)};
  if(place=='office')CWS.forEach((c,i)=>{if(c.st!='walk'&&c.st!='pause')return;let k=box.findIndex(f=>f.n!='__cw'&&c.u<f.x+f.w&&c.v<f.y+f.h);if(k<0)k=box.length;box.splice(k,0,{n:'__cw',i,x:c.u-.25,y:c.v-.25,w:.5,h:.5})});
  const occ=f=>f!==C.gf&&cu<f.x+f.w&&cv<f.y+f.h,px=IX(cu,cv),py=IY(cu,cv);
- const showC=C.st!='trip'&&!sl&&!dn&&C.st!='shower'&&C.st!='wc'&&!(seated()&&!draft&&deskF())&&!(C.st=='sofa'&&sofaF());stinkAt=null;HEAD=null;box.filter(f=>!showC||!occ(f)).forEach(draw);
+ const showC=C.st!='trip'&&!sl&&!dn&&C.st!='shower'&&C.st!='wc'&&!(seated()&&!draft&&deskF())&&!(C.st=='sofa'&&(C.seat||sofaF()));stinkAt=null;HEAD=null;box.filter(f=>!showC||!occ(f)).forEach(draw);
  if(showC){const hop=C.hop*2;gshadow(px,py,24);if(C.st=='scoot')rider(px,py,SP.fl);else{rx.globalAlpha=C.alpha==null?1:C.alpha;if(!petDraw2(px,py))charDraw(sc2,px,py-hop,SP.fl,CW,CH);rx.globalAlpha=1}if(C.st=='juggle')ball(px,py);mouthL.x=px+(SP.fl?-1:1)*4.5;mouthL.y=py-hop-MYB;HEAD=[px,py-hop-84];if(C.st=='petdog'&&PT.H){HEAD=PT.H;mouthL.x=PT.H[0];mouthL.y=PT.H[1]+16}if(dirty())stinkAt=[px,py-hop];box.filter(occ).forEach(draw)}
  if(place=='home'&&!draft)pqFlyDraw();
  frontRims(place=='home'?WALLC[RM().w][1]:PLACES[place].wall);
@@ -2058,7 +2067,7 @@ rd.domElement.addEventListener('pointerdown',e=>{
  {const mi=L.find(f=>f.n=='Miroir');if(mi&&!draft&&!feedMode&&C.st!='sleep'&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=mi.x-.1&&a<=mi.x+mi.w+.1&&b>=mi.y-.1&&b<=mi.y+mi.h+.1})){say('Miroir, joli miroir…');show('dress');return}}
  const dk=L.find(f=>f.n=='Bureau'),onDesk=dk&&[0,8,16,24,32].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=dk.x-.1&&a<=dk.x+dk.w+.1&&b>=dk.y-.1&&b<=dk.y+dk.h+.1});
  if(onDesk&&!feedMode&&!draft&&curV!='dress'){goDesk();return}
- {{const wc=L.find(f=>f.n=='WC');if(wc&&!draft&&C.st!='sleep'&&[0,8,16,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=wc.x&&a<=wc.x+wc.w&&b>=wc.y&&b<=wc.y+wc.h})){goWC();return}}const so=L.find(f=>f.n=='Canapé');if(so&&!draft&&C.st!='sleep'&&C.st!='sofa'&&[0,8,16].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=so.x&&a<=so.x+so.w&&b>=so.y&&b<=so.y+so.h})){goSofa();return}const sh=L.find(f=>f.n=='Douche');if(sh&&!draft&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=sh.x&&a<=sh.x+sh.w&&b>=sh.y&&b<=sh.y+sh.h})&&C.st!='sleep'){wash();return}}
+ {{const wc=L.find(f=>f.n=='WC');if(wc&&!draft&&C.st!='sleep'&&[0,8,16,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=wc.x&&a<=wc.x+wc.w&&b>=wc.y&&b<=wc.y+wc.h})){goWC();return}}const pf=L.find(f=>f.n=='Pouf'&&[0,6,12].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=f.x&&a<=f.x+f.w&&b>=f.y&&b<=f.y+f.h}));if(pf&&!draft&&C.st!='sleep'&&place=='home'){goPouf(pf);return}const so=L.find(f=>f.n=='Canapé');if(so&&!draft&&C.st!='sleep'&&C.st!='sofa'&&[0,8,16].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=so.x&&a<=so.x+so.w&&b>=so.y&&b<=so.y+so.h})){goSofa();return}const sh=L.find(f=>f.n=='Douche');if(sh&&!draft&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=sh.x&&a<=sh.x+sh.w&&b>=sh.y&&b<=sh.y+sh.h})&&C.st!='sleep'){wash();return}}
  if(onBed&&!feedMode){toggleSleep();return}
  if(feedMode||C.st=='sleep'||C.st=='eat'||C.st=='dine'||C.st=='shower'||C.st=='wc'||PLAYS.includes(C.st)||tu<0||tv<0||tu>RN||tv>RN)return;
  if(seated()){if(curV=='desk'||curV=='work'||curV=='shop')show('home');if(seated())leaveDesk()}if(C.st=='sofa')C.st='idle';goto(tu*12,88+tv*5);say('Il se déplace.');tuEvent('move');talkMaybe('marche',.12);
