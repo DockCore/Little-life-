@@ -1,0 +1,11 @@
+const {chromium}=require('/home/claude/.npm-global/lib/node_modules/playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
+const ctx=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true,isMobile:true});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file:///home/claude/little-life-/index.html');await p.waitForTimeout(1800);
+await p.evaluate(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}document.getElementById('crOk2').click()});await p.waitForTimeout(1500);
+await p.evaluate(()=>{tod=0;N.coins=900;show('shop')});await p.waitForTimeout(400);await p.screenshot({path:'shop.png'});
+await p.evaluate(()=>{buy(SHOP.findIndex(s=>s.n=='Canapé cosy'));show('deco');const i=draft.findIndex(czIs);sel=i;planDraw()});await p.waitForTimeout(400);await p.screenshot({path:'deco1.png'});
+await p.tap('#czBar [data-c="col"]');await p.waitForTimeout(200);await p.tap('#czOpt [data-i="3"]');await p.waitForTimeout(300);await p.screenshot({path:'deco2.png'});
+await p.tap('#czBar [data-c="cus"]');await p.waitForTimeout(200);await p.tap('#czOpt [data-k="ck"][data-i="2"]');await p.tap('#czOpt [data-k="pk"][data-i="2"]');await p.waitForTimeout(300);await p.screenshot({path:'deco3.png'});
+console.log(await p.evaluate(()=>{const f=N.furn.find(czIs);return [f.k,f.ck,f.pk,JSON.parse(localStorage.getItem(saveSlot?KEYB:KEY)).N.furn.find(czIs).k]}));
+console.log(errs);await b.close()})();

@@ -1,0 +1,10 @@
+const {chromium}=require('/home/claude/.npm-global/lib/node_modules/playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});const p=await b.newPage();
+await p.goto('file:///home/claude/little-life-/index.html');await p.waitForTimeout(2500);
+const d=await p.evaluate(()=>{const c=document.createElement('canvas');c.width=80*4;c.height=128;const x=c.getContext('2d');x.fillStyle='#d9c2a0';x.fillRect(0,0,c.width,c.height);
+ const L0=Object.assign({},N.look,{g:'f',wd:{cheveux:'nat|0'}});drawFrame('wc0',L0);x.drawImage(sc2,0,0);
+ const L=Object.assign({},N.look,{g:'f',wd:{cheveux:'nat|0'}});['crop|7','shortj|1','basket|6'].forEach(s=>{const[a,b]=s.split('|');wEquip(L,a,+b)});drawFrame('wc0',L);x.drawImage(sc2,80,0);
+ const L2=Object.assign({},N.look,{g:'f',wd:{cheveux:'nat|0'}});['crop|7'].forEach(s=>{const[a,b]=s.split('|');wEquip(L2,a,+b)});drawFrame('wc0',L2);x.drawImage(sc2,160,0);
+ const L3=Object.assign({},N.look,{g:'f',wd:{cheveux:'nat|0'}});['shortj|1'].forEach(s=>{const[a,b]=s.split('|');wEquip(L3,a,+b)});drawFrame('wc0',L3);x.drawImage(sc2,240,0);
+ return c.toDataURL()});
+require('fs').writeFileSync('m.png',Buffer.from(d.split(',')[1],'base64'));await b.close()})();

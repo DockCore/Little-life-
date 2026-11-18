@@ -1,0 +1,6 @@
+# fichiers produits par les outils : régénérables, jamais publiés
+sorties/calques/
+sorties/apercus/
+sorties/tests/
+sorties/ancien.html
+__pycache__/
