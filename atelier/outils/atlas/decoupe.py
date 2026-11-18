@@ -92,12 +92,13 @@ def decouper(k,p=None):
     if S.get('haut_torse'):
         armsk=op&(z==1)&np.isin(lab,(7,8,9))
         near=np.zeros_like(op);m=armsk.copy()
-        for it in range(2):
+        for it in range(S.get('manche',2)):
             g=m.copy()
             for dy,dx in((0,1),(0,-1),(1,0),(-1,0)):g|=np.roll(np.roll(m,dy,0),dx,1)
             m=g
         sh=op&(z==3)&np.isin(lab,(7,8,9))&~m
         lab[sh]=4;side[sh]=0
+        sl_=op&(z==3)&np.isin(lab,(8,9))&m;lab[sl_]=7
         from scipy.ndimage import label as _l
         ky=min([p[n][1] for n in('genou_g','genou_d') if p.get(n)] or [H])
         wh=(a[...,0]>185)&(a[...,1]>185)&(a[...,2]>185)&(np.arange(H)[:,None]>ky)

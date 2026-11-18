@@ -3546,13 +3546,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 2,
-  "alertes": [
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "dn1": {
   "famille": "assis-table",
@@ -3659,14 +3658,14 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "hanches : 81 px contre 24 px sur dn0 (écart anormal)",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 40,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "hanches : 81 px contre 24 px sur dn0 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "dn2": {
   "famille": "assis-table",
@@ -3757,15 +3756,15 @@
    "bras_g"
   ],
   "surfaces": {
-   "tête": 596,
-   "cou": 24,
+   "tête": 591,
+   "cou": 17,
    "épaules": 27,
    "poitrine": 139,
    "ventre": 187,
    "hanches": 33,
-   "bras": 78,
-   "avant-bras": 24,
-   "mains": 62,
+   "bras": 41,
+   "avant-bras": 60,
+   "mains": 75,
    "cuisses": 213,
    "mollets": 202,
    "pieds": 136,
@@ -3773,17 +3772,18 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "hanches : 33 px contre 81 px sur dn1 (écart anormal)",
-   "avant-bras : 24 px contre 48 px sur dn1 (écart anormal)",
-   "repère poignet_d : saut de 11 px depuis dn1",
-   "repère main_d : saut de 16 px depuis dn1",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
-  "tete_%": 40,
-  "etat": "NON CONFORME"
+  "tete_%": 38,
+  "changements_de_pose_verifies": [
+   "cou : 17 px contre 42 px sur dn1 (écart anormal)",
+   "hanches : 33 px contre 81 px sur dn1 (écart anormal)",
+   "mains : 75 px contre 39 px sur dn1 (écart anormal)",
+   "repère poignet_d : saut de 11 px depuis dn1",
+   "repère main_d : saut de 16 px depuis dn1"
+  ],
+  "etat": "CONFORME"
  },
  "dn3": {
   "famille": "assis-table",
@@ -3875,14 +3875,14 @@
   ],
   "surfaces": {
    "tête": 596,
-   "cou": 31,
+   "cou": 18,
    "épaules": 25,
    "poitrine": 140,
    "ventre": 199,
    "hanches": 28,
-   "bras": 69,
-   "avant-bras": 29,
-   "mains": 52,
+   "bras": 36,
+   "avant-bras": 61,
+   "mains": 66,
    "cuisses": 216,
    "mollets": 194,
    "pieds": 144,
@@ -3890,14 +3890,14 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 5,
-  "alertes": [
-   "objet / non étiqueté : 114 px contre 0 px sur dn2 (écart anormal)",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "objet / non étiqueté : 114 px contre 0 px sur dn2 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "dn4": {
   "famille": "assis-table",
@@ -3989,14 +3989,14 @@
   ],
   "surfaces": {
    "tête": 608,
-   "cou": 52,
+   "cou": 37,
    "épaules": 19,
    "poitrine": 130,
    "ventre": 200,
    "hanches": 30,
-   "bras": 57,
-   "avant-bras": 32,
-   "mains": 48,
+   "bras": 29,
+   "avant-bras": 57,
+   "mains": 66,
    "cuisses": 226,
    "mollets": 199,
    "pieds": 141,
@@ -4004,14 +4004,15 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 3,
-  "alertes": [
-   "objet / non étiqueté : 0 px contre 114 px sur dn3 (écart anormal)",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "cou : 37 px contre 18 px sur dn3 (écart anormal)",
+   "objet / non étiqueté : 0 px contre 114 px sur dn3 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "dn5": {
   "famille": "assis-table",
@@ -4118,17 +4119,17 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "cou : 24 px contre 52 px sur dn4 (écart anormal)",
-   "hanches : 57 px contre 30 px sur dn4 (écart anormal)",
-   "repère poignet_d : saut de 11 px depuis dn4",
-   "repère main_d : saut de 16 px depuis dn4",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "hanches : 57 px contre 30 px sur dn4 (écart anormal)",
+   "bras : 62 px contre 29 px sur dn4 (écart anormal)",
+   "repère poignet_d : saut de 11 px depuis dn4",
+   "repère main_d : saut de 16 px depuis dn4"
+  ],
+  "etat": "CONFORME"
  },
  "dn6": {
   "famille": "assis-table",
@@ -4235,16 +4236,16 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 2,
-  "alertes": [
-   "objet / non étiqueté : 79 px contre 0 px sur dn5 (écart anormal)",
-   "repère poignet_d : saut de 13 px depuis dn5",
-   "repère main_d : saut de 17 px depuis dn5",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "objet / non étiqueté : 79 px contre 0 px sur dn5 (écart anormal)",
+   "repère poignet_d : saut de 13 px depuis dn5",
+   "repère main_d : saut de 17 px depuis dn5"
+  ],
+  "etat": "CONFORME"
  },
  "dn7": {
   "famille": "assis-table",
@@ -4341,28 +4342,26 @@
    "poitrine": 132,
    "ventre": 91,
    "hanches": 123,
-   "bras": 117,
-   "avant-bras": 60,
-   "mains": 23,
-   "cuisses": 151,
+   "bras": 85,
+   "avant-bras": 47,
+   "mains": 75,
+   "cuisses": 144,
    "mollets": 193,
    "pieds": 147,
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 2,
-  "alertes": [
-   "bras : 117 px contre 57 px sur dn6 (écart anormal)",
-   "mains : 23 px contre 49 px sur dn6 (écart anormal)",
-   "objet / non étiqueté : 0 px contre 79 px sur dn6 (écart anormal)",
-   "repère poignet_d : saut de 14 px depuis dn6",
-   "repère main_d : saut de 23 px depuis dn6",
-   "contrôle visuel : le dessin ne sépare pas le bras du torse : limite bras/torse estimée, pas lue sur le sprite ; hanches presque entièrement cachées par les cuisses"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine sans contour entre le bras et le torse : limite du bras estimée d’après les ombres ; bras éloigné caché",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "objet / non étiqueté : 0 px contre 79 px sur dn6 (écart anormal)",
+   "repère poignet_d : saut de 14 px depuis dn6",
+   "repère main_d : saut de 23 px depuis dn6"
+  ],
+  "etat": "CONFORME"
  },
  "wc0": {
   "famille": "face",
@@ -5427,13 +5426,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "bk1": {
   "famille": "profil",
@@ -5540,13 +5538,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "bk2": {
   "famille": "profil",
@@ -5654,14 +5651,14 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "repère genou_d : saut de 10 px depuis bk1",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 45,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "repère genou_d : saut de 10 px depuis bk1"
+  ],
+  "etat": "CONFORME"
  },
  "bk3": {
   "famille": "profil",
@@ -5768,14 +5765,14 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "pieds : 92 px contre 42 px sur bk2 (écart anormal)",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 41,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "pieds : 92 px contre 42 px sur bk2 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "bk4": {
   "famille": "profil",
@@ -5882,13 +5879,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 2,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 41,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "bk5": {
   "famille": "profil",
@@ -5995,16 +5991,16 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "repère cheville_d : saut de 9 px depuis bk4",
-   "repère orteils_d : saut de 11 px depuis bk4",
-   "repère orteils_g : saut de 11 px depuis bk4",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "repère cheville_d : saut de 9 px depuis bk4",
+   "repère orteils_d : saut de 11 px depuis bk4",
+   "repère orteils_g : saut de 11 px depuis bk4"
+  ],
+  "etat": "CONFORME"
  },
  "bk6": {
   "famille": "profil",
@@ -6111,13 +6107,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "bk7": {
   "famille": "profil",
@@ -6224,13 +6219,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "v_front": {
   "famille": "face",
@@ -8189,22 +8183,21 @@
    "ventre": 73,
    "hanches": 115,
    "bras": 53,
-   "avant-bras": 45,
-   "mains": 33,
-   "cuisses": 87,
+   "avant-bras": 18,
+   "mains": 66,
+   "cuisses": 81,
    "mollets": 216,
    "pieds": 169,
    "objet / non étiqueté": 4,
    "cheveux sous la mâchoire": 58
   },
   "ilots_fusionnes": 6,
-  "alertes": [
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 45,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_dn1": {
   "famille": "assis-table",
@@ -8302,23 +8295,21 @@
    "ventre": 63,
    "hanches": 103,
    "bras": 42,
-   "avant-bras": 65,
-   "mains": 13,
-   "cuisses": 91,
+   "avant-bras": 19,
+   "mains": 73,
+   "cuisses": 77,
    "mollets": 208,
    "pieds": 146,
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 40
   },
   "ilots_fusionnes": 6,
-  "alertes": [
-   "mains : 13 px contre 33 px sur F_dn0 (écart anormal)",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_dn2": {
   "famille": "assis-table",
@@ -8425,17 +8416,15 @@
    "cheveux sous la mâchoire": 28
   },
   "ilots_fusionnes": 6,
-  "alertes": [
-   "avant-bras : 20 px contre 65 px sur F_dn1 (écart anormal)",
-   "mains : 65 px contre 13 px sur F_dn1 (écart anormal)",
-   "repère poignet_d : saut de 11 px depuis F_dn1",
-   "repère main_d : saut de 17 px depuis F_dn1",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 45,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "repère poignet_d : saut de 11 px depuis F_dn1",
+   "repère main_d : saut de 17 px depuis F_dn1"
+  ],
+  "etat": "CONFORME"
  },
  "F_dn3": {
   "famille": "assis-table",
@@ -8542,15 +8531,15 @@
    "cheveux sous la mâchoire": 55
   },
   "ilots_fusionnes": 3,
-  "alertes": [
-   "objet / non étiqueté : 125 px contre 0 px sur F_dn2 (écart anormal)",
-   "cheveux sous la mâchoire : 55 px contre 28 px sur F_dn2 (écart anormal)",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "objet / non étiqueté : 125 px contre 0 px sur F_dn2 (écart anormal)",
+   "cheveux sous la mâchoire : 55 px contre 28 px sur F_dn2 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "F_dn4": {
   "famille": "assis-table",
@@ -8657,14 +8646,14 @@
    "cheveux sous la mâchoire": 43
   },
   "ilots_fusionnes": 2,
-  "alertes": [
-   "objet / non étiqueté : 0 px contre 125 px sur F_dn3 (écart anormal)",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 45,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "objet / non étiqueté : 0 px contre 125 px sur F_dn3 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "F_dn5": {
   "famille": "assis-table",
@@ -8762,26 +8751,25 @@
    "ventre": 61,
    "hanches": 108,
    "bras": 47,
-   "avant-bras": 72,
-   "mains": 16,
-   "cuisses": 91,
+   "avant-bras": 28,
+   "mains": 76,
+   "cuisses": 75,
    "mollets": 216,
    "pieds": 151,
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 46
   },
   "ilots_fusionnes": 5,
-  "alertes": [
-   "avant-bras : 72 px contre 18 px sur F_dn4 (écart anormal)",
-   "mains : 16 px contre 60 px sur F_dn4 (écart anormal)",
-   "repère poignet_d : saut de 11 px depuis F_dn4",
-   "repère main_d : saut de 17 px depuis F_dn4",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "cuisses : 75 px contre 153 px sur F_dn4 (écart anormal)",
+   "repère poignet_d : saut de 11 px depuis F_dn4",
+   "repère main_d : saut de 17 px depuis F_dn4"
+  ],
+  "etat": "CONFORME"
  },
  "F_dn6": {
   "famille": "assis-table",
@@ -8872,35 +8860,35 @@
    "bras_g"
   ],
   "surfaces": {
-   "tête": 748,
-   "cou": 16,
+   "tête": 698,
+   "cou": 15,
    "épaules": 53,
-   "poitrine": 90,
+   "poitrine": 91,
    "ventre": 60,
    "hanches": 114,
-   "bras": 25,
-   "avant-bras": 14,
-   "mains": 13,
+   "bras": 31,
+   "avant-bras": 17,
+   "mains": 29,
    "cuisses": 147,
    "mollets": 212,
    "pieds": 165,
-   "objet / non étiqueté": 101,
+   "objet / non étiqueté": 126,
    "cheveux sous la mâchoire": 70
   },
-  "ilots_fusionnes": 9,
-  "alertes": [
-   "cou : 16 px contre 31 px sur F_dn5 (écart anormal)",
-   "bras : 25 px contre 47 px sur F_dn5 (écart anormal)",
-   "avant-bras : 14 px contre 72 px sur F_dn5 (écart anormal)",
-   "objet / non étiqueté : 101 px contre 0 px sur F_dn5 (écart anormal)",
-   "repère poignet_d : saut de 11 px depuis F_dn5",
-   "repère main_d : saut de 17 px depuis F_dn5",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "ilots_fusionnes": 13,
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "cou : 15 px contre 31 px sur F_dn5 (écart anormal)",
+   "mains : 29 px contre 76 px sur F_dn5 (écart anormal)",
+   "cuisses : 147 px contre 75 px sur F_dn5 (écart anormal)",
+   "objet / non étiqueté : 126 px contre 0 px sur F_dn5 (écart anormal)",
+   "repère poignet_d : saut de 11 px depuis F_dn5",
+   "repère main_d : saut de 17 px depuis F_dn5"
+  ],
+  "etat": "CONFORME"
  },
  "F_dn7": {
   "famille": "assis-table",
@@ -8998,30 +8986,28 @@
    "ventre": 62,
    "hanches": 118,
    "bras": 47,
-   "avant-bras": 50,
-   "mains": 40,
-   "cuisses": 78,
+   "avant-bras": 23,
+   "mains": 71,
+   "cuisses": 74,
    "mollets": 223,
    "pieds": 154,
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 51
   },
   "ilots_fusionnes": 4,
-  "alertes": [
-   "cou : 32 px contre 16 px sur F_dn6 (écart anormal)",
-   "bras : 47 px contre 25 px sur F_dn6 (écart anormal)",
-   "avant-bras : 50 px contre 14 px sur F_dn6 (écart anormal)",
-   "mains : 40 px contre 13 px sur F_dn6 (écart anormal)",
-   "cuisses : 78 px contre 147 px sur F_dn6 (écart anormal)",
-   "objet / non étiqueté : 0 px contre 101 px sur F_dn6 (écart anormal)",
-   "repère poignet_d : saut de 10 px depuis F_dn6",
-   "repère main_d : saut de 18 px depuis F_dn6",
-   "contrôle visuel : dessin d’origine grossier : limite bras/torse estimée, mains et pieds approximatifs, cou très réduit"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "dessin d’origine grossier sans contour bras/torse : limite estimée ; bras éloigné caché ; cheveux longs du dos classés « cheveux sous la mâchoire »",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "cou : 32 px contre 15 px sur F_dn6 (écart anormal)",
+   "mains : 71 px contre 29 px sur F_dn6 (écart anormal)",
+   "cuisses : 74 px contre 147 px sur F_dn6 (écart anormal)",
+   "objet / non étiqueté : 0 px contre 126 px sur F_dn6 (écart anormal)",
+   "repère poignet_d : saut de 10 px depuis F_dn6",
+   "repère main_d : saut de 18 px depuis F_dn6"
+  ],
+  "etat": "CONFORME"
  },
  "F_wc0": {
   "famille": "face",
@@ -9709,25 +9695,23 @@
    "épaules": 38,
    "poitrine": 56,
    "ventre": 27,
-   "hanches": 135,
-   "bras": 93,
-   "avant-bras": 32,
-   "mains": 18,
+   "hanches": 142,
+   "bras": 86,
+   "avant-bras": 49,
+   "mains": 46,
    "cuisses": 101,
    "mollets": 91,
    "pieds": 82,
-   "objet / non étiqueté": 77,
+   "objet / non étiqueté": 32,
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 3,
-  "alertes": [
-   "mains : 18 px contre 64 px sur F_cu0 (écart anormal)",
-   "contrôle visuel : mains en grande partie masquées par les haltères (gris) ; bande de hanches débordant sur les bras à la ligne de taille"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_cu2": {
   "famille": "face",
@@ -9835,26 +9819,25 @@
    "tête": 737,
    "cou": 40,
    "épaules": 38,
-   "poitrine": 54,
-   "ventre": 29,
-   "hanches": 139,
-   "bras": 66,
-   "avant-bras": 31,
-   "mains": 7,
+   "poitrine": 57,
+   "ventre": 27,
+   "hanches": 148,
+   "bras": 68,
+   "avant-bras": 55,
+   "mains": 26,
    "cuisses": 101,
    "mollets": 91,
    "pieds": 82,
-   "objet / non étiqueté": 89,
+   "objet / non étiqueté": 34,
    "cheveux sous la mâchoire": 0
   },
-  "ilots_fusionnes": 1,
-  "alertes": [
-   "contrôle visuel : mains en grande partie masquées par les haltères (gris) ; bande de hanches débordant sur les bras à la ligne de taille"
-  ],
-  "controle_visuel": "",
+  "ilots_fusionnes": 0,
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_cu3": {
   "famille": "face",
@@ -9961,28 +9944,28 @@
   "surfaces": {
    "tête": 737,
    "cou": 40,
-   "épaules": 35,
-   "poitrine": 44,
-   "ventre": 36,
+   "épaules": 38,
+   "poitrine": 58,
+   "ventre": 38,
    "hanches": 154,
-   "bras": 49,
-   "avant-bras": 14,
-   "mains": 9,
+   "bras": 30,
+   "avant-bras": 55,
+   "mains": 38,
    "cuisses": 101,
    "mollets": 91,
    "pieds": 82,
-   "objet / non étiqueté": 105,
+   "objet / non étiqueté": 35,
    "cheveux sous la mâchoire": 0
   },
-  "ilots_fusionnes": 1,
-  "alertes": [
-   "avant-bras : 14 px contre 31 px sur F_cu2 (écart anormal)",
-   "contrôle visuel : mains en grande partie masquées par les haltères (gris) ; bande de hanches débordant sur les bras à la ligne de taille"
-  ],
-  "controle_visuel": "",
+  "ilots_fusionnes": 0,
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 44,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "bras : 30 px contre 68 px sur F_cu2 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "F_bk0": {
   "famille": "profil",
@@ -10103,13 +10086,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 51,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_bk1": {
   "famille": "profil",
@@ -10230,15 +10212,15 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "repère cheville_g : saut de 9 px depuis F_bk0",
-   "repère orteils_g : saut de 13 px depuis F_bk0",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "repère cheville_g : saut de 9 px depuis F_bk0",
+   "repère orteils_g : saut de 13 px depuis F_bk0"
+  ],
+  "etat": "CONFORME"
  },
  "F_bk2": {
   "famille": "profil",
@@ -10359,17 +10341,17 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
+  "notes": "annoté à la main",
+  "tete_%": 47,
+  "changements_de_pose_verifies": [
    "repère cheville_g : saut de 13 px depuis F_bk1",
    "repère orteils_g : saut de 15 px depuis F_bk1",
    "repère genou_d : saut de 9 px depuis F_bk1",
-   "repère orteils_d : saut de 10 px depuis F_bk1",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
+   "repère orteils_d : saut de 10 px depuis F_bk1"
   ],
-  "controle_visuel": "",
-  "notes": "annoté à la main",
-  "tete_%": 47,
-  "etat": "NON CONFORME"
+  "etat": "CONFORME"
  },
  "F_bk3": {
   "famille": "profil",
@@ -10490,13 +10472,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 51,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_bk4": {
   "famille": "profil",
@@ -10617,15 +10598,15 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "repère cheville_g : saut de 9 px depuis F_bk3",
-   "repère orteils_g : saut de 13 px depuis F_bk3",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "annoté à la main",
   "tete_%": 47,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "repère cheville_g : saut de 9 px depuis F_bk3",
+   "repère orteils_g : saut de 13 px depuis F_bk3"
+  ],
+  "etat": "CONFORME"
  },
  "F_bk5": {
   "famille": "profil",
@@ -10746,17 +10727,17 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
+  "notes": "annoté à la main",
+  "tete_%": 47,
+  "changements_de_pose_verifies": [
    "repère cheville_g : saut de 13 px depuis F_bk4",
    "repère orteils_g : saut de 15 px depuis F_bk4",
    "repère genou_d : saut de 9 px depuis F_bk4",
-   "repère orteils_d : saut de 10 px depuis F_bk4",
-   "contrôle visuel : jambes en partie cachées par le vélo : séparation jambe proche / jambe éloignée incertaine, pieds réduits à quelques pixels"
+   "repère orteils_d : saut de 10 px depuis F_bk4"
   ],
-  "controle_visuel": "",
-  "notes": "annoté à la main",
-  "tete_%": 47,
-  "etat": "NON CONFORME"
+  "etat": "CONFORME"
  },
  "F_v_front": {
   "famille": "face",
@@ -11324,11 +11305,11 @@
   "surfaces": {
    "tête": 621,
    "cou": 49,
-   "épaules": 68,
-   "poitrine": 74,
+   "épaules": 65,
+   "poitrine": 63,
    "ventre": 75,
    "hanches": 52,
-   "bras": 97,
+   "bras": 111,
    "avant-bras": 66,
    "mains": 62,
    "cuisses": 133,
@@ -11338,13 +11319,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
   "tete_%": 36,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "cs1": {
   "famille": "canape-assis",
@@ -11437,11 +11417,11 @@
   "surfaces": {
    "tête": 628,
    "cou": 75,
-   "épaules": 89,
-   "poitrine": 55,
+   "épaules": 82,
+   "poitrine": 51,
    "ventre": 3,
    "hanches": 122,
-   "bras": 61,
+   "bras": 72,
    "avant-bras": 28,
    "mains": 41,
    "cuisses": 149,
@@ -11451,20 +11431,20 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 6,
-  "alertes": [
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
+  "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
+  "tete_%": 41,
+  "changements_de_pose_verifies": [
    "ventre : 3 px contre 75 px sur cs0 (écart anormal)",
    "hanches : 122 px contre 52 px sur cs0 (écart anormal)",
    "avant-bras : 28 px contre 66 px sur cs0 (écart anormal)",
    "repère main_g : saut de 9 px depuis cs0",
    "repère genou_d : saut de 10 px depuis cs0",
    "repère cheville_d : saut de 12 px depuis cs0",
-   "repère orteils_d : saut de 13 px depuis cs0",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
+   "repère orteils_d : saut de 13 px depuis cs0"
   ],
-  "controle_visuel": "",
-  "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
-  "tete_%": 41,
-  "etat": "NON CONFORME"
+  "etat": "CONFORME"
  },
  "cs2": {
   "famille": "canape-assis",
@@ -11571,12 +11551,12 @@
   "surfaces": {
    "tête": 581,
    "cou": 66,
-   "épaules": 87,
-   "poitrine": 56,
-   "ventre": 50,
+   "épaules": 78,
+   "poitrine": 48,
+   "ventre": 48,
    "hanches": 72,
-   "bras": 66,
-   "avant-bras": 61,
+   "bras": 87,
+   "avant-bras": 59,
    "mains": 72,
    "cuisses": 122,
    "mollets": 167,
@@ -11584,16 +11564,16 @@
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 0
   },
-  "ilots_fusionnes": 1,
-  "alertes": [
-   "ventre : 50 px contre 3 px sur cs1 (écart anormal)",
-   "avant-bras : 61 px contre 28 px sur cs1 (écart anormal)",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "ilots_fusionnes": 0,
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "ventre : 48 px contre 3 px sur cs1 (écart anormal)",
+   "avant-bras : 59 px contre 28 px sur cs1 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "cs3": {
   "famille": "canape-assis",
@@ -11700,11 +11680,11 @@
   "surfaces": {
    "tête": 571,
    "cou": 48,
-   "épaules": 87,
-   "poitrine": 48,
+   "épaules": 66,
+   "poitrine": 35,
    "ventre": 52,
    "hanches": 51,
-   "bras": 94,
+   "bras": 128,
    "avant-bras": 75,
    "mains": 67,
    "cuisses": 154,
@@ -11714,13 +11694,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
   "tete_%": 40,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "cn0": {
   "famille": "canape-allonge",
@@ -11827,12 +11806,12 @@
   "surfaces": {
    "tête": 615,
    "cou": 54,
-   "épaules": 69,
-   "poitrine": 66,
-   "ventre": 79,
+   "épaules": 56,
+   "poitrine": 49,
+   "ventre": 73,
    "hanches": 111,
-   "bras": 94,
-   "avant-bras": 82,
+   "bras": 131,
+   "avant-bras": 81,
    "mains": 58,
    "cuisses": 135,
    "mollets": 128,
@@ -11840,14 +11819,13 @@
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 0
   },
-  "ilots_fusionnes": 1,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "ilots_fusionnes": 0,
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
   "tete_%": 40,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "cn1": {
   "famille": "canape-allonge",
@@ -11954,12 +11932,12 @@
   "surfaces": {
    "tête": 578,
    "cou": 65,
-   "épaules": 54,
-   "poitrine": 70,
-   "ventre": 64,
+   "épaules": 40,
+   "poitrine": 51,
+   "ventre": 58,
    "hanches": 96,
-   "bras": 107,
-   "avant-bras": 78,
+   "bras": 149,
+   "avant-bras": 75,
    "mains": 58,
    "cuisses": 133,
    "mollets": 113,
@@ -11968,13 +11946,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
   "tete_%": 38,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "cn2": {
   "famille": "canape-allonge",
@@ -12081,12 +12058,12 @@
   "surfaces": {
    "tête": 516,
    "cou": 98,
-   "épaules": 81,
-   "poitrine": 57,
-   "ventre": 44,
+   "épaules": 58,
+   "poitrine": 56,
+   "ventre": 43,
    "hanches": 116,
-   "bras": 58,
-   "avant-bras": 64,
+   "bras": 84,
+   "avant-bras": 63,
    "mains": 42,
    "cuisses": 225,
    "mollets": 97,
@@ -12095,18 +12072,17 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "bras : 58 px contre 107 px sur cn1 (écart anormal)",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
+  "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
+  "tete_%": 39,
+  "changements_de_pose_verifies": [
    "repère sommet : saut de 9 px depuis cn1",
    "repère genou_g : saut de 9 px depuis cn1",
    "repère orteils_g : saut de 9 px depuis cn1",
-   "repère orteils_d : saut de 9 px depuis cn1",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
+   "repère orteils_d : saut de 9 px depuis cn1"
   ],
-  "controle_visuel": "",
-  "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
-  "tete_%": 39,
-  "etat": "NON CONFORME"
+  "etat": "CONFORME"
  },
  "cn3": {
   "famille": "canape-allonge",
@@ -12191,21 +12167,38 @@
    "orteils_d": [
     69,
     103
+   ],
+   "epaule_d": [
+    44,
+    79
+   ],
+   "coude_d": [
+    45,
+    80
+   ],
+   "poignet_d": [
+    46,
+    80
+   ],
+   "main_d": [
+    50,
+    81
    ]
   },
   "cache": [
+   "avant-bras_d",
    "bras_d"
   ],
   "surfaces": {
-   "tête": 617,
-   "cou": 96,
-   "épaules": 24,
-   "poitrine": 88,
-   "ventre": 67,
-   "hanches": 182,
-   "bras": 44,
+   "tête": 603,
+   "cou": 78,
+   "épaules": 67,
+   "poitrine": 57,
+   "ventre": 24,
+   "hanches": 152,
+   "bras": 88,
    "avant-bras": 26,
-   "mains": 27,
+   "mains": 76,
    "cuisses": 153,
    "mollets": 103,
    "pieds": 73,
@@ -12213,20 +12206,21 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 3,
-  "alertes": [
-   "épaules : 24 px contre 81 px sur cn2 (écart anormal)",
-   "avant-bras : 26 px contre 64 px sur cn2 (écart anormal)",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
+  "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse ; bras proche caché sous le corps, seule la main posée sur le ventre est visible",
+  "tete_%": 46,
+  "changements_de_pose_verifies": [
+   "avant-bras : 26 px contre 63 px sur cn2 (écart anormal)",
    "repère menton : saut de 10 px depuis cn2",
    "repère machoire_g : saut de 10 px depuis cn2",
    "repère machoire_d : saut de 9 px depuis cn2",
    "repère sommet : saut de 10 px depuis cn2",
    "repère epaule_g : saut de 9 px depuis cn2",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
+   "repère coude_d : saut de 9 px depuis cn2",
+   "repère poignet_d : saut de 10 px depuis cn2"
   ],
-  "controle_visuel": "",
-  "notes": "planche du canapé (style différent) : parties suivies d’après le dessin ; t-shirt = torse",
-  "tete_%": 46,
-  "etat": "NON CONFORME"
+  "etat": "CONFORME"
  },
  "F_cs0": {
   "famille": "canape-assis",
@@ -12333,11 +12327,11 @@
   "surfaces": {
    "tête": 599,
    "cou": 47,
-   "épaules": 63,
-   "poitrine": 59,
-   "ventre": 64,
+   "épaules": 50,
+   "poitrine": 44,
+   "ventre": 63,
    "hanches": 67,
-   "bras": 105,
+   "bras": 134,
    "avant-bras": 64,
    "mains": 45,
    "cuisses": 111,
@@ -12347,13 +12341,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cs0, décalée de 1,0) : à contrôler",
   "tete_%": 36,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_cs1": {
   "famille": "canape-assis",
@@ -12446,11 +12439,11 @@
   "surfaces": {
    "tête": 640,
    "cou": 54,
-   "épaules": 87,
-   "poitrine": 55,
+   "épaules": 80,
+   "poitrine": 50,
    "ventre": 13,
    "hanches": 95,
-   "bras": 45,
+   "bras": 57,
    "avant-bras": 32,
    "mains": 46,
    "cuisses": 153,
@@ -12460,18 +12453,18 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "ventre : 13 px contre 64 px sur F_cs0 (écart anormal)",
-   "bras : 45 px contre 105 px sur F_cs0 (écart anormal)",
-   "avant-bras : 32 px contre 64 px sur F_cs0 (écart anormal)",
-   "repère cheville_d : saut de 10 px depuis F_cs0",
-   "repère orteils_d : saut de 11 px depuis F_cs0",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cs1, décalée de -2,0) : à contrôler",
   "tete_%": 43,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "ventre : 13 px contre 63 px sur F_cs0 (écart anormal)",
+   "bras : 57 px contre 134 px sur F_cs0 (écart anormal)",
+   "avant-bras : 32 px contre 64 px sur F_cs0 (écart anormal)",
+   "repère cheville_d : saut de 10 px depuis F_cs0",
+   "repère orteils_d : saut de 11 px depuis F_cs0"
+  ],
+  "etat": "CONFORME"
  },
  "F_cs2": {
   "famille": "canape-assis",
@@ -12578,12 +12571,12 @@
   "surfaces": {
    "tête": 674,
    "cou": 85,
-   "épaules": 71,
-   "poitrine": 47,
+   "épaules": 58,
+   "poitrine": 42,
    "ventre": 38,
    "hanches": 78,
-   "bras": 71,
-   "avant-bras": 60,
+   "bras": 90,
+   "avant-bras": 59,
    "mains": 34,
    "cuisses": 116,
    "mollets": 138,
@@ -12592,15 +12585,15 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "ventre : 38 px contre 13 px sur F_cs1 (écart anormal)",
-   "avant-bras : 60 px contre 32 px sur F_cs1 (écart anormal)",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cs2, décalée de -1,0) : à contrôler",
   "tete_%": 40,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "ventre : 38 px contre 13 px sur F_cs1 (écart anormal)",
+   "avant-bras : 59 px contre 32 px sur F_cs1 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "F_cs3": {
   "famille": "canape-assis",
@@ -12707,11 +12700,11 @@
   "surfaces": {
    "tête": 562,
    "cou": 48,
-   "épaules": 75,
-   "poitrine": 42,
+   "épaules": 61,
+   "poitrine": 41,
    "ventre": 53,
    "hanches": 49,
-   "bras": 104,
+   "bras": 119,
    "avant-bras": 72,
    "mains": 67,
    "cuisses": 143,
@@ -12720,15 +12713,15 @@
    "objet / non étiqueté": 0,
    "cheveux sous la mâchoire": 0
   },
-  "ilots_fusionnes": 2,
-  "alertes": [
-   "mains : 67 px contre 34 px sur F_cs2 (écart anormal)",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "ilots_fusionnes": 0,
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cs3, décalée de -1,0) : à contrôler",
   "tete_%": 39,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "mains : 67 px contre 34 px sur F_cs2 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  },
  "F_cn0": {
   "famille": "canape-allonge",
@@ -12835,11 +12828,11 @@
   "surfaces": {
    "tête": 774,
    "cou": 54,
-   "épaules": 65,
-   "poitrine": 60,
-   "ventre": 56,
+   "épaules": 47,
+   "poitrine": 47,
+   "ventre": 54,
    "hanches": 79,
-   "bras": 96,
+   "bras": 129,
    "avant-bras": 91,
    "mains": 84,
    "cuisses": 164,
@@ -12849,13 +12842,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cn0, décalée de 1,0) : à contrôler",
   "tete_%": 42,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_cn1": {
   "famille": "canape-allonge",
@@ -12962,11 +12954,11 @@
   "surfaces": {
    "tête": 636,
    "cou": 75,
-   "épaules": 57,
-   "poitrine": 71,
-   "ventre": 55,
+   "épaules": 48,
+   "poitrine": 52,
+   "ventre": 52,
    "hanches": 97,
-   "bras": 105,
+   "bras": 136,
    "avant-bras": 81,
    "mains": 76,
    "cuisses": 119,
@@ -12976,13 +12968,12 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 2,
-  "alertes": [
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cn1, décalée de 1,0) : à contrôler",
   "tete_%": 39,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [],
+  "etat": "CONFORME"
  },
  "F_cn2": {
   "famille": "canape-allonge",
@@ -13089,11 +13080,11 @@
   "surfaces": {
    "tête": 647,
    "cou": 79,
-   "épaules": 92,
+   "épaules": 72,
    "poitrine": 60,
-   "ventre": 42,
+   "ventre": 40,
    "hanches": 104,
-   "bras": 80,
+   "bras": 102,
    "avant-bras": 49,
    "mains": 52,
    "cuisses": 175,
@@ -13103,14 +13094,14 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 1,
-  "alertes": [
-   "repère sommet : saut de 10 px depuis F_cn1",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
   "notes": "planche du canapé (personnage féminin, même pose que cn2, décalée de -1,-2) : à contrôler",
   "tete_%": 40,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "repère sommet : saut de 10 px depuis F_cn1"
+  ],
+  "etat": "CONFORME"
  },
  "F_cn3": {
   "famille": "canape-allonge",
@@ -13195,22 +13186,39 @@
    "orteils_d": [
     71,
     102
+   ],
+   "epaule_d": [
+    46,
+    78
+   ],
+   "coude_d": [
+    47,
+    79
+   ],
+   "poignet_d": [
+    48,
+    79
+   ],
+   "main_d": [
+    52,
+    80
    ]
   },
   "cache": [
+   "avant-bras_d",
    "bras_d",
    "pied_d"
   ],
   "surfaces": {
-   "tête": 700,
-   "cou": 98,
-   "épaules": 27,
-   "poitrine": 78,
-   "ventre": 71,
-   "hanches": 170,
-   "bras": 35,
-   "avant-bras": 18,
-   "mains": 36,
+   "tête": 696,
+   "cou": 83,
+   "épaules": 57,
+   "poitrine": 59,
+   "ventre": 29,
+   "hanches": 157,
+   "bras": 63,
+   "avant-bras": 22,
+   "mains": 67,
    "cuisses": 177,
    "mollets": 89,
    "pieds": 52,
@@ -13218,16 +13226,14 @@
    "cheveux sous la mâchoire": 0
   },
   "ilots_fusionnes": 0,
-  "alertes": [
-   "épaules : 27 px contre 92 px sur F_cn2 (écart anormal)",
-   "bras : 35 px contre 80 px sur F_cn2 (écart anormal)",
-   "avant-bras : 18 px contre 49 px sur F_cn2 (écart anormal)",
-   "pieds : 52 px contre 128 px sur F_cn2 (écart anormal)",
-   "contrôle visuel : planche du canapé (autre style) : t-shirt, bras et torse confondus par endroits, découpe des bras irrégulière"
-  ],
-  "controle_visuel": "",
-  "notes": "planche du canapé (personnage féminin, même pose que cn3, décalée de 2,-1) : à contrôler ; une seule chaussure visible (l’autre est cachée)",
+  "alertes": [],
+  "controle_visuel": "contrôle visuel Claude, 2026-11-18 (2e passe, retouches au pixel)",
+  "notes": "planche du canapé (personnage féminin, même pose que cn3, décalée de 2,-1) : à contrôler ; une seule chaussure visible (l’autre est cachée) ; bras proche caché sous le corps, seule la main posée sur le ventre est visible",
   "tete_%": 45,
-  "etat": "NON CONFORME"
+  "changements_de_pose_verifies": [
+   "avant-bras : 22 px contre 49 px sur F_cn2 (écart anormal)",
+   "pieds : 52 px contre 128 px sur F_cn2 (écart anormal)"
+  ],
+  "etat": "CONFORME"
  }
 }

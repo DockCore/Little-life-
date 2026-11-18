@@ -55,6 +55,13 @@ def construire(k):
         bad=(lab==1)&b1&~hz
         A_=a.astype(int);skin=(A_[...,0]-A_[...,2]>35)|(lum<60)
         lab[bad&skin]=2;lab[bad&~skin]=13
+    # retouches à la main : polygones (partie, côté) appliqués aux pixels opaques du sprite, dans l'ordre
+    from matplotlib.path import Path as _P
+    YY,XX=np.mgrid[0:128,0:80];pts_=np.c_[XX.ravel()+.5,YY.ravel()+.5]
+    for r in S.get('retouches',[]):
+        m=_P([(x+.5,y+.5) for x,y in r['poly']]).contains_points(pts_,radius=0.6).reshape(128,80)&op
+        if 'seulement' in r:m&=np.isin(lab,r['seulement'])
+        lab[m]=r['partie'];side[m]=r.get('cote',0)
     side[~np.isin(lab,(7,8,9,10,11,12))]=0
     fg=np.zeros_like(op);tr=np.isin(lab,(3,4,5,6))
     for y in range(128):
