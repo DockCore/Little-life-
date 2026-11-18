@@ -22,7 +22,7 @@ def famille(k):
     if b[:2]=='cn':return 'canape-allonge'
     if b[:2]=='dn':return 'assis-table'
     return 'profil'
-def nettoyer(lab,op):
+def nettoyer(lab,op,side):
     n=0
     for it in range(3):
         ch=False
@@ -36,8 +36,8 @@ def nettoyer(lab,op):
                         for dy in(-1,0,1):
                             for dx in(-1,0,1):
                                 Y,X=y+dy,x+dx
-                                if 0<=Y<128 and 0<=X<80 and op[Y,X] and lab[Y,X]!=q:v.append(lab[Y,X])
-                    if v:lab[m]=max(set(v),key=v.count);n+=int(m.sum());ch=True
+                                if 0<=Y<128 and 0<=X<80 and op[Y,X] and lab[Y,X]!=q:v.append((lab[Y,X],side[Y,X]))
+                    if v:b=max(set(v),key=v.count);lab[m]=b[0];side[m]=b[1];n+=int(m.sum());ch=True
         if not ch:break
     return n
 def cote_nom(k,s):
@@ -46,7 +46,15 @@ def cote_nom(k,s):
     return 'éloigné' if s=='g' else 'proche'
 def construire(k):
     S=charger(k);p=S['points'];a=sprite(k);op=a[...,3]>0;lum=.3*a[...,0]+.59*a[...,1]+.11*a[...,2]
-    lab,side,obj=decouper(k,p);n_isl=nettoyer(lab,op)
+    lab,side,obj=decouper(k,p);n_isl=nettoyer(lab,op,side)
+    if p.get('menton'):
+        z_=zones(k);sm=sous_machoire(p);b1=np.zeros_like(sm);b1[1:]=sm[:-1]
+        hz=op&(z_==2)
+        if S.get('cheveux_zone'):
+            x0,y0,x1,y1=S['cheveux_zone'];hb=np.zeros_like(op);hb[y0:y1+1,x0:x1+1]=1;hz&=(hb|~sm)
+        bad=(lab==1)&b1&~hz
+        A_=a.astype(int);skin=(A_[...,0]-A_[...,2]>35)|(lum<60)
+        lab[bad&skin]=2;lab[bad&~skin]=13
     side[~np.isin(lab,(7,8,9,10,11,12))]=0
     fg=np.zeros_like(op);tr=np.isin(lab,(3,4,5,6))
     for y in range(128):
@@ -58,6 +66,13 @@ def construire(k):
     if (op&(lab==0)).any():al.append('pixels non attribués : %d'%int((op&(lab==0)).sum()))
     if (~op&(lab>0)).any():al.append('débordement hors silhouette : %d'%int((~op&(lab>0)).sum()))
     cache=set(S.get('cache',[]))
+    lim=np.isin(lab,(7,8,9,10,11,12))
+    if (lim&(side==0)).any():al.append('membre sans côté gauche/droite : %d px'%int((lim&(side==0)).sum()))
+    eps=[p[e][1] for e in('epaule_g','epaule_d') if p.get(e)]
+    if eps and ((lab==1)&(np.arange(128)[:,None]>=max(eps))).any():al.append('tête sous la ligne des épaules : %d px'%int(((lab==1)&(np.arange(128)[:,None]>=max(eps))).sum()))
+    if (op&(lab==1)).sum() and p.get('menton'):
+        sm=sous_machoire(p);b1=np.zeros_like(sm);b1[1:]=sm[:-1];bad=(lab==1)&b1&~(op&(zones(k)==2))
+        if bad.sum()>0:al.append('tête sous la mâchoire : %d px'%int(bad.sum()))
     if (lab==1).sum()<20:al.append('tête absente')
     if famille(k)!='dos' and (lab==2).sum()<3 and 'cou' not in cache:al.append('cou absent')
     for s,sd in(('g',1),('d',2)):
@@ -107,6 +122,12 @@ def controles_globaux(res):
                 q2=i2['reperes'].get(n)
                 if q2 and np.hypot(q[0]-q2[0],q[1]-q2[1])>9:i2['alertes'].append('repère %s : saut de %.0f px depuis %s'%(n,np.hypot(q[0]-q2[0],q[1]-q2[1]),k1))
     for k,(lab,_,_,info) in res.items():
+        S=charger(k)
+        if S.get('temporel_verifie'):
+            t=[x for x in info['alertes'] if 'écart anormal' in x or x.startswith('repère')]
+            info['alertes']=[x for x in info['alertes'] if x not in t]
+            info['changements_de_pose_verifies']=t
+        if S.get('non_conforme'):info['alertes'].append('contrôle visuel : '+S['non_conforme'])
         info['etat']='CONFORME' if (not info['alertes'] and info['controle_visuel']) else 'NON CONFORME'
 if __name__=='__main__':
     import sys

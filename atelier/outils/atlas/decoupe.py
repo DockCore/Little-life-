@@ -99,7 +99,13 @@ def decouper(k,p=None):
         sh=op&(z==3)&np.isin(lab,(7,8,9))&~m
         lab[sh]=4;side[sh]=0
         from scipy.ndimage import label as _l
-        sl,ns=_l(op&(z==5),np.ones((3,3)))
+        ky=min([p[n][1] for n in('genou_g','genou_d') if p.get(n)] or [H])
+        wh=(a[...,0]>185)&(a[...,1]>185)&(a[...,2]>185)&(np.arange(H)[:,None]>ky)
+        shoe_m=op&((z==5)|wh)
+        g_=shoe_m.copy()
+        for dy,dx in((0,1),(0,-1),(1,0),(-1,0)):g_|=np.roll(np.roll(shoe_m,dy,0),dx,1)
+        shoe_m|=g_&dark&(np.arange(H)[:,None]>ky)&~np.isin(lab,(11,))
+        sl,ns=_l(shoe_m,np.ones((3,3)))
         for i in range(1,ns+1):
             m=sl==i;ys,xs=np.where(m);cy,cx=ys.mean(),xs.mean();best=None
             for s,sd in(('g',1),('d',2)):
@@ -115,8 +121,16 @@ def decouper(k,p=None):
             u/=L;proj=lambda q:float((np.array(q,float)-c0)@u)
             eps=[p[n] for n in('epaule_g','epaule_d') if p.get(n)]
             s_sh=(np.mean([proj(q) for q in eps]) if eps else 3)+.5
-            s_ch=proj(p['poitrine_bas']) if p.get('poitrine_bas') else L*.45
-            s_be=proj(p['taille']) if p.get('taille') else L*.7
+            s_ch=s_sh+(L-s_sh)*.42
+            s_be=s_sh+(L-s_sh)*.72
+            # la taille = le haut du sous-vêtement (ou du pantalon) quand il est visible dans le torse
+            trm=np.isin(lab,(3,4,5,6))&(side==0)&op
+            R_,G_,B_=a[...,0],a[...,1],a[...,2]
+            uw=trm&~dark&(((R_>165)&(G_>165)&(B_>155)&(z==0))|(z==4))
+            uw&=np.array([[((x-c0[0])*u[0]+(y-c0[1])*u[1])>s_ch for x in range(W)] for y in range(H)])
+            if uw.sum()>=6:
+                ss=sorted(((x-c0[0])*u[0]+(y-c0[1])*u[1]) for y,x in zip(*np.where(uw)))
+                s_be=ss[max(0,len(ss)//20)]-.5
             tr=np.isin(lab,(3,4,5,6))&(side==0)
             for y,x in zip(*np.where(tr)):
                 s=(x-c0[0])*u[0]+(y-c0[1])*u[1]
@@ -127,6 +141,7 @@ def decouper(k,p=None):
         x0,y0,x1,y1=S['cheveux_zone'];hb=np.zeros_like(op);hb[y0:y1+1,x0:x1+1]=1
         hair&=(hb|~sous_machoire(p,H,W)) if p.get('menton') else hb
     lab[(lab==1)&below]=2
+    lab[(lab==2)&~below]=1
     lab[hair&~below&(lab!=9)&(lab!=8)]=1
     chin_y=p['menton'][1] if p.get('menton') else 0
     deep=below&(np.arange(H)[:,None]>chin_y+2)
@@ -145,11 +160,51 @@ def decouper(k,p=None):
         for i in range(1,nl+1):
             if (ll==i).sum()>=15:lab[ll==i]=6
     lab[obj]=13
+    b_=k[2:] if k.startswith('F_') else k
+    if not b_.startswith(('dn','bk','cs','cn')):
+        Yy=np.arange(H)[:,None]
+        for s,sd in(('g',1),('d',2)):
+            ch_=p.get('cheville_'+s)
+            if ch_:lab[(lab==11)&(side==sd)&(Yy>ch_[1])]=12
+    if S.get('ombre_eloignee'):
+        # profil : la jambe éloignée est dessinée plus sombre ; on sépare les deux jambes par la teinte de peau
+        legs=np.isin(lab,(10,11,12))&op&~dark
+        A_=a.astype(int);sk=legs&(A_[...,0]-A_[...,2]>35)
+        v=lum[sk]
+        if len(v)>20:
+            best=None
+            for t in np.arange(v.min()+5,v.max()-5,2):
+                l1,l2=v[v<t],v[v>=t]
+                if len(l1)<5 or len(l2)<5:continue
+                s=len(l1)*len(l2)*(l1.mean()-l2.mean())**2
+                if best is None or s>best[0]:best=(s,t)
+            if S.get('seuil_eloigne'):best=(0,S['seuil_eloigne'])
+            if best:
+                T=best[1]
+                def segd(q,a_,b_):
+                    a_=np.array(a_,float);b_=np.array(b_,float);d_=b_-a_;t_=np.clip(((q-a_)@d_)/max(d_@d_,1e-6),0,1);return np.linalg.norm(q-(a_+t_*d_))
+                for y,x in zip(*np.where(legs)):
+                    sd=1 if (sk[y,x] and lum[y,x]<T) else 2
+                    s_='g' if sd==1 else 'd';q=np.array([x,y],float);bb=[]
+                    for (n1,n2,pt) in(('hanche_','genou_',10),('genou_','cheville_',11),('cheville_','orteils_',12)):
+                        if p.get(n1+s_) and p.get(n2+s_):bb.append((segd(q,p[n1+s_],p[n2+s_]),pt))
+                    if bb:lab[y,x]=min(bb)[1];side[y,x]=sd
+    # contours : chaque pixel de contour prend la partie majoritaire des pixels intérieurs qui l'entourent
+    L2=lab.copy();S2=side.copy()
+    for y,x in zip(*np.where(dark&~obj)):
+        v=[(lab[y+dy,x+dx],side[y+dy,x+dx]) for dy in(-1,0,1) for dx in(-1,0,1) if (dy or dx) and 0<=y+dy<H and 0<=x+dx<W and op[y+dy,x+dx] and not dark[y+dy,x+dx] and lab[y+dy,x+dx] not in(0,13)]
+        if v:
+            best=max(set(v),key=v.count)
+            if v.count(best)*2>len(v) or len(set(q for q,_ in v))==1:L2[y,x],S2[y,x]=best
+    lab[:]=L2;side[:]=S2
+    if p.get('menton'):
+        b1=np.zeros_like(below);b1[1:]=below[:-1]          # strictement plus d'un pixel sous la ligne de la mâchoire
+        lab[(lab==1)&b1&~hair]=2
     # pixels encore sans partie (isolés derrière un contour) : partie voisine majoritaire
     for it in range(6):
         miss=op&(lab==0)
         if not miss.any():break
         for y,x in zip(*np.where(miss)):
-            v=[lab[y+dy,x+dx] for dy in(-1,0,1) for dx in(-1,0,1) if 0<=y+dy<H and 0<=x+dx<W and lab[y+dy,x+dx]]
-            if v:lab[y,x]=max(set(v),key=v.count)
+            v=[(lab[y+dy,x+dx],side[y+dy,x+dx]) for dy in(-1,0,1) for dx in(-1,0,1) if 0<=y+dy<H and 0<=x+dx<W and lab[y+dy,x+dx]]
+            if v:lab[y,x],side[y,x]=max(set(v),key=v.count)
     return lab,side,obj
