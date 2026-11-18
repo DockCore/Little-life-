@@ -1,0 +1,247 @@
+[
+ {
+  "n": "1 accès à la rue depuis la maison",
+  "ok": true,
+  "info": {
+   "tile": "La rueSe promener",
+   "w": {
+    "on": true,
+    "v": "street",
+    "place": "street",
+    "st": "street",
+    "px": 119,
+    "cam": 0,
+    "W": 300,
+    "sp": "idle",
+    "fl": false
+   }
+  }
+ },
+ {
+  "n": "2 déplacement horizontal libre (→, Q, D)",
+  "ok": true,
+  "info": {
+   "a": 119,
+   "b1": 181.1,
+   "b2": 146.6,
+   "b3": 167.3
+  }
+ },
+ {
+  "n": "3 marche de profil (w0..w3), tournée selon la direction, immobile à l’arrêt",
+  "ok": true,
+  "info": {
+   "fr": [
+    "w2",
+    "w3",
+    "w3",
+    "w0",
+    "w1",
+    "w1",
+    "w2",
+    "w3",
+    "w3",
+    "w0"
+   ],
+   "fl": [
+    "w0<",
+    "w1<",
+    "w2<",
+    "w2<",
+    "w3<",
+    "w0<"
+   ],
+   "still": "idle"
+  }
+ },
+ {
+  "n": "4 personnage rendu au pixel près (garde-robe incluse)",
+  "ok": true,
+  "info": {
+   "n": 1993,
+   "diff": 0,
+   "haut": "teeb|0",
+   "name": "idle"
+  }
+ },
+ {
+  "n": "5 caméra qui suit et reste bornée",
+  "ok": true,
+  "info": {
+   "rel": 0.4316584437021053,
+   "cam0": 0
+  }
+ },
+ {
+  "n": "6 limite au début de la rue",
+  "ok": true,
+  "info": {
+   "px": 24,
+   "minX": 24
+  }
+ },
+ {
+  "n": "7 chantier placé après le dernier bâtiment et infranchissable",
+  "ok": true,
+  "info": {
+   "wk": {
+    "workX": 1580,
+    "maxX": 1566,
+    "last": 1536
+   },
+   "px": 1566
+  }
+ },
+ {
+  "n": "8 popup « Quartier en construction » + bouton Fermer + Échap",
+  "ok": true,
+  "info": {
+   "vis": true,
+   "t": "QUARTIER EN CONSTRUCTION 🚧",
+   "a": "De nouveaux commerces et lieux de loisirs sont en préparation.",
+   "b": "Reviens bientôt découvrir la suite de la ville !"
+  }
+ },
+ {
+  "n": "9 nom du lieu + « Entrer » près de la porte, masqué ailleurs",
+  "ok": true,
+  "info": {
+   "nearG": {
+    "w": "Salle de sport",
+    "e": "Entrer",
+    "h": false
+   },
+   "far": {
+    "w": "La rue commerçante",
+    "h": true
+   }
+  }
+ },
+ {
+  "n": "10 entrée dans la salle de sport puis retour dans la rue devant la porte",
+  "ok": true,
+  "info": {
+   "inG": "gym",
+   "back": 1072,
+   "dG": 1072
+  }
+ },
+ {
+  "n": "11 boutique de vêtements : entrée et retour devant la boutique",
+  "ok": true,
+  "info": {
+   "px": 1492,
+   "dC": 1492
+  }
+ },
+ {
+  "n": "12 bowling, arcade, cinéma, restaurant : message « bientôt », pas de sortie de la rue",
+  "ok": true,
+  "info": [
+   {
+    "t": "Bowling",
+    "a": "Le bowling ouvrira bientôt ses portes.",
+    "vis": true,
+    "place": "street"
+   },
+   {
+    "t": "Salle d’arcade",
+    "a": "La salle d’arcade ouvrira bientôt ses portes.",
+    "vis": true,
+    "place": "street"
+   },
+   {
+    "t": "Cinéma",
+    "a": "Le cinéma ouvrira bientôt ses portes.",
+    "vis": true,
+    "place": "street"
+   },
+   {
+    "t": "Restaurant",
+    "a": "Le restaurant ouvrira bientôt ses portes.",
+    "vis": true,
+    "place": "street"
+   }
+  ]
+ },
+ {
+  "n": "13 commandes tactiles + clic sur un bâtiment",
+  "ok": true,
+  "info": {
+   "tactile": {
+    "x0": 700,
+    "x1": 748.3
+   },
+   "cible": "bowling",
+   "px": 378,
+   "door": 378
+  }
+ },
+ {
+  "n": "14 HUD discret visible (heure, besoins, pièces, commandes)",
+  "ok": true,
+  "info": {
+   "heure": true,
+   "besoins": true,
+   "pieces": true,
+   "gauche": true,
+   "droite": true,
+   "panneau": true
+  }
+ },
+ {
+  "n": "15 sauvegarde et reprise de la position dans la rue",
+  "ok": true,
+  "info": {
+   "on": true,
+   "v": "street",
+   "place": "street",
+   "st": "street",
+   "px": 1112,
+   "cam": 991.9999995181274,
+   "W": 300,
+   "sp": "idle",
+   "fl": false
+  }
+ },
+ {
+  "n": "16 registre extensible : chantier repoussé automatiquement",
+  "ok": true,
+  "info": {
+   "before": 1580,
+   "after": 1734,
+   "expect": 1734,
+   "last": 1690,
+   "len": 2034,
+   "restored": 1580
+  }
+ },
+ {
+  "n": "17 retour à la maison",
+  "ok": true,
+  "info": {
+   "on": false,
+   "v": "home",
+   "place": "home",
+   "st": "idle",
+   "px": 119,
+   "cam": 0,
+   "W": 347,
+   "sp": "idle",
+   "fl": false
+  }
+ },
+ {
+  "n": "18 rendu de nuit et performance",
+  "ok": true,
+  "info": {
+   "msParImage": 0.477,
+   "fps": 61
+  }
+ },
+ {
+  "n": "19 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

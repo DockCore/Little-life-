@@ -1,0 +1,20 @@
+.street{position:absolute;inset:0;z-index:2;background:#1b2540;opacity:0;pointer-events:none;transition:opacity .35s;overflow:hidden;touch-action:none}
+.street.on{opacity:1;pointer-events:auto}
+.street canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;cursor:pointer}
+main[data-v="street"] .hud{z-index:7}
+.stpad{position:absolute;left:8px;right:8px;bottom:58px;display:flex;justify-content:space-between;align-items:flex-end;gap:8px;pointer-events:none}
+.stpad button{pointer-events:auto;min-width:52px;height:46px;border:2px solid #1d2638;border-radius:8px;background:rgba(255,248,236,.92);color:#1d2638;font:700 18px var(--px);box-shadow:0 3px 0 #1d2638;user-select:none;-webkit-user-select:none;touch-action:none}
+.stpad button:active{transform:translateY(2px);box-shadow:0 1px 0 #1d2638}
+.stpad #stAct{min-width:84px;font-size:14px;background:#ffd166}
+.stpad .stdir{display:flex;gap:8px}
+@media (pointer:fine){.stpad{display:none}}
+.stmodal{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,14,30,.55);z-index:2;padding:12px}
+.stmodal[hidden]{display:none}
+.stmc{max-width:300px;background:#fff8ec;color:#1d2638;border:3px solid #1d2638;border-radius:8px;box-shadow:4px 4px 0 rgba(10,16,30,.6);padding:12px 14px;text-align:center;font:600 13px/1.35 var(--px)}
+.stmc b{display:block;font-size:15px;margin-bottom:6px;color:#c4560f}
+.stmc p{margin:4px 0}
+.stmc button{margin-top:8px;padding:6px 18px;border:2px solid #1d2638;border-radius:6px;background:#ffd166;font:700 13px var(--px);box-shadow:0 3px 0 #1d2638;color:#1d2638}
+#v-street .sthint{margin:0;font-size:11px;opacity:.75;text-align:center}
+#v-street #stEnter.soon{background:#e9e4da}
+.ll2 main:not(.dressing):not(.creating) .street{bottom:var(--panH,46%)}
+main[data-v="street"] #zmUI,main[data-v="street"] .bub{display:none!important}
