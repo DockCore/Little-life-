@@ -1,0 +1,13 @@
+const path=require('path');const PW='/home/claude/.npm-global/lib/node_modules/playwright';const JEU='file://'+path.resolve(__dirname,'../../index.html');const O=path.resolve(__dirname,'../sorties');
+const {chromium}=require(PW);
+(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});const pc=process.argv[2]=='pc';
+const p=await (await b.newContext(pc?{viewport:{width:1280,height:800}}:{viewport:{width:390,height:844},deviceScaleFactor:2,hasTouch:true})).newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+const E=(f,a)=>p.evaluate(f,a),W=ms=>p.waitForTimeout(ms),t=pc?'pc':'tel';
+await p.goto(JEU);await W(2500);await E(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}document.getElementById('crOk2').click()});await W(800);
+await E(()=>{streetEnter();const b=STC.buildings.find(q=>q.id=='bowling');STV.px=b.x+b.door.x;stInteract()});await W(300);
+await p.screenshot({path:`${O}/bw_${t}_0intro.png`});await W(2500);await p.screenshot({path:`${O}/bw_${t}_1aim.png`});
+console.log(await E(()=>({ph:BW.phase,W:BW.W,H:BW.H,h:BW.cam.h,f:BW.cam.f,v:curV})));
+await E(()=>{BW.aim=0.08;BW.pw=.8;BW.phase='aim';bwThrow()});await W(700);await p.screenshot({path:`${O}/bw_${t}_2roll.png`});await W(900);await p.screenshot({path:`${O}/bw_${t}_3hit.png`});
+await W(1500);await p.screenshot({path:`${O}/bw_${t}_4res.png`});console.log(await E(()=>({rolls:BW.rolls,ph:BW.phase,msg:BW.msg&&BW.msg.t})));
+await W(1500);console.log(await E(()=>({rolls:BW.rolls,ph:BW.phase,up:BW.pins.filter(q=>q.up&&!q.out).map(q=>q.n)})));await p.screenshot({path:`${O}/bw_${t}_5next.png`});
+console.log('ERR',errs);await b.close()})();

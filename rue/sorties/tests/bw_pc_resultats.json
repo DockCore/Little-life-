@@ -1,0 +1,432 @@
+[
+ {
+  "n": "1 ouverture du bowling par un clic sur sa porte (sans déplacement du personnage)",
+  "ok": true,
+  "info": {
+   "before": 269,
+   "st1": {
+    "back": {
+     "x": 269,
+     "d": 1
+    },
+    "px": 269,
+    "stOn": false,
+    "phase": "intro",
+    "place": "street"
+   }
+  }
+ },
+ {
+  "n": "2 lancement immédiat du mini-jeu",
+  "ok": true,
+  "info": {
+   "msAvantScene": 43,
+   "msAvantJeu": 1549
+  }
+ },
+ {
+  "n": "3 aucun personnage visible (scène opaque, rendu indépendant du sprite et de la tenue)",
+  "ok": true,
+  "info": {
+   "cover": {
+    "n": 81,
+    "bad": [],
+    "streetHidden": true,
+    "cv": "none"
+   },
+   "usesChar": false,
+   "same": true
+  }
+ },
+ {
+  "n": "4 commandes PC : souris (visée), clic maintenu (puissance), relâcher (lancer) + clavier",
+  "ok": true,
+  "info": {
+   "pc": {
+    "a1": -1,
+    "a2": 1,
+    "ch": {
+     "ph": "charge",
+     "pw": 0.3333333333333333
+    },
+    "th": {
+     "ph": "roll",
+     "thrown": true,
+     "vz": 6.003972238433327
+    }
+   },
+   "clavier": {
+    "a0": 0.18035297863122632,
+    "aL": -0.0356470213687737,
+    "spK": -1,
+    "chK": "charge",
+    "thK": "roll"
+   }
+  }
+ },
+ {
+  "n": "5 commandes mobiles (toucher-glisser-relâcher) et boutons de taille suffisante",
+  "ok": true,
+  "info": {
+   "mob": {
+    "d": {
+     "ph": "charge",
+     "aim": -1,
+     "touch": true
+    },
+    "m": 0.3005885161290326,
+    "pw": 0.3,
+    "ph": "roll"
+   },
+   "sizes": [
+    [
+     "8 lb",
+     104,
+     44
+    ],
+    [
+     "10 lb",
+     104,
+     44
+    ],
+    [
+     "12 lb",
+     104,
+     44
+    ],
+    [
+     "14 lb",
+     104,
+     44
+    ],
+    [
+     "16 lb",
+     104,
+     44
+    ],
+    [
+     "bwSpin",
+     394,
+     16
+    ],
+    [
+     "bwRestart",
+     267,
+     32
+    ],
+    [
+     "bwQuit",
+     267,
+     32
+    ]
+   ]
+  }
+ },
+ {
+  "n": "6 collisions physiques (boule-quilles, quilles-quilles, déviation, gouttière)",
+  "ok": true,
+  "info": {
+   "pocket": {
+    "down": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     8,
+     9,
+     10
+    ],
+    "touched": [
+     1,
+     3,
+     10
+    ],
+    "byPins": [
+     2,
+     4,
+     5,
+     6,
+     8,
+     9
+    ],
+    "gut": false,
+    "dvx": 0.3287462907773839
+   },
+   "gutter": {
+    "down": [],
+    "touched": [],
+    "byPins": [],
+    "gut": true,
+    "dvx": 0.2608739451419852
+   },
+   "light": {
+    "down": [
+     3,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "touched": [
+     3,
+     6
+    ],
+    "byPins": [
+     5,
+     7,
+     8,
+     9,
+     10
+    ],
+    "gut": false,
+    "dvx": 0.7498758102181532
+   }
+  }
+ },
+ {
+  "n": "7 calcul des strikes et des spares",
+  "ok": true,
+  "info": {
+   "sc": {
+    "parfait": {
+     "tot": 300,
+     "m": [
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "X",
+      "XXX"
+     ]
+    },
+    "spares": {
+     "tot": 150,
+     "m": [
+      "5/",
+      "5/",
+      "5/",
+      "5/",
+      "5/",
+      "5/",
+      "5/",
+      "5/",
+      "5/",
+      "5/5"
+     ]
+    },
+    "neuf": {
+     "tot": 90,
+     "m": [
+      "9-",
+      "9-",
+      "9-",
+      "9-",
+      "9-",
+      "9-",
+      "9-",
+      "9-",
+      "9-",
+      "9-"
+     ]
+    },
+    "zero": {
+     "tot": 0,
+     "m": [
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--"
+     ]
+    },
+    "exemple": {
+     "tot": 167,
+     "m": [
+      "X",
+      "7/",
+      "9-",
+      "X",
+      "-8",
+      "8/",
+      "-6",
+      "X",
+      "X",
+      "X81"
+     ]
+    },
+    "fin": {
+     "tot": 20,
+     "m": [
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "X7/"
+     ]
+    },
+    "dixieme": {
+     "tot": 20,
+     "m": [
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "--",
+      "7/X"
+     ]
+    },
+    "encours": {
+     "tot": 24,
+     "m": [
+      "X",
+      "X",
+      "4",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+     ]
+    }
+   },
+   "live": {
+    "res": [
+     "STRIKE !",
+     "7 QUILLES",
+     "SPARE !",
+     "2 QUILLES",
+     "RATÉ"
+    ],
+    "rolls": [
+     10,
+     7,
+     3,
+     2,
+     0
+    ],
+    "st": {
+     "s": 1,
+     "p": 1
+    },
+    "tot": 34
+   }
+  }
+ },
+ {
+  "n": "8 fin de partie après 10 frames : score final, statistiques, rejouer/quitter",
+  "ok": true,
+  "info": {
+   "modal": true,
+   "shown": 173,
+   "calc": 173,
+   "pos": {
+    "f": 9,
+    "b": 2,
+    "over": true
+   },
+   "rolls": [
+    10,
+    10,
+    6,
+    4,
+    8,
+    0,
+    7,
+    0,
+    10,
+    10,
+    6,
+    4,
+    10,
+    9,
+    0
+   ],
+   "tab": "173",
+   "stats": "Strikes5Spares2Frames ouvertes3Gouttières0Splits1Moyenne 1re boule8,6Parties jouées1"
+  }
+ },
+ {
+  "n": "9 redémarrage d’une partie",
+  "ok": true,
+  "info": {
+   "re1": {
+    "rolls": 0,
+    "modal": false,
+    "ph": "aim",
+    "pins": 10
+   },
+   "mid": 1,
+   "re2": {
+    "rolls": 0,
+    "ph": "aim",
+    "pins": 10,
+    "tab": "0"
+   }
+  }
+ },
+ {
+  "n": "10 retour dans la rue exactement à la position d’avant",
+  "ok": true,
+  "info": {
+   "back": {
+    "px": 269,
+    "place": "street",
+    "st": "street",
+    "bw": false,
+    "hidden": true
+   },
+   "before": 269,
+   "px2": 378,
+   "back2": 378
+  }
+ },
+ {
+  "n": "11 rechargement pendant la partie : retour dans la rue au même endroit",
+  "ok": true,
+  "info": {
+   "rl": {
+    "on": true,
+    "px": 373,
+    "bw": false
+   },
+   "pxR": 373
+  }
+ },
+ {
+  "n": "12 fluidité du rendu",
+  "ok": true,
+  "info": {
+   "msParImage": 0.91,
+   "fps": 61
+  }
+ },
+ {
+  "n": "13 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

@@ -8,7 +8,7 @@ const STREETS={
  centre:{id:'centre',nom:'la rue commerçante',start:44,gap:34,
   buildings:[
    {id:'maison',name:'Résidence',type:'home',facade:'residence',w:150,h:176,door:{x:75,w:34},go:{place:'home'},available:true},
-   {id:'bowling',le:'Le bowling',name:'Bowling',type:'leisure',facade:'bowling',w:214,h:176,door:{x:150,w:44},scene:'BowlingScene',available:false},
+   {id:'bowling',le:'Le bowling',name:'Bowling',type:'leisure',facade:'bowling',w:214,h:176,door:{x:150,w:44},game:'bowling',available:true},
    {id:'arcade',le:'La salle d’arcade',name:'Salle d’arcade',type:'leisure',facade:'arcade',w:164,h:168,door:{x:118,w:36},scene:'ArcadeScene',available:false},
    {id:'cinema',le:'Le cinéma',name:'Cinéma',type:'leisure',facade:'cinema',w:204,h:190,door:{x:102,w:46},scene:'CinemaScene',available:false},
    {id:'sport',name:'Salle de sport',type:'sport',facade:'gym',w:204,h:160,door:{x:160,w:40},go:{place:'gym'},available:true},
@@ -173,7 +173,10 @@ function streetLeave(){STV.on=false;STV.keys={};STV.touch={l:0,r:0};STV.auto=nul
 function stDoorX(b){return b.x+b.door.x}
 function stNearB(){const p=STV.px;return STC.buildings.find(b=>Math.abs(p-stDoorX(b))<=b.door.w/2+10)||null}
 function stNearWork(){return STV.px>=STC.workX-46}
-function stEnterB(b){if(!b)return;if(!b.available){stModal(b.name,(b.le||b.name)+' ouvrira bientôt ses portes.','Son intérieur est en préparation. Reviens bientôt !');return}
+function stEnterB(b){if(!b)return;
+ // mini-jeu autonome : lancement immédiat, sans déplacement ni animation d'entrée ; retour exactement au même endroit
+ if(b.game&&b.available&&window.GAMES&&GAMES[b.game]){const x=STV.px,d=C.d;streetLeave();C.viaStreet=null;GAMES[b.game].open({x,d});return}
+if(!b.available){stModal(b.name,(b.le||b.name)+' ouvrira bientôt ses portes.','Son intérieur est en préparation. Reviens bientôt !');return}
  const pl=b.go&&b.go.place;if(!pl)return;STV.px=stDoorX(b);C.d=1;say(NAME()+' entre : '+b.name+'.');streetLeave();C.viaStreet=pl=='home'?null:b.id;
  setTimeout(()=>{arrive(pl)},360)}
 function stInteract(){if(STV.modal){stModal(null);return}if(stNearWork()){stWorkSign();return}const b=stNearB();if(b)stEnterB(b)}
@@ -182,7 +185,7 @@ function stModal(t,a,b2){const m=document.getElementById('stModal');if(!m)return
  document.getElementById('stMT').textContent=t;document.getElementById('stMA').textContent=a||'';document.getElementById('stMB').textContent=b2||'';m.hidden=false;STV.modal=true;STV.keys={};STV.touch={l:0,r:0};STV.auto=null}
 function stPanel(force){const b=stNearB(),w=stNearWork(),k=(b?b.id:'')+(w?'w':'');if(!force&&k===STV.panelK)return;STV.panelK=k;STV.near=b;
  const wh=document.getElementById('stWhere'),en=document.getElementById('stEnter');if(!wh)return;
- if(b){wh.textContent=b.name;en.hidden=false;en.textContent=b.available?(b.id=='maison'?'Rentrer':'Entrer'):'Fermé · Bientôt';en.classList.toggle('soon',!b.available)}
+ if(b){wh.textContent=b.name;en.hidden=false;en.textContent=b.available?(b.id=='maison'?'Rentrer':b.game?'Jouer':'Entrer'):'Fermé · Bientôt';en.classList.toggle('soon',!b.available)}
  else if(w){wh.textContent='Chantier';en.hidden=false;en.textContent='Lire le panneau';en.classList.remove('soon')}
  else{wh.textContent='La rue commerçante';en.hidden=true}
  const ib=document.getElementById('stAct');if(ib){ib.hidden=!(b||w);ib.textContent=b?(b.available?(b.id=='maison'?'Rentrer':'Entrer'):'Bientôt'):'Lire'}}
@@ -255,7 +258,7 @@ function streetDraw(){if(!STV.on||!STV.cv)return;const x=STV.x,W=STV.W,n=night,d
  if(n>.3){STC.props.forEach(p=>{const X=p.x-STV.cam;if(X>-60&&X<W+60)stProp(x,p,true)})}stWork(x,true);
  if(n>.3){x.fillStyle=`rgba(10,14,40,${n*.12})`;x.fillRect(0,-STV.oy,W,STV.H)}
  // indication d’interaction
- const b=stNearB();if(b&&!STV.modal)stTag(x,stDoorX(b)-STV.cam,ST_BASE-b.h+(b.h>170?20:6)<ST_WALK-120?ST_WALK-112:ST_WALK-112,(b.available?(b.id=='maison'?'Rentrer':'Entrer'):'Bientôt')+' : '+b.name);
+ const b=stNearB();if(b&&!STV.modal)stTag(x,stDoorX(b)-STV.cam,ST_BASE-b.h+(b.h>170?20:6)<ST_WALK-120?ST_WALK-112:ST_WALK-112,(b.available?(b.id=='maison'?'Rentrer':b.game?'Jouer':'Entrer'):'Bientôt')+' : '+b.name);
  if(STV.fade>0){x.fillStyle=`rgba(0,0,0,${STV.fade})`;x.fillRect(0,-STV.oy,W,STV.H)}x.setTransform(1,0,0,1,0,0)}
 // --- intégration au jeu ---
 PLACES.street={nom:'la rue commerçante',wall:'#d7dde5',door:'#6b7a8f',floor:'tile',fa:'#d9d9d9',fb:'#cfcfcf',furn:[]};
@@ -287,7 +290,7 @@ document.getElementById('stEnter').onclick=stInteract;
   // panneau du chantier
   if(mx2>=STC.workX+8&&mx2<=STC.workX+56&&my>=ST_WALK-100&&my<=ST_WALK){if(stNearWork())stWorkSign();else STV.auto={x:STC.maxX,then:stWorkSign};return}
   const b=STC.buildings.find(b=>mx2>=b.x&&mx2<=b.x+b.w&&my>=ST_BASE-b.h&&my<=ST_BASE+4);
-  if(b){if(Math.abs(STV.px-stDoorX(b))<=b.door.w/2+10)stEnterB(b);else STV.auto={x:stDoorX(b),then:()=>stPanel(true)};return}
+  if(b){if(b.game&&b.available||Math.abs(STV.px-stDoorX(b))<=b.door.w/2+10)stEnterB(b);else STV.auto={x:stDoorX(b),then:()=>stPanel(true)};return}
   if(my>ST_BASE-10)STV.auto={x:Math.max(STC.minX,Math.min(STC.maxX,mx2)),then:null}});
  new ResizeObserver(()=>stFit()).observe(document.getElementById('street'));
  // tuile « La rue » dans le choix de destination

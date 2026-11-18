@@ -22,9 +22,9 @@
   "ok": true,
   "info": {
    "a": 119,
-   "b1": 181.1,
-   "b2": 146.6,
-   "b3": 167.3
+   "b1": 182.25,
+   "b2": 147.75,
+   "b3": 168.45
   }
  },
  {
@@ -32,24 +32,24 @@
   "ok": true,
   "info": {
    "fr": [
-    "w3",
-    "w3",
     "w0",
     "w1",
     "w1",
     "w2",
-    "w2",
+    "w3",
     "w3",
     "w0",
-    "w0"
+    "w0",
+    "w1",
+    "w2"
    ],
    "fl": [
+    "w2<",
+    "w3<",
+    "w0<",
+    "w0<",
     "w1<",
-    "w2<",
-    "w2<",
-    "w3<",
-    "w3<",
-    "w0<"
+    "w1<"
    ],
    "still": "idle"
   }
@@ -135,15 +135,9 @@
   }
  },
  {
-  "n": "12 bowling, arcade, cinéma, restaurant : message « bientôt », pas de sortie de la rue",
+  "n": "12 arcade, cinéma, restaurant : message « bientôt », pas de sortie de la rue",
   "ok": true,
   "info": [
-   {
-    "t": "Bowling",
-    "a": "Le bowling ouvrira bientôt ses portes.",
-    "vis": true,
-    "place": "street"
-   },
    {
     "t": "Salle d’arcade",
     "a": "La salle d’arcade ouvrira bientôt ses portes.",
@@ -172,9 +166,9 @@
     "x0": 700,
     "x1": 748.3
    },
-   "cible": "bowling",
-   "px": 378,
-   "door": 378
+   "cible": "arcade",
+   "px": 594,
+   "door": 594
   }
  },
  {
@@ -198,7 +192,7 @@
    "place": "street",
    "st": "street",
    "px": 1112,
-   "cam": 991.9999993811738,
+   "cam": 991.9999994306798,
    "W": 300,
    "sp": "idle",
    "fl": false
@@ -235,7 +229,7 @@
   "n": "18 rendu de nuit et performance",
   "ok": true,
   "info": {
-   "msParImage": 0.5,
+   "msParImage": 0.473,
    "fps": 61
   }
  },
