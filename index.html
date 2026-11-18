@@ -433,7 +433,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 @keyframes pzSt{from{transform:scale(0) rotate(-40deg)}}
 .pz-wb{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%}.pz-wb button{height:42px;font-size:12.5px!important;padding:0 2px!important}
 .zm{position:absolute;left:8px;bottom:8px;z-index:4;display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px;pointer-events:none}.zm[hidden]{display:none}.zm button{pointer-events:auto;width:36px;height:36px;padding:0;border-radius:11px;display:flex;align-items:center;justify-content:center;font:600 20px/1 var(--px);opacity:.82;box-shadow:0 2px 0 rgba(59,42,36,.35)!important}.zm button:active{opacity:1}.zm svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}#zmBtn{width:auto;min-width:36px;gap:2px;padding:0 6px}#zmBtn.on{opacity:1;border-color:#00BDEB!important}#zmPct{font:600 12px var(--px)}#zmPct:empty{display:none}.zmp{display:flex;flex-direction:column;gap:6px}.zmp[hidden]{display:none}.zm button:disabled{opacity:.4}
-</style><style>
+.czb{display:flex;flex-direction:column;gap:6px;flex:0 0 auto;margin:2px 0 6px}.czr{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.czr button{height:34px;padding:0 4px;font-size:12px!important;letter-spacing:.2px!important;white-space:nowrap}.czr button.warn{background:#f3c1a8!important}.czo{display:flex;flex-direction:column;gap:6px;padding:6px 8px;border:2px solid var(--ink);border-radius:12px;background:rgba(255,255,255,.55)}.czo .opts .sw{width:28px;height:28px}.czo .opts{gap:5px}.czo .sw.none{background:linear-gradient(135deg,#f6efe4 44%,#c0602a 44% 56%,#f6efe4 56%)!important}</style><style>
 #intro{position:fixed;inset:0;z-index:9999;background:#02051a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 #intro.out{opacity:0;pointer-events:none}
 #introCv{width:min(92vw,62vh);height:auto;aspect-ratio:241/247;image-rendering:pixelated;image-rendering:crisp-edges}
@@ -583,7 +583,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <section class="view" id="v-shop"><div class="opts seg" id="shSeg"><button data-s="0" class="on">Meubles</button><button id="shHome" class="home"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="shopg" id="shopG"></div></section>
 <section class="view" id="v-feed"><div class="tray" id="tray"></div></section>
 <section class="view" id="v-style"><div class="opts seg" id="stySeg"></div><div id="styBox"></div></section>
-<section class="view" id="v-deco"><div class="dz"><canvas id="plan"></canvas><div class="pad"><button data-m="-1,0" aria-label="Haut gauche">↖</button><button data-m="0,-1" aria-label="Haut droite">↗</button><button data-m="0,1" aria-label="Bas gauche">↙</button><button data-m="1,0" aria-label="Bas droite">↘</button></div></div><div class="row"><button id="rot">Pivoter</button><button id="stow">Ranger</button><button id="cancel">Annuler</button><button id="ok" class="on">Valider</button></div></section>
+<section class="view" id="v-sofa"><div class="cats"><div class="cat"><h4>Sur le canapé</h4><div class="cg"><button class="tile" data-cz="sit"><svg viewBox="0 0 24 24"><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M3 12h18v5H3zM5 17v2M19 17v2"/></svg>S’asseoir</button><button class="tile" data-cz="look"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Regarder autour</button><button class="tile" data-cz="relax"><svg viewBox="0 0 24 24"><path d="M4 18c3-6 7-9 16-10"/><path d="M8 18h12"/><circle cx="7" cy="8" r="2"/></svg>Se détendre</button><button class="tile" data-cz="nap"><svg viewBox="0 0 24 24"><path d="M3 16h18v3H3zM5 16v-3a2 2 0 0 1 2-2h4"/><path d="M15 4h4l-4 5h4"/></svg>Faire la sieste</button><button class="tile" data-cz="up"><svg viewBox="0 0 24 24"><path d="M12 20V6M6 12l6-6 6 6"/></svg>Se lever</button></div></div><div class="cat"><h4>Le canapé</h4><div class="cg"><button class="tile" data-cz="custom"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2s-1-2 0-3 2 0 3 0a4 4 0 0 0 4-4c0-5-4-9-9-9z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7.5" r="1.2"/></svg>Personnaliser</button></div></div></div></section><section class="view" id="v-deco"><div class="dz"><canvas id="plan"></canvas><div class="pad"><button data-m="-1,0" aria-label="Haut gauche">↖</button><button data-m="0,-1" aria-label="Haut droite">↗</button><button data-m="0,1" aria-label="Bas gauche">↙</button><button data-m="1,0" aria-label="Bas droite">↘</button></div></div><div id="czBar" class="czb" hidden><div class="czr"><button data-c="move">Déplacer</button><button data-c="rot">Tourner</button><button data-c="col">Couleur</button><button data-c="cus">Coussins</button><button data-c="ok" class="czok">Valider</button><button data-c="sell">Vendre</button><button data-c="stow">Ranger</button></div><div id="czOpt" class="czo" hidden></div></div><div class="row"><button id="rot">Pivoter</button><button id="stow">Ranger</button><button id="cancel">Annuler</button><button id="ok" class="on">Valider</button></div></section>
 <section class="view" id="v-inv"><div id="invBox"></div><button id="newg" style="height:34px;font-size:12px;flex:0 0 auto;margin-top:auto">Nouvelle partie</button></section>
 <section class="view" id="v-soon"><p id="soonTxt"></p></section>
 <section class="view" id="v-dress"><div class="opts seg" id="drSeg"><button data-c="0" class="on">Hauts</button><button data-c="1">Bas</button><button data-c="2">Accessoires</button><button data-c="3">Tenues</button></div><div id="drList"></div></section>
@@ -872,13 +872,129 @@ const SHOP=[
  {n:'Bibliothèque',w:2,h:1,p:80,c:'#6b3e30',d:'Pleine de livres'},
  {n:'Canapé',w:3,h:1,p:120,c:'#3f6fb0',d:'Pour se reposer'},
  {n:'Télé',w:2,h:1,p:150,c:'#26304a',d:'À regarder du canapé'},
- {n:'Aquarium',w:2,h:1,p:200,c:'#5fb7d6',d:'Avec trois poissons'}];
+ {n:'Aquarium',w:2,h:1,p:200,c:'#5fb7d6',d:'Avec trois poissons'},
+ {n:'Canapé cosy',w:5,h:2,p:180,c:'#e7d3bf',d:'Trois places, coussins et plaid, à ta couleur'}];
 const FOODP=[4,10,8];let shT=0;
+// ===== CANAPÉ COSY : meuble personnalisable (4 vraies orientations, tissu, coussins, plaid, poses) =====
+const COSY='Canapé cosy',CZL=5,CZD=2,CZRISE=26,CZSZ=16;
+const CZF=[['Crème','#e7d3bf'],['Gris clair','#b9bdc5'],['Gris foncé','#5c606a'],['Bleu','#4b6ea8'],['Vert sauge','#8da57c'],['Marron','#9a5b38'],['Noir','#302d34'],['Blanc','#f4f1ec']],
+ CZC=[['Moutarde','#e2a636'],['Crème','#efe2cc'],['Terracotta','#c7623e'],['Rose poudré','#dc9aa8'],['Bleu canard','#3c7d8c'],['Vert sauge','#86a276'],['Gris','#9da1a9'],['Noir','#302d34']],
+ CZP=[['Gris','#9b9ea8'],['Crème','#ebdcc4'],['Moutarde','#d9a03a'],['Terracotta','#bf6043'],['Bleu','#56739e'],['Vert','#6f9467'],['Rose','#d593a3'],['Sans plaid','']];
+const czIs=f=>!!f&&f.n==COSY;
+const czSame=(a,b)=>!!a&&!!b&&(a===b||(!!a.id&&a.id===b.id));
+// le personnage est-il installé sur (ou en train de se lever de) ce canapé ?
+const czMine=f=>(C.st=='sofa'&&czSame(C.seat,f))||(!!C.rise&&C.st!='sofa'&&czSame(C.rise.f,f));
+// repère local (a : le long du canapé, d : du dossier vers l'avant) -> cases de la pièce, pour chaque orientation
+function czPt(f,a,d){const r=f.r||0,x=f.x,y=f.y;return r==0?[x+a,y+d]:r==1?[x+d,y+CZL-a]:r==2?[x+CZL-a,y+CZD-d]:[x+CZD-d,y+a]}
+function czBox(f,a0,a1,d0,d1){const p=czPt(f,a0,d0),q=czPt(f,a1,d1);return[Math.min(p[0],q[0]),Math.min(p[1],q[1]),Math.abs(q[0]-p[0]),Math.abs(q[1]-p[1])]}
+function czNew(f){if(!czIs(f))return;f.id=f.id||('cz'+Date.now().toString(36)+Math.floor(Math.random()*1e4));const k=(N.czKeep||[]).pop();f.k=k?k.k|0:0;f.ck=k?k.ck|0:0;f.pk=k?k.pk|0:0;f.c=CZF[f.k][1]}
+// boîte avec contour pixel art (le contour du dessus est recouvert par les pièces placées devant)
+function czB3(u,v,w,d,z,h,c,o,ol){B3(u,v,w,d,z,h,c,o);if(!ol)return;const A=P3(u,v,z+h),B=P3(u+w,v,z+h),Cc=P3(u+w,v,z),D=P3(u+w,v+d,z),E=P3(u,v+d,z),F=P3(u,v+d,z+h);[[A,B],[B,Cc],[Cc,D],[D,E],[E,F],[F,A]].forEach(([p,q])=>ln(p,q,ol))}
+// toutes les pièces du canapé, décrites dans son repère local puis replacées dans la pièce
+function czParts(f){const fab=CZF[f.k|0][1],cus=CZC[f.ck|0][1],pl=CZP[f.pk|0][1],OL=mx(fab,'#1a1014',.72),L=CZL,D=CZD,parts=[],WD='#a8622e';
+ const fo=(c,k)=>({t:mx(c,'#fff',.13+(k||0)),l:c,r:mx(c,'#000',.2),e:mx(c,'#fff',.3)});
+ const box=(a0,a1,d0,d1,z,h,c,o,g,ol)=>{const[u,v,w,d]=czBox(f,a0,a1,d0,d1);parts.push({u,v,w,d,z,h,g:g||'b',dr:()=>czB3(u,v,w,d,z,h,c,o,ol===0?null:OL)})};
+ const P=(a,d,z)=>P3(...czPt(f,a,d),z);
+ // pieds en bois
+ [[.12,.12],[L-.32,.12],[.12,D-.32],[L-.32,D-.32]].forEach(([a,d])=>box(a,a+.2,d,d+.2,0,3,WD,{t:'#c27a3e',l:WD,r:'#874c22',flat:1},'b',0));
+ // socle sous les coussins d'assise
+ box(.55,L-.55,.45,D,3,7,mx(fab,'#000',.1),fo(mx(fab,'#000',.1)),'b');
+ // dossier + 3 coussins de dossier
+ box(.55,L-.55,0,.45,3,30,fab,fo(fab),'k');
+ const bw=(L-1.2)/3;for(let i=0;i<3;i++){const a0=.6+i*bw+.05;box(a0,a0+bw-.1,.45,.85,14,17,fab,fo(fab,.04),'k')}
+ // accoudoirs
+ box(0,.55,0,D,3,21,fab,fo(fab),'b');box(L-.55,L,0,D,3,21,fab,fo(fab),'b');
+ // 3 coussins d'assise
+ for(let i=0;i<3;i++){const a0=.6+i*bw+.05;box(a0,a0+bw-.1,.85,D-.02,10,6,fab,fo(fab,.06),'b')}
+ // coussins décoratifs : carrés moelleux, légèrement penchés contre le dossier
+ const pillow=(a0,a1)=>{const z0=16,z1=26,dF=1.14,dd=z=>dF-.22*(z-z0)/(z1-z0),am=(a0+a1)/2,zm=(z0+z1)/2;
+  const pts=(o)=>[[a0-.05,z1+.6],[am,z1-.9],[a1+.05,z1+.6],[a1-.07,zm],[a1+.05,z0],[am,z0+.9],[a0-.05,z0],[a0+.07,zm]].map(([a,z])=>P(a,dd(z)-o,z));
+  const[u,v,w,d]=czBox(f,a0-.05,a1+.05,dF-.42,dF);
+  parts.push({u,v,w,d,z:z0,h:z1-z0+1,g:'b',dr:()=>{poly(pts(.2),mx(cus,'#000',.3));const fr=pts(0);poly(fr,cus);
+   poly([fr[3],fr[4],fr[5],P(am,dd(zm-1),zm-1)],mx(cus,'#000',.14));poly([fr[0],fr[1],P(am,dd(zm+1),zm+1),fr[7]],mx(cus,'#fff',.16));
+   const c=P(am,dd(zm),zm);G.fillStyle=mx(cus,'#000',.32);G.fillRect(Math.round(c[0]),Math.round(c[1]),1,1);
+   fr.forEach((p,i)=>ln(p,fr[(i+1)%fr.length],OL))}})};
+ pillow(.72,1.44);pillow(L-1.44,L-.72);
+ // plaid posé sur l'accoudoir gauche : il tombe devant, avec ses franges
+ if(pl){const a0=.05,a1=.5,zt=24.6,lt=mx(pl,'#fff',.3),dk=mx(pl,'#000',.2);
+  {const[u,v,w,d]=czBox(f,a0,a1,.55,D+.02);parts.push({u,v,w,d,z:24,h:1,g:'b',dr:()=>{const q=[P(a0,.55,zt),P(a1,.55,zt),P(a1,D+.02,zt),P(a0,D+.02,zt)];poly(q,mx(pl,'#fff',.1));
+   ln(P((a0+a1)/2,.6,zt),P((a0+a1)/2,D,zt),lt);q.forEach((p,i)=>ln(p,q[(i+1)%4],OL))}})}
+  {const[u,v,w,d]=czBox(f,a0,a1,D,D+.06);parts.push({u,v,w,d,z:3,h:22,g:'b',dr:()=>{const dF=D+.03,q=[P(a0,dF,zt),P(a1,dF,zt),P(a1,dF,6),P(a0,dF,6)];poly(q,pl);
+   poly([P(a0,dF,9),P(a1,dF,9),P(a1,dF,6),P(a0,dF,6)],dk);[.17,.38].forEach(t=>ln(P(a0+(a1-a0)*t,dF,zt-1),P(a0+(a1-a0)*t,dF,7),lt));
+   for(let i=0;i<6;i++){const a=a0+.04+i*(a1-a0-.08)/5;ln(P(a,dF,5),P(a,dF,3),mx(pl,'#fff',.45))}
+   q.forEach((p,i)=>ln(p,q[(i+1)%4],OL))}})}}
+ return{parts,OL}}
+// ordre de dessin : une pièce passe avant une autre si elle est entièrement derrière (u, v) ou dessous (z)
+function czSort(ps){const e=.001,bh=(A,B)=>A.u+A.w<=B.u+e||A.v+A.d<=B.v+e||A.z+A.h<=B.z+e,out=[],st=new Map();
+ const vis=a=>{if(st.get(a)==2)return;if(st.get(a)==1)return;st.set(a,1);ps.forEach(b=>{if(b!==a&&bh(b,a)&&!bh(a,b))vis(b)});st.set(a,2);out.push(a)};
+ ps.slice().sort((a,b)=>(a.u+a.v+a.z*.01)-(b.u+b.v+b.z*.01)).forEach(vis);return out}
+// calque mis en mémoire : grain du tissu + contour extérieur, recalculé seulement si le canapé change
+const CZCACHE=new Map();
+function czLayer(f,grp){const k=grp+'|'+OX+','+OY+','+TW+','+RN+'|'+[f.x,f.y,f.r|0,f.k|0,f.ck|0,f.pk|0].join(',');let e=CZCACHE.get(k);
+ if(!e){const{parts,OL}=czParts(f),sel=parts.filter(p=>grp=='all'||p.g==grp),pts=[P3(f.x,f.y,0),P3(f.x+f.w,f.y,0),P3(f.x,f.y+f.h,0),P3(f.x+f.w,f.y+f.h,0)];
+  const x0=Math.floor(Math.min(...pts.map(p=>p[0])))-TW,x1=Math.ceil(Math.max(...pts.map(p=>p[0])))+TW,y0=Math.floor(Math.min(...pts.map(p=>p[1])))-40,y1=Math.ceil(Math.max(...pts.map(p=>p[1])))+TH+4;
+  const c=document.createElement('canvas');c.width=Math.max(1,x1-x0);c.height=Math.max(1,y1-y0);const cx=c.getContext('2d');cx.imageSmoothingEnabled=false;cx.translate(-x0,-y0);
+  const g0=G;G=cx;try{czSort(sel).forEach(p=>p.dr())}finally{G=g0}
+  const W=c.width,H=c.height,id=cx.getImageData(0,0,W,H),d=id.data,o=hex3(OL),a=new Uint8Array(W*H);for(let i=0;i<W*H;i++)a[i]=d[i*4+3]>0?1:0;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=y*W+x,j=i*4;
+   if(a[i]){if(d[j]+d[j+1]+d[j+2]>150){const t=Math.sin((x+x0)*12.9898+(y+y0)*78.233)*43758.5453,n=1+((t-Math.floor(t))-.5)*.07;d[j]=Math.min(255,d[j]*n);d[j+1]=Math.min(255,d[j+1]*n);d[j+2]=Math.min(255,d[j+2]*n)}}
+   else if((x>0&&a[i-1])||(x<W-1&&a[i+1])||(y>0&&a[i-W])||(y<H-1&&a[i+W])){d[j]=o[0];d[j+1]=o[1];d[j+2]=o[2];d[j+3]=255}}
+  cx.putImageData(id,0,0);e={c,x0,y0};CZCACHE.set(k,e);if(CZCACHE.size>40)CZCACHE.delete(CZCACHE.keys().next().value)}
+ G.drawImage(e.c,e.x0,e.y0)}
+function isoCosy(f,ic){if(!ic)fshadow(f);const r=f.r||0,me=!ic&&czMine(f);
+ if(r<2){czLayer(f,'all');if(me)czChar(f)}else{czLayer(f,'b');if(me)czChar(f);czLayer(f,'k')}}
+// --- le personnage sur le canapé ---
+const czLook=()=>{const p=C.t%400;return p<110?0:p<190?1:p<250?0:p<330?2:0};
+function czFrame(){const f=C.seat,r=f.r||0,sp=C.sp||'sit';
+ if(sp=='nap')return(r%2?'si0_':'si1_')+[0,1,2,1][Math.floor(C.t/25)%4];
+ if(sp=='relax')return'dn7';
+ if(sp=='look'&&czLook())return'dn0';
+ return r>=2?'dk0':'wc0'}
+function czRiseFrame(){const k=1-C.rise.t/CZRISE,r=C.rise.f.r||0;return k<.5?(r>=2?'dk0':'wc0'):'idle'}
+const czFrontFl=r=>r==1||r==2;
+function czSeat(u,v,fl){const p=P3(u,v,0),X=Math.round(p[0]),Y=Math.round(p[1])+1-(CZSZ-15);charDraw(sc2,X,Y,fl,CW,CH);mouthL.x=X;mouthL.y=Y-MYB+14;HEAD=[X,Y-84+14]}
+function czChar(f){const r=f.r||0,mid=CZL/2;
+ if(C.st!='sofa'&&C.rise){const k=1-C.rise.t/CZRISE,S=czPt(f,mid,1.5),E=czPt(f,mid,CZD+.25),T=[C.x/12,(C.y-88)/5];
+  if(k<.5){const t=k/.5*.55;czSeat(S[0]+(E[0]-S[0])*t,S[1]+(E[1]-S[1])*t,czFrontFl(r))}
+  else{const t=(k-.5)/.5,u=E[0]+(T[0]-E[0])*t,v=E[1]+(T[1]-E[1])*t,p=P3(u,v,0);gshadow(p[0],p[1],24);charDraw(sc2,p[0],p[1],false,CW,CH);mouthL.x=p[0]+4.5;mouthL.y=p[1]-MYB;HEAD=[p[0],p[1]-84]}
+  return}
+ const sp=C.sp||'sit';
+ if(sp=='nap'){const hs=r==0||r==3,aH=hs?1.4:CZL-1.4,h=czPt(f,aH,1.34);sleepHead(h[0],h[1],CZSZ-1);HEAD=[mouthL.x,mouthL.y-26];
+  const pl=CZP[f.pk|0][1]||CZC[f.ck|0][1],OL=mx(CZF[f.k|0][1],'#1a1014',.72),[a0,a1]=hs?[aH+.42,CZL-.62]:[.62,aH-.42];
+  const[u,v,w,d]=czBox(f,a0,a1,.98,CZD-.1);czB3(u,v,w,d,CZSZ,5,pl,{t:mx(pl,'#fff',.14),r:mx(pl,'#000',.2),e:mx(pl,'#fff',.32)},OL);
+  const ba=hs?[a0,a0+.32]:[a1-.32,a1],[bu,bv,bw2,bd]=czBox(f,ba[0],ba[1],.98,CZD-.1);B3(bu,bv,bw2,bd,CZSZ,5.4,mx(pl,'#fff',.35),{t:mx(pl,'#fff',.45)});
+  const zt=(tick%150)/150;pxText(ZZ,mouthL.x+10+zt*4,mouthL.y-16-zt*12,'#F0D9BC',Math.min(1,(1-zt)*2));return}
+ if(sp=='relax'){const p=czPt(f,1.22,1.36);sofaSit(p[0],p[1],CZSZ,r>=2);return}
+ if(sp=='look'){const l=czLook();if(l&&/^dn\d/.test(spName)){const p=czPt(f,mid,1.36);sofaSit(p[0],p[1],CZSZ,l==1);return}}
+ const p=czPt(f,mid,r>=2?1.3:1.5);czSeat(p[0],p[1],czFrontFl(r))}
+function czFront(f){let t=czPt(f,CZL/2,CZD+.95);if(!walkable(t[0],t[1])){const c=[czPt(f,CZL/2,CZD+1.4),czPt(f,-.9,CZD/2),czPt(f,CZL+.9,CZD/2)].find(q=>walkable(q[0],q[1]));if(c)t=c;else{const p=out(t[0]*12,88+t[1]*5);t=[p[0]/12,(p[1]-88)/5]}}return t}
+const CZSAY={sit:()=>NAME()+' s’installe confortablement sur le canapé.',look:()=>NAME()+' jette un œil tout autour, bien calé dans le canapé.',relax:()=>NAME()+' se cale contre l’accoudoir et se détend.',nap:f=>NAME()+(CZP[f.pk|0][1]?' s’allonge sous le plaid pour une petite sieste.':' s’allonge sur le canapé pour une petite sieste.')};
+function czPose(p){if(p=='up'){czUp();return}if(!(C.st=='sofa'&&czIs(C.seat)))return;if(C.sp==p&&p!='sit'){say('C’est déjà ce que fait '+NAME()+'.');return}C.sp=p;C.t=0;say(CZSAY[p](C.seat));czView();if(p=='nap')talkMaybe('lit',.3);else talkMaybe(tvF()?'tele':'canape',.25)}
+function czUp(){if(C.st=='sofa'&&czIs(C.seat)){C.st='idle';C.idle=140;say(NAME()+' se lève du canapé.')}czView()}
+function goCosy(f,pose){if(!f)return;pose=pose||'sit';if(C.st=='sleep'){say('Chut… '+NAME()+' dort.');return}
+ if(C.st=='sofa'&&czSame(C.seat,f)){czPose(pose);return}
+ if(C.st=='sofa')C.st='idle';if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();
+ const t=czFront(f);say(NAME()+' va s’installer sur le canapé.');
+ goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.sp=pose;C.t=0;C.rise=null;C._czs=f;say(CZSAY[pose](f));czView();talkMaybe(pose=='nap'?'lit':tvF()?'tele':'canape',.4)})}
+function czTick(){const sp=C.sp||'sit',tv=!!tvF();
+ if(sp=='nap'){add('energy',100/1500);add('happy',.001);if(N.energy>=100){C.sp='sit';C.t=0;say(NAME()+' se réveille de sa sieste, en pleine forme.');talkMaybe('reveil',.5);czView()}}
+ else if(sp=='relax'){add('energy',.007);add('happy',tv?.005:.004)}
+ else if(sp=='look'){add('energy',.003);add('happy',.002)}
+ else{add('energy',.005);add('happy',tv?.004:.0015)}
+ if(sp!='nap'&&C.t%900==450)talkMaybe(tv?'tele':'canape',.3);if(tick%20==0)bars()}
+// le personnage se relève : on le voit quitter l'assise avant de repartir
+function czWatch(){if(C.st!='sofa'&&C._czs&&!C.rise)C.rise={f:C._czs,t:CZRISE};C._czs=C.st=='sofa'&&czIs(C.seat)?C.seat:null;if(C.rise&&--C.rise.t<=0)C.rise=null}
+function czHit(f,mx2,my){return[0,6,12,18,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=f.x&&a<=f.x+f.w&&b>=f.y&&b<=f.y+f.h})}
+function czTap(f){if(C.st=='sofa'&&czSame(C.seat,f)){if(C.sp=='nap'){C.sp='sit';C.t=0;say(NAME()+' ouvre un œil… fin de la sieste.')}else pet();show('sofa');return}goCosy(f,'sit');show('sofa')}
+function czView(){const v=document.getElementById('v-sofa');if(!v)return;const on=C.st=='sofa'&&czIs(C.seat),sp=on?(C.sp||'sit'):'';v.querySelectorAll('[data-cz]').forEach(b=>{const k=b.dataset.cz;b.classList.toggle('on',on&&k==sp);if(k=='up')b.disabled=!on})}
+// point à atteindre devant chaque canapé (vérifié quand on place un meuble)
+const czSpots=L=>L.filter(czIs).map(f=>czPt(f,CZL/2,CZD+.95));
+
 // points que le personnage doit toujours pouvoir atteindre
 function needSpots(){const T=[],L=N.furn;const lit=L.find(f=>f.n=='Lit');if(lit){const b=bedPos();T.push([b[0]/12,(b[1]-88)/5])}
  const d=deskF();if(d)T.push(deskStand(d));const t=tblF();if(t){const a=tblA();T.push([a[0],(Math.min(YM,88+(t.y+t.h)*5+8)-88)/5])}
  const sh=L.find(f=>f.n=='Douche');if(sh)T.push(shFront(sh));const wc=L.find(f=>f.n=='WC');if(wc){const r=wc.r||0,dr=[[0,1],[1,0],[0,-1],[-1,0]][r];T.push([wc.x+wc.w/2+dr[0]*1.6,wc.y+wc.h/2+dr[1]*1.6])}
- L.filter(f=>f.n=='Canapé').forEach(f=>{const r=f.r||0;T.push(r==1?[f.x+f.w+.95,f.y+f.h/2]:[f.x+f.w/2,f.y+f.h+.95])});return T}
+ L.filter(f=>f.n=='Canapé').forEach(f=>{const r=f.r||0;T.push(r==1?[f.x+f.w+.95,f.y+f.h/2]:[f.x+f.w/2,f.y+f.h+.95])});czSpots(L).forEach(t=>T.push(t));return T}
 function reachSet(T){let s=awayPos()||[C.x/12,(C.y-88)/5];if(!walkable(s[0],s[1]))s=T.find(t=>walkable(t[0],t[1]))||s;
  return T.map(t=>{if(!walkable(t[0],t[1]))return false;if(los(s,t))return true;const p=findPath(s,t);if(!p.length)return false;const q=p[p.length-1];return Math.hypot(q[0]-t[0],q[1]-t[1])<=.35})}
 function reachOK(T,base){const now=reachSet(T);return base.every((b,i)=>!b||now[i])}
@@ -894,7 +1010,7 @@ function placeItemHome(it){const away=awayPos(),RS=(ROTS[it.n]||[0]).filter(r=>r
    let crowd=0;L.forEach(o=>{if(o.s&&x-1<o.x+o.w&&o.x<x+w+1&&y-1<o.y+o.h&&o.y<y+h+1)crowd++});
    c.push([x,y,r,w,h,(wall?0:6)+crowd*2.5+Math.hypot(x+w/2-RN/2,y+h/2-RN/2)*.06])}}
  c.sort((a,b)=>a[5]-b[5]);const T=needSpots(),base=reachSet(T);
- for(const[x,y,r,w,h]of c.slice(0,60)){const f={n:it.n,w,h,x,y,r,c:it.c,s:1,shop:1};L.push(f);if(reachOK(T,base))return f;L.pop()}
+ for(const[x,y,r,w,h]of c.slice(0,60)){const f={n:it.n,w,h,x,y,r,c:it.c,s:1,shop:1};L.push(f);if(reachOK(T,base)){czNew(f);return f}L.pop()}
  return null}
 const FEM=['Lampe','Télé','Bibliothèque'],gE=n=>FEM.includes(n)?'e':'';
 function buy(i,food){if(food){const p=FOODP[i];if(N.coins<p)return;if(N.stock[i]>=9){say('Ton placard est déjà bien rempli !');return}earn(-p);N.stock[i]++;refreshChips();save();shopDraw();say(FOODS[i].n+' acheté'+(i==0?'e':'')+' : il y en a '+N.stock[i]+'.');return}
@@ -927,7 +1043,7 @@ function goPouf(f){if(!f)return;if(C.st=='sleep'){say(NAME()+' dort.');return}if
  say(NAME()+' va s’asseoir sur le pouf.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.sfl=fl;C.t=0;say(tv?NAME()+' s’installe sur le pouf devant la télé.':NAME()+' se pose sur le pouf.');talkMaybe(tv?'tele':'canape',.5)})}
 function goSofa(){const f=sofaF();if(!f)return;if(C.st=='sleep'){say('Chut… Nori dort.');return}if(C.st=='sofa')return;if(C.st=='dine')show('home');if(PLAYS.includes(C.st))stopPlay(true);if(seated())leaveDesk();
  const t=sofaFront(f);say('Nori va s’asseoir sur le canapé.');goto(t[0]*12,88+t[1]*5,()=>{C.st='sofa';C.seat=f;C.t=0;say(tvF()?'Nori s’installe devant la télé.':'Nori se repose sur le canapé.');talkMaybe(tvF()?'tele':'canape',.5)})}
-function sofaTick(){add('energy',.006);add('happy',tvF()?.004:.0015);if(C.t%900==450)talkMaybe(tvF()?'tele':'canape',.3);if(tick%20==0)bars()}
+function sofaTick(){if(C.seat&&C.seat.n=='Canapé cosy'){czTick();return}add('energy',.006);add('happy',tvF()?.004:.0015);if(C.t%900==450)talkMaybe(tvF()?'tele':'canape',.3);if(tick%20==0)bars()}
 // ===== SORTIR : la porte de l'appartement, l'open space, le magasin d'aménagement =====
 let place='home',doorA=0,doorT=0,tripOn=false,AWAY=false;
 const DOORS=[1.05,15.1];let DV0=13.85,DV1=16.35;
@@ -1755,12 +1871,12 @@ function toggleSleep(){
  talkMaybe('lit',.35);goto(...bedPos(),()=>{C.st='sleep';sl.textContent='Réveiller';say('Nori dort. Les lumières de la ville veillent.')});
 }
 function update(){
- tick++;cwTick();C.t++;dayCycle();needsTick();doorA+=Math.max(-.035,Math.min(.035,doorT-doorA));if(curV=='work'&&!C.wk&&tick%10==0)workUI();if(tick%600==0&&dirty()&&!N.dirtSaid&&C.st!='sleep'){N.dirtSaid=1;say('Nori commence à sentir un peu… il faudrait le laver.');talkMaybe('sale',.35)}
+ tick++;cwTick();C.t++;czWatch();dayCycle();needsTick();doorA+=Math.max(-.035,Math.min(.035,doorT-doorA));if(curV=='work'&&!C.wk&&tick%10==0)workUI();if(tick%600==0&&dirty()&&!N.dirtSaid&&C.st!='sleep'){N.dirtSaid=1;say('Nori commence à sentir un peu… il faudrait le laver.');talkMaybe('sale',.35)}
  if(C.bl>0)C.bl--;else if(--C.blink<0){C.bl=6;C.blink=110+Math.random()*200}
  if(C.wag>0)C.wag--;
  if(C.st=='idle'){if(--C.idle<=0){const r=Math.random();if(curV=='home')talkMaybe(dirty()?'sale':'seul',.05);
   if(r<.5&&!feedMode)goto(20+Math.random()*(XM-30),94+Math.random()*(YM-96));else if(r<.75&&!feedMode)C.d*=-1;else C.wag=70;if(N.hunger<25&&!feedMode)say('Nori réclame à manger.');C.idle=140+Math.random()*220}}
- else if(C.st=='walk'){if(!C.path||!C.path.length)C.path=[[C.tx/12,(C.ty-88)/5]];const w=C.path[0],cu=C.x/12,cv=(C.y-88)/5,du=w[0]-cu,dv=w[1]-cv,l=Math.hypot(du,dv),sp=.0725;
+ else if(C.st=='walk'&&!C.rise){if(!C.path||!C.path.length)C.path=[[C.tx/12,(C.ty-88)/5]];const w=C.path[0],cu=C.x/12,cv=(C.y-88)/5,du=w[0]-cu,dv=w[1]-cv,l=Math.hypot(du,dv),sp=.0725;
   if(l<=sp){C.x=w[0]*12;C.y=88+w[1]*5;C.path.shift();if(!C.path.length){C.st='idle';C.idle=100;const f=C.then;C.then=null;if(f)f()}}
   else{C.x+=du/l*sp*12;C.y+=dv/l*sp*5}}
  else if(C.st=='petdog'){petTick()}
@@ -1835,7 +1951,7 @@ function setFeed(v){
  else say('Nori retrouve la pièce.');
 }
 // ===== 7. NAVIGATION DE L’ÉCRAN TACTILE (chaque mode = une vue ; l’écran du haut reste actif) =====
-const VT={clothes:'Vêtements',grocery:'Épicerie',pets:'Animalerie',pet:'Animalerie',out:'Sortie',trip:'En route',work:'Travail',shop:'Magasin',table:'À table',desk:'Bureau',style:'Personnaliser',home:'Accueil',feed:'Nourrir',deco:'Décorer',inv:'Inventaire',play:'Jouer',wash:'Laver',dress:'Habiller'};
+const VT={clothes:'Vêtements',grocery:'Épicerie',pets:'Animalerie',pet:'Animalerie',out:'Sortie',trip:'En route',work:'Travail',shop:'Magasin',table:'À table',desk:'Bureau',style:'Personnaliser',home:'Accueil',feed:'Nourrir',deco:'Décorer',sofa:'Canapé',inv:'Inventaire',play:'Jouer',wash:'Laver',dress:'Habiller'};
 const SOON={wash:'Savon, éponge et douche : prochaine étape.'};
 const back=document.getElementById('back'),ttl=document.getElementById('title');
 let curV='home';const SUBD=['dress','deco','style','inv','shop','work'];function show(v){try{mainEl.dataset.v=v}catch(e){}if(curV=='table'&&v!='table')standUp();if(C.st=='work'&&v!='work'){const e=C.wk?C.wk.e:0;C.st='desk';C.wk=null;if(e){say('Nori a gagné '+e+' pièce'+(e>1?'s':'')+'.');save()}}if(seated()&&v!='desk'&&!SUBD.includes(v))leaveDesk();if(curV=='play'&&v!='play')stopPlay(true);curV=v;if(v=='table')tbDraw();if(v=='desk'){N.deskSeen=1;save()}
@@ -1845,7 +1961,7 @@ let curV='home';const SUBD=['dress','deco','style','inv','shop','work'];function
  ttl.textContent=v=='work'?(place=='office'?'Au bureau':'Télétravail'):VT[v];back.hidden=v=='home'||v=='out'||v=='trip'||place!='home';
  if(SOON[v])document.getElementById('soonTxt').textContent=SOON[v];
  if(v=='dress'&&!dressing){if(C.st=='sleep')toggleSleep();dressMode(true)}else if(v!='dress'&&dressing)dressMode(false);
- if(v=='dress')dressDraw();if(v=='shop')shopDraw();if(v=='work')workUI();if(v=='clothes')clDraw();if(v=='grocery')grDraw();if(v=='pets')petsDraw();if(v=='clothes'||v=='grocery'||v=='pets')say(N.coins+' pièce'+(N.coins>1?'s':'')+' en poche.');if(v=='style')styDraw();if(v=='feed')setFeed(true);if(v=='deco')decoOpen();if(v=='inv')invDraw();
+ if(v=='dress')dressDraw();if(v=='shop')shopDraw();if(v=='work')workUI();if(v=='clothes')clDraw();if(v=='grocery')grDraw();if(v=='pets')petsDraw();if(v=='clothes'||v=='grocery'||v=='pets')say(N.coins+' pièce'+(N.coins>1?'s':'')+' en poche.');if(v=='style')styDraw();if(v=='feed')setFeed(true);if(v=='deco')decoOpen();if(v=='inv')invDraw();if(v=='sofa')czView();
  if(v=='home')say('Que faire avec Nori ?');if(v=='desk')say('Que faire au bureau ?');if(v=='shop')say(N.coins+' pièce'+(N.coins>1?'s':'')+' à dépenser.');if(v=='out')say('Où aller ?');
 }
 function fit(){const r=document.getElementById('topbox').getBoundingClientRect();if(!r.width)return;const h=Math.max(120,Math.min(240,Math.round(W*r.height/r.width)));if(h!=H){H=h;DY=Math.round((H-120)*.35);cv.height=H}}
@@ -1866,6 +1982,7 @@ function planDraw(){
  pg.strokeStyle='#3b2a24';pg.lineWidth=2;pg.beginPath();let a=PX(RN,0),o=PX(0,0),b=PX(0,RN);pg.moveTo(a[0],a[1]);pg.lineTo(o[0],o[1]);pg.lineTo(b[0],b[1]);pg.stroke();
  draft.forEach((f,i)=>{pq(f.x,f.y,f.x+f.w,f.y+f.h);pg.fillStyle=f.c;pg.fill();if(i==sel){pg.strokeStyle=CY;pg.lineWidth=1.6;pg.stroke()}
   if(f.n!='Tapis'&&f.n!='Plante'){const r=f.r||0,{x,y,w}=f,hh=f.h;pg.strokeStyle='rgba(20,14,28,.75)';pg.lineWidth=2;pg.beginPath();const e=r==0?[[x,y],[x+w,y]]:r==2?[[x,y+hh],[x+w,y+hh]]:r==1?[[x,y],[x,y+hh]]:[[x+w,y],[x+w,y+hh]];const p0=PX(...e[0]),p1=PX(...e[1]);pg.moveTo(p0[0],p0[1]);pg.lineTo(p1[0],p1[1]);pg.stroke()}});
+ if(typeof czSync=='function')czSync();
 }
 const free=(i,x,y,w,h)=>x>=0&&y>=0&&x+w<=GW&&y+h<=GH&&(!draft[i].s||draft.every((o,j)=>j==i||!o.s||x+w<=o.x||o.x+o.w<=x||y+h<=o.y||o.y+o.h<=y));
 const cell=e=>{const b=plan.getBoundingClientRect(),X=(e.clientX-b.left)/b.width*plan.width,Y=(e.clientY-b.top)/b.height*plan.height,A=(X-98)/(96/RN),B=(Y-3)/(48/RN);return[Math.floor((A+B)/2),Math.floor((B-A)/2)]};
@@ -1873,7 +1990,7 @@ plan.onpointerdown=e=>{const[gx,gy]=cell(e);let h=-1;draft.forEach((f,i)=>{if(gx
  if(h<0)return;sel=h;off=[gx-draft[h].x,gy-draft[h].y];plan.setPointerCapture(e.pointerId);say(draft[h].n+' sélectionné.');planDraw()};
 plan.onpointermove=e=>{if(!off)return;const[gx,gy]=cell(e),f=draft[sel],nx=gx-off[0],ny=gy-off[1];if((nx!=f.x||ny!=f.y)&&free(sel,nx,ny,f.w,f.h)){f.x=nx;f.y=ny;planDraw()}};
 plan.onpointerup=()=>off=null;
-const ROTS={WC:[0,1],Douche:[0,1],Lit:[0,1,3],Table:[0,1],Tapis:[0,1],Bureau:[0,1,2,3],Plante:[0,1,2,3],Lampe:[0],Pouf:[0],'Bibliothèque':[0,1],'Canapé':[0,1],'Télé':[0,1],Aquarium:[0,1]},RNM=['de face','tourné vers la droite','de dos','tourné vers la gauche'];
+const ROTS={WC:[0,1],Douche:[0,1],Lit:[0,1,3],Table:[0,1],Tapis:[0,1],Bureau:[0,1,2,3],Plante:[0,1,2,3],Lampe:[0],Pouf:[0],'Bibliothèque':[0,1],'Canapé':[0,1],'Canapé cosy':[0,1,2,3],'Télé':[0,1],Aquarium:[0,1]},RNM=['de face','tourné vers la droite','de dos','tourné vers la gauche'];
 document.getElementById('rot').onclick=()=>{const f=draft[sel],s=ROTS[f.n]||[0,1],r=f.r||0,nr=s[(s.indexOf(r)+1)%s.length],sw=(r%2)!=(nr%2),w=sw?f.h:f.w,hh=sw?f.w:f.h;
  if(free(sel,f.x,f.y,w,hh)){f.w=w;f.h=hh;f.r=nr;planDraw();say(f.n+(f.n=='Tapis'?' pivoté.':' '+RNM[nr]+'.'))}else say('Pas assez d’espace pour le tourner ici.')};
 document.querySelectorAll('.pad button').forEach(b=>b.onclick=()=>{if(!draft)return;const[du,dv]=b.dataset.m.split(',').map(Number),f=draft[sel];if(free(sel,f.x+du,f.y+dv,f.w,f.h)){f.x+=du;f.y+=dv;planDraw();say(f.n+' déplacé.')}else say(f.x+du<0||f.y+dv<0||f.x+du+f.w>RN||f.y+dv+f.h>RN?'Le mur est juste là.':'Un meuble est dans le passage.')});
@@ -2093,7 +2210,7 @@ function spUpdate(){
  const stg=creating||dressing,sl=C.st=='sleep'&&!stg,dn=C.st=='dine'&&!stg;let name,fl=fa<0;
  if(creating){const a=((sy%6.2832)+6.2832)%6.2832,v=VSEQ[Math.floor(a/6.2832*6+.5)%6];name=v[0];fl=!!v[1]}
  else if(dressing){name='v_front';fl=false}
- else if(sl){const bf=N.furn.find(f=>f.n=='Lit'),br=bf?(bf.r||0):0;name='si'+(br==2?0:br)+'_'+[0,1,2,1][Math.floor(C.t/25)%4]}else if(dn){const ph=dph();name=dnFrame(ph);if(!SPR[name])name=ph=='reach'?'r1':ph=='eat'||ph=='drink'?'r0':'w1'}else if(seated()&&!stg){const d=deskF(),s=d?deskSeat(d):{back:1};name=s.back?(C.st=='work'&&C.t%26<13?'dk1':'dk0'):(C.st=='work'&&C.t%26<13?'wc1':'wc0')}else if(C.st=='sofa'&&!stg)name=C.t%300<250?'dn0':'dn7';else if(C.st=='wc'){name='tl'+(Math.floor(Math.max(0,220-C.wt)/TLT)%8);fl=false}
+ else if(sl){const bf=N.furn.find(f=>f.n=='Lit'),br=bf?(bf.r||0):0;name='si'+(br==2?0:br)+'_'+[0,1,2,1][Math.floor(C.t/25)%4]}else if(dn){const ph=dph();name=dnFrame(ph);if(!SPR[name])name=ph=='reach'?'r1':ph=='eat'||ph=='drink'?'r0':'w1'}else if(C.rise&&C.st!='sofa'&&!stg){name=czRiseFrame();fl=false}else if(seated()&&!stg){const d=deskF(),s=d?deskSeat(d):{back:1};name=s.back?(C.st=='work'&&C.t%26<13?'dk1':'dk0'):(C.st=='work'&&C.t%26<13?'wc1':'wc0')}else if(C.st=='sofa'&&C.seat&&C.seat.n=='Canapé cosy'&&!stg){name=czFrame();fl=false}else if(C.st=='sofa'&&!stg)name=C.t%300<250?'dn0':'dn7';else if(C.st=='wc'){name='tl'+(Math.floor(Math.max(0,220-C.wt)/TLT)%8);fl=false}
  else if(C.st=='gym'){name=C.gk=='run'?'r'+(Math.floor(C.t/5)%4):C.gk=='bike'?(N.look.g=='f'?'bk'+(Math.floor(C.t/5)%6):'bk'+(Math.floor(C.t/6)%8)):'cu'+[0,0,1,2,3,3,3,2,1,0][Math.floor(C.t/7)%10];fl=false}else if(C.st=='cafe')name=C.ct%90<55?'drink':'idle';
  else if(C.st=='walk'||C.st=='leave'||C.st=='enter'||C.st=='trip'){const m=wkDir();if(m.stop)name='idle';else if(m.d!='s'&&N.look.g!='f'&&SPR.wf0&&SPR.wb0){name=(m.d=='f'?'wf':'wb')+(Math.floor(C.t/WKT)%8);fl=false}else name='w'+(Math.floor(C.t/7)%4)}else if(C.st=='coffee')name=C.ct%70<40?'drink':'idle';else if(C.st=='eat')name='drink';else if(C.st=='joy')name=Math.floor(C.t/12)%2?'wave':'idle';else if(C.st=='shower'){name='dc'+(Math.floor(Math.max(0,DCT-C.sw)/15)%12);fl=false}else name='idle';
  spName=name;const LB=TRY&&place=='clothes'?TRY:N.look,LL=(C.st=='shower'||C.st=='wc')&&!stg?Object.assign({},LB,{nu:1}):LB,k=name+JSON.stringify(LL);if(k!==spKey&&drawFrame(name,LL))spKey=k;
@@ -2422,7 +2539,7 @@ function isoAqua(f,ic){const{x,y,w,h}=f,r=f.r||0,WD='#3a2a24';if(!ic)fshadow(f);
  // plante d'eau + bord
  const pl=r==0?P3(ax+.2,ay+ah,17):P3(ax+aw,ay+.2,17);G.fillStyle='#4a9a5a';G.fillRect(Math.round(pl[0]),Math.round(pl[1])-8,2,8);G.fillRect(Math.round(pl[0])+2,Math.round(pl[1])-5,2,5);
  B3(ax-.02,ay-.02,aw+.04,ah+.04,z1-4,2,'#26304a',{t:'#3a4a66'})}
-function drawItem(f,ic){const n=f.n;if(n=='Lampe')isoLamp(f,ic);else if(n=='Pouf')isoPouf(f,ic);else if(n=='Bibliothèque')isoBook(f,ic);else if(n=='Canapé')isoSofa(f,ic,!ic&&C.st=='sofa'&&(C.seat?C.seat===f:f===sofaF()));else if(n=='Télé')isoTV(f,ic);else if(n=='Aquarium')isoAqua(f,ic)}
+function drawItem(f,ic){const n=f.n;if(n=='Lampe')isoLamp(f,ic);else if(n=='Pouf')isoPouf(f,ic);else if(n=='Bibliothèque')isoBook(f,ic);else if(n=='Canapé')isoSofa(f,ic,!ic&&C.st=='sofa'&&(C.seat?C.seat===f:f===sofaF()));else if(n=='Télé')isoTV(f,ic);else if(n=='Aquarium')isoAqua(f,ic);else if(n=='Canapé cosy')isoCosy(f,ic)}
 function isoTable(f,dine){const{x,y,w,h}=f,r=f.r||0,TB='#b8794f',WD='#694c4c',HT=24,SZ=14;fshadow(f);
  let tb,ch,cu,cv;if(r==1){tb=[x+.8,y+.1,w-.85,h-.2];ch=[x+.08,y+h/2-.4,.7,.8];cu=x+.45;cv=y+h/2}else{tb=[x+.1,y+.8,w-.2,h-.85];ch=[x+w/2-.4,y+.08,.8,.7];cu=x+w/2;cv=y+.45}
  // chaise (derrière la table)
@@ -2487,13 +2604,13 @@ let stinkAt=null;function stink(px,py){
  for(let i=0;i<2;i++){const a=tick*.075+i*Math.PI,hx=px+Math.cos(a)*20+Math.sin(tick*.21+i*3)*2,hy=py-76+Math.sin(a*1.6+i)*9;
   rx.fillStyle='rgba(230,236,244,.35)';rx.fillRect(Math.round(hx)-1,Math.round(hy),4,2);rx.fillStyle='#101014';rx.fillRect(Math.round(hx),Math.round(hy),2,2);rx.fillStyle=tick%6<3?'rgba(230,240,248,.95)':'rgba(230,240,248,.5)';rx.fillRect(Math.round(hx)-1,Math.round(hy)-1,1,1);rx.fillRect(Math.round(hx)+2,Math.round(hy)-1,1,1)}}
 function drawWorld(){
- isoSetup();if(place=='home')isoBG(night);else placeBG(night);G=rx;rx.drawImage(BGR(),0,0);rx.drawImage(BGC,0,0);doorDraw();
+ isoSetup();if(place=='home')isoBG(night);else placeBG(night);G=rx;rx.drawImage(BGR(),0,0);rx.drawImage(BGC,0,0);doorDraw();if(draft&&place=='home'&&curV=='deco')czGrid();
  const L=place=='home'?(draft||N.furn):PLACES[place].furn,dn=C.st=='dine',sl=C.st=='sleep',cu=C.x/12,cv=(C.y-88)/5;
  L.filter(f=>f.n=='Tapis').forEach(f=>draft?isoRug(f):fcDraw('rug|'+place+'|'+JSON.stringify(f)+(f===sel?'s':''),f,()=>isoRug(f),20));L.filter(f=>f.disp).forEach(f=>fcDraw('dm|'+JSON.stringify(f),f,()=>dispMat(f),20));
  const box=L.filter(f=>f.n!='Tapis').concat(place=='home'&&!draft?aniBoxes():[]).sort((a,b)=>(a.x+a.w+a.y+a.h)-(b.x+b.w+b.y+b.h)),draw=f=>{if(f.n=='__ani'){aniBoxDraw(f);return}if(f.n=='__cw'){cwWalkDraw(f.i);return}const fk=draft?null:fcKey(f,sl,dn);if(fk){fcDraw(fk,f,()=>drawRaw(f),150);if(f.disp)priceTag(f);return}drawRaw(f);if(f.disp)priceTag(f)},drawRaw=f=>{if(f.n=='Lit')isoBed(f,sl);else if(f.n=='Bureau')isoDesk(f);else if(f.n=='Table')isoTable(f,dn);else if(f.n=='Plante')isoPlant(f);else if(f.n=='Douche')isoShower(f,C.st=='shower');else if(f.n=='WC')isoWC(f,C.st=='wc');else if(PLD[f.n])PLD[f.n](f);else drawItem(f,false)};
  if(place=='office')CWS.forEach((c,i)=>{if(c.st!='walk'&&c.st!='pause')return;let k=box.findIndex(f=>f.n!='__cw'&&c.u<f.x+f.w&&c.v<f.y+f.h);if(k<0)k=box.length;box.splice(k,0,{n:'__cw',i,x:c.u-.25,y:c.v-.25,w:.5,h:.5})});
  const occ=f=>f!==C.gf&&cu<f.x+f.w&&cv<f.y+f.h,px=IX(cu,cv),py=IY(cu,cv);
- const showC=C.st!='trip'&&!sl&&!dn&&C.st!='shower'&&C.st!='wc'&&!(seated()&&!draft&&deskF())&&!(C.st=='sofa'&&(C.seat||sofaF()));stinkAt=null;HEAD=null;box.filter(f=>!showC||!occ(f)).forEach(draw);
+ const showC=C.st!='trip'&&!sl&&!dn&&C.st!='shower'&&C.st!='wc'&&!(seated()&&!draft&&deskF())&&!(C.st=='sofa'&&(C.seat||sofaF()))&&!C.rise;stinkAt=null;HEAD=null;box.filter(f=>!showC||!occ(f)).forEach(draw);
  if(showC){const hop=C.hop*2;gshadow(px,py,24);{rx.globalAlpha=C.alpha==null?1:C.alpha;if(!petDraw2(px,py))charDraw(sc2,px,py-hop,SP.fl,CW,CH);rx.globalAlpha=1}mouthL.x=px+(SP.fl?-1:1)*4.5;mouthL.y=py-hop-MYB;HEAD=[px,py-hop-84];if(C.st=='petdog'&&PT.H){HEAD=PT.H;mouthL.x=PT.H[0];mouthL.y=PT.H[1]+16}if(dirty())stinkAt=[px,py-hop];box.filter(occ).forEach(draw)}
  if(place=='home'&&!draft)pqFlyDraw();
  frontRims(place=='home'?WALLC[RM().w][1]:PLACES[place].wall);
@@ -2527,6 +2644,59 @@ let zoomV=false;function frame(){
  pose();spUpdate();bubPos();if(tripOn)tripDraw();if(petOpen)petDraw();if(aqOpen)aquaDraw();
  if(creating)drawStage(false);else if(dressing)drawStage(true);else drawWorld();
 }
+// ===== CANAPÉ COSY : menu de personnalisation (Décorer) + déplacement direct dans la pièce =====
+let czMove=false,czOpt='',czSell=0,czGrab=null;const czSold=new Set();
+const czSel=()=>draft&&czIs(draft[sel])?draft[sel]:null;
+function czSync(){const bar=document.getElementById('czBar');if(!bar)return;const f=czSel();bar.hidden=!f;if(!f){czMove=false;czOpt='';czSell=0;return}
+ bar.querySelector('[data-c="move"]').classList.toggle('on',czMove);bar.querySelector('[data-c="col"]').classList.toggle('on',czOpt=='col');bar.querySelector('[data-c="cus"]').classList.toggle('on',czOpt=='cus');
+ const sb=bar.querySelector('[data-c="sell"]'),pr=czPrice();sb.textContent=czSell?'Confirmer +'+pr:'Vendre';sb.classList.toggle('warn',!!czSell);
+ const o=document.getElementById('czOpt');o.hidden=!czOpt;if(!czOpt)return;
+ const sw=(arr,cur,k)=>`<div class="opts">${arr.map(([n,c],i)=>`<button class="sw${i==cur?' on':''}${c?'':' none'}" data-k="${k}" data-i="${i}" aria-label="${n}" title="${n}"${c?` style="background:${c}"`:''}></button>`).join('')}</div>`;
+ o.innerHTML=czOpt=='col'?`<div class="orow"><span>Tissu · ${CZF[f.k|0][0]}</span>${sw(CZF,f.k|0,'k')}</div>`
+  :`<div class="orow"><span>Coussins · ${CZC[f.ck|0][0]}</span>${sw(CZC,f.ck|0,'ck')}</div><div class="orow"><span>Plaid · ${CZP[f.pk|0][0]}</span>${sw(CZP,f.pk|0,'pk')}</div>`;
+ o.querySelectorAll('.sw[style]').forEach(b=>b.style.setProperty('background',b.style.background,'important'))}
+const czPrice=()=>Math.round(((SHOP.find(s=>s.n==COSY)||{p:180}).p)/2);
+// un coloris change tout de suite le canapé de la pièce et il est sauvegardé
+function czColor(k,i){const f=czSel();if(!f)return;f[k]=i;if(k=='k')f.c=CZF[i][1];const real=N.furn.find(o=>czSame(o,f));if(real){real[k]=i;if(k=='k')real.c=f.c}save();planDraw();
+ say(k=='k'?'Canapé habillé de '+CZF[i][0].toLowerCase()+'. Ombres et coutures suivent le tissu.':k=='ck'?'Coussins : '+CZC[i][0].toLowerCase()+'.':i==7?'Plaid rangé dans le placard.':'Plaid : '+CZP[i][0].toLowerCase()+'.')}
+(function(){const bar=document.getElementById('czBar');if(!bar)return;
+ bar.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.k){czColor(b.dataset.k,+b.dataset.i);return}
+  const c=b.dataset.c,f=czSel();if(!f)return;if(c!='sell')czSell=0;
+  if(c=='move'){czMove=!czMove;czOpt='';say(czMove?'Fais glisser le canapé dans la pièce, ou touche le sol pour l’y amener. Les flèches le poussent d’une case.':'Déplacement terminé.')}
+  else if(c=='rot'){document.getElementById('rot').click()}
+  else if(c=='col'||c=='cus'){czOpt=czOpt==c?'':c;czMove=false;if(czOpt)say(c=='col'?'Choisis le tissu du canapé.':'Choisis les coussins et le plaid.')}
+  else if(c=='ok'){czMove=false;czOpt='';document.getElementById('ok').click()}
+  else if(c=='stow'){czMove=false;czOpt='';document.getElementById('stow').click()}
+  else if(c=='sell'){if(!czSell){czSell=1;say('Vendre ce canapé pour '+czPrice()+' pièces ? Touche « Confirmer ».')}else{czSell=0;czSold.add(f.id);draft.splice(sel,1);sel=0;earn(czPrice());document.getElementById('ok').click();say('Canapé vendu : +'+czPrice()+' pièces. Le reste de ta déco est enregistré.');hearts(1)}}
+  czSync()})})();
+// après validation : on garde les coloris d'un canapé rangé, et le personnage suit son canapé
+(function(){const okB=document.getElementById('ok'),okF=okB.onclick;okB.onclick=()=>{const old=N.furn.filter(czIs);okF();
+ old.forEach(o=>{if(!N.furn.some(f=>czSame(f,o))&&!czSold.has(o.id))(N.czKeep=N.czKeep||[]).push({k:o.k|0,ck:o.ck|0,pk:o.pk|0})});czSold.clear();
+ if(C.st=='sofa'&&czIs(C.seat)){const n=N.furn.find(f=>czSame(f,C.seat));if(n){C.seat=n;C._czs=n;const t=czFront(n);C.x=t[0]*12;C.y=88+t[1]*5}else{C.st='idle';C.seat=null;C._czs=null;C.rise=null}}
+ if(C.st!='sofa'&&hit(C.x,C.y))[C.x,C.y]=out(C.x,C.y);save()}})();
+// dans « Décorer » : toucher un meuble dans la pièce le sélectionne, le glisser le déplace case par case
+function czScene(e){const b=RC.getBoundingClientRect();return[(e.clientX-b.left)/b.width*LW,(e.clientY-b.top)/b.height*LH]}
+topbox.addEventListener('pointerdown',e=>{if(e.target!==RC||!draft||e.zmPass||place!='home'||curV!='deco')return;isoSetup();const[mx2,my]=czScene(e);
+ const idx=draft.map((f,i)=>i).sort((a,b)=>((draft[a].n=='Tapis')-(draft[b].n=='Tapis'))||((draft[b].x+draft[b].w+draft[b].y+draft[b].h)-(draft[a].x+draft[a].w+draft[a].y+draft[a].h)));
+ let hitI=-1,hk=0;for(const i of idx){const f=draft[i],ks=f.n=='Tapis'?[0]:[0,6,12,18,24,30,36];for(const k of ks){const[a,b]=isoInv(mx2,my+k);if(a>=f.x&&a<=f.x+f.w&&b>=f.y&&b<=f.y+f.h){hitI=i;hk=k;break}}if(hitI>=0)break}
+ if(hitI<0){const f=czSel();if(f&&czMove){const[a,b]=isoInv(mx2,my),nx=Math.round(a-f.w/2),ny=Math.round(b-f.h/2);e.stopImmediatePropagation();e.preventDefault();
+   if(free(sel,nx,ny,f.w,f.h)){f.x=nx;f.y=ny;planDraw();say('Canapé déplacé. Valide quand tu es content'+(N.look.g=='f'?'e':'')+'.')}else say('Pas assez de place ici pour le canapé.')}return}
+ e.stopImmediatePropagation();e.preventDefault();const f=draft[hitI],[a,b]=isoInv(mx2,my+hk);if(sel!==hitI){sel=hitI;czSell=0;czOpt=czIs(f)?czOpt:'';say(f.n+' sélectionné'+gE(f.n)+'. Fais-l'+(gE(f.n)?'a':'e')+' glisser sur la grille.')}
+ czGrab={id:e.pointerId,i:hitI,k:hk,off:[a-f.x,b-f.y],moved:false};planDraw()},true);
+addEventListener('pointermove',e=>{const g=czGrab;if(!g||g.id!==e.pointerId||!draft)return;const f=draft[g.i];if(!f){czGrab=null;return}isoSetup();const[mx2,my]=czScene(e),[a,b]=isoInv(mx2,my+g.k),nx=Math.round(a-g.off[0]),ny=Math.round(b-g.off[1]);
+ if((nx!=f.x||ny!=f.y)&&free(g.i,nx,ny,f.w,f.h)){f.x=nx;f.y=ny;g.moved=true;planDraw()}if(e.cancelable)e.preventDefault()},{passive:false,capture:true});
+const czDrop=e=>{const g=czGrab;if(!g||g.id!==e.pointerId)return;czGrab=null;if(g.moved&&draft&&draft[g.i]){const f=draft[g.i];say(f.n+' déplacé'+gE(f.n)+'. Touche « Valider » pour garder ta déco.')}};
+addEventListener('pointerup',czDrop,true);addEventListener('pointercancel',czDrop,true);
+// grille de placement dessinée sur le sol pendant la déco
+function czGrid(){G.globalAlpha=.22;for(let i=1;i<RN;i++){ln(P3(i,0,0),P3(i,RN,0),'#fff3d6');ln(P3(0,i,0),P3(RN,i,0),'#fff3d6')}G.globalAlpha=1;
+ const f=draft[sel];if(f){G.globalAlpha=.22;poly([P3(f.x,f.y,0),P3(f.x+f.w,f.y,0),P3(f.x+f.w,f.y+f.h,0),P3(f.x,f.y+f.h,0)],'#00BDEB');G.globalAlpha=1}}
+// vue « Canapé » : les poses du personnage
+(function(){const v=document.getElementById('v-sofa');if(!v)return;v.addEventListener('click',e=>{const b=e.target.closest('[data-cz]');if(!b||b.disabled)return;const k=b.dataset.cz;
+ if(k=='custom'){const f=(C.st=='sofa'&&czIs(C.seat))?C.seat:N.furn.find(czIs);show('deco');if(f){const i=draft.findIndex(o=>czSame(o,f));if(i>=0){sel=i;czOpt='col';planDraw();say('Personnalise ton canapé : tissu, coussins, plaid, place et orientation.')}}return}
+ if(k=='up'){czUp();return}
+ if(C.st=='sofa'&&czIs(C.seat)){czPose(k);return}
+ const f=N.furn.find(czIs);if(!f){say('Il n’y a pas de canapé cosy dans ta pièce.');return}goCosy(f,k)})})();
 // ===== ZOOM DE LA SCÈNE =====
 // Seul le canvas du monde est agrandi (transformation CSS, origine en haut à gauche) ; le cadre le découpe.
 // La mise en page, les menus et les boutons ne bougent jamais. Les touchers restent justes : le jeu lit la position réelle du canvas.
@@ -2538,7 +2708,10 @@ function zmBox(){const w=RC.offsetWidth,h=RC.offsetHeight;let v=h;
  if(zmLow&&h){const L=zmLow.getBoundingClientRect(),tb=topbox.getBoundingClientRect(),top=tb.top+topbox.clientTop+RC.offsetTop,left=tb.left+topbox.clientLeft+RC.offsetLeft;
   if(L.left<left+w&&L.right>left&&L.top>top+40&&L.top<top+h)v=L.top-top}
  return{w,h:v}}
-function zmPlace(){const u=document.getElementById('zmUI');if(!u)return;const v=zmBox().h,b=Math.max(8,Math.round(RC.offsetTop+RC.offsetHeight-v+8))+'px';if(u.style.bottom!==b)u.style.bottom=b}
+function zmPlace(){const u=document.getElementById('zmUI');if(!u)return;const v=zmBox().h;let bt=Math.max(8,Math.round(RC.offsetTop+RC.offsetHeight-v+8));
+ // au-dessus de la bulle de statut quand elle est dans la scène (elle peut s'élargir sur deux lignes)
+ const st=document.getElementById('status');if(st&&st.offsetParent){const r=st.getBoundingClientRect(),tb=topbox.getBoundingClientRect();if(r.top>tb.top+60&&r.top<tb.bottom)bt=Math.max(bt,Math.round(tb.bottom-r.top+6))}
+ const b=bt+'px';if(u.style.bottom!==b)u.style.bottom=b}
 // à l'arrêt : un pixel du jeu = un nombre entier de pixels de l'écran (pixel art net, sans déformation)
 function zmSnap(z){z=Math.max(ZMIN,Math.min(ZMAX,z));const k=KK||1,s=Math.round(z*k)/k;return Math.max(ZMIN,Math.min(ZMAX,s<ZMIN?ZMIN:s))}
 // la vue ne sort jamais de la scène
@@ -2547,7 +2720,7 @@ function zmTo(z,cx,cy){z=Math.max(ZMIN,Math.min(ZMAX,z));const b=zmBox();if(cx==
  const wx=(cx-ZM.tx)/ZM.tz,wy=(cy-ZM.ty)/ZM.tz,c=zmClamp(z,cx-wx*z,cy-wy*z);ZM.tz=z;ZM.tx=c[0];ZM.ty=c[1];zmUI()}
 const zmNext=d=>{const k=KK||1,cur=Math.round(ZM.tz*k);let m=d>0?Math.max(cur+1,Math.round(ZM.tz*1.4*k)):Math.min(cur-1,Math.round(ZM.tz/1.4*k));return zmSnap(m/k)};
 let zmLast='';function zmApply(){const s=Math.abs(ZM.z-1)<1e-4&&Math.abs(ZM.x)<.01&&Math.abs(ZM.y)<.01?'':'translate('+ZM.x.toFixed(2)+'px,'+ZM.y.toFixed(2)+'px) scale('+ZM.z.toFixed(4)+')';if(s!==zmLast){zmLast=s;RC.style.transformOrigin='0 0';RC.style.transform=s}}
-function zmStep(){if(!zmOK()){if(ZM.tz!=1||ZM.z!=1){ZM.z=ZM.tz=1;ZM.x=ZM.y=ZM.tx=ZM.ty=0;ZM.pin=null;ZM.hold=null;ZM.pts.clear();zmApply()}zmUI();return}
+function zmStep(){if(tick%30==0)zmPlace();if(!zmOK()){if(ZM.tz!=1||ZM.z!=1){ZM.z=ZM.tz=1;ZM.x=ZM.y=ZM.tx=ZM.ty=0;ZM.pin=null;ZM.hold=null;ZM.pts.clear();zmApply()}zmUI();return}
  if(ZM.place!==place){ZM.place=place;ZM.tz=ZM.z=1;ZM.tx=ZM.ty=ZM.x=ZM.y=0}// nouveau lieu : vue d'ensemble
  if(!ZM.pin){const c=zmClamp(ZM.tz,ZM.tx,ZM.ty);ZM.tx=c[0];ZM.ty=c[1]}
  const k=ZM.pin||(ZM.hold&&ZM.hold.pan)?1:.2;ZM.z+=(ZM.tz-ZM.z)*k;ZM.x+=(ZM.tx-ZM.x)*k;ZM.y+=(ZM.ty-ZM.y)*k;// transition douce
@@ -2595,7 +2768,7 @@ rd.domElement.addEventListener('pointerdown',e=>{
  {const mi=L.find(f=>f.n=='Miroir');if(mi&&!draft&&!feedMode&&C.st!='sleep'&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=mi.x-.1&&a<=mi.x+mi.w+.1&&b>=mi.y-.1&&b<=mi.y+mi.h+.1})){say('Miroir, joli miroir…');show('dress');return}}
  const dk=L.find(f=>f.n=='Bureau'),onDesk=dk&&[0,8,16,24,32].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=dk.x-.1&&a<=dk.x+dk.w+.1&&b>=dk.y-.1&&b<=dk.y+dk.h+.1});
  if(onDesk&&!feedMode&&!draft&&curV!='dress'){goDesk();return}
- {{const wc=L.find(f=>f.n=='WC');if(wc&&!draft&&C.st!='sleep'&&[0,8,16,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=wc.x&&a<=wc.x+wc.w&&b>=wc.y&&b<=wc.y+wc.h})){goWC();return}}const pf=L.find(f=>f.n=='Pouf'&&[0,6,12].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=f.x&&a<=f.x+f.w&&b>=f.y&&b<=f.y+f.h}));if(pf&&!draft&&C.st!='sleep'&&place=='home'){goPouf(pf);return}const so=L.find(f=>f.n=='Canapé');if(so&&!draft&&C.st!='sleep'&&C.st!='sofa'&&[0,8,16].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=so.x&&a<=so.x+so.w&&b>=so.y&&b<=so.y+so.h})){goSofa();return}const sh=L.find(f=>f.n=='Douche');if(sh&&!draft&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=sh.x&&a<=sh.x+sh.w&&b>=sh.y&&b<=sh.y+sh.h})&&C.st!='sleep'){wash();return}}
+ {{const wc=L.find(f=>f.n=='WC');if(wc&&!draft&&C.st!='sleep'&&[0,8,16,24].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=wc.x&&a<=wc.x+wc.w&&b>=wc.y&&b<=wc.y+wc.h})){goWC();return}}const pf=L.find(f=>f.n=='Pouf'&&[0,6,12].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=f.x&&a<=f.x+f.w&&b>=f.y&&b<=f.y+f.h}));if(pf&&!draft&&C.st!='sleep'&&place=='home'){goPouf(pf);return}const cz=L.find(f=>f.n=='Canapé cosy'&&czHit(f,mx2,my));if(cz&&!draft&&C.st!='sleep'&&place=='home'){czTap(cz);return}const so=L.find(f=>f.n=='Canapé');if(so&&!draft&&C.st!='sleep'&&C.st!='sofa'&&[0,8,16].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=so.x&&a<=so.x+so.w&&b>=so.y&&b<=so.y+so.h})){goSofa();return}const sh=L.find(f=>f.n=='Douche');if(sh&&!draft&&[0,10,20,30,40].some(k=>{const[a,b]=isoInv(mx2,my+k);return a>=sh.x&&a<=sh.x+sh.w&&b>=sh.y&&b<=sh.y+sh.h})&&C.st!='sleep'){wash();return}}
  if(onBed&&!feedMode){toggleSleep();return}
  if(feedMode||C.st=='sleep'||C.st=='eat'||C.st=='dine'||C.st=='shower'||C.st=='wc'||PLAYS.includes(C.st)||tu<0||tv<0||tu>RN||tv>RN)return;
  if(seated()){if(curV=='desk'||curV=='work'||curV=='shop')show('home');if(seated())leaveDesk()}if(C.st=='sofa')C.st='idle';goto(tu*12,88+tv*5);say('Nori se met en route.');tuEvent('move');talkMaybe('marche',.12);
