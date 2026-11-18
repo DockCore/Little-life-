@@ -32,22 +32,22 @@
   "ok": true,
   "info": {
    "fr": [
-    "w2",
     "w3",
     "w3",
     "w0",
     "w1",
     "w1",
     "w2",
+    "w2",
     "w3",
-    "w3",
+    "w0",
     "w0"
    ],
    "fl": [
-    "w0<",
     "w1<",
     "w2<",
     "w2<",
+    "w3<",
     "w3<",
     "w0<"
    ],
@@ -198,7 +198,7 @@
    "place": "street",
    "st": "street",
    "px": 1112,
-   "cam": 991.9999995181274,
+   "cam": 991.9999993811738,
    "W": 300,
    "sp": "idle",
    "fl": false
@@ -235,7 +235,7 @@
   "n": "18 rendu de nuit et performance",
   "ok": true,
   "info": {
-   "msParImage": 0.477,
+   "msParImage": 0.5,
    "fps": 61
   }
  },

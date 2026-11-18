@@ -13,7 +13,7 @@ main[data-v="street"] .hud{z-index:7}
 .stmc{max-width:300px;background:#fff8ec;color:#1d2638;border:3px solid #1d2638;border-radius:8px;box-shadow:4px 4px 0 rgba(10,16,30,.6);padding:12px 14px;text-align:center;font:600 13px/1.35 var(--px)}
 .stmc b{display:block;font-size:15px;margin-bottom:6px;color:#c4560f}
 .stmc p{margin:4px 0}
-.stmc button{margin-top:8px;padding:6px 18px;border:2px solid #1d2638;border-radius:6px;background:#ffd166;font:700 13px var(--px);box-shadow:0 3px 0 #1d2638;color:#1d2638}
+.stmc button{display:block;margin:8px auto 0;padding:6px 18px;border:2px solid #1d2638;border-radius:6px;background:#ffd166;font:700 13px var(--px);box-shadow:0 3px 0 #1d2638;color:#1d2638}
 #v-street .sthint{margin:0;font-size:11px;opacity:.75;text-align:center}
 #v-street #stEnter.soon{background:#e9e4da}
 .ll2 main:not(.dressing):not(.creating) .street{bottom:var(--panH,46%)}
