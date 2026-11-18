@@ -432,6 +432,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 .pz-stars{display:flex;gap:6px}.pz-stars i{font-style:normal;font-size:32px;color:#c9bfae;animation:pzSt .5s both}.pz-stars i.on{color:#f5b82c;text-shadow:0 2px 0 #8a5a1a}
 @keyframes pzSt{from{transform:scale(0) rotate(-40deg)}}
 .pz-wb{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%}.pz-wb button{height:42px;font-size:12.5px!important;padding:0 2px!important}
+.zm{position:absolute;left:8px;bottom:8px;z-index:4;display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px;pointer-events:none}.zm[hidden]{display:none}.zm button{pointer-events:auto;width:36px;height:36px;padding:0;border-radius:11px;display:flex;align-items:center;justify-content:center;font:600 20px/1 var(--px);opacity:.82;box-shadow:0 2px 0 rgba(59,42,36,.35)!important}.zm button:active{opacity:1}.zm svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}#zmBtn{width:auto;min-width:36px;gap:2px;padding:0 6px}#zmBtn.on{opacity:1;border-color:#00BDEB!important}#zmPct{font:600 12px var(--px)}#zmPct:empty{display:none}.zmp{display:flex;flex-direction:column;gap:6px}.zmp[hidden]{display:none}.zm button:disabled{opacity:.4}
 </style><style>
 #intro{position:fixed;inset:0;z-index:9999;background:#02051a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 #intro.out{opacity:0;pointer-events:none}
@@ -557,7 +558,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <div class="gconf" id="gConf" hidden><p>Effacer ta partie et commencer une nouvelle vie ?</p><div class="row"><button id="gNo">Annuler</button><button id="gYes" class="on">Oui, effacer</button></div></div></div></div>
 <div id="rotx"><canvas id="rotCv" width="48" height="40"></canvas><p>Tourne ton téléphone</p><small>Little Life se vit en mode portrait.</small></div>
 <main>
-<div class="frame top" id="topbox"><div class="bub" id="bub" hidden></div><div class="petbox" id="petBox"><p id="petName"></p><canvas id="petCv" width="120" height="84"></canvas></div><div class="petbox aqbox" id="aqBox"><p id="aqName"></p><canvas id="aqCv" width="128" height="96"></canvas><small class="aqh">Touche l’eau pour lâcher des flocons</small></div><div class="trip" id="trip"><canvas id="tripCv" width="200" height="104"></canvas><p id="tripP">En route…</p></div><canvas id="c" aria-label="Pièce de Nori, sa créature"></canvas><div class="studio" id="studio" hidden><div class="st-head" id="stHead"><div class="st-title">Crée ton personnage<small>Personnalisation gratuite · une seule fois</small></div><div class="st-gen" id="stGen"><button data-g="m">Garçon</button><button data-g="f">Fille</button></div><label class="st-name-in"><span>Prénom</span><input id="stNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Nori"></label><label class="st-name-in"><span>Ton pseudo</span><input id="stPseudoIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Facultatif"></label></div><div class="st-rot"><button id="stL" aria-label="Tourner vers la gauche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button id="stR" aria-label="Tourner vers la droite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div><div class="st-bottom" id="stBottom"><div class="st-tabs" id="stTabs" role="tablist"></div><div class="st-name" id="stName"></div><div class="st-opts" id="stOpts"></div><div class="st-act"><button id="stRnd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01"/></svg>Aléatoire</button><button id="crOk2">Valider</button></div></div></div><div class="hud"><div class="hl"><button id="bMenu" class="burger" aria-label="Menu"><i></i><i></i><i></i></button><span id="mode"></span><span id="wx" class="wx"></span></div><div class="needs" id="needs"></div></div></div>
+<div class="frame top" id="topbox"><div id="zmUI" class="zm" hidden><div id="zmP" class="zmp" hidden><button id="zmIn" aria-label="Zoomer">+</button><button id="zmOut" aria-label="Dézoomer">−</button><button id="zmRst" aria-label="Revenir au zoom initial"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div><button id="zmBtn" aria-label="Zoom" aria-expanded="false"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg><b id="zmPct"></b></button></div><div class="bub" id="bub" hidden></div><div class="petbox" id="petBox"><p id="petName"></p><canvas id="petCv" width="120" height="84"></canvas></div><div class="petbox aqbox" id="aqBox"><p id="aqName"></p><canvas id="aqCv" width="128" height="96"></canvas><small class="aqh">Touche l’eau pour lâcher des flocons</small></div><div class="trip" id="trip"><canvas id="tripCv" width="200" height="104"></canvas><p id="tripP">En route…</p></div><canvas id="c" aria-label="Pièce de Nori, sa créature"></canvas><div class="studio" id="studio" hidden><div class="st-head" id="stHead"><div class="st-title">Crée ton personnage<small>Personnalisation gratuite · une seule fois</small></div><div class="st-gen" id="stGen"><button data-g="m">Garçon</button><button data-g="f">Fille</button></div><label class="st-name-in"><span>Prénom</span><input id="stNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Nori"></label><label class="st-name-in"><span>Ton pseudo</span><input id="stPseudoIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Facultatif"></label></div><div class="st-rot"><button id="stL" aria-label="Tourner vers la gauche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button id="stR" aria-label="Tourner vers la droite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div><div class="st-bottom" id="stBottom"><div class="st-tabs" id="stTabs" role="tablist"></div><div class="st-name" id="stName"></div><div class="st-opts" id="stOpts"></div><div class="st-act"><button id="stRnd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01"/></svg>Aléatoire</button><button id="crOk2">Valider</button></div></div></div><div class="hud"><div class="hl"><button id="bMenu" class="burger" aria-label="Menu"><i></i><i></i><i></i></button><span id="mode"></span><span id="wx" class="wx"></span></div><div class="needs" id="needs"></div></div></div>
 <div class="hinge"><i class="led"></i><h1><span style="color:#ef4b4b">L</span><span style="color:#f5892a">i</span><span style="color:#f7c21c">t</span><span style="color:#7cc832">t</span><span style="color:#2fc4a8">l</span><span style="color:#2f9be0">e</span><span style="color:#7a6ae0">&nbsp;</span><span style="color:#c35ad8">L</span><span style="color:#ef5aa0">i</span><span style="color:#ef4b4b">f</span><span style="color:#f5892a">e</span></h1><i class="led"></i></div>
 <div class="frame low"><div class="lowbar"><button class="back" id="back" hidden>‹ Retour</button><span id="title">Accueil</span><div class="coins" id="coins" title="Pièces"><svg viewBox="0 0 8 8" shape-rendering="crispEdges"><path fill="#3b2a24" d="M2 0h4v1h1v1h1v4H7v1H6v1H2V7H1V6H0V2h1V1h1z"/><path fill="#f5c84c" d="M2 1h4v1h1v4H6v1H2V6H1V2h1z"/><path fill="#fff1a8" d="M2 2h1v1H2zM3 1h2v1H3z"/><path fill="#d9962a" d="M5 3h1v3H3V5h2z"/></svg><b id="coinN">0</b></div><button class="back" id="bMus" aria-label="Musique"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:var(--cy);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button></div><div id="status" aria-live="polite"></div>
 <div class="views"><section class="view on" id="v-home"><div class="menu">
@@ -775,7 +776,7 @@ let bubT=0,HEAD=null;const bub=document.getElementById('bub');
 let talkLast=-1e9;function talkMaybe(k,p){if(!bub.hidden||tick-talkLast<900||Math.random()>p)return;talk(k)}
 function talk(k){if(N.talk===false)return;let t=LINES[k]?(PSEUDO()&&LINES[k+'P']&&Math.random()<.35?line(k+'P'):line(k)):k;if(!t)return;t=pj(genF(t)).replace(/ ([!?:;»])/g,'\u00a0$1').replace(/« /g,'«\u00a0');talkLast=tick;bub.textContent=t;bub.hidden=false;bub.classList.remove('hide');bubT=Math.round(150+t.length*4.2)}
 function bubPos(){if(bub.hidden)return;if(--bubT<=0){bub.classList.add('hide');if(bubT<-14)bub.hidden=true;return}
- if(!HEAD||creating||dressing){bub.hidden=true;return}const s=RC.clientWidth/LW,tb=topbox.getBoundingClientRect(),rb=RC.getBoundingClientRect(),x=rb.left-tb.left+HEAD[0]*s,y=rb.top-tb.top+HEAD[1]*s,w=bub.offsetWidth,cx=Math.max(w/2+6,Math.min(tb.width-w/2-6,x));
+ if(!HEAD||creating||dressing){bub.hidden=true;return}const tb=topbox.getBoundingClientRect(),rb=RC.getBoundingClientRect(),s=rb.width/LW,x=rb.left-tb.left+HEAD[0]*s,y=rb.top-tb.top+HEAD[1]*s,w=bub.offsetWidth,cx=Math.max(w/2+6,Math.min(tb.width-w/2-6,x));
  bub.style.left=cx+'px';bub.style.top=Math.max(bub.offsetHeight+6,y)+'px';bub.style.setProperty('--tx',(50+(x-cx)/w*100)+'%')}
 // --- déplacement : recherche de chemin (A*) sur une grille fine pour contourner les meubles ---
 const walkable=(u,v)=>u>=1.15&&u<=RN-1.15&&v>=1.2&&v<=RN-1.2&&!hit(u*12,88+v*5);
@@ -2522,10 +2523,65 @@ function drawStage(cab){
 }
 let zoomV=false;function frame(){
  {const z=!!(petOpen||aqOpen);if(z!==zoomV){zoomV=z;mainEl.classList.toggle('zoomv',z);fit()}}
- if(!RC.width)return;GWH=Math.round(LH*.27);GY0=GWH;GSZ=(LH-GY0)/16;GX=LW/16;PSW=Math.round(LW*.065);
+ if(!RC.width)return;zmStep();GWH=Math.round(LH*.27);GY0=GWH;GSZ=(LH-GY0)/16;GX=LW/16;PSW=Math.round(LW*.065);
  pose();spUpdate();bubPos();if(tripOn)tripDraw();if(petOpen)petDraw();if(aqOpen)aquaDraw();
  if(creating)drawStage(false);else if(dressing)drawStage(true);else drawWorld();
 }
+// ===== ZOOM DE LA SCÈNE =====
+// Seul le canvas du monde est agrandi (transformation CSS, origine en haut à gauche) ; le cadre le découpe.
+// La mise en page, les menus et les boutons ne bougent jamais. Les touchers restent justes : le jeu lit la position réelle du canvas.
+const ZM={z:1,tz:1,x:0,y:0,tx:0,ty:0,pts:new Map(),pin:null,hold:null,place:null,lastTap:0,shown:null},ZMIN=1,ZMAX=3;
+const zmOK=()=>!creating&&!dressing&&!tripOn&&!zoomV&&RC.width>0;
+// partie réellement visible de la scène (le panneau du bas peut la recouvrir sur téléphone)
+const zmLow=document.querySelector('.frame.low');
+function zmBox(){const w=RC.offsetWidth,h=RC.offsetHeight;let v=h;
+ if(zmLow&&h){const L=zmLow.getBoundingClientRect(),tb=topbox.getBoundingClientRect(),top=tb.top+topbox.clientTop+RC.offsetTop,left=tb.left+topbox.clientLeft+RC.offsetLeft;
+  if(L.left<left+w&&L.right>left&&L.top>top+40&&L.top<top+h)v=L.top-top}
+ return{w,h:v}}
+function zmPlace(){const u=document.getElementById('zmUI');if(!u)return;const v=zmBox().h,b=Math.max(8,Math.round(RC.offsetTop+RC.offsetHeight-v+8))+'px';if(u.style.bottom!==b)u.style.bottom=b}
+// à l'arrêt : un pixel du jeu = un nombre entier de pixels de l'écran (pixel art net, sans déformation)
+function zmSnap(z){z=Math.max(ZMIN,Math.min(ZMAX,z));const k=KK||1,s=Math.round(z*k)/k;return Math.max(ZMIN,Math.min(ZMAX,s<ZMIN?ZMIN:s))}
+// la vue ne sort jamais de la scène
+function zmClamp(z,x,y){const b=zmBox();return[Math.min(0,Math.max(b.w-b.w*z,x)),Math.min(0,Math.max(b.h-b.h*z,y))]}
+function zmTo(z,cx,cy){z=Math.max(ZMIN,Math.min(ZMAX,z));const b=zmBox();if(cx==null){cx=b.w/2;cy=b.h/2}
+ const wx=(cx-ZM.tx)/ZM.tz,wy=(cy-ZM.ty)/ZM.tz,c=zmClamp(z,cx-wx*z,cy-wy*z);ZM.tz=z;ZM.tx=c[0];ZM.ty=c[1];zmUI()}
+const zmNext=d=>{const k=KK||1,cur=Math.round(ZM.tz*k);let m=d>0?Math.max(cur+1,Math.round(ZM.tz*1.4*k)):Math.min(cur-1,Math.round(ZM.tz/1.4*k));return zmSnap(m/k)};
+let zmLast='';function zmApply(){const s=Math.abs(ZM.z-1)<1e-4&&Math.abs(ZM.x)<.01&&Math.abs(ZM.y)<.01?'':'translate('+ZM.x.toFixed(2)+'px,'+ZM.y.toFixed(2)+'px) scale('+ZM.z.toFixed(4)+')';if(s!==zmLast){zmLast=s;RC.style.transformOrigin='0 0';RC.style.transform=s}}
+function zmStep(){if(!zmOK()){if(ZM.tz!=1||ZM.z!=1){ZM.z=ZM.tz=1;ZM.x=ZM.y=ZM.tx=ZM.ty=0;ZM.pin=null;ZM.hold=null;ZM.pts.clear();zmApply()}zmUI();return}
+ if(ZM.place!==place){ZM.place=place;ZM.tz=ZM.z=1;ZM.tx=ZM.ty=ZM.x=ZM.y=0}// nouveau lieu : vue d'ensemble
+ if(!ZM.pin){const c=zmClamp(ZM.tz,ZM.tx,ZM.ty);ZM.tx=c[0];ZM.ty=c[1]}
+ const k=ZM.pin||(ZM.hold&&ZM.hold.pan)?1:.2;ZM.z+=(ZM.tz-ZM.z)*k;ZM.x+=(ZM.tx-ZM.x)*k;ZM.y+=(ZM.ty-ZM.y)*k;// transition douce
+ if(Math.abs(ZM.z-ZM.tz)<.002&&Math.abs(ZM.x-ZM.tx)<.25&&Math.abs(ZM.y-ZM.ty)<.25){ZM.z=ZM.tz;ZM.x=ZM.tx;ZM.y=ZM.ty}
+ zmApply();zmUI()}
+function zmUI(){const u=document.getElementById('zmUI');if(!u)return;const ok=zmOK(),st=ok+'|'+ZM.tz.toFixed(3);if(st===ZM.shown)return;ZM.shown=st;u.hidden=!ok;zmPlace();
+ document.getElementById('zmIn').disabled=ZM.tz>=ZMAX-1e-3;document.getElementById('zmOut').disabled=ZM.tz<=ZMIN+1e-3;document.getElementById('zmRst').disabled=ZM.tz<=ZMIN+1e-3;
+ document.getElementById('zmBtn').classList.toggle('on',ZM.tz>1.001);document.getElementById('zmPct').textContent=ZM.tz>1.001?'×'+(Math.round(ZM.tz*10)/10).toString().replace('.',','):''}
+// gestes : on écoute le cadre en phase de capture, avant le jeu
+function zmLocal(e){const tb=topbox.getBoundingClientRect();return[e.clientX-tb.left-topbox.clientLeft-RC.offsetLeft,e.clientY-tb.top-topbox.clientTop-RC.offsetTop]}
+function zmSend(){const h=ZM.hold;if(!h||h.sent)return;h.sent=true;const ev=new PointerEvent('pointerdown',Object.assign({bubbles:true,cancelable:true,isPrimary:true},h.e));ev.zmPass=true;RC.dispatchEvent(ev);ZM.lastTap=performance.now()}
+topbox.addEventListener('pointerdown',e=>{if(e.target!==RC||e.zmPass||!zmOK())return;const p=zmLocal(e);
+ ZM.pts.set(e.pointerId,{x:p[0],y:p[1],x0:p[0],y0:p[1]});
+ if(ZM.pts.size==2){e.stopPropagation();e.preventDefault();// deux doigts : pincement
+  if(ZM.hold){clearTimeout(ZM.hold.tm);if(ZM.hold.sent&&performance.now()-ZM.lastTap<500&&C.st=='walk'){C.path=null;C.st='idle'}ZM.hold=null}
+  const[a,b]=[...ZM.pts.values()],mx=(a.x+b.x)/2,my=(a.y+b.y)/2;ZM.pin={d0:Math.hypot(a.x-b.x,a.y-b.y)||1,z0:ZM.tz,wx:(mx-ZM.tx)/ZM.tz,wy:(my-ZM.ty)/ZM.tz,mx,my};return}
+ if(ZM.pts.size>2){e.stopPropagation();return}
+ const zoomed=ZM.tz>1.001;
+ if(e.pointerType=='touch'||zoomed){e.stopPropagation();// on attend : appui (action du jeu) ou glisser (déplacer la vue) ?
+  ZM.hold={id:e.pointerId,e:{clientX:e.clientX,clientY:e.clientY,pointerId:e.pointerId,pointerType:e.pointerType,button:e.button},pan:false,sent:false,zoomed,tx0:ZM.tx,ty0:ZM.ty};
+  if(!zoomed)ZM.hold.tm=setTimeout(zmSend,90)}},true);
+addEventListener('pointermove',e=>{const pt=ZM.pts.get(e.pointerId);if(!pt)return;const p=zmLocal(e);pt.x=p[0];pt.y=p[1];
+ if(ZM.pin&&ZM.pts.size>=2){const[a,b]=[...ZM.pts.values()],d=Math.hypot(a.x-b.x,a.y-b.y)||1,z=Math.max(ZMIN*.85,Math.min(ZMAX*1.12,ZM.pin.z0*d/ZM.pin.d0)),mx=(a.x+b.x)/2,my=(a.y+b.y)/2,zc=Math.max(ZMIN,Math.min(ZMAX,z));
+  ZM.pin.mx=mx;ZM.pin.my=my;ZM.tz=z;const c=zmClamp(zc,mx-ZM.pin.wx*zc,my-ZM.pin.wy*zc);ZM.tx=c[0];ZM.ty=c[1];if(e.cancelable)e.preventDefault();return}
+ const h=ZM.hold;if(h&&h.id==e.pointerId&&!h.sent){const dx=p[0]-pt.x0,dy=p[1]-pt.y0;if(h.pan||(h.zoomed&&Math.hypot(dx,dy)>8)){h.pan=true;const c=zmClamp(ZM.tz,h.tx0+dx,h.ty0+dy);ZM.tx=c[0];ZM.ty=c[1]}}},{passive:false,capture:true});
+function zmEnd(e){const pt=ZM.pts.get(e.pointerId);if(!pt)return;ZM.pts.delete(e.pointerId);
+ if(ZM.pin){if(ZM.pts.size<2){const P=ZM.pin;ZM.pin=null;ZM.hold=null;ZM.pts.clear();ZM.tz=Math.max(ZMIN,Math.min(ZMAX,ZM.tz));zmTo(zmSnap(ZM.tz),P.mx,P.my)}return}
+ const h=ZM.hold;if(h&&h.id==e.pointerId){clearTimeout(h.tm);if(!h.sent&&!h.pan&&e.type=='pointerup')zmSend();ZM.hold=null}}
+addEventListener('pointerup',zmEnd,true);addEventListener('pointercancel',zmEnd,true);
+topbox.addEventListener('wheel',e=>{if(e.target!==RC||!zmOK())return;e.preventDefault();const p=zmLocal(e);zmTo(zmNext(e.deltaY<0?1:-1),p[0],p[1])},{passive:false});
+RC.style.touchAction='none';
+(function(){const u=document.getElementById('zmUI');if(!u)return;const P=document.getElementById('zmP');u.addEventListener('pointerdown',e=>e.stopPropagation());
+ document.getElementById('zmBtn').onclick=()=>{P.hidden=!P.hidden;document.getElementById('zmBtn').setAttribute('aria-expanded',!P.hidden)};
+ document.getElementById('zmIn').onclick=()=>zmTo(zmNext(1));document.getElementById('zmOut').onclick=()=>zmTo(zmNext(-1));document.getElementById('zmRst').onclick=()=>zmTo(1)})();
 rd.domElement.addEventListener('pointerdown',e=>{
  if(creating||dressing||tripOn||['door','leave','enter','trip'].includes(C.st))return;const b=RC.getBoundingClientRect(),mx2=(e.clientX-b.left)/b.width*LW,my=(e.clientY-b.top)/b.height*LH;
  const L=N.furn,sl=C.st=='sleep';isoSetup();const[tu,tv]=isoInv(mx2,my),cu=C.x/12,cv=(C.y-88)/5,px=IX(cu,cv),py=IY(cu,cv);let hit2=false;
