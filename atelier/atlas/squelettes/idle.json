@@ -1,0 +1,7 @@
+{"points":{"sommet":[40,49],"menton":[42,83],"machoire_g":[31,80],"machoire_d":[51,81],"cou_bas":[41,86],
+"epaule_g":[31,90],"coude_g":[30,97],"poignet_g":[30,101],"main_g":[29,105],
+"epaule_d":[51,90],"coude_d":[54,96],"poignet_d":[56,100],"main_d":[56,105],
+"poitrine_bas":[41,94],"taille":[41,98],"bassin":[41,104],
+"hanche_g":[37,106],"genou_g":[37,113],"cheville_g":[37,120],"orteils_g":[36,124],
+"hanche_d":[47,106],"genou_d":[48,113],"cheville_d":[48,120],"orteils_d":[50,124]},
+"cache":[],"objets":[],"notes":""}
