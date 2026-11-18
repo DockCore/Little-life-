@@ -2,7 +2,7 @@
 
 Outils de production des vêtements dessinés de Little Life. Ce dossier n'est **jamais chargé par le jeu** : il fabrique des données que le jeu lit (`index.html`, à la racine du dépôt).
 
-État actuel (étape 1 de la mise en place) : sauvegarde des outils qui ont produit le **T-shirt blanc**, notre référence de qualité. Rien du jeu n'a été modifié.
+État actuel : étape 1 (outils du **T-shirt blanc** sauvegardés) et étape 2 (atlas du corps construit, en attente de validation visuelle). Rien du jeu n'a été modifié.
 
 ## Contenu
 
@@ -10,6 +10,7 @@ Outils de production des vêtements dessinés de Little Life. Ce dossier n'est *
 atelier/
 ├── README.md                     ce mode d'emploi
 ├── .gitignore                    sorties régénérables, jamais enregistrées
+├── atlas/                        atlas du corps des 108 images habillées (cartes, premier plan, repères)
 ├── references/
 │   ├── tshirt-blanc/             les 4 vues de référence validées (80×128, fond transparent) + planche + agrandissements ×8
 │   └── gabarit/                  gabarit d'analyse du personnage masculin (repères du T-shirt)
@@ -80,6 +81,36 @@ Tous les réglages sont dans le code, à ces endroits :
 | Vues de référence dessinées | `references/views.py` | `FACE`, `DOS`, `PD`, `PG` |
 | Images habillées et versions gauche | `controle/sheet.py`, `generation/export.py` | `FR_M`, `FR_F`, `LEFT`, `SOFA` |
 | Images remplacées par les références | `generation/export.py` | `HAND` |
+
+## L'atlas du corps (`atlas/`, outils dans `outils/atlas/`)
+
+Base commune à tous les vêtements : pour chacune des **108 images habillées** (55 homme, 37 femme, 16 canapé), la carte des parties du corps corrigée, le masque des éléments au premier plan, les repères anatomiques, la famille d'orientation et l'état du contrôle. **Les cartes du jeu (`SPF`) ne sont jamais modifiées** : l'atlas est une copie corrigée, propre à l'atelier.
+
+| Fichier | Contenu |
+| --- | --- |
+| `atlas/cartes/<image>.png` | Partie du corps de chaque pixel (PNG à palette : l'index est la partie, les couleurs sont celles de la légende). 0 vide, 1 tête, 2 cou, 3 épaules, 4 poitrine, 5 ventre, 6 hanches, 7 bras, 8 avant-bras, 9 mains, 10 cuisses, 11 mollets, 12 pieds, 13 objet / non étiqueté. |
+| `atlas/premier_plan/<image>.png` | Pixels dessinés devant le torse (avant-bras croisés, objets tenus, mèches de cheveux) : un vêtement du haut passe derrière. |
+| `atlas/atlas.json` | Par image : `famille` (face, dos, profil, trois-quarts, assis-table, canape-assis, canape-allonge), `activite`, `genre`, `reperes` (cou, épaules, taille, hanches, coudes, poignets, genoux, chevilles), `corrections` appliquées, `a_surveiller` (zones demandant une attention particulière), `controle` et `remarque`. |
+
+| Outil | Rôle |
+| --- | --- |
+| `outils/atlas/construire.py` | Reconstruit l'atlas depuis les cartes du jeu et applique les corrections par famille. L'état du contrôle déjà enregistré n'est jamais écrasé. |
+| `outils/atlas/planche.py [images…]` | Planches de validation : sprite · carte du jeu · carte de l'atlas (premier plan hachuré, repères en croix). Sorties dans `sorties/atlas/`. |
+| `outils/atlas/marquer.py <état> "<remarque>" images…` | Enregistre l'état du contrôle visuel (« contrôlé — conforme », « contrôlé — avec réserve », « validé par l'auteur »…). |
+| `outils/atlas/commun.py` | Liste des images, couleurs des parties, lecture des cartes du jeu. |
+
+Corrections appliquées automatiquement (détail par image dans `atlas.json`) :
+- face et dos : bras étiquetés torse ou hanches à côté du torse (marche de face et de dos, bureau, studio) rendus aux bras, avant-bras et mains ;
+- profil de la femme : avant-bras étiquetés torse ou ventre hors de la largeur des épaules ;
+- avant-bras dessinés devant le torse (boire, marche et vélo de la femme) : avant-bras + premier plan ;
+- femme à table : torse, manche, cheveux et visage redessinés (contours validés avec le T-shirt) ;
+- canapé : parties recalées sur les zones de couleur de la planche (visage, bras nus, haut, pantalon, chaussures) ;
+- contours sans partie rattachés à la partie voisine ; objets tenus classés à part.
+
+```
+python3 atelier/outils/atlas/construire.py
+python3 atelier/outils/atlas/planche.py           # ou une liste d'images
+```
 
 ## Procédures
 

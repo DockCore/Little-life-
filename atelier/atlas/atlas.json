@@ -1,0 +1,6091 @@
+{
+ "idle": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "debout",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    86
+   ],
+   "epaule_g": [
+    32,
+    88
+   ],
+   "epaule_d": [
+    51,
+    88
+   ],
+   "taille": [
+    41,
+    99
+   ],
+   "hanche_g": [
+    35,
+    100
+   ],
+   "hanche_d": [
+    46,
+    100
+   ],
+   "coude_g": [
+    30,
+    98
+   ],
+   "coude_d": [
+    52,
+    99
+   ],
+   "poignet_g": [
+    32,
+    109
+   ],
+   "poignet_d": [
+    49,
+    109
+   ],
+   "genou_g": [
+    36,
+    114
+   ],
+   "genou_d": [
+    46,
+    115
+   ],
+   "cheville_g": [
+    34,
+    122
+   ],
+   "cheville_d": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 5 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wave": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "saluer",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    83
+   ],
+   "epaule_g": [
+    67,
+    76
+   ],
+   "epaule_d": [
+    68,
+    76
+   ],
+   "taille": [
+    44,
+    100
+   ],
+   "hanche_g": [
+    37,
+    101
+   ],
+   "hanche_d": [
+    48,
+    101
+   ],
+   "coude_g": [
+    32,
+    96
+   ],
+   "coude_d": [
+    58,
+    83
+   ],
+   "poignet_g": [
+    33,
+    108
+   ],
+   "poignet_d": [
+    60,
+    84
+   ],
+   "genou_g": [
+    37,
+    115
+   ],
+   "genou_d": [
+    47,
+    115
+   ],
+   "cheville_g": [
+    35,
+    122
+   ],
+   "cheville_d": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 41 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "drink": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "face",
+  "activite": "boire",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    84
+   ],
+   "epaule_g": [
+    33,
+    87
+   ],
+   "epaule_d": [
+    51,
+    87
+   ],
+   "taille": [
+    43,
+    100
+   ],
+   "hanche_g": [
+    35,
+    101
+   ],
+   "hanche_d": [
+    47,
+    101
+   ],
+   "coude_g": [
+    32,
+    99
+   ],
+   "coude_d": [
+    57,
+    89
+   ],
+   "poignet_g": [
+    48,
+    101
+   ],
+   "poignet_d": [
+    64,
+    93
+   ],
+   "genou_g": [
+    36,
+    117
+   ],
+   "genou_d": [
+    47,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 47 pixels rendus au bras et aux mains",
+   "avant-bras devant le torse : 78 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "w0": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    39,
+    89
+   ],
+   "epaule_g": [
+    30,
+    88
+   ],
+   "epaule_d": [
+    38,
+    88
+   ],
+   "taille": [
+    34,
+    103
+   ],
+   "hanche_g": [
+    33,
+    104
+   ],
+   "hanche_d": [
+    36,
+    104
+   ],
+   "coude_g": [
+    29,
+    99
+   ],
+   "coude_d": [
+    43,
+    99
+   ],
+   "poignet_g": [
+    28,
+    111
+   ],
+   "poignet_d": [
+    37,
+    110
+   ],
+   "genou": [
+    48,
+    116
+   ],
+   "cheville": [
+    53,
+    121
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "w1": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    89
+   ],
+   "epaule_g": [
+    27,
+    88
+   ],
+   "epaule_d": [
+    33,
+    88
+   ],
+   "taille": [
+    34,
+    100
+   ],
+   "hanche_g": [
+    32,
+    101
+   ],
+   "hanche_d": [
+    37,
+    101
+   ],
+   "coude_g": [
+    28,
+    96
+   ],
+   "coude_d": [
+    43,
+    97
+   ],
+   "poignet_g": [
+    30,
+    109
+   ],
+   "poignet_d": [
+    45,
+    107
+   ],
+   "genou_g": [
+    28,
+    116
+   ],
+   "genou_d": [
+    41,
+    116
+   ],
+   "cheville": [
+    44,
+    123
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "w2": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    89
+   ],
+   "epaule_g": [
+    29,
+    88
+   ],
+   "epaule_d": [
+    46,
+    88
+   ],
+   "taille": [
+    36,
+    103
+   ],
+   "hanche_g": [
+    32,
+    104
+   ],
+   "hanche_d": [
+    43,
+    104
+   ],
+   "coude_g": [
+    29,
+    98
+   ],
+   "coude_d": [
+    47,
+    101
+   ],
+   "poignet_g": [
+    28,
+    110
+   ],
+   "poignet_d": [
+    34,
+    110
+   ],
+   "genou_g": [
+    31,
+    115
+   ],
+   "genou_d": [
+    45,
+    116
+   ],
+   "cheville_g": [
+    29,
+    119
+   ],
+   "cheville_d": [
+    49,
+    120
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "w3": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    90
+   ],
+   "epaule_g": [
+    28,
+    89
+   ],
+   "epaule_d": [
+    35,
+    89
+   ],
+   "taille": [
+    34,
+    102
+   ],
+   "hanche_g": [
+    31,
+    103
+   ],
+   "hanche_d": [
+    41,
+    103
+   ],
+   "coude_g": [
+    27,
+    100
+   ],
+   "coude_d": [
+    47,
+    100
+   ],
+   "poignet_g": [
+    24,
+    110
+   ],
+   "poignet_d": [
+    49,
+    109
+   ],
+   "genou_g": [
+    27,
+    114
+   ],
+   "genou_d": [
+    47,
+    116
+   ],
+   "cheville_g": [
+    21,
+    118
+   ],
+   "cheville_d": [
+    53,
+    121
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "r0": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    45,
+    83
+   ],
+   "epaule_g": [
+    28,
+    84
+   ],
+   "epaule_d": [
+    53,
+    84
+   ],
+   "taille": [
+    30,
+    98
+   ],
+   "hanche_g": [
+    24,
+    99
+   ],
+   "hanche_d": [
+    33,
+    99
+   ],
+   "coude_g": [
+    22,
+    91
+   ],
+   "coude_d": [
+    40,
+    97
+   ],
+   "poignet_g": [
+    44,
+    104
+   ],
+   "poignet_d": [
+    50,
+    85
+   ],
+   "genou_g": [
+    19,
+    113
+   ],
+   "genou_d": [
+    37,
+    111
+   ],
+   "cheville_g": [
+    14,
+    121
+   ],
+   "cheville_d": [
+    35,
+    115
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "r1": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    44,
+    88
+   ],
+   "epaule_g": [
+    22,
+    87
+   ],
+   "epaule_d": [
+    41,
+    87
+   ],
+   "taille": [
+    24,
+    99
+   ],
+   "hanche_g": [
+    22,
+    100
+   ],
+   "hanche_d": [
+    28,
+    100
+   ],
+   "coude_g": [
+    21,
+    94
+   ],
+   "coude_d": [
+    40,
+    99
+   ],
+   "poignet_g": [
+    50,
+    102
+   ],
+   "poignet_d": [
+    50,
+    90
+   ],
+   "genou_g": [
+    14,
+    114
+   ],
+   "genou_d": [
+    40,
+    113
+   ],
+   "cheville_g": [
+    7,
+    118
+   ],
+   "cheville_d": [
+    43,
+    119
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "r2": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    85
+   ],
+   "epaule_g": [
+    28,
+    86
+   ],
+   "epaule_d": [
+    54,
+    86
+   ],
+   "taille": [
+    24,
+    99
+   ],
+   "hanche_g": [
+    20,
+    100
+   ],
+   "hanche_d": [
+    25,
+    100
+   ],
+   "coude_g": [
+    35,
+    97
+   ],
+   "coude_d": [
+    43,
+    87
+   ],
+   "poignet_g": [
+    7,
+    104
+   ],
+   "poignet_d": [
+    47,
+    98
+   ],
+   "genou_g": [
+    10,
+    110
+   ],
+   "genou_d": [
+    38,
+    114
+   ],
+   "cheville_g": [
+    6,
+    112
+   ],
+   "cheville_d": [
+    45,
+    122
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "r3": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    84
+   ],
+   "epaule_g": [
+    25,
+    85
+   ],
+   "epaule_d": [
+    54,
+    85
+   ],
+   "taille": [
+    20,
+    100
+   ],
+   "hanche_g": [
+    19,
+    101
+   ],
+   "hanche_d": [
+    25,
+    101
+   ],
+   "coude_g": [
+    15,
+    92
+   ],
+   "coude_d": [
+    37,
+    97
+   ],
+   "poignet_g": [
+    6,
+    104
+   ],
+   "poignet_d": [
+    48,
+    98
+   ],
+   "genou_g": [
+    11,
+    111
+   ],
+   "genou_d": [
+    35,
+    115
+   ],
+   "cheville_g": [
+    7,
+    112
+   ],
+   "cheville_d": [
+    38,
+    123
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf0": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    31,
+    82
+   ],
+   "epaule_d": [
+    51,
+    82
+   ],
+   "taille": [
+    36,
+    97
+   ],
+   "hanche_g": [
+    35,
+    98
+   ],
+   "hanche_d": [
+    49,
+    98
+   ],
+   "coude_g": [
+    30,
+    92
+   ],
+   "coude_d": [
+    52,
+    93
+   ],
+   "poignet_g": [
+    30,
+    102
+   ],
+   "poignet_d": [
+    34,
+    98
+   ],
+   "genou": [
+    40,
+    111
+   ],
+   "cheville": [
+    40,
+    120
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 144 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf1": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    30,
+    83
+   ],
+   "epaule_d": [
+    51,
+    83
+   ],
+   "taille": [
+    42,
+    98
+   ],
+   "hanche_g": [
+    36,
+    99
+   ],
+   "hanche_d": [
+    49,
+    99
+   ],
+   "coude_g": [
+    30,
+    93
+   ],
+   "coude_d": [
+    52,
+    93
+   ],
+   "poignet_g": [
+    33,
+    100
+   ],
+   "poignet_d": [
+    52,
+    101
+   ],
+   "genou": [
+    40,
+    111
+   ],
+   "cheville": [
+    41,
+    118
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 136 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf2": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    30,
+    83
+   ],
+   "epaule_d": [
+    51,
+    83
+   ],
+   "taille": [
+    43,
+    98
+   ],
+   "hanche_g": [
+    36,
+    99
+   ],
+   "hanche_d": [
+    49,
+    99
+   ],
+   "coude_g": [
+    30,
+    93
+   ],
+   "coude_d": [
+    50,
+    93
+   ],
+   "poignet_g": [
+    34,
+    99
+   ],
+   "poignet_d": [
+    52,
+    100
+   ],
+   "genou": [
+    41,
+    112
+   ],
+   "cheville": [
+    41,
+    118
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 163 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf3": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    31,
+    83
+   ],
+   "epaule_d": [
+    51,
+    83
+   ],
+   "taille": [
+    42,
+    99
+   ],
+   "hanche_g": [
+    36,
+    100
+   ],
+   "hanche_d": [
+    49,
+    100
+   ],
+   "coude_g": [
+    30,
+    94
+   ],
+   "coude_d": [
+    51,
+    94
+   ],
+   "poignet_g": [
+    32,
+    100
+   ],
+   "poignet_d": [
+    51,
+    103
+   ],
+   "genou_g": [
+    38,
+    109
+   ],
+   "genou_d": [
+    45,
+    113
+   ],
+   "cheville_g": [
+    38,
+    111
+   ],
+   "cheville_d": [
+    44,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 153 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf4": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    30,
+    82
+   ],
+   "epaule_d": [
+    51,
+    82
+   ],
+   "taille": [
+    35,
+    96
+   ],
+   "hanche_g": [
+    34,
+    97
+   ],
+   "hanche_d": [
+    48,
+    97
+   ],
+   "coude_g": [
+    30,
+    92
+   ],
+   "coude_d": [
+    51,
+    92
+   ],
+   "poignet_g": [
+    29,
+    101
+   ],
+   "poignet_d": [
+    52,
+    103
+   ],
+   "genou": [
+    41,
+    110
+   ],
+   "cheville": [
+    40,
+    119
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 131 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf5": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    31,
+    83
+   ],
+   "epaule_d": [
+    53,
+    83
+   ],
+   "taille": [
+    36,
+    97
+   ],
+   "hanche_g": [
+    35,
+    98
+   ],
+   "hanche_d": [
+    47,
+    98
+   ],
+   "coude_g": [
+    30,
+    93
+   ],
+   "coude_d": [
+    52,
+    93
+   ],
+   "poignet_g": [
+    31,
+    101
+   ],
+   "poignet_d": [
+    51,
+    99
+   ],
+   "genou": [
+    42,
+    112
+   ],
+   "cheville": [
+    42,
+    119
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 136 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf6": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    31,
+    82
+   ],
+   "epaule_d": [
+    52,
+    82
+   ],
+   "taille": [
+    41,
+    97
+   ],
+   "hanche_g": [
+    34,
+    98
+   ],
+   "hanche_d": [
+    48,
+    98
+   ],
+   "coude_g": [
+    31,
+    92
+   ],
+   "coude_d": [
+    53,
+    93
+   ],
+   "poignet_g": [
+    34,
+    96
+   ],
+   "poignet_d": [
+    52,
+    100
+   ],
+   "genou_g": [
+    40,
+    112
+   ],
+   "genou_d": [
+    46,
+    106
+   ],
+   "cheville_g": [
+    40,
+    120
+   ],
+   "cheville_d": [
+    46,
+    108
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 125 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wf7": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    30,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    42,
+    98
+   ],
+   "hanche_g": [
+    34,
+    99
+   ],
+   "hanche_d": [
+    48,
+    99
+   ],
+   "coude_g": [
+    30,
+    93
+   ],
+   "coude_d": [
+    52,
+    93
+   ],
+   "poignet_g": [
+    31,
+    100
+   ],
+   "poignet_d": [
+    51,
+    101
+   ],
+   "genou": [
+    41,
+    111
+   ],
+   "cheville": [
+    41,
+    119
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 155 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb0": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    80
+   ],
+   "epaule_g": [
+    29,
+    82
+   ],
+   "epaule_d": [
+    50,
+    82
+   ],
+   "taille": [
+    42,
+    96
+   ],
+   "hanche_g": [
+    34,
+    97
+   ],
+   "hanche_d": [
+    47,
+    97
+   ],
+   "coude_g": [
+    29,
+    93
+   ],
+   "coude_d": [
+    52,
+    93
+   ],
+   "poignet_g": [
+    29,
+    96
+   ],
+   "poignet_d": [
+    49,
+    98
+   ],
+   "genou": [
+    40,
+    112
+   ],
+   "cheville": [
+    40,
+    120
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 142 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb1": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    39,
+    80
+   ],
+   "epaule_g": [
+    28,
+    82
+   ],
+   "epaule_d": [
+    50,
+    82
+   ],
+   "taille": [
+    40,
+    96
+   ],
+   "hanche_g": [
+    33,
+    97
+   ],
+   "hanche_d": [
+    47,
+    97
+   ],
+   "coude_g": [
+    28,
+    92
+   ],
+   "coude_d": [
+    51,
+    92
+   ],
+   "poignet_g": [
+    29,
+    99
+   ],
+   "poignet_d": [
+    50,
+    96
+   ],
+   "genou": [
+    40,
+    111
+   ],
+   "cheville": [
+    39,
+    118
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 113 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb2": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    80
+   ],
+   "epaule_g": [
+    29,
+    82
+   ],
+   "epaule_d": [
+    51,
+    82
+   ],
+   "taille": [
+    34,
+    96
+   ],
+   "hanche_g": [
+    33,
+    97
+   ],
+   "hanche_d": [
+    47,
+    97
+   ],
+   "coude_g": [
+    28,
+    92
+   ],
+   "coude_d": [
+    51,
+    92
+   ],
+   "poignet_g": [
+    30,
+    98
+   ],
+   "poignet_d": [
+    49,
+    98
+   ],
+   "genou": [
+    39,
+    110
+   ],
+   "cheville_g": [
+    38,
+    114
+   ],
+   "cheville_d": [
+    42,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 169 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb3": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    80
+   ],
+   "epaule_g": [
+    29,
+    82
+   ],
+   "epaule_d": [
+    50,
+    82
+   ],
+   "taille": [
+    35,
+    96
+   ],
+   "hanche_g": [
+    33,
+    97
+   ],
+   "hanche_d": [
+    47,
+    97
+   ],
+   "coude_g": [
+    30,
+    91
+   ],
+   "coude_d": [
+    49,
+    93
+   ],
+   "poignet_g": [
+    29,
+    101
+   ],
+   "poignet_d": [
+    32,
+    96
+   ],
+   "genou_g": [
+    37,
+    108
+   ],
+   "genou_d": [
+    42,
+    112
+   ],
+   "cheville_g": [
+    37,
+    115
+   ],
+   "cheville_d": [
+    42,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 135 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb4": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    80
+   ],
+   "epaule_g": [
+    29,
+    82
+   ],
+   "epaule_d": [
+    50,
+    82
+   ],
+   "taille": [
+    34,
+    96
+   ],
+   "hanche_g": [
+    32,
+    97
+   ],
+   "hanche_d": [
+    47,
+    97
+   ],
+   "coude_g": [
+    28,
+    92
+   ],
+   "coude_d": [
+    50,
+    93
+   ],
+   "poignet_g": [
+    28,
+    96
+   ],
+   "poignet_d": [
+    50,
+    100
+   ],
+   "genou": [
+    40,
+    112
+   ],
+   "cheville": [
+    40,
+    120
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 158 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb5": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    29,
+    81
+   ],
+   "epaule_d": [
+    50,
+    81
+   ],
+   "taille": [
+    35,
+    95
+   ],
+   "hanche_g": [
+    33,
+    96
+   ],
+   "hanche_d": [
+    48,
+    96
+   ],
+   "coude_g": [
+    30,
+    91
+   ],
+   "coude_d": [
+    52,
+    91
+   ],
+   "poignet_g": [
+    30,
+    97
+   ],
+   "poignet_d": [
+    50,
+    100
+   ],
+   "genou": [
+    41,
+    111
+   ],
+   "cheville_g": [
+    38,
+    121
+   ],
+   "cheville_d": [
+    44,
+    114
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 110 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb6": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    29,
+    81
+   ],
+   "epaule_d": [
+    50,
+    81
+   ],
+   "taille": [
+    46,
+    94
+   ],
+   "hanche_g": [
+    33,
+    95
+   ],
+   "hanche_d": [
+    46,
+    95
+   ],
+   "coude_g": [
+    27,
+    91
+   ],
+   "coude_d": [
+    50,
+    91
+   ],
+   "poignet_g": [
+    30,
+    98
+   ],
+   "poignet_d": [
+    49,
+    97
+   ],
+   "genou": [
+    40,
+    110
+   ],
+   "cheville_g": [
+    38,
+    121
+   ],
+   "cheville_d": [
+    43,
+    114
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 165 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wb7": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "marche",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    80
+   ],
+   "epaule_g": [
+    29,
+    82
+   ],
+   "epaule_d": [
+    50,
+    82
+   ],
+   "taille": [
+    42,
+    96
+   ],
+   "hanche_g": [
+    33,
+    97
+   ],
+   "hanche_d": [
+    47,
+    97
+   ],
+   "coude_g": [
+    29,
+    92
+   ],
+   "coude_d": [
+    52,
+    95
+   ],
+   "poignet_g": [
+    29,
+    96
+   ],
+   "poignet_d": [
+    51,
+    101
+   ],
+   "genou": [
+    40,
+    112
+   ],
+   "cheville": [
+    41,
+    120
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 140 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "dn0": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    79
+   ],
+   "epaule_d": [
+    46,
+    79
+   ],
+   "poignet_g": [
+    36,
+    98
+   ],
+   "poignet_d": [
+    39,
+    80
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 180 pixels",
+   "objet tenu devant le torse : 8 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 32 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn1": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    79
+   ],
+   "epaule_d": [
+    45,
+    79
+   ],
+   "poignet_g": [
+    37,
+    94
+   ],
+   "poignet_d": [
+    49,
+    93
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 185 pixels",
+   "objet tenu devant le torse : 14 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 40 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn2": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    80
+   ],
+   "epaule_d": [
+    42,
+    80
+   ],
+   "poignet_g": [
+    35,
+    99
+   ],
+   "poignet_d": [
+    38,
+    79
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 172 pixels",
+   "objet tenu devant le torse : 15 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 38 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn3": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    79
+   ],
+   "epaule_d": [
+    56,
+    79
+   ],
+   "poignet_g": [
+    34,
+    99
+   ],
+   "poignet_d": [
+    39,
+    81
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 219 pixels",
+   "objet tenu devant le torse : 14 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 61 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn4": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    80
+   ],
+   "epaule_d": [
+    42,
+    80
+   ],
+   "poignet_g": [
+    38,
+    80
+   ],
+   "poignet_d": [
+    48,
+    82
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 188 pixels",
+   "objet tenu devant le torse : 9 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 31 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn5": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    27,
+    79
+   ],
+   "epaule_d": [
+    46,
+    79
+   ],
+   "poignet_g": [
+    38,
+    93
+   ],
+   "poignet_d": [
+    49,
+    93
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 179 pixels",
+   "objet tenu devant le torse : 6 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 30 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn6": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    80
+   ],
+   "epaule_d": [
+    53,
+    80
+   ],
+   "poignet_g": [
+    40,
+    78
+   ],
+   "poignet_d": [
+    41,
+    83
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 168 pixels",
+   "objet tenu devant le torse : 57 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 140 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "dn7": {
+  "a_surveiller": [
+   "bras confondus avec le torse dans le dessin : un vêtement à manches longues demandera un dessin dédié"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    27,
+    78
+   ],
+   "epaule_d": [
+    47,
+    78
+   ],
+   "poignet_g": [
+    38,
+    80
+   ],
+   "poignet_d": [
+    50,
+    94
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 184 pixels",
+   "pixels sans partie dans la carte du jeu : 16 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Dessin d’origine sans séparation bras/torse : le haut du bras reste compté dans le torse."
+ },
+ "wc0": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "bureau",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    93
+   ],
+   "epaule_g": [
+    32,
+    95
+   ],
+   "epaule_d": [
+    51,
+    95
+   ],
+   "taille": [
+    41,
+    106
+   ],
+   "hanche_g": [
+    35,
+    107
+   ],
+   "hanche_d": [
+    46,
+    107
+   ],
+   "coude_g": [
+    30,
+    103
+   ],
+   "coude_d": [
+    52,
+    104
+   ],
+   "poignet_g": [
+    32,
+    112
+   ],
+   "poignet_d": [
+    50,
+    112
+   ],
+   "genou": [
+    40,
+    116
+   ],
+   "cheville_g": [
+    36,
+    121
+   ],
+   "cheville_d": [
+    46,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 5 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "wc1": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "bureau",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    93
+   ],
+   "epaule_g": [
+    32,
+    95
+   ],
+   "epaule_d": [
+    51,
+    95
+   ],
+   "taille": [
+    41,
+    106
+   ],
+   "hanche_g": [
+    35,
+    107
+   ],
+   "hanche_d": [
+    46,
+    107
+   ],
+   "coude_g": [
+    30,
+    103
+   ],
+   "coude_d": [
+    52,
+    104
+   ],
+   "poignet_g": [
+    32,
+    112
+   ],
+   "poignet_d": [
+    50,
+    112
+   ],
+   "genou": [
+    40,
+    116
+   ],
+   "cheville_g": [
+    36,
+    121
+   ],
+   "cheville_d": [
+    46,
+    120
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 5 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "dk0": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "bureau",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    95
+   ],
+   "epaule_g": [
+    30,
+    97
+   ],
+   "epaule_d": [
+    48,
+    97
+   ],
+   "taille": [
+    39,
+    112
+   ],
+   "hanche_g": [
+    32,
+    113
+   ],
+   "hanche_d": [
+    46,
+    113
+   ],
+   "coude_g": [
+    28,
+    105
+   ],
+   "coude_d": [
+    52,
+    105
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 11 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "dk1": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "bureau",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    40,
+    95
+   ],
+   "epaule_g": [
+    30,
+    97
+   ],
+   "epaule_d": [
+    48,
+    97
+   ],
+   "taille": [
+    39,
+    112
+   ],
+   "hanche_g": [
+    32,
+    113
+   ],
+   "hanche_d": [
+    46,
+    113
+   ],
+   "coude_g": [
+    28,
+    105
+   ],
+   "coude_d": [
+    52,
+    105
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 11 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "cu0": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    86
+   ],
+   "epaule_g": [
+    32,
+    88
+   ],
+   "epaule_d": [
+    51,
+    88
+   ],
+   "taille": [
+    41,
+    99
+   ],
+   "hanche_g": [
+    35,
+    100
+   ],
+   "hanche_d": [
+    46,
+    100
+   ],
+   "coude_g": [
+    30,
+    96
+   ],
+   "coude_d": [
+    52,
+    97
+   ],
+   "poignet_g": [
+    32,
+    104
+   ],
+   "poignet_d": [
+    48,
+    104
+   ],
+   "genou_g": [
+    36,
+    114
+   ],
+   "genou_d": [
+    46,
+    115
+   ],
+   "cheville_g": [
+    34,
+    122
+   ],
+   "cheville_d": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 7 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 33 pixels",
+   "pixels sans partie dans la carte du jeu : 35 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "cu1": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    86
+   ],
+   "epaule_g": [
+    32,
+    88
+   ],
+   "epaule_d": [
+    51,
+    88
+   ],
+   "taille": [
+    41,
+    99
+   ],
+   "hanche_g": [
+    36,
+    100
+   ],
+   "hanche_d": [
+    46,
+    100
+   ],
+   "coude_g": [
+    30,
+    96
+   ],
+   "coude_d": [
+    52,
+    97
+   ],
+   "genou_g": [
+    36,
+    114
+   ],
+   "genou_d": [
+    46,
+    115
+   ],
+   "cheville_g": [
+    34,
+    122
+   ],
+   "cheville_d": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 7 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 32 pixels",
+   "pixels sans partie dans la carte du jeu : 36 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "cu2": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    86
+   ],
+   "epaule_g": [
+    32,
+    88
+   ],
+   "epaule_d": [
+    51,
+    88
+   ],
+   "taille": [
+    40,
+    99
+   ],
+   "hanche_g": [
+    36,
+    100
+   ],
+   "hanche_d": [
+    45,
+    100
+   ],
+   "coude_g": [
+    30,
+    95
+   ],
+   "coude_d": [
+    52,
+    96
+   ],
+   "genou_g": [
+    36,
+    114
+   ],
+   "genou_d": [
+    46,
+    115
+   ],
+   "cheville_g": [
+    34,
+    122
+   ],
+   "cheville_d": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 9 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 31 pixels",
+   "pixels sans partie dans la carte du jeu : 37 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "cu3": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    86
+   ],
+   "epaule_g": [
+    32,
+    88
+   ],
+   "epaule_d": [
+    51,
+    88
+   ],
+   "taille": [
+    41,
+    99
+   ],
+   "hanche_g": [
+    36,
+    100
+   ],
+   "hanche_d": [
+    46,
+    100
+   ],
+   "coude_g": [
+    30,
+    93
+   ],
+   "coude_d": [
+    49,
+    99
+   ],
+   "poignet": [
+    34,
+    99
+   ],
+   "genou_g": [
+    36,
+    114
+   ],
+   "genou_d": [
+    46,
+    115
+   ],
+   "cheville_g": [
+    34,
+    122
+   ],
+   "cheville_d": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 4 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 34 pixels",
+   "objet tenu devant le torse : 10 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 34 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk0": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    72
+   ],
+   "epaule_g": [
+    22,
+    73
+   ],
+   "epaule_d": [
+    36,
+    73
+   ],
+   "taille": [
+    18,
+    83
+   ],
+   "hanche_g": [
+    17,
+    84
+   ],
+   "hanche_d": [
+    29,
+    84
+   ],
+   "coude": [
+    36,
+    80
+   ],
+   "poignet": [
+    44,
+    83
+   ],
+   "genou": [
+    32,
+    92
+   ],
+   "cheville_g": [
+    32,
+    107
+   ],
+   "cheville_d": [
+    39,
+    101
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 164 pixels",
+   "pixels sans partie dans la carte du jeu : 985 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk1": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    72
+   ],
+   "epaule_g": [
+    22,
+    73
+   ],
+   "epaule_d": [
+    37,
+    73
+   ],
+   "taille": [
+    19,
+    83
+   ],
+   "hanche_g": [
+    18,
+    84
+   ],
+   "hanche_d": [
+    29,
+    84
+   ],
+   "coude": [
+    36,
+    81
+   ],
+   "poignet": [
+    44,
+    83
+   ],
+   "genou_g": [
+    31,
+    99
+   ],
+   "genou_d": [
+    32,
+    92
+   ],
+   "cheville": [
+    37,
+    105
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 160 pixels",
+   "pixels sans partie dans la carte du jeu : 952 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk2": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    72
+   ],
+   "epaule_g": [
+    23,
+    72
+   ],
+   "epaule_d": [
+    37,
+    72
+   ],
+   "taille": [
+    25,
+    82
+   ],
+   "hanche_g": [
+    18,
+    83
+   ],
+   "hanche_d": [
+    29,
+    83
+   ],
+   "coude": [
+    36,
+    80
+   ],
+   "poignet": [
+    44,
+    82
+   ],
+   "genou": [
+    32,
+    91
+   ],
+   "cheville": [
+    34,
+    109
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 159 pixels",
+   "pixels sans partie dans la carte du jeu : 996 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk3": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    72
+   ],
+   "epaule_g": [
+    22,
+    73
+   ],
+   "epaule_d": [
+    37,
+    73
+   ],
+   "taille": [
+    19,
+    83
+   ],
+   "hanche_g": [
+    17,
+    84
+   ],
+   "hanche_d": [
+    30,
+    84
+   ],
+   "coude": [
+    36,
+    81
+   ],
+   "poignet": [
+    44,
+    83
+   ],
+   "genou": [
+    34,
+    92
+   ],
+   "cheville": [
+    34,
+    112
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 164 pixels",
+   "pixels sans partie dans la carte du jeu : 983 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk4": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    72
+   ],
+   "epaule_g": [
+    22,
+    73
+   ],
+   "epaule_d": [
+    36,
+    73
+   ],
+   "taille": [
+    19,
+    83
+   ],
+   "hanche_g": [
+    17,
+    84
+   ],
+   "hanche_d": [
+    29,
+    84
+   ],
+   "coude": [
+    36,
+    80
+   ],
+   "poignet": [
+    44,
+    82
+   ],
+   "genou": [
+    32,
+    92
+   ],
+   "cheville": [
+    36,
+    112
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 171 pixels",
+   "pixels sans partie dans la carte du jeu : 908 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk5": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    72
+   ],
+   "epaule_g": [
+    22,
+    73
+   ],
+   "epaule_d": [
+    37,
+    73
+   ],
+   "taille": [
+    19,
+    83
+   ],
+   "hanche_g": [
+    17,
+    84
+   ],
+   "hanche_d": [
+    29,
+    84
+   ],
+   "coude": [
+    36,
+    81
+   ],
+   "poignet": [
+    44,
+    83
+   ],
+   "genou": [
+    34,
+    92
+   ],
+   "cheville": [
+    37,
+    105
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 158 pixels",
+   "pixels sans partie dans la carte du jeu : 935 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk6": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    71
+   ],
+   "epaule_g": [
+    23,
+    72
+   ],
+   "epaule_d": [
+    37,
+    72
+   ],
+   "taille": [
+    20,
+    82
+   ],
+   "hanche_g": [
+    18,
+    83
+   ],
+   "hanche_d": [
+    29,
+    83
+   ],
+   "coude": [
+    36,
+    80
+   ],
+   "poignet": [
+    44,
+    82
+   ],
+   "genou": [
+    34,
+    91
+   ],
+   "cheville_g": [
+    36,
+    102
+   ],
+   "cheville_d": [
+    41,
+    102
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 158 pixels",
+   "pixels sans partie dans la carte du jeu : 996 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "bk7": {
+  "a_surveiller": [
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    41,
+    72
+   ],
+   "epaule_g": [
+    22,
+    73
+   ],
+   "epaule_d": [
+    36,
+    73
+   ],
+   "taille": [
+    20,
+    83
+   ],
+   "hanche_g": [
+    17,
+    84
+   ],
+   "hanche_d": [
+    29,
+    84
+   ],
+   "coude": [
+    36,
+    80
+   ],
+   "poignet": [
+    44,
+    81
+   ],
+   "genou_g": [
+    30,
+    108
+   ],
+   "genou_d": [
+    36,
+    93
+   ],
+   "cheville_g": [
+    32,
+    108
+   ],
+   "cheville_d": [
+    39,
+    101
+   ]
+  },
+  "corrections": [
+   "contours sans partie rattachés à la partie voisine : 154 pixels",
+   "pixels sans partie dans la carte du jeu : 991 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "v_front": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "dressing",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    42,
+    59
+   ],
+   "epaule_g": [
+    27,
+    60
+   ],
+   "epaule_d": [
+    56,
+    60
+   ],
+   "taille": [
+    42,
+    83
+   ],
+   "hanche_g": [
+    32,
+    84
+   ],
+   "hanche_d": [
+    52,
+    84
+   ],
+   "coude_g": [
+    24,
+    72
+   ],
+   "coude_d": [
+    60,
+    72
+   ],
+   "poignet_g": [
+    28,
+    99
+   ],
+   "poignet_d": [
+    30,
+    85
+   ],
+   "genou_g": [
+    32,
+    108
+   ],
+   "genou_d": [
+    50,
+    109
+   ],
+   "cheville_g": [
+    31,
+    120
+   ],
+   "cheville_d": [
+    53,
+    122
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 55 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "v_q": {
+  "a_surveiller": [],
+  "famille": "trois-quarts",
+  "activite": "dressing",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    45,
+    61
+   ],
+   "epaule_g": [
+    33,
+    58
+   ],
+   "epaule_d": [
+    49,
+    58
+   ],
+   "taille": [
+    46,
+    83
+   ],
+   "hanche_g": [
+    43,
+    84
+   ],
+   "hanche_d": [
+    51,
+    84
+   ],
+   "coude_g": [
+    35,
+    76
+   ],
+   "coude_d": [
+    52,
+    82
+   ],
+   "poignet_g": [
+    34,
+    93
+   ],
+   "poignet_d": [
+    50,
+    94
+   ],
+   "genou": [
+    42,
+    109
+   ],
+   "cheville": [
+    44,
+    122
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "v_side": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "dressing",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    48,
+    60
+   ],
+   "epaule_g": [
+    33,
+    59
+   ],
+   "epaule_d": [
+    45,
+    59
+   ],
+   "taille": [
+    49,
+    83
+   ],
+   "hanche_g": [
+    47,
+    84
+   ],
+   "hanche_d": [
+    51,
+    84
+   ],
+   "coude_g": [
+    38,
+    73
+   ],
+   "coude_d": [
+    52,
+    82
+   ],
+   "poignet_g": [
+    37,
+    94
+   ],
+   "poignet_d": [
+    50,
+    94
+   ],
+   "genou": [
+    42,
+    107
+   ],
+   "cheville": [
+    44,
+    121
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "v_back": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "dressing",
+  "genre": "homme",
+  "reperes": {
+   "cou": [
+    38,
+    56
+   ],
+   "epaule_g": [
+    27,
+    58
+   ],
+   "epaule_d": [
+    51,
+    58
+   ],
+   "taille": [
+    38,
+    83
+   ],
+   "hanche_g": [
+    27,
+    84
+   ],
+   "hanche_d": [
+    50,
+    84
+   ],
+   "coude_g": [
+    21,
+    78
+   ],
+   "coude_d": [
+    56,
+    79
+   ],
+   "poignet_g": [
+    25,
+    98
+   ],
+   "poignet_d": [
+    53,
+    99
+   ],
+   "genou_g": [
+    30,
+    108
+   ],
+   "genou_d": [
+    47,
+    108
+   ],
+   "cheville_g": [
+    28,
+    120
+   ],
+   "cheville_d": [
+    50,
+    122
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 45 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_idle": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "debout",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    89
+   ],
+   "epaule_d": [
+    51,
+    89
+   ],
+   "taille": [
+    44,
+    101
+   ],
+   "hanche_g": [
+    35,
+    102
+   ],
+   "hanche_d": [
+    50,
+    102
+   ],
+   "coude": [
+    44,
+    85
+   ],
+   "poignet_g": [
+    31,
+    104
+   ],
+   "poignet_d": [
+    53,
+    107
+   ],
+   "genou": [
+    43,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 14 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_wave": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "saluer",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    44,
+    86
+   ],
+   "epaule_g": [
+    35,
+    88
+   ],
+   "epaule_d": [
+    55,
+    88
+   ],
+   "taille": [
+    44,
+    101
+   ],
+   "hanche_g": [
+    37,
+    102
+   ],
+   "hanche_d": [
+    50,
+    102
+   ],
+   "coude_g": [
+    47,
+    85
+   ],
+   "coude_d": [
+    55,
+    85
+   ],
+   "poignet_g": [
+    33,
+    107
+   ],
+   "poignet_d": [
+    36,
+    102
+   ],
+   "genou": [
+    42,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 11 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_drink": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "face",
+  "activite": "boire",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    88
+   ],
+   "epaule_d": [
+    42,
+    88
+   ],
+   "taille": [
+    42,
+    101
+   ],
+   "hanche_g": [
+    37,
+    102
+   ],
+   "hanche_d": [
+    47,
+    102
+   ],
+   "coude_g": [
+    35,
+    95
+   ],
+   "coude_d": [
+    45,
+    85
+   ],
+   "poignet_g": [
+    52,
+    106
+   ],
+   "poignet_d": [
+    59,
+    92
+   ],
+   "genou": [
+    42,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 1 pixels rendus au bras et aux mains",
+   "avant-bras devant le torse : 86 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_w0": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    41,
+    89
+   ],
+   "epaule_d": [
+    50,
+    89
+   ],
+   "taille": [
+    44,
+    103
+   ],
+   "hanche_g": [
+    37,
+    104
+   ],
+   "hanche_d": [
+    51,
+    104
+   ],
+   "coude_g": [
+    38,
+    98
+   ],
+   "coude_d": [
+    54,
+    103
+   ],
+   "poignet_g": [
+    35,
+    101
+   ],
+   "poignet_d": [
+    55,
+    108
+   ],
+   "genou_g": [
+    37,
+    115
+   ],
+   "genou_d": [
+    52,
+    114
+   ],
+   "cheville_g": [
+    31,
+    120
+   ],
+   "cheville_d": [
+    59,
+    122
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 7 pixels"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_w1": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    42,
+    89
+   ],
+   "epaule_d": [
+    51,
+    89
+   ],
+   "taille": [
+    46,
+    103
+   ],
+   "hanche_g": [
+    39,
+    104
+   ],
+   "hanche_d": [
+    52,
+    104
+   ],
+   "coude_g": [
+    40,
+    98
+   ],
+   "coude_d": [
+    54,
+    101
+   ],
+   "poignet_g": [
+    36,
+    101
+   ],
+   "poignet_d": [
+    54,
+    106
+   ],
+   "genou": [
+    44,
+    115
+   ],
+   "cheville": [
+    53,
+    124
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 6 pixels"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_w2": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    42,
+    89
+   ],
+   "epaule_d": [
+    50,
+    89
+   ],
+   "taille": [
+    47,
+    103
+   ],
+   "hanche_g": [
+    40,
+    104
+   ],
+   "hanche_d": [
+    53,
+    104
+   ],
+   "coude_g": [
+    36,
+    102
+   ],
+   "coude_d": [
+    40,
+    93
+   ],
+   "poignet_g": [
+    38,
+    106
+   ],
+   "poignet_d": [
+    52,
+    100
+   ],
+   "genou_g": [
+    37,
+    117
+   ],
+   "genou_d": [
+    51,
+    113
+   ],
+   "cheville": [
+    56,
+    121
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 10 pixels"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_w3": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "marche",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    38,
+    90
+   ],
+   "epaule_d": [
+    49,
+    90
+   ],
+   "taille": [
+    39,
+    102
+   ],
+   "hanche_g": [
+    36,
+    103
+   ],
+   "hanche_d": [
+    50,
+    103
+   ],
+   "coude_g": [
+    48,
+    93
+   ],
+   "coude_d": [
+    52,
+    102
+   ],
+   "poignet_g": [
+    34,
+    108
+   ],
+   "poignet_d": [
+    52,
+    94
+   ],
+   "genou_g": [
+    36,
+    114
+   ],
+   "genou_d": [
+    54,
+    113
+   ],
+   "cheville_g": [
+    27,
+    118
+   ],
+   "cheville_d": [
+    59,
+    121
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 16 pixels",
+   "avant-bras devant le torse : 198 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_r0": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    88
+   ],
+   "epaule_g": [
+    41,
+    90
+   ],
+   "epaule_d": [
+    47,
+    90
+   ],
+   "taille": [
+    36,
+    101
+   ],
+   "hanche_g": [
+    31,
+    102
+   ],
+   "hanche_d": [
+    40,
+    102
+   ],
+   "coude_g": [
+    34,
+    94
+   ],
+   "coude_d": [
+    34,
+    98
+   ],
+   "poignet_g": [
+    32,
+    92
+   ],
+   "poignet_d": [
+    55,
+    89
+   ],
+   "genou_g": [
+    28,
+    114
+   ],
+   "genou_d": [
+    46,
+    109
+   ],
+   "cheville_g": [
+    22,
+    121
+   ],
+   "cheville_d": [
+    51,
+    115
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 31 pixels"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_r1": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    89
+   ],
+   "epaule_g": [
+    33,
+    91
+   ],
+   "epaule_d": [
+    52,
+    91
+   ],
+   "taille": [
+    36,
+    101
+   ],
+   "hanche_g": [
+    31,
+    102
+   ],
+   "hanche_d": [
+    41,
+    102
+   ],
+   "coude_g": [
+    31,
+    97
+   ],
+   "coude_d": [
+    50,
+    99
+   ],
+   "poignet_g": [
+    30,
+    96
+   ],
+   "poignet_d": [
+    55,
+    101
+   ],
+   "genou": [
+    26,
+    114
+   ],
+   "cheville": [
+    18,
+    120
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 1 pixels"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Avant-bras tendu devant le torse compté comme bras (même couleur que le haut du bras)."
+ },
+ "F_r2": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    36,
+    91
+   ],
+   "epaule_d": [
+    47,
+    91
+   ],
+   "taille": [
+    36,
+    100
+   ],
+   "hanche_g": [
+    32,
+    101
+   ],
+   "hanche_d": [
+    45,
+    101
+   ],
+   "coude_g": [
+    30,
+    94
+   ],
+   "coude_d": [
+    53,
+    100
+   ],
+   "poignet_g": [
+    48,
+    106
+   ],
+   "poignet_d": [
+    56,
+    88
+   ],
+   "genou_g": [
+    26,
+    111
+   ],
+   "genou_d": [
+    48,
+    113
+   ],
+   "cheville_g": [
+    18,
+    112
+   ],
+   "cheville_d": [
+    55,
+    120
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 11 pixels"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Avant-bras tendu devant le torse compté comme bras (même couleur que le haut du bras)."
+ },
+ "F_r3": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière"
+  ],
+  "famille": "profil",
+  "activite": "course",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    36,
+    91
+   ],
+   "epaule_d": [
+    45,
+    91
+   ],
+   "taille": [
+    34,
+    100
+   ],
+   "hanche_g": [
+    31,
+    101
+   ],
+   "hanche_d": [
+    43,
+    101
+   ],
+   "coude_g": [
+    52,
+    100
+   ],
+   "coude_d": [
+    52,
+    98
+   ],
+   "poignet_g": [
+    33,
+    104
+   ],
+   "poignet_d": [
+    54,
+    89
+   ],
+   "genou": [
+    43,
+    110
+   ],
+   "cheville_g": [
+    48,
+    126
+   ],
+   "cheville_d": [
+    53,
+    120
+   ]
+  },
+  "corrections": [
+   "avant-bras étiquetés torse/ventre hors de la largeur des épaules : 12 pixels"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Avant-bras tendu devant le torse compté comme bras (même couleur que le haut du bras)."
+ },
+ "F_dn0": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    30,
+    80
+   ],
+   "epaule_d": [
+    46,
+    80
+   ],
+   "coude": [
+    45,
+    90
+   ],
+   "poignet_g": [
+    39,
+    96
+   ],
+   "poignet_d": [
+    46,
+    94
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 19 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 308 pixels",
+   "objet tenu devant le torse : 14 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 79 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn1": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    28,
+    82
+   ],
+   "epaule_d": [
+    44,
+    82
+   ],
+   "coude_g": [
+    45,
+    90
+   ],
+   "coude_d": [
+    47,
+    90
+   ],
+   "poignet_g": [
+    36,
+    96
+   ],
+   "poignet_d": [
+    48,
+    94
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 14 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 283 pixels",
+   "objet tenu devant le torse : 14 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 70 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn2": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    28,
+    83
+   ],
+   "epaule_d": [
+    44,
+    83
+   ],
+   "poignet_g": [
+    39,
+    96
+   ],
+   "poignet_d": [
+    49,
+    86
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 14 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 291 pixels",
+   "objet tenu devant le torse : 10 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 77 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn3": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    53,
+    78
+   ],
+   "epaule_d": [
+    59,
+    78
+   ],
+   "poignet_g": [
+    40,
+    96
+   ],
+   "poignet_d": [
+    45,
+    82
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 13 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 356 pixels",
+   "objet tenu devant le torse : 15 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 88 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn4": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    28,
+    82
+   ],
+   "epaule_d": [
+    45,
+    82
+   ],
+   "poignet_g": [
+    40,
+    96
+   ],
+   "poignet_d": [
+    48,
+    92
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 14 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 326 pixels",
+   "objet tenu devant le torse : 10 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 59 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn5": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    28,
+    82
+   ],
+   "epaule_d": [
+    46,
+    82
+   ],
+   "coude": [
+    47,
+    89
+   ],
+   "poignet_g": [
+    36,
+    96
+   ],
+   "poignet_d": [
+    48,
+    94
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 103 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 297 pixels",
+   "objet tenu devant le torse : 7 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 65 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn6": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    29,
+    80
+   ],
+   "epaule_d": [
+    50,
+    80
+   ],
+   "poignet_g": [
+    32,
+    96
+   ],
+   "poignet_d": [
+    51,
+    100
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 7 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 286 pixels",
+   "objet tenu devant le torse : 34 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 166 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_dn7": {
+  "a_surveiller": [
+   "dessin grossier : torse redessiné ; manches longues, vestes et robes à dessiner image par image"
+  ],
+  "famille": "assis-table",
+  "activite": "repas",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    28,
+    81
+   ],
+   "epaule_d": [
+    46,
+    81
+   ],
+   "poignet_g": [
+    39,
+    97
+   ],
+   "poignet_d": [
+    52,
+    94
+   ]
+  },
+  "corrections": [
+   "visage étiqueté « mains » dans la carte du jeu : 15 pixels rendus à la tête",
+   "carte du jeu inexploitable : torse, manche et cheveux redessinés (contour validé avec le T-shirt)",
+   "contours sans partie rattachés à la partie voisine : 295 pixels",
+   "objet tenu devant le torse : 13 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 74 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Torse redessiné (dessin d’origine grossier) ; jambes et mains reprises du jeu, approximatives."
+ },
+ "F_wc0": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "bureau",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    98
+   ],
+   "epaule_d": [
+    51,
+    98
+   ],
+   "taille": [
+    44,
+    110
+   ],
+   "hanche_g": [
+    35,
+    111
+   ],
+   "hanche_d": [
+    50,
+    111
+   ],
+   "coude": [
+    44,
+    94
+   ],
+   "poignet_g": [
+    32,
+    112
+   ],
+   "poignet_d": [
+    53,
+    112
+   ],
+   "genou": [
+    42,
+    116
+   ],
+   "cheville_g": [
+    38,
+    121
+   ],
+   "cheville_d": [
+    48,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 14 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_wc1": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "bureau",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    98
+   ],
+   "epaule_d": [
+    51,
+    98
+   ],
+   "taille": [
+    44,
+    110
+   ],
+   "hanche_g": [
+    35,
+    111
+   ],
+   "hanche_d": [
+    50,
+    111
+   ],
+   "coude": [
+    44,
+    94
+   ],
+   "poignet_g": [
+    32,
+    112
+   ],
+   "poignet_d": [
+    53,
+    112
+   ],
+   "genou": [
+    42,
+    116
+   ],
+   "cheville_g": [
+    38,
+    121
+   ],
+   "cheville_d": [
+    48,
+    120
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 14 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_dk0": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "bureau",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    39,
+    95
+   ],
+   "epaule_g": [
+    32,
+    98
+   ],
+   "epaule_d": [
+    48,
+    98
+   ],
+   "taille": [
+    40,
+    112
+   ],
+   "hanche_g": [
+    33,
+    113
+   ],
+   "hanche_d": [
+    47,
+    113
+   ],
+   "coude_g": [
+    31,
+    105
+   ],
+   "coude_d": [
+    47,
+    96
+   ],
+   "poignet": [
+    48,
+    98
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 10 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_dk1": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "bureau",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    39,
+    95
+   ],
+   "epaule_g": [
+    32,
+    98
+   ],
+   "epaule_d": [
+    48,
+    98
+   ],
+   "taille": [
+    40,
+    112
+   ],
+   "hanche_g": [
+    33,
+    113
+   ],
+   "hanche_d": [
+    47,
+    113
+   ],
+   "coude_g": [
+    31,
+    105
+   ],
+   "coude_d": [
+    47,
+    96
+   ],
+   "poignet": [
+    48,
+    98
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 10 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_cu0": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    89
+   ],
+   "epaule_d": [
+    51,
+    89
+   ],
+   "taille": [
+    44,
+    101
+   ],
+   "hanche_g": [
+    36,
+    102
+   ],
+   "hanche_d": [
+    50,
+    102
+   ],
+   "coude": [
+    44,
+    85
+   ],
+   "poignet_g": [
+    35,
+    102
+   ],
+   "poignet_d": [
+    53,
+    107
+   ],
+   "genou": [
+    43,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 19 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 24 pixels",
+   "pixels sans partie dans la carte du jeu : 44 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_cu1": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    89
+   ],
+   "epaule_d": [
+    51,
+    89
+   ],
+   "taille": [
+    42,
+    101
+   ],
+   "hanche_g": [
+    37,
+    102
+   ],
+   "hanche_d": [
+    48,
+    102
+   ],
+   "coude": [
+    44,
+    85
+   ],
+   "poignet_g": [
+    32,
+    101
+   ],
+   "poignet_d": [
+    54,
+    102
+   ],
+   "genou": [
+    43,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 20 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 22 pixels",
+   "pixels sans partie dans la carte du jeu : 46 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_cu2": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    89
+   ],
+   "epaule_d": [
+    51,
+    89
+   ],
+   "taille": [
+    42,
+    101
+   ],
+   "hanche_g": [
+    36,
+    102
+   ],
+   "hanche_d": [
+    49,
+    102
+   ],
+   "coude": [
+    44,
+    85
+   ],
+   "poignet_g": [
+    32,
+    98
+   ],
+   "poignet_d": [
+    54,
+    98
+   ],
+   "genou": [
+    43,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 19 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 22 pixels",
+   "objet tenu devant le torse : 12 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 46 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_cu3": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "halteres",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    89
+   ],
+   "epaule_d": [
+    51,
+    89
+   ],
+   "taille": [
+    44,
+    101
+   ],
+   "hanche_g": [
+    35,
+    102
+   ],
+   "hanche_d": [
+    50,
+    102
+   ],
+   "coude": [
+    44,
+    85
+   ],
+   "poignet_g": [
+    32,
+    96
+   ],
+   "poignet_d": [
+    54,
+    97
+   ],
+   "genou": [
+    43,
+    115
+   ],
+   "cheville": [
+    48,
+    123
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 7 pixels rendus au bras et aux mains",
+   "contours sans partie rattachés à la partie voisine : 24 pixels",
+   "objet tenu devant le torse : 10 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 44 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_bk0": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière",
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    81
+   ],
+   "epaule_g": [
+    33,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    36,
+    93
+   ],
+   "hanche_g": [
+    31,
+    94
+   ],
+   "hanche_d": [
+    41,
+    94
+   ],
+   "coude_g": [
+    32,
+    88
+   ],
+   "coude_d": [
+    46,
+    95
+   ],
+   "poignet_g": [
+    30,
+    88
+   ],
+   "poignet_d": [
+    55,
+    93
+   ],
+   "genou_g": [
+    40,
+    112
+   ],
+   "genou_d": [
+    46,
+    101
+   ],
+   "cheville_g": [
+    44,
+    112
+   ],
+   "cheville_d": [
+    54,
+    112
+   ]
+  },
+  "corrections": [
+   "avant-bras devant le torse : 83 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_bk1": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière",
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    81
+   ],
+   "epaule_g": [
+    33,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    36,
+    93
+   ],
+   "hanche_g": [
+    31,
+    94
+   ],
+   "hanche_d": [
+    41,
+    94
+   ],
+   "coude_g": [
+    32,
+    88
+   ],
+   "coude_d": [
+    46,
+    95
+   ],
+   "poignet_g": [
+    30,
+    88
+   ],
+   "poignet_d": [
+    55,
+    93
+   ],
+   "genou": [
+    44,
+    102
+   ],
+   "cheville_g": [
+    49,
+    109
+   ],
+   "cheville_d": [
+    51,
+    117
+   ]
+  },
+  "corrections": [
+   "avant-bras devant le torse : 83 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_bk2": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière",
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    81
+   ],
+   "epaule_g": [
+    33,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    36,
+    93
+   ],
+   "hanche_g": [
+    31,
+    94
+   ],
+   "hanche_d": [
+    41,
+    94
+   ],
+   "coude_g": [
+    32,
+    88
+   ],
+   "coude_d": [
+    46,
+    95
+   ],
+   "poignet_g": [
+    30,
+    88
+   ],
+   "poignet_d": [
+    55,
+    93
+   ],
+   "genou": [
+    45,
+    102
+   ],
+   "cheville_g": [
+    46,
+    117
+   ],
+   "cheville_d": [
+    51,
+    108
+   ]
+  },
+  "corrections": [
+   "avant-bras devant le torse : 83 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_bk3": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière",
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    81
+   ],
+   "epaule_g": [
+    33,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    36,
+    93
+   ],
+   "hanche_g": [
+    31,
+    94
+   ],
+   "hanche_d": [
+    41,
+    94
+   ],
+   "coude_g": [
+    32,
+    88
+   ],
+   "coude_d": [
+    46,
+    95
+   ],
+   "poignet_g": [
+    30,
+    88
+   ],
+   "poignet_d": [
+    55,
+    93
+   ],
+   "genou_g": [
+    40,
+    111
+   ],
+   "genou_d": [
+    46,
+    101
+   ],
+   "cheville_g": [
+    44,
+    112
+   ],
+   "cheville_d": [
+    54,
+    112
+   ]
+  },
+  "corrections": [
+   "avant-bras devant le torse : 83 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_bk4": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière",
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    81
+   ],
+   "epaule_g": [
+    33,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    36,
+    93
+   ],
+   "hanche_g": [
+    31,
+    94
+   ],
+   "hanche_d": [
+    41,
+    94
+   ],
+   "coude_g": [
+    32,
+    88
+   ],
+   "coude_d": [
+    46,
+    95
+   ],
+   "poignet_g": [
+    30,
+    88
+   ],
+   "poignet_d": [
+    55,
+    93
+   ],
+   "genou": [
+    45,
+    103
+   ],
+   "cheville_g": [
+    48,
+    112
+   ],
+   "cheville_d": [
+    51,
+    117
+   ]
+  },
+  "corrections": [
+   "avant-bras devant le torse : 83 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_bk5": {
+  "a_surveiller": [
+   "avant-bras devant le torse : vérifier que le vêtement passe derrière",
+   "vélo devant les jambes : les bas (pantalons, jupes) passent derrière le vélo"
+  ],
+  "famille": "profil",
+  "activite": "velo",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    45,
+    81
+   ],
+   "epaule_g": [
+    33,
+    83
+   ],
+   "epaule_d": [
+    52,
+    83
+   ],
+   "taille": [
+    36,
+    93
+   ],
+   "hanche_g": [
+    31,
+    94
+   ],
+   "hanche_d": [
+    41,
+    94
+   ],
+   "coude_g": [
+    32,
+    88
+   ],
+   "coude_d": [
+    46,
+    95
+   ],
+   "poignet_g": [
+    30,
+    88
+   ],
+   "poignet_d": [
+    55,
+    93
+   ],
+   "genou_g": [
+    45,
+    101
+   ],
+   "genou_d": [
+    48,
+    108
+   ],
+   "cheville_g": [
+    46,
+    117
+   ],
+   "cheville_d": [
+    52,
+    107
+   ]
+  },
+  "corrections": [
+   "avant-bras devant le torse : 83 pixels (avant-bras, premier plan)"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_v_front": {
+  "a_surveiller": [],
+  "famille": "face",
+  "activite": "dressing",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    42,
+    60
+   ],
+   "epaule_g": [
+    30,
+    63
+   ],
+   "epaule_d": [
+    53,
+    63
+   ],
+   "taille": [
+    42,
+    85
+   ],
+   "hanche_g": [
+    31,
+    86
+   ],
+   "hanche_d": [
+    53,
+    86
+   ],
+   "coude_g": [
+    29,
+    74
+   ],
+   "coude_d": [
+    54,
+    63
+   ],
+   "poignet_g": [
+    24,
+    95
+   ],
+   "poignet_d": [
+    58,
+    95
+   ],
+   "genou": [
+    42,
+    108
+   ],
+   "cheville_g": [
+    38,
+    125
+   ],
+   "cheville_d": [
+    50,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 55 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_v_q": {
+  "a_surveiller": [],
+  "famille": "trois-quarts",
+  "activite": "dressing",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    42,
+    60
+   ],
+   "epaule_d": [
+    53,
+    60
+   ],
+   "taille": [
+    53,
+    83
+   ],
+   "hanche_g": [
+    49,
+    84
+   ],
+   "hanche_d": [
+    57,
+    84
+   ],
+   "coude_g": [
+    44,
+    79
+   ],
+   "coude_d": [
+    56,
+    63
+   ],
+   "poignet_g": [
+    38,
+    87
+   ],
+   "poignet_d": [
+    49,
+    90
+   ],
+   "genou": [
+    48,
+    105
+   ],
+   "cheville": [
+    50,
+    121
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_v_side": {
+  "a_surveiller": [],
+  "famille": "profil",
+  "activite": "dressing",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    42,
+    60
+   ],
+   "epaule_d": [
+    55,
+    60
+   ],
+   "taille": [
+    54,
+    83
+   ],
+   "hanche_g": [
+    50,
+    84
+   ],
+   "hanche_d": [
+    58,
+    84
+   ],
+   "coude": [
+    45,
+    81
+   ],
+   "poignet_g": [
+    40,
+    87
+   ],
+   "poignet_d": [
+    50,
+    90
+   ],
+   "genou": [
+    47,
+    104
+   ],
+   "cheville": [
+    50,
+    121
+   ]
+  },
+  "corrections": [],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "F_v_back": {
+  "a_surveiller": [],
+  "famille": "dos",
+  "activite": "dressing",
+  "genre": "femme",
+  "reperes": {
+   "cou": [
+    41,
+    60
+   ],
+   "epaule_g": [
+    29,
+    63
+   ],
+   "epaule_d": [
+    52,
+    63
+   ],
+   "taille": [
+    40,
+    86
+   ],
+   "hanche_g": [
+    29,
+    87
+   ],
+   "hanche_d": [
+    52,
+    87
+   ],
+   "coude_g": [
+    32,
+    61
+   ],
+   "coude_d": [
+    50,
+    61
+   ],
+   "poignet_g": [
+    24,
+    95
+   ],
+   "poignet_d": [
+    58,
+    96
+   ],
+   "genou": [
+    41,
+    109
+   ],
+   "cheville_g": [
+    38,
+    126
+   ],
+   "cheville_d": [
+    49,
+    121
+   ]
+  },
+  "corrections": [
+   "bras étiquetés torse ou hanches à côté du torse : 16 pixels rendus au bras et aux mains"
+  ],
+  "controle": "contrôlé — conforme",
+  "remarque": ""
+ },
+ "cs0": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    28,
+    80
+   ],
+   "epaule_d": [
+    44,
+    80
+   ],
+   "taille": [
+    32,
+    77
+   ],
+   "hanche_g": [
+    32,
+    78
+   ],
+   "hanche_d": [
+    32,
+    78
+   ],
+   "poignet": [
+    36,
+    79
+   ],
+   "genou": [
+    36,
+    111
+   ],
+   "cheville_g": [
+    36,
+    124
+   ],
+   "cheville_d": [
+    44,
+    120
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 102 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 248 pixels",
+   "pixels sans partie dans la carte du jeu : 2 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cs1": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    29,
+    80
+   ],
+   "epaule_d": [
+    40,
+    80
+   ],
+   "taille": [
+    42,
+    90
+   ],
+   "hanche_g": [
+    30,
+    91
+   ],
+   "hanche_d": [
+    42,
+    91
+   ],
+   "genou": [
+    42,
+    107
+   ],
+   "cheville_g": [
+    39,
+    116
+   ],
+   "cheville_d": [
+    50,
+    113
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 89 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 247 pixels",
+   "pixels sans partie dans la carte du jeu : 11 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cs2": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    26,
+    81
+   ],
+   "epaule_d": [
+    41,
+    81
+   ],
+   "taille": [
+    28,
+    77
+   ],
+   "hanche_g": [
+    28,
+    78
+   ],
+   "hanche_d": [
+    41,
+    78
+   ],
+   "poignet": [
+    34,
+    81
+   ],
+   "genou_g": [
+    28,
+    98
+   ],
+   "genou_d": [
+    42,
+    107
+   ],
+   "cheville_g": [
+    40,
+    115
+   ],
+   "cheville_d": [
+    50,
+    111
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 87 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 250 pixels",
+   "pixels sans partie dans la carte du jeu : 2 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cs3": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    27,
+    81
+   ],
+   "epaule_d": [
+    45,
+    81
+   ],
+   "taille": [
+    42,
+    77
+   ],
+   "hanche_g": [
+    41,
+    78
+   ],
+   "hanche_d": [
+    43,
+    78
+   ],
+   "genou": [
+    48,
+    103
+   ],
+   "cheville_g": [
+    46,
+    114
+   ],
+   "cheville_d": [
+    56,
+    111
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 81 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 248 pixels",
+   "pixels sans partie dans la carte du jeu : 2 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cn0": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    31,
+    72
+   ],
+   "epaule_d": [
+    49,
+    72
+   ],
+   "taille": [
+    40,
+    68
+   ],
+   "hanche_g": [
+    34,
+    69
+   ],
+   "hanche_d": [
+    46,
+    69
+   ],
+   "poignet": [
+    40,
+    72
+   ],
+   "genou": [
+    51,
+    98
+   ],
+   "cheville_g": [
+    50,
+    107
+   ],
+   "cheville_d": [
+    59,
+    104
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 127 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 257 pixels",
+   "pixels sans partie dans la carte du jeu : 3 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cn1": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    32,
+    75
+   ],
+   "epaule_d": [
+    49,
+    75
+   ],
+   "taille": [
+    50,
+    83
+   ],
+   "hanche_g": [
+    46,
+    84
+   ],
+   "hanche_d": [
+    52,
+    84
+   ],
+   "poignet_g": [
+    33,
+    84
+   ],
+   "poignet_d": [
+    52,
+    80
+   ],
+   "genou": [
+    54,
+    97
+   ],
+   "cheville_g": [
+    54,
+    106
+   ],
+   "cheville_d": [
+    62,
+    103
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 88 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 273 pixels",
+   "pixels sans partie dans la carte du jeu : 1 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cn2": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    34,
+    77
+   ],
+   "epaule_d": [
+    51,
+    77
+   ],
+   "taille": [
+    52,
+    78
+   ],
+   "hanche_g": [
+    52,
+    79
+   ],
+   "hanche_d": [
+    52,
+    79
+   ],
+   "poignet": [
+    53,
+    79
+   ],
+   "genou": [
+    62,
+    98
+   ],
+   "cheville_g": [
+    63,
+    107
+   ],
+   "cheville_d": [
+    73,
+    103
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 78 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 237 pixels",
+   "pixels sans partie dans la carte du jeu : 3 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "cn3": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "homme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    77
+   ],
+   "epaule_d": [
+    43,
+    77
+   ],
+   "taille": [
+    37,
+    74
+   ],
+   "hanche_g": [
+    37,
+    75
+   ],
+   "hanche_d": [
+    37,
+    75
+   ],
+   "genou": [
+    56,
+    96
+   ],
+   "cheville_g": [
+    58,
+    106
+   ],
+   "cheville_d": [
+    67,
+    102
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 77 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 275 pixels",
+   "pixels sans partie dans la carte du jeu : 3 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cs0": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    30,
+    79
+   ],
+   "epaule_d": [
+    44,
+    79
+   ],
+   "taille": [
+    43,
+    94
+   ],
+   "hanche_g": [
+    34,
+    95
+   ],
+   "hanche_d": [
+    43,
+    95
+   ],
+   "poignet": [
+    37,
+    78
+   ],
+   "genou": [
+    36,
+    109
+   ],
+   "cheville_g": [
+    35,
+    121
+   ],
+   "cheville_d": [
+    43,
+    118
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 85 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 321 pixels",
+   "objet tenu devant le torse : 6 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 59 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cs1": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    27,
+    82
+   ],
+   "epaule_d": [
+    37,
+    82
+   ],
+   "taille": [
+    40,
+    92
+   ],
+   "hanche_g": [
+    30,
+    93
+   ],
+   "hanche_d": [
+    40,
+    93
+   ],
+   "genou": [
+    40,
+    104
+   ],
+   "cheville_g": [
+    38,
+    114
+   ],
+   "cheville_d": [
+    46,
+    111
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 77 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 350 pixels",
+   "objet tenu devant le torse : 4 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 52 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cs2": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    25,
+    81
+   ],
+   "epaule_d": [
+    40,
+    81
+   ],
+   "taille": [
+    40,
+    91
+   ],
+   "hanche_g": [
+    35,
+    92
+   ],
+   "hanche_d": [
+    41,
+    92
+   ],
+   "poignet": [
+    34,
+    80
+   ],
+   "genou": [
+    40,
+    101
+   ],
+   "cheville_g": [
+    40,
+    112
+   ],
+   "cheville_d": [
+    48,
+    108
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 89 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 377 pixels",
+   "pixels sans partie dans la carte du jeu : 51 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cs3": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-assis",
+  "activite": "canape",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    27,
+    80
+   ],
+   "epaule_d": [
+    44,
+    80
+   ],
+   "taille": [
+    43,
+    90
+   ],
+   "hanche_g": [
+    38,
+    91
+   ],
+   "hanche_d": [
+    44,
+    91
+   ],
+   "poignet": [
+    35,
+    79
+   ],
+   "genou": [
+    46,
+    101
+   ],
+   "cheville_g": [
+    46,
+    112
+   ],
+   "cheville_d": [
+    54,
+    108
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 106 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 345 pixels",
+   "pixels sans partie dans la carte du jeu : 22 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cn0": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    33,
+    70
+   ],
+   "epaule_d": [
+    48,
+    70
+   ],
+   "taille": [
+    48,
+    82
+   ],
+   "hanche_g": [
+    44,
+    83
+   ],
+   "hanche_d": [
+    49,
+    83
+   ],
+   "poignet": [
+    40,
+    69
+   ],
+   "genou": [
+    52,
+    94
+   ],
+   "cheville_g": [
+    52,
+    106
+   ],
+   "cheville_d": [
+    58,
+    103
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 96 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 434 pixels",
+   "objet tenu devant le torse : 4 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 55 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cn1": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    35,
+    74
+   ],
+   "epaule_d": [
+    52,
+    74
+   ],
+   "taille": [
+    51,
+    82
+   ],
+   "hanche_g": [
+    47,
+    83
+   ],
+   "hanche_d": [
+    52,
+    83
+   ],
+   "genou": [
+    55,
+    93
+   ],
+   "cheville_g": [
+    54,
+    105
+   ],
+   "cheville_d": [
+    62,
+    102
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 87 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 395 pixels",
+   "objet tenu devant le torse : 6 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 42 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cn2": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    42,
+    73
+   ],
+   "epaule_d": [
+    48,
+    73
+   ],
+   "taille": [
+    53,
+    82
+   ],
+   "hanche_g": [
+    49,
+    83
+   ],
+   "hanche_d": [
+    54,
+    83
+   ],
+   "genou": [
+    59,
+    93
+   ],
+   "cheville_g": [
+    62,
+    104
+   ],
+   "cheville_d": [
+    69,
+    101
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 58 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 401 pixels",
+   "objet tenu devant le torse : 5 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 44 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ },
+ "F_cn3": {
+  "a_surveiller": [
+   "planche du canapé dessinée dans un autre style : contrôler chaque vêtement"
+  ],
+  "famille": "canape-allonge",
+  "activite": "canape-sieste",
+  "genre": "femme",
+  "reperes": {
+   "epaule_g": [
+    15,
+    54
+   ],
+   "epaule_d": [
+    16,
+    54
+   ],
+   "taille": [
+    53,
+    83
+   ],
+   "hanche_g": [
+    49,
+    84
+   ],
+   "hanche_d": [
+    61,
+    84
+   ],
+   "genou_g": [
+    58,
+    96
+   ],
+   "genou_d": [
+    66,
+    100
+   ],
+   "cheville": [
+    60,
+    104
+   ]
+  },
+  "corrections": [
+   "bras nus étiquetés tête ou torse : 60 pixels rendus aux bras",
+   "contours sans partie rattachés à la partie voisine : 359 pixels",
+   "objet tenu devant le torse : 20 pixels au premier plan",
+   "pixels sans partie dans la carte du jeu : 40 (classés « objet / non étiqueté »)"
+  ],
+  "controle": "contrôlé — avec réserve",
+  "remarque": "Planche du canapé : parties reprises des zones de couleur de l’artiste ; quelques pixels isolés au bord du visage."
+ }
+}
