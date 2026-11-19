@@ -310,81 +310,9 @@ main[data-v="bowling"] #zmUI,main[data-v="bowling"] .bub{display:none!important}
 #bwBalls button i{width:20px;height:20px;border-radius:50%;border:2px solid #1d1626}
 #bwBalls button.on{background:#ffd166}#bwBalls button:disabled{opacity:.55}
 .bwspin{font:700 12px var(--px)}.bwspin input{flex:1;accent-color:#2fb3a6}.bwspin span{min-width:98px;text-align:right;font-size:11px}
-.arc{position:absolute;inset:0;z-index:2;opacity:0;pointer-events:none;transition:opacity .25s;overflow:hidden;background:#07061a}
-.arc.on{opacity:1;pointer-events:auto}
-.ll2 main:not(.dressing):not(.creating) .arc{bottom:var(--panH,46%)}
-main[data-v="arcade"] #zmUI,main[data-v="arcade"] .bub{display:none!important}
-.arcScr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:0;font-family:var(--px);color:#e8eef8;
- background:radial-gradient(ellipse at 50% 0,#2a1250 0,#120a2e 45%,#07061a 100%)}
-.arcScr::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px);z-index:3}
-.arcScr::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 40px rgba(0,0,0,.8);z-index:3}
-/* fronton lumineux */
-.arcTop{position:absolute;top:4px;left:10px;right:10px;display:flex;align-items:center;justify-content:center;gap:10px;padding:2px 0 4px;box-sizing:border-box}
-.arcLogo{font-size:22px;letter-spacing:4px;color:#38e1ff;text-shadow:0 0 6px #38e1ff,0 0 14px #1a7aff,2px 2px 0 #ff2f8a;animation:arcFlick 6s infinite}
-.arcLights{display:flex;gap:6px}.arcLights i{width:6px;height:6px;border-radius:50%;background:#ffd166;box-shadow:0 0 6px #ffd166;animation:arcBulb 1.2s infinite}
-.arcLights i:nth-child(2n){animation-delay:.6s}
-.arcTop::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,#ff2f8a,#38e1ff,#ff2f8a,transparent)}
-@keyframes arcBulb{0%,49%{opacity:1}50%,100%{opacity:.25}}
-@keyframes arcFlick{0%,92%,96%,100%{opacity:1}94%{opacity:.55}}
-/* grille 4 colonnes de cases carrées */
-.arcGrid{display:grid;grid-template-columns:repeat(4,var(--t,72px));grid-auto-rows:var(--t,72px);gap:var(--g,6px);flex:0 0 auto}
-.arcTile{position:relative;width:var(--t,72px);height:var(--t,72px);padding:0;border:2px solid #2b2560;border-radius:7px;background:#100c2c;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden;cursor:pointer;
- box-shadow:inset 0 0 0 1px #000,0 3px 0 #05040f;transition:transform .12s,border-color .12s,box-shadow .12s;font-family:var(--px)}
-.arcArt{width:100%;height:74%;image-rendering:pixelated;display:block;flex:0 0 auto;border-bottom:2px solid #05040f;filter:saturate(.75) brightness(.8)}
-.arcName{flex:1;display:flex;align-items:center;justify-content:center;font-size:clamp(7px,calc(var(--t,72px)*.115),12px);line-height:1;color:#c9cfe8;padding:0 2px;text-align:center;overflow:hidden;white-space:nowrap;width:100%;box-sizing:border-box}
-.arcState{position:absolute;top:3px;right:3px;font-style:normal;font-size:clamp(6px,calc(var(--t,72px)*.08),9px);padding:1px 3px;border-radius:3px;background:rgba(7,6,26,.85);color:#ffd166;letter-spacing:.5px}
-.arcState:empty{display:none}
-.arcTile.sel{border-color:#38e1ff;transform:translateY(-2px) scale(1.04);z-index:2;box-shadow:0 0 0 2px #ff2f8a,0 0 12px 2px #38e1ff,0 0 24px #ff2f8a88,0 4px 0 #05040f;animation:arcGlow 1.1s ease-in-out infinite}
-.arcTile.sel .arcArt{filter:none}.arcTile.sel .arcName{color:#fff;text-shadow:0 0 6px #38e1ff}
-.arcTile.sel::after{content:"";position:absolute;inset:0;border-radius:5px;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 45%,transparent 60%);background-size:250% 100%;animation:arcShine 1.8s linear infinite}
-@keyframes arcGlow{50%{box-shadow:0 0 0 2px #ff2f8a,0 0 18px 4px #38e1ff,0 0 30px #ff2f8acc,0 4px 0 #05040f}}
-@keyframes arcShine{from{background-position:150% 0}to{background-position:-100% 0}}
-.arcTile.pop{animation:arcPop .22s ease-out,arcGlow 1.1s ease-in-out .22s infinite}
-@keyframes arcPop{0%{transform:scale(.92)}60%{transform:translateY(-3px) scale(1.08)}100%{transform:translateY(-2px) scale(1.04)}}
-.arcTile.bump{animation:arcBump .18s,arcGlow 1.1s ease-in-out .18s infinite}
-@keyframes arcBump{25%{transform:translateX(-3px) scale(1.04)}75%{transform:translateX(3px) scale(1.04)}}
-.arcEmpty{cursor:default;border-style:dashed;border-color:#221d4a;background:transparent;box-shadow:none;justify-content:center}
-.arcEmpty span{font-size:clamp(7px,calc(var(--t,72px)*.1),11px);color:#3a3470;text-align:center;line-height:1.4;animation:arcBulb 2.4s infinite}
-.arcInfo{flex:0 0 auto;display:flex;gap:10px;align-items:baseline;justify-content:center;font-family:var(--px);font-size:13px;min-height:22px;padding:5px 10px;border-radius:8px;background:#120a2e;color:#e8eef8;border:2px solid #05040f}
-.arcInfo b{color:#ffd166;text-shadow:0 0 6px #ff9a2e}.arcInfo span{color:#8f97c0;font-size:11px}
-/* écran d'un jeu / jeu en développement */
-.arcPlay{position:absolute;inset:0;z-index:4;background:#07061a;display:flex;align-items:center;justify-content:center}
-.arcPlay[hidden]{display:none}
-.arcSoon{text-align:center;font-family:var(--px);color:#e8eef8;padding:12px;max-width:300px}
-.arcSoonArt .arcArt{width:96px;height:96px;margin:0 auto 8px;border:3px solid #38e1ff;border-radius:8px;box-shadow:0 0 14px #38e1ff;filter:none}
-.arcSoon b{display:block;font-size:18px;color:#38e1ff;text-shadow:0 0 8px #1a7aff}
-.arcSoon p{margin:6px 0;font-size:12px;line-height:1.4;color:#c9cfe8}
-.arcBlink{color:#ffd166!important;font-size:14px!important;letter-spacing:2px;animation:arcBulb 1s infinite}
-.arcBack{margin-top:8px;padding:7px 14px;border:2px solid #38e1ff;border-radius:6px;background:#120a2e;color:#38e1ff;font:700 12px var(--px);box-shadow:0 0 8px #38e1ff88}
-/* pupitre de commande (panneau du bas) */
-#v-arcade{gap:6px}
-.arcDeck{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-radius:14px;border:3px solid #05040f;flex:0 0 auto;
- background:linear-gradient(180deg,#2a2160 0,#16123a 100%);box-shadow:inset 0 2px 0 #4a3fa0,0 4px 0 #05040f}
-.arcDeck::before{content:"";position:absolute;left:10px;right:10px;top:5px;height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,#ff2f8a 0 18px,#38e1ff 18px 36px,#ffd166 36px 54px);opacity:.8}
-.arcJoy{position:relative;width:132px;height:132px;flex:0 0 auto}
-.arcJoy .arcAr{position:absolute;width:34px;height:30px;min-width:0;min-height:0;border:0!important;background:none!important;box-shadow:none!important;border-radius:0;padding:0;margin:0;color:#8f97c0;font-size:18px;line-height:30px;cursor:pointer;touch-action:none;text-shadow:0 0 0 transparent;transition:color .1s,transform .1s}
-.arcJoy .arcAr.act,.arcJoy .arcAr:active{color:#ffd166;text-shadow:0 0 8px #ffd166;transform:scale(1.2)}
-.arcJoy .arcAr[data-d=up]{top:0;left:49px}.arcJoy .arcAr[data-d=down]{bottom:0;left:49px}.arcJoy .arcAr[data-d=left]{left:0;top:51px}.arcJoy .arcAr[data-d=right]{right:0;top:51px}
-.arcBase{position:absolute;left:30px;top:30px;width:72px;height:72px;border-radius:50%;cursor:grab;touch-action:none;
- background:radial-gradient(circle at 50% 45%,#2b2b33 0,#111116 60%,#000 100%);box-shadow:0 0 0 4px #c8cbd6,0 0 0 6px #05040f,inset 0 3px 6px rgba(0,0,0,.8)}
-.arcStick{position:absolute;left:50%;top:50%;width:0;height:0;transition:transform .08s}
-.arcStick::before{content:"";position:absolute;left:-5px;top:-34px;width:10px;height:34px;border-radius:5px;background:linear-gradient(90deg,#9aa0ad,#e8ebf2 45%,#6a707c)}
-.arcStick i{position:absolute;left:-19px;top:-54px;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff8a8a 0,#e8162e 38%,#9a0a1c 100%);box-shadow:0 3px 0 #5a0610,0 0 0 2px #05040f}
-.arcStick[data-d=up]{transform:translateY(-9px)}.arcStick[data-d=down]{transform:translateY(9px)}.arcStick[data-d=left]{transform:translateX(-9px) rotate(-14deg)}.arcStick[data-d=right]{transform:translateX(9px) rotate(14deg)}
-.arcBtns{display:flex;align-items:center;gap:16px}
-.arcOut{padding:10px 14px;min-width:84px;border:3px solid #05040f;border-radius:6px;background:linear-gradient(180deg,#ffe48a,#ffc23a);color:#2a1a08;font:700 14px var(--px);letter-spacing:1px;box-shadow:0 4px 0 #8a5a10,0 6px 0 #05040f;cursor:pointer}
-.arcOut:active{transform:translateY(3px);box-shadow:0 1px 0 #8a5a10,0 3px 0 #05040f}
-.arcEnter{position:relative;width:86px;height:86px;border-radius:50%;border:3px solid #05040f;cursor:pointer;padding:0;
- background:radial-gradient(circle at 38% 30%,#ff9a9a 0,#ff2a3c 32%,#c30f24 70%,#8a0616 100%);box-shadow:0 0 0 6px #c8cbd6,0 0 0 8px #05040f,0 8px 0 2px #5a0610,0 10px 0 6px #05040f;transition:transform .07s,box-shadow .07s}
-.arcEnter span{font:700 13px var(--px);color:#fff;letter-spacing:1px;text-shadow:0 2px 0 #7a0612}
-.arcEnter:active,.arcEnter.press{transform:translateY(6px);box-shadow:0 0 0 6px #c8cbd6,0 0 0 8px #05040f,0 2px 0 2px #5a0610,0 4px 0 6px #05040f;filter:brightness(1.15)}
-#arcHint{margin:0;font-size:11px;opacity:.75;text-align:center}
-@media (max-width:400px){.arcDeck{padding:12px 10px;gap:6px}.arcBtns{gap:12px}.arcOut{min-width:0;padding:9px 10px;font-size:12px}.arcEnter{width:74px;height:74px}.arcEnter span{font-size:11px}}
-@media (max-width:340px){.arcJoy{transform:scale(.82);margin:-12px}.arcEnter{width:64px;height:64px}.arcEnter span{font-size:10px}.arcOut{padding:8px 7px;font-size:11px}.arcBtns{gap:9px}}
-@media (prefers-reduced-motion:reduce){.arcTile.sel,.arcTile.sel::after,.arcLights i,.arcLogo,.arcEmpty span,.arcBlink{animation:none}}
-main[data-v="arcade"] #status{display:none!important}
-.arcTop.tight .arcLights{display:none}
-@media (max-height:640px){#arcHint{display:none}}
+.arcx{position:fixed;inset:0;z-index:2147483000;background:#07051a;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.arcx[hidden]{display:none}
+.arcx canvas{position:absolute;display:block;image-rendering:pixelated;touch-action:none;outline:none;cursor:pointer}
 /* ===RUE-CSS-END=== */
 
 .trip canvas{width:min(80%,330px);height:auto!important;image-rendering:pixelated;border:3px solid #1d1410;border-radius:6px;box-shadow:0 4px 0 #1d1410}
@@ -683,7 +611,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <div class="gconf" id="gConf" hidden><p>Effacer ta partie et commencer une nouvelle vie ?</p><div class="row"><button id="gNo">Annuler</button><button id="gYes" class="on">Oui, effacer</button></div></div></div></div>
 <div id="rotx"><canvas id="rotCv" width="48" height="40"></canvas><p>Tourne ton téléphone</p><small>Little Life se vit en mode portrait.</small></div>
 <main>
-<div class="frame top" id="topbox"><div id="zmUI" class="zm" hidden><div id="zmP" class="zmp" hidden><button id="zmIn" aria-label="Zoomer">+</button><button id="zmOut" aria-label="Dézoomer">−</button><button id="zmRst" aria-label="Revenir au zoom initial"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div><button id="zmBtn" aria-label="Zoom" aria-expanded="false"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg><b id="zmPct"></b></button></div><div class="bub" id="bub" hidden></div><div class="petbox" id="petBox"><p id="petName"></p><canvas id="petCv" width="120" height="84"></canvas></div><div class="petbox aqbox" id="aqBox"><p id="aqName"></p><canvas id="aqCv" width="128" height="96"></canvas><small class="aqh">Touche l’eau pour lâcher des flocons</small></div><div class="trip" id="trip"><canvas id="tripCv" width="200" height="104"></canvas><p id="tripP">En route…</p></div><div class="street" id="street" hidden><canvas id="stCv" width="320" height="260" aria-label="La rue commerçante"></canvas><div class="stpad"><button id="stwL" aria-label="Marcher à gauche">◀</button><button id="stwR" aria-label="Marcher à droite">▶</button></div><div class="stmodal" id="stModal" hidden role="dialog" aria-modal="true"><div class="stmc"><b id="stMT"></b><p id="stMA"></p><p id="stMB"></p><button id="stMClose">Fermer</button></div></div></div><div class="bowl" id="bowl" hidden><canvas id="bwCv" width="320" height="360" aria-label="Piste de bowling"></canvas><div class="bwmodal" id="bwEnd" hidden><div class="bwmc"><b>Partie terminée</b><p class="bwfin"><span id="bwFinal">0</span>points</p><p id="bwRec"></p><ul id="bwStats"></ul><div class="bwbt"><button id="bwAgain">Rejouer</button><button id="bwLeave">Quitter le bowling</button></div></div></div></div><div class="arc" id="arc" hidden><div class="arcScr" id="arcScr"><div class="arcTop"><span class="arcLights"><i></i><i></i><i></i></span><b class="arcLogo">ARCADE</b><span class="arcLights"><i></i><i></i><i></i></span></div><div class="arcGrid" id="arcGrid" role="grid" aria-label="Jeux de la salle d’arcade"></div><div class="arcPlay" id="arcPlay" hidden></div></div></div><canvas id="c" aria-label="Pièce de Nori, sa créature"></canvas><div class="studio" id="studio" hidden><div class="st-head" id="stHead"><div class="st-title">Crée ton personnage<small>Personnalisation gratuite · une seule fois</small></div><div class="st-gen" id="stGen"><button data-g="m">Garçon</button><button data-g="f">Fille</button></div><label class="st-name-in"><span>Prénom</span><input id="stNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Nori"></label><label class="st-name-in"><span>Ton pseudo</span><input id="stPseudoIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Facultatif"></label></div><div class="st-rot"><button id="stL" aria-label="Tourner vers la gauche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button id="stR" aria-label="Tourner vers la droite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div><div class="st-bottom" id="stBottom"><div class="st-tabs" id="stTabs" role="tablist"></div><div class="st-name" id="stName"></div><div class="st-opts" id="stOpts"></div><div class="st-act"><button id="stRnd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01"/></svg>Aléatoire</button><button id="crOk2">Valider</button></div></div></div><div class="hud"><div class="hl"><button id="bMenu" class="burger" aria-label="Menu"><i></i><i></i><i></i></button><span id="mode"></span><span id="wx" class="wx"></span></div><div class="needs" id="needs"></div></div></div>
+<div class="frame top" id="topbox"><div id="zmUI" class="zm" hidden><div id="zmP" class="zmp" hidden><button id="zmIn" aria-label="Zoomer">+</button><button id="zmOut" aria-label="Dézoomer">−</button><button id="zmRst" aria-label="Revenir au zoom initial"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div><button id="zmBtn" aria-label="Zoom" aria-expanded="false"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg><b id="zmPct"></b></button></div><div class="bub" id="bub" hidden></div><div class="petbox" id="petBox"><p id="petName"></p><canvas id="petCv" width="120" height="84"></canvas></div><div class="petbox aqbox" id="aqBox"><p id="aqName"></p><canvas id="aqCv" width="128" height="96"></canvas><small class="aqh">Touche l’eau pour lâcher des flocons</small></div><div class="trip" id="trip"><canvas id="tripCv" width="200" height="104"></canvas><p id="tripP">En route…</p></div><div class="street" id="street" hidden><canvas id="stCv" width="320" height="260" aria-label="La rue commerçante"></canvas><div class="stpad"><button id="stwL" aria-label="Marcher à gauche">◀</button><button id="stwR" aria-label="Marcher à droite">▶</button></div><div class="stmodal" id="stModal" hidden role="dialog" aria-modal="true"><div class="stmc"><b id="stMT"></b><p id="stMA"></p><p id="stMB"></p><button id="stMClose">Fermer</button></div></div></div><div class="bowl" id="bowl" hidden><canvas id="bwCv" width="320" height="360" aria-label="Piste de bowling"></canvas><div class="bwmodal" id="bwEnd" hidden><div class="bwmc"><b>Partie terminée</b><p class="bwfin"><span id="bwFinal">0</span>points</p><p id="bwRec"></p><ul id="bwStats"></ul><div class="bwbt"><button id="bwAgain">Rejouer</button><button id="bwLeave">Quitter le bowling</button></div></div></div></div><canvas id="c" aria-label="Pièce de Nori, sa créature"></canvas><div class="studio" id="studio" hidden><div class="st-head" id="stHead"><div class="st-title">Crée ton personnage<small>Personnalisation gratuite · une seule fois</small></div><div class="st-gen" id="stGen"><button data-g="m">Garçon</button><button data-g="f">Fille</button></div><label class="st-name-in"><span>Prénom</span><input id="stNameIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Nori"></label><label class="st-name-in"><span>Ton pseudo</span><input id="stPseudoIn" maxlength="12" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Facultatif"></label></div><div class="st-rot"><button id="stL" aria-label="Tourner vers la gauche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button id="stR" aria-label="Tourner vers la droite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div><div class="st-bottom" id="stBottom"><div class="st-tabs" id="stTabs" role="tablist"></div><div class="st-name" id="stName"></div><div class="st-opts" id="stOpts"></div><div class="st-act"><button id="stRnd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h.01M15 9h.01M12 12h.01M9 15h.01M15 15h.01"/></svg>Aléatoire</button><button id="crOk2">Valider</button></div></div></div><div class="hud"><div class="hl"><button id="bMenu" class="burger" aria-label="Menu"><i></i><i></i><i></i></button><span id="mode"></span><span id="wx" class="wx"></span></div><div class="needs" id="needs"></div></div></div>
 <div class="hinge"><i class="led"></i><h1><span style="color:#ef4b4b">L</span><span style="color:#f5892a">i</span><span style="color:#f7c21c">t</span><span style="color:#7cc832">t</span><span style="color:#2fc4a8">l</span><span style="color:#2f9be0">e</span><span style="color:#7a6ae0">&nbsp;</span><span style="color:#c35ad8">L</span><span style="color:#ef5aa0">i</span><span style="color:#ef4b4b">f</span><span style="color:#f5892a">e</span></h1><i class="led"></i></div>
 <div class="frame low"><div class="lowbar"><button class="back" id="back" hidden>‹ Retour</button><span id="title">Accueil</span><div class="coins" id="coins" title="Pièces"><svg viewBox="0 0 8 8" shape-rendering="crispEdges"><path fill="#3b2a24" d="M2 0h4v1h1v1h1v4H7v1H6v1H2V7H1V6H0V2h1V1h1z"/><path fill="#f5c84c" d="M2 1h4v1h1v4H6v1H2V6H1V2h1z"/><path fill="#fff1a8" d="M2 2h1v1H2zM3 1h2v1H3z"/><path fill="#d9962a" d="M5 3h1v3H3V5h2z"/></svg><b id="coinN">0</b></div><button class="back" id="bMus" aria-label="Musique"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:var(--cy);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button></div><div id="status" aria-live="polite"></div>
 <div class="views"><section class="view on" id="v-home"><div class="menu">
@@ -716,7 +644,7 @@ main:not(.creating):not(.dressing):not(.zoomv) .frame.top{flex:0 0 var(--topH,ca
 <section class="view" id="v-mypets"><div class="opts seg"><button class="on" disabled id="mpSlots">Emplacements</button></div><div id="mpList"></div></section> <section class="view" id="v-aqua"><p class="hint" style="margin:0">Décore l’aquarium :</p><div class="actg aqg" id="aqG"></div><div class="row"><button id="aqClose">Fermer l’aquarium</button></div></section>
 <section class="view" id="v-goals"><p class="gohead" id="goalHd" style="margin:0">Objectifs</p><div id="goalList"></div></section>
 <section class="view" id="v-cafe"><div class="opts seg"><button class="on" disabled>Au comptoir</button><button class="home" id="cafeHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="actg" id="cafeG"></div></section>
-<section class="view" id="v-street"><div class="opts seg"><button class="on" disabled id="stWhere">La rue commerçante</button><button id="stEnter" hidden>Entrer</button><button class="home" id="stHome"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Maison</button></div><p class="sthint">← → (ou Q/D) pour marcher · E pour entrer · touche un bâtiment pour y aller</p></section><section class="view" id="v-bowling"><table class="bwtab"><tbody id="bwTab"></tbody></table><div class="bwrow" id="bwBalls"></div><div class="bwrow bwspin"><label for="bwSpin">Effet</label><input type="range" id="bwSpin" min="-2" max="2" step="1" value="0"><span id="bwSpinV">Sans effet</span></div><div class="opts seg"><button id="bwRestart">Recommencer</button><button class="home" id="bwQuit"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Quitter</button></div><p class="sthint" id="bwTip"></p></section><section class="view" id="v-arcade"><div class="arcDeck"><div class="arcJoy" id="arcJoy" aria-label="Joystick"><button class="arcAr" data-d="up" aria-label="Haut">▲</button><button class="arcAr" data-d="down" aria-label="Bas">▼</button><button class="arcAr" data-d="left" aria-label="Gauche">◀</button><button class="arcAr" data-d="right" aria-label="Droite">▶</button><div class="arcBase" id="arcBase"><div class="arcStick" id="arcStick"><i></i></div></div></div><div class="arcBtns"><button class="arcOut" id="arcOut">SORTIR</button><button class="arcEnter" id="arcEnter" aria-label="Entrer"><span>ENTRER</span></button></div></div><div class="arcInfo" id="arcInfo" aria-live="polite"></div><p id="arcHint"></p></section><section class="view" id="v-gym"><div class="opts seg"><button class="on" disabled>Choisis une activité</button><button class="home" id="gymHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="actg" id="gymG"></div></section>
+<section class="view" id="v-street"><div class="opts seg"><button class="on" disabled id="stWhere">La rue commerçante</button><button id="stEnter" hidden>Entrer</button><button class="home" id="stHome"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7M5 10v10h14V10"/></svg>Maison</button></div><p class="sthint">← → (ou Q/D) pour marcher · E pour entrer · touche un bâtiment pour y aller</p></section><section class="view" id="v-bowling"><table class="bwtab"><tbody id="bwTab"></tbody></table><div class="bwrow" id="bwBalls"></div><div class="bwrow bwspin"><label for="bwSpin">Effet</label><input type="range" id="bwSpin" min="-2" max="2" step="1" value="0"><span id="bwSpinV">Sans effet</span></div><div class="opts seg"><button id="bwRestart">Recommencer</button><button class="home" id="bwQuit"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Quitter</button></div><p class="sthint" id="bwTip"></p></section><section class="view" id="v-arcade"></section><section class="view" id="v-gym"><div class="opts seg"><button class="on" disabled>Choisis une activité</button><button class="home" id="gymHome"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div><div class="actg" id="gymG"></div></section>
 <section class="view" id="v-create"><div id="cr"></div><button id="crOk" class="on" style="height:44px;flex:0 0 auto">Commencer l’aventure</button></section>
 </div></div></main>
 <div id="hob" class="hob" hidden><div class="hob-card">
@@ -4743,22 +4671,32 @@ VT.bowling='Bowling';
 {const _fr=frame;frame=function(){_fr();if(BW.on){if(!BW.cv){BW.cv=document.getElementById('bwCv');BW.x=BW.cv.getContext('2d')}bwDraw()}}}
 window.GAMES=window.GAMES||{};GAMES.bowling={open:bwOpen,quit:bwQuit};
 bwInit();
-// ===== SALLE D'ARCADE 2D (module indépendant) =====
-// Menu de bornes : catalogue de 14 jeux (grille de 4 colonnes), joystick directionnel, boutons SORTIR / ENTRER.
-// Aucun personnage n'est affiché. Chaque mini-jeu est un module séparé qui s'enregistre avec ARC.register(id, module) :
-//   module.start(ecran, api) / module.stop()   — api : exit(), score(points, niveau), best(), level()
-// Tant qu'un jeu n'a pas de module, ENTRER affiche clairement « en développement » (aucun faux lancement).
-const ARC={on:false,sel:0,cols:4,mode:'menu',cur:null,back:null,rep:null,
+// ===== SALLE D'ARCADE : BORNE PLEIN ÉCRAN (module indépendant) =====
+// Toute l'activité se passe dans une borne d'arcade en pixel art qui remplit 100 % de l'écran.
+// Rien de Little Life n'est visible (ni personnage, ni rue, ni interface du jeu).
+// Écrans de la borne : 'menu' (14 jeux) -> 'info' (présentation) -> 'game' (mini-jeu) -> 'over' (fin de partie).
+// Un mini-jeu est un module séparé : ARC.register(id,{start(api),update(dt,input),draw(ctx,w,h),stop()}).
+//   api : w, h (taille de l'écran de la borne en pixels), end(score), best(), level(), saveLevel(n)
+// Sans module, la présentation l'indique clairement (« EN DÉVELOPPEMENT ») : aucun faux lancement.
+const ARC={on:false,state:'menu',sel:0,info:0,overSel:0,back:null,modules:{},cur:null,input:{up:0,down:0,left:0,right:0,a:0,b:0},t:0,press:{},flash:0,
  games:[
-  {id:'space',name:'Space Attack'},{id:'snake',name:'Snake'},{id:'bricks',name:'Brick Breaker'},{id:'pinball',name:'Pinball'},
-  {id:'maze',name:'Maze Runner'},{id:'bubble',name:'Bubble Pop'},{id:'mole',name:'Whack-a-Mole'},{id:'racing',name:'Mini Racing'},
-  {id:'hockey',name:'Air Hockey'},{id:'claw',name:'Lucky Claw'},{id:'stack',name:'Perfect Stack'},{id:'boxes',name:'Box Master'},
-  {id:'basket',name:'Street Basket'},{id:'memory',name:'Memory'}],
- modules:{},
- register(id,mod){this.modules[id]=mod;arcRender()},
- // sauvegarde : meilleur score et niveau atteint par jeu
+  {id:'space',name:'Space Attack',desc:'Repousse l’invasion venue de l’espace !'},
+  {id:'snake',name:'Snake',desc:'Mange les pommes sans te mordre la queue.'},
+  {id:'bricks',name:'Brick Breaker',desc:'Casse toutes les briques avec la balle.'},
+  {id:'pinball',name:'Pinball',desc:'Garde la bille en jeu et fais grimper le score.'},
+  {id:'maze',name:'Maze Runner',desc:'Trouve la sortie du labyrinthe au plus vite.'},
+  {id:'bubble',name:'Bubble Pop',desc:'Groupe les bulles de même couleur pour les éclater.'},
+  {id:'mole',name:'Whack-a-Mole',desc:'Tape les taupes le plus vite possible !'},
+  {id:'racing',name:'Mini Racing',desc:'Évite les voitures et va le plus loin possible.'},
+  {id:'hockey',name:'Air Hockey',desc:'Marque dans le but adverse avant lui.'},
+  {id:'claw',name:'Lucky Claw',desc:'Attrape une peluche avec la pince.'},
+  {id:'stack',name:'Perfect Stack',desc:'Empile les blocs le plus haut possible.'},
+  {id:'boxes',name:'Box Master',desc:'Pousse les caisses sur leurs emplacements.'},
+  {id:'basket',name:'Street Basket',desc:'Marque un maximum de paniers.'},
+  {id:'memory',name:'Memory',desc:'Retrouve toutes les paires de cartes.'}],
+ register(id,mod){this.modules[id]=mod},
  data(id){N.arcade=N.arcade||{};N.arcade[id]=N.arcade[id]||{best:0,level:1,plays:0};return N.arcade[id]},
- record(id,points,level){const d=this.data(id);d.plays++;let rec=false;if(typeof points=='number'&&points>d.best){d.best=points;rec=true}if(typeof level=='number'&&level>d.level)d.level=level;save();return rec}};
+ record(id,points){const d=this.data(id);d.plays++;let rec=false;if(typeof points=='number'&&points>d.best){d.best=points;rec=true}save();return rec}};
 // ---------- illustrations pixel art (32×32) ----------
 const ARC_ART={
  space(r,d){r(0,0,32,32,'#0b0a24');[[3,4],[27,7],[9,13],[22,2],[14,26],[29,22],[5,20]].forEach(([x,y])=>r(x,y,1,1,'#ffffff'));
@@ -4796,65 +4734,192 @@ const ARC_ART={
 function arcArt(id,size){const c=document.createElement('canvas');c.width=c.height=32;const x=c.getContext('2d');
  const r=(X,Y,W,H,col)=>{x.fillStyle=col;x.fillRect(X,Y,W,H)},d=(X,Y,R,col)=>{x.fillStyle=col;for(let j=-Math.ceil(R);j<=Math.ceil(R);j++){const w=Math.floor(Math.sqrt(Math.max(0,R*R-j*j))+.5);if(w>0)x.fillRect(Math.round(X-w),Math.round(Y+j),2*w,1)}};
  ARC_ART[id](r,d);c.className='arcArt';return c}
-// ---------- rendu du catalogue ----------
-function arcRender(){const g=document.getElementById('arcGrid');if(!g)return;if(!g.children.length){ARC.games.forEach((G,i)=>{const b=document.createElement('button');b.className='arcTile';b.dataset.i=i;b.setAttribute('role','gridcell');b.setAttribute('aria-label',G.name);
-   b.appendChild(arcArt(G.id));const n=document.createElement('span');n.className='arcName';n.textContent=G.name;b.appendChild(n);const s=document.createElement('i');s.className='arcState';b.appendChild(s);
-   b.onclick=()=>{if(ARC.mode!='menu')return;if(ARC.sel===i){arcEnter();return}arcSelect(i)};g.appendChild(b)});
-  // deux cases libres pour équilibrer la grille
-  for(let k=0;k<(ARC.cols-ARC.games.length%ARC.cols)%ARC.cols;k++){const e=document.createElement('div');e.className='arcTile arcEmpty';e.setAttribute('aria-hidden','true');e.innerHTML='<span>INSERT<br>COIN</span>';g.appendChild(e)}}
- [...g.querySelectorAll('.arcTile[data-i]')].forEach(b=>{const i=+b.dataset.i,G=ARC.games[i],ready=!!ARC.modules[G.id];b.classList.toggle('sel',i==ARC.sel);b.classList.toggle('ready',ready);b.querySelector('.arcState').textContent=ready?'':'BIENTÔT';b.setAttribute('aria-selected',i==ARC.sel)});
- const G=ARC.games[ARC.sel],dd=ARC.data(G.id),inf=document.getElementById('arcInfo');
- if(inf)inf.innerHTML=`<b>${G.name}</b><span>${ARC.modules[G.id]?(dd.best?'Record : '+dd.best:'Pas encore de record'):'En développement'}</span>`}
-function arcSelect(i){if(i===ARC.sel)return;ARC.sel=i;arcRender();const b=document.querySelector(`#arcGrid .arcTile[data-i="${i}"]`);if(b){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');b.scrollIntoView({block:'nearest'})}}
-// déplacement dans la grille : jamais de saut inattendu (pas de bouclage, pas de case vide)
-function arcMove(dir){if(!ARC.on)return false;arcStick(dir);if(ARC.mode!='menu')return false;const n=ARC.games.length,c=ARC.cols,i=ARC.sel,col=i%c;let j=i;
- if(dir=='left'&&col>0)j=i-1;else if(dir=='right'&&col<c-1&&i+1<n)j=i+1;else if(dir=='up'&&i-c>=0)j=i-c;else if(dir=='down'&&i+c<n)j=i+c;
- if(j!==i){arcSelect(j);return true}const b=document.querySelector(`#arcGrid .arcTile[data-i="${i}"]`);if(b){b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}return false}
-function arcStick(dir){const s=document.getElementById('arcStick');if(!s)return;s.dataset.d=dir||'';document.querySelectorAll('#arcJoy .arcAr').forEach(a=>a.classList.toggle('act',a.dataset.d==dir))}
-// ---------- lancement / retour au menu ----------
-function arcEnter(){if(!ARC.on)return;const B=document.getElementById('arcEnter');if(B){B.classList.add('press');setTimeout(()=>B.classList.remove('press'),160)}
- if(ARC.mode!='menu'){if(ARC.mode=='soon')arcMenu();return}const G=ARC.games[ARC.sel],M=ARC.modules[G.id],P=document.getElementById('arcPlay');ARC.cur=G;
- P.innerHTML='';P.hidden=false;document.getElementById('arc').classList.add('playing');
- if(M){ARC.mode='game';const api={exit:()=>arcMenu(),score:(p,l)=>ARC.record(G.id,p,l),best:()=>ARC.data(G.id).best,level:()=>ARC.data(G.id).level};try{M.start(P,api)}catch(e){console.error(e);arcMenu()}}
- else{ARC.mode='soon';P.innerHTML=`<div class="arcSoon"><div class="arcSoonArt"></div><b>${G.name}</b><p class="arcBlink">EN DÉVELOPPEMENT</p><p>Ce jeu n’est pas encore jouable.<br>Il arrive bientôt dans la salle d’arcade !</p><button class="arcBack">◀ Retour au menu</button></div>`;
-  P.querySelector('.arcSoonArt').appendChild(arcArt(G.id));P.querySelector('.arcBack').onclick=arcMenu}
- arcHint()}
-function arcMenu(){const M=ARC.cur&&ARC.modules[ARC.cur.id];if(ARC.mode=='game'&&M&&M.stop)try{M.stop()}catch(e){}ARC.mode='menu';ARC.cur=null;const P=document.getElementById('arcPlay');P.hidden=true;P.innerHTML='';
- document.getElementById('arc').classList.remove('playing');arcRender();arcHint()}
-function arcHint(){const h=document.getElementById('arcHint');if(h)h.textContent=ARC.mode=='menu'?'Joystick ou flèches pour choisir · ENTRER pour jouer · SORTIR pour quitter':'SORTIR ou ENTRER pour revenir au menu'}
+// glyphes manquants pour les textes de la borne
+if(typeof STF!='undefined')Object.assign(STF,{"'":'00100001000100000000000000000000000','?':'01110100010000100010001000000000100',',':'00000000000000000000000100010001000','/':'00001000100010001000100010000000000','%':'11001110010001000100010011100110011','+':'00000001000010011111001000010000000','>':'01000001000001000001000100010001000','<':'00010001000100010000010000010000010','·':'00000000000000000100000000000000000'});
+// ---------- dessin de base ----------
+const AX={};
+function axR(x,X,Y,W,H,c){if(W<=0||H<=0)return;x.fillStyle=c;x.fillRect(Math.round(X),Math.round(Y),Math.round(W),Math.round(H))}
+function axEll(x,cx,cy,rx,ry,c){x.fillStyle=c;const R=Math.ceil(ry);for(let j=-R;j<=R;j++){const t=1-(j/ry)*(j/ry);if(t<0)continue;const w=Math.round(rx*Math.sqrt(t));x.fillRect(Math.round(cx-w),Math.round(cy+j),2*w+1,1)}}
+function axTW(s,sc=1){return String(s).length*6*sc-sc}
+function axText(x,s,X,Y,c,sc=1,ol,c2){s=String(s).toUpperCase();const g=(dx,dy,col,half)=>{let k=0;for(const ch of s){const G=STF[ch]||STF[' '];for(let j=0;j<7;j++){if(half&&j<4)continue;for(let i=0;i<5;i++)if(G[j*5+i]=='1'){x.fillStyle=col;x.fillRect(Math.round(X+dx+(k+i)*sc),Math.round(Y+dy+j*sc),sc,sc)}}k+=6}};
+ if(ol)for(const[a,b]of[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]])g(a,b,ol);g(0,0,c);if(c2)g(0,0,c2,true)}
+function axCText(x,s,cx,Y,c,sc,ol,c2){axText(x,s,Math.round(cx-axTW(s,sc)/2),Y,c,sc,ol,c2)}
+// découpe un nom/une phrase en lignes d'une largeur maximale (coupe aussi après un trait d'union)
+function axWrap(s,maxW,sc=1){const parts=String(s).toUpperCase().split(/(?<=-)|\s+/).filter(Boolean),L=[];let cur='';for(const p of parts){const sep=cur&&!cur.endsWith('-')?' ':'',t=cur+sep+p;if(!cur||axTW(t,sc)<=maxW)cur=t;else{L.push(cur);cur=p}}if(cur)L.push(cur);return L}
+const AX_ART=new Map();function axArt(id,size){const k=id+'|'+size;let c=AX_ART.get(k);if(!c){const src=arcArt(id);c=document.createElement('canvas');c.width=c.height=size;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(src,0,0,size,size);AX_ART.set(k,c)}return c}
+// ---------- mise en page : la borne remplit tout l'écran, quelle que soit sa taille ----------
+function arcLayout(){const dpr=window.devicePixelRatio||1,vw=innerWidth,vh=innerHeight,dw=vw*dpr,dh=vh*dpr;
+ // un pixel de la borne fait au moins 1,3 pixel CSS : les textes restent lisibles même sur un petit téléphone
+ const s=Math.max(1,Math.round(Math.min(dw/300,dh/380)),Math.ceil(1.3*dpr-.01)),W=Math.ceil(dw/s),H=Math.ceil(dh/s),cv=AX.cv;
+ cv.width=W;cv.height=H;const cw=W*s/dpr,ch=H*s/dpr;cv.style.width=cw+'px';cv.style.height=ch+'px';cv.style.left=((vw-cw)/2)+'px';cv.style.top=((vh-ch)/2)+'px';
+ const cl=(v,a,b)=>Math.max(a,Math.min(b,Math.round(v))),m=2+Math.ceil((W*s/dpr-vw)/2*dpr/s),small=H<420,sp=cl(W*.055,8,34),mh=small?cl(H*.075,26,40):cl(H*.11,30,64),ph=small?cl(H*.135,48,60):cl(H*.16,52,96),fh=small?cl(H*.03,8,20):cl(H*.07,14,64),bz=cl(Math.min(W,H)*.03,4,14);
+ const L={s,W,H,m,sp,mh,ph,fh,bz};L.marq={x:m+sp-2,y:m+4,w:W-2*(m+sp-2),h:mh};
+ const by0=L.marq.y+mh+3,by1=H-m-fh-ph-3;L.bez={x:m+sp+3,y:by0,w:W-2*(m+sp+3),h:by1-by0};L.scr={x:L.bez.x+bz,y:L.bez.y+bz,w:L.bez.w-2*bz,h:L.bez.h-2*bz};
+ L.pan={y:by1+3,h:ph,x:m,w:W-2*m};L.front={y:L.pan.y+ph,h:H-m-L.pan.y-ph,x:m+sp,w:W-2*(m+sp)};
+ // commandes : joystick à gauche, trois boutons à droite (QUITTER, RETOUR, OK)
+ const top=L.pan.y+Math.round(ph*.08),face=Math.round(ph*.66),jr=cl(ph*.2,10,20),br=cl(ph*.14,7,14);
+ L.joy={x:Math.round(m+sp+Math.max(jr*2.2,(W-2*(m+sp))*.2)),y:Math.round(top+face*.62),r:jr};
+ const inner=W-2*(m+sp),gap=Math.max(br*3.6,46);let bx;if(inner>420){L.joy.x=Math.round(m+sp+inner*.28);const c0=Math.round(m+sp+inner*.7);bx=[c0-gap,c0,c0+gap]}
+ else{const right=W-m-sp-Math.round(br*2.2);bx=[right-2*gap,right-gap,right]}
+ L.btn=[{id:'quit',lab:'QUITTER',x:bx[0],y:L.joy.y+2,r:br,c:['#ffd23f','#c99a10','#fff3b0']},{id:'back',lab:'RETOUR',x:bx[1],y:L.joy.y+2,r:br,c:['#2f7bff','#1a4ac0','#a9c8ff']},{id:'ok',lab:'OK',x:bx[2],y:L.joy.y+2,r:br,c:['#ff3348','#b8142a','#ffb0b8']}];
+ L.face={y:top,h:face};
+ // grille des 14 jeux : nombre de colonnes choisi pour avoir les plus grandes illustrations lisibles
+ const S=L.scr,ip=Math.max(4,Math.round(S.w*.02)),fb=13,n=ARC.games.length;let best=null;
+ for(let cols=2;cols<=7;cols++){const rows=Math.ceil(n/cols),gap=S.w>400?5:3,tw=Math.floor((S.w-2*ip-(cols-1)*gap)/cols),th=Math.floor((S.h-2*ip-fb-(rows-1)*gap)/rows);if(tw<30||th<30)continue;
+  const lines=Math.max(...ARC.games.map(g=>axWrap(g.name,tw-4).length)),fit=ARC.games.every(g=>axWrap(g.name,tw-4).every(l=>axTW(l)<=tw-4));if(!fit||lines>2)continue;
+  const room=Math.min(tw-6,th-lines*8-5),icon=[128,96,64,48,40,32,28,24,20,16].find(v=>v<=room);if(!icon)continue;
+  const sc=icon*1000+tw*th/100-(cols*rows-n)*30;if(!best||sc>best.sc)best={cols,rows,gap,tw,th,icon,lines,sc}}
+ if(!best)best={cols:3,rows:5,gap:2,tw:Math.floor((S.w-8)/3),th:Math.floor((S.h-21)/5),icon:16,lines:2};
+ const gw=best.cols*best.tw+(best.cols-1)*best.gap,gh=best.rows*best.th+(best.rows-1)*best.gap;best.x0=S.x+Math.floor((S.w-gw)/2);best.y0=S.y+ip+Math.floor((S.h-2*ip-fb-gh)/2);best.fb={y:S.y+S.h-fb-2,h:fb};
+ best.cells=ARC.games.map((g,i)=>({x:best.x0+(i%best.cols)*(best.tw+best.gap),y:best.y0+Math.floor(i/best.cols)*(best.th+best.gap),w:best.tw,h:best.th}));L.grid=best;
+ AX.L=L;AX.x=cv.getContext('2d');AX.x.imageSmoothingEnabled=false;AX.bg=null;AX.gameCv=null}
+// ---------- la borne (partie fixe, mise en cache) ----------
+function arcCabinet(){const L=AX.L,c=document.createElement('canvas');c.width=L.W;c.height=L.H;const x=c.getContext('2d'),{W,H,m,sp}=L,OL='#0a0618';
+ // salle sombre et halo derrière la borne
+ axR(x,0,0,W,H,'#07051a');const g=x.createRadialGradient(W/2,H*.45,10,W/2,H*.45,Math.max(W,H)*.7);g.addColorStop(0,'rgba(140,60,255,.25)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+ // flancs : habillage violet avec éclairs rose, bleu électrique et jaune
+ for(const side of[0,1]){const X=side?W-m-sp:m;axR(x,X-1,m,sp+2,H-m,OL);const gr=x.createLinearGradient(X,0,X+sp,0);gr.addColorStop(side?1:0,'#2a1466');gr.addColorStop(side?0:1,'#4b22a8');x.fillStyle=gr;x.fillRect(X,m+1,sp,H-m-1);
+  const zig=(off,col,wd,per,amp)=>{for(let y=m+2;y<H;y++){const ph=((y+off)%per)/per,t=ph<.5?ph*2:2-ph*2,cx=X+sp/2+(t-.5)*amp*(side?-1:1);x.fillStyle=col;x.fillRect(Math.round(cx-wd/2),y,wd,1)}};
+  zig(0,'#ff3fa4',Math.max(2,Math.round(sp*.18)),46,sp*.7);zig(23,'#2fd0ff',Math.max(1,Math.round(sp*.1)),46,sp*.55);zig(11,'#ffd23f',1,92,sp*.4);
+  axR(x,side?X:X+sp-2,m+1,2,H-m-1,'#7a4cff');axR(x,side?X+sp-1:X,m+1,1,H-m-1,'#1a0c40')}
+ // fronton (marquee)
+ const Q=L.marq;axR(x,Q.x-3,m,Q.w+6,4,'#1a0c40');axR(x,Q.x-2,Q.y-1,Q.w+4,Q.h+2,OL);const mg=x.createLinearGradient(0,Q.y,0,Q.y+Q.h);mg.addColorStop(0,'#3b1680');mg.addColorStop(.5,'#5a1c9a');mg.addColorStop(1,'#2a0f60');x.fillStyle=mg;x.fillRect(Q.x,Q.y,Q.w,Q.h);
+ axR(x,Q.x,Q.y,Q.w,1,'#ff6fd0');axR(x,Q.x,Q.y+Q.h-1,Q.w,1,'#2fd0ff');
+ const inv=['00100000100','00010001000','00111111100','01101110110','11111111111','10111111101','10100000101','00011011000'];
+ const isc=Math.max(1,Math.floor((Q.h-8)/8/1.6)),iw=11*isc,tsc=Math.max(2,Math.min(Math.floor((Q.h-10)/7),Math.floor((Q.w-2*iw-30)/36))),tw=axTW('ARCADE',tsc),gapI=Math.max(6,tsc*3);
+ const tx=Math.round(Q.x+Q.w/2-tw/2),ty=Math.round(Q.y+Q.h/2-7*tsc/2);
+ for(const ix of[tx-gapI-iw,tx+tw+gapI])inv.forEach((row,j)=>[...row].forEach((v,i)=>{if(v=='1'){x.fillStyle='#ff3fa4';x.fillRect(ix+i*isc,Math.round(Q.y+Q.h/2-4*isc)+j*isc,isc,isc)}}));
+ axText(x,'ARCADE',tx+Math.max(1,tsc/2),ty+Math.max(1,tsc/2),'#7a1a10',tsc);axText(x,'ARCADE',tx,ty,'#ffe14f',tsc,'#3a0a14','#ff9a1f');
+ // cadre de l'écran
+ const B=L.bez,S=L.scr;axR(x,B.x-2,B.y-2,B.w+4,B.h+4,'#1a0c40');axR(x,B.x,B.y,B.w,B.h,'#14102e');axR(x,B.x+1,B.y+1,B.w-2,2,'#2c2266');axR(x,B.x+1,B.y+B.h-3,B.w-2,2,'#0a0818');
+ axR(x,S.x-2,S.y-2,S.w+4,S.h+4,'#05040e');axR(x,S.x-1,S.y-1,S.w+2,S.h+2,'#1f6fff');
+ // pupitre : face inclinée, bord avant, vis
+ const P=L.pan,F=L.face;axR(x,P.x,P.y,P.w,P.h,OL);const pg=x.createLinearGradient(0,F.y,0,F.y+F.h);pg.addColorStop(0,'#5a2fc0');pg.addColorStop(1,'#3b1d8a');x.fillStyle=pg;x.fillRect(P.x+1,F.y,P.w-2,F.h);
+ axR(x,P.x+1,P.y+1,P.w-2,F.y-P.y-1,'#6b3fd8');axR(x,P.x+1,F.y+F.h,P.w-2,P.h-(F.y-P.y)-F.h-1,'#2a1466');axR(x,P.x+1,F.y+F.h,P.w-2,1,'#ff3fa4');axR(x,P.x+1,F.y,P.w-2,1,'#8a62ff');
+ for(const[X,Y]of[[P.x+6,F.y+4],[P.x+P.w-8,F.y+4],[P.x+6,F.y+F.h-6],[P.x+P.w-8,F.y+F.h-6]]){axEll(x,X+1,Y+1,2,2,'#1a0c40');axEll(x,X,Y,2,2,'#b8bcc8');axR(x,X-1,Y,3,1,'#5a5e6a')}
+ L.btn.forEach(b=>{axCText(x,b.lab,b.x,b.y+b.r+5,'#e8e2ff',1,'#1a0c40')});
+ // façade basse : porte à pièces décorative
+ const Fr=L.front;axR(x,Fr.x,Fr.y,Fr.w,Fr.h,'#1d0f45');axR(x,Fr.x,Fr.y,Fr.w,1,'#0a0618');
+ if(Fr.h>16){const dw=Math.min(Fr.w*.4,90),dh=Math.min(Fr.h-8,44),dx=Math.round(W/2-dw/2),dy=Math.round(Fr.y+(Fr.h-dh)/2);axR(x,dx-1,dy-1,dw+2,dh+2,OL);axR(x,dx,dy,dw,dh,'#2c2a3a');axR(x,dx+1,dy+1,dw-2,1,'#4a4860');
+  for(const k of[.3,.7]){const sx=Math.round(dx+dw*k-4),sy=Math.round(dy+dh/2-4);axR(x,sx-1,sy-1,10,10,'#14121e');axR(x,sx,sy,8,8,'#ff7a1f');axR(x,sx+3,sy+1,2,6,'#3a1a0a')}}
+ return c}
+// ---------- écran de la borne : contenus ----------
+function arcPanelBtn(x,X,Y,w,h,label,col,dark,on,sc=1){axR(x,X,Y+2,w,h,dark);axR(x,X,Y,w,h,col);axR(x,X,Y,w,1,'rgba(255,255,255,.45)');if(on){axR(x,X-2,Y-2,w+4,1,'#ffffff');axR(x,X-2,Y+h+3,w+4,1,'#ffffff');axR(x,X-2,Y-2,1,h+6,'#ffffff');axR(x,X+w+1,Y-2,1,h+6,'#ffffff')}
+ axCText(x,label,X+w/2,Y+Math.round((h-7*sc)/2),'#1a0c20',sc)}
+function arcDrawMenu(x){const L=AX.L,G=L.grid,S=L.scr,t=ARC.t,pal=['#2f7bff','#ffd23f','#b46bff','#ff3fa4','#2fd0ff','#4fd16b'];
+ G.cells.forEach((c,i)=>{const g=ARC.games[i],sel=i==ARC.sel,ready=!!ARC.modules[g.id],lift=sel?1:0,col=pal[i%pal.length];
+  const box=(X,Y,w,h,col,k=1)=>{axR(x,X,Y,w,k,col);axR(x,X,Y+h-k,w,k,col);axR(x,X,Y,k,h,col);axR(x,X+w-k,Y,k,h,col)};
+  axR(x,c.x,c.y+1,c.w,c.h,'#05040e');axR(x,c.x,c.y-lift,c.w,c.h,sel?'#2a2378':'#0f0b2e');
+  if(sel){x.globalAlpha=.3+.2*Math.sin(t*6);box(c.x-3,c.y-3-lift,c.w+6,c.h+6,'#2fd0ff',2);x.globalAlpha=1;box(c.x-1,c.y-1-lift,c.w+2,c.h+2,Math.floor(t*4)%2?'#ff3fa4':'#ffffff',2);box(c.x+1,c.y+1-lift,c.w-2,c.h-2,'#2fd0ff')}
+  else{x.globalAlpha=.75;box(c.x,c.y,c.w,c.h,col);x.globalAlpha=1}
+  const lines=axWrap(g.name,c.w-4),textH=lines.length*8,ic=G.icon,ix=Math.round(c.x+(c.w-ic)/2),iy=Math.round(c.y-lift+(c.h-textH-ic-2)/2);
+  axR(x,ix-1,iy-1,ic+2,ic+2,sel?'#ffffff':'#05040e');x.drawImage(axArt(g.id,ic),ix,iy);if(!sel){x.globalAlpha=.25;axR(x,ix,iy,ic,ic,'#05040e');x.globalAlpha=1}
+  lines.forEach((l,k)=>axCText(x,l,c.x+c.w/2,iy+ic+2+k*8,sel?'#ffe14f':'#a9a4d0'))});
+ if(G.icon<32)0;
+ // barre d'état : jeu sélectionné
+ const g=ARC.games[ARC.sel],ready=!!ARC.modules[g.id],fb=G.fb;axR(x,S.x+2,fb.y,S.w-4,fb.h,'#120d38');axR(x,S.x+2,fb.y,S.w-4,1,'#2f7bff');
+ const st=ready?(ARC.data(g.id).best?'RECORD '+ARC.data(g.id).best:'PRÊT À JOUER'):'EN DÉVELOPPEMENT',nm=g.name.toUpperCase(),full=nm+'  ·  '+st;
+ if(axTW(full)<=S.w-10){axText(x,nm,S.x+S.w/2-axTW(full)/2,fb.y+3,'#ffe14f');axText(x,'  ·  '+st,S.x+S.w/2-axTW(full)/2+axTW(nm)+1,fb.y+3,ready?'#7cff6b':'#ff9ad0')}else axCText(x,nm,S.x+S.w/2,fb.y+3,'#ffe14f')}
+function arcInfoLayout(){const S=AX.L.scr,g=ARC.games[ARC.info],aw=Math.max(10,Math.round(S.w*.06)),inner=S.w-2*aw-16,nsc=axTW(g.name,3)<=inner&&S.h>220?3:axTW(g.name,2)<=inner?2:1;
+ const d2=axWrap(g.desc,inner-4,2),dsc=d2.length<=4&&S.h>260?2:1,desc=dsc==2?d2:axWrap(g.desc,inner-4),dl=desc.length*(dsc==2?17:9),bh=nsc>1?20:16,bw=Math.min(inner,Math.max(80,axTW('EN DÉVELOPPEMENT')+16));
+ const fixed=10+7*nsc+8+dl+8+bh+10+7+12,room=S.h-fixed,icon=[128,96,64,48,32,24].find(v=>v<=Math.min(room,inner*.7))||24,total=icon+fixed;
+ let y=S.y+Math.max(6,Math.round((S.h-total)/2));const o={g,aw,nsc,desc,dsc,icon,bw,bh};o.iy=y;y+=icon+10;o.ny=y;y+=7*nsc+8;o.dy=y;y+=dl+8;o.by=y;o.bx=Math.round(S.x+S.w/2-bw/2);o.hy=y+bh+10;
+ o.arL={x:S.x+4,y:S.y+S.h/2-aw,w:aw,h:2*aw};o.arR={x:S.x+S.w-4-aw,y:S.y+S.h/2-aw,w:aw,h:2*aw};return o}
+function arcDrawInfo(x){const S=AX.L.scr,o=arcInfoLayout(),g=o.g,ready=!!ARC.modules[g.id],t=ARC.t,cx=S.x+S.w/2;
+ const ix=Math.round(cx-o.icon/2);axR(x,ix-3,o.iy-3,o.icon+6,o.icon+6,'#2fd0ff');axR(x,ix-2,o.iy-2,o.icon+4,o.icon+4,'#05040e');x.drawImage(axArt(g.id,o.icon),ix,o.iy);
+ x.globalAlpha=.25+.15*Math.sin(t*4);axR(x,ix-5,o.iy-5,o.icon+10,1,'#2fd0ff');axR(x,ix-5,o.iy+o.icon+4,o.icon+10,1,'#2fd0ff');x.globalAlpha=1;
+ axCText(x,g.name,cx,o.ny,'#ffffff',o.nsc,'#05040e');o.desc.forEach((l,k)=>axCText(x,l,cx,o.dy+k*(o.dsc==2?17:9),'#c9cfe8',o.dsc));
+ const shake=ARC.flash>0?Math.round(Math.sin(ARC.flash*60)*2):0;
+ if(ready)arcPanelBtn(x,o.bx,o.by,o.bw,o.bh,'> JOUER','#ffd23f','#b8860b',Math.floor(t*3)%2==0,o.nsc>1?2:1);
+ else{axR(x,o.bx+shake,o.by,o.bw,o.bh,'#2a2550');axR(x,o.bx+shake,o.by,o.bw,1,'#4a4380');axCText(x,'EN DÉVELOPPEMENT',cx+shake,o.by+Math.round((o.bh-7)/2),Math.floor(t*2)%2?'#ffd23f':'#ff9a1f')}
+ axCText(x,ready?'OK : JOUER  ·  RETOUR : MENU':'RETOUR : MENU',cx,o.hy,'#8f97c0');
+ // flèches pour passer d'un jeu à l'autre
+ for(const[a,dir]of[[o.arL,-1],[o.arR,1]]){const cy=a.y+a.h/2,pulse=Math.round(Math.sin(t*5)*1);for(let k=0;k<a.w;k++){const hh=Math.round((dir<0?k:a.w-1-k)*a.h/a.w/2);axR(x,a.x+k+pulse*dir,cy-hh,1,2*hh+1,'#ffd23f')}}}
+function arcDrawOver(x){const S=AX.L.scr,cx=S.x+S.w/2,o=ARC.over,sc=axTW('PARTIE TERMINÉE !',2)<=S.w-12?2:1,big=[6,5,4,3,2].find(k=>axTW('0000',k)<=S.w*.6&&7*k<=S.h*.16)||2,bsc=axTW('REJOUER',2)+12<=(S.w-36)/2?2:1,blockH=7*sc+14+(7*big+28)+8+18+(bsc>1?24:16);let y=S.y+Math.max(6,Math.round((S.h-blockH)/2));
+ axCText(x,'PARTIE TERMINÉE !',cx,y,'#ffffff',sc,'#05040e');y+=7*sc+14;const bw=Math.min(S.w-20,Math.max(axTW('SCORE FINAL :',1)+30,axTW('0000',big)+40)),bh=7*big+28;
+ axR(x,cx-bw/2,y,bw,bh,'#2fd0ff');axR(x,cx-bw/2+1,y+1,bw-2,bh-2,'#0a1030');axCText(x,'SCORE FINAL :',cx,y+6,'#e8e2ff');axCText(x,String(o.score).padStart(4,'0'),cx,y+17,'#ffe14f',big,'#3a0a14','#ff9a1f');y+=bh+8;
+ axCText(x,o.rec?'NOUVEAU RECORD !':'RECORD : '+ARC.data(o.id).best,cx,y,o.rec?'#7cff6b':'#8f97c0');y+=18;
+ const w=Math.min(Math.floor((S.w-36)/2),bsc>1?110:90),h=bsc>1?24:16;arcPanelBtn(x,cx-w-6,y,w,h,'REJOUER','#2f7bff','#1a4ac0',ARC.overSel==0,bsc);arcPanelBtn(x,cx+6,y,w,h,'RETOUR','#9a6bff','#5a35b0',ARC.overSel==1,bsc);ARC.overBtns=[{x:cx-w-6,y,w,h},{x:cx+6,y,w,h}]}
+function arcDraw(){if(!ARC.on||!AX.L)return;const L=AX.L,x=AX.x,S=L.scr,t=ARC.t;if(!AX.bg)AX.bg=arcCabinet();x.drawImage(AX.bg,0,0);
+ // fronton rétroéclairé qui respire, néons des flancs
+ x.globalAlpha=.08+.06*Math.sin(t*2);axR(x,L.marq.x,L.marq.y,L.marq.w,L.marq.h,'#ff9ad0');x.globalAlpha=1;
+ const sh=((t*.35)%1.6)-.3;if(sh>0&&sh<1){x.globalAlpha=.08;const X=L.marq.x+sh*L.marq.w;for(let k=0;k<10;k++)axR(x,X+k-L.marq.h*.3,L.marq.y+1,2,L.marq.h-2,'#ffffff');x.globalAlpha=1}
+ for(const side of[0,1]){const X=side?L.W-L.m-L.sp-1:L.m+L.sp;x.globalAlpha=.5+.3*Math.sin(t*2.4+side*Math.PI);axR(x,X,L.m+1,1,L.pan.y-L.m-1,side?'#ff3fa4':'#2fd0ff');x.globalAlpha=1}
+ // écran
+ x.save();x.beginPath();x.rect(S.x,S.y,S.w,S.h);x.clip();const sg=x.createLinearGradient(0,S.y,0,S.y+S.h);sg.addColorStop(0,'#0c1238');sg.addColorStop(1,'#080a24');x.fillStyle=sg;x.fillRect(S.x,S.y,S.w,S.h);
+ if(ARC.state=='menu')arcDrawMenu(x);else if(ARC.state=='info')arcDrawInfo(x);else if(ARC.state=='over')arcDrawOver(x);
+ else if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(!AX.gameCv||AX.gameCv.width!=S.w||AX.gameCv.height!=S.h){AX.gameCv=document.createElement('canvas');AX.gameCv.width=S.w;AX.gameCv.height=S.h}
+  const gx=AX.gameCv.getContext('2d');gx.imageSmoothingEnabled=false;try{M.draw&&M.draw(gx,S.w,S.h)}catch(e){console.error(e)}x.drawImage(AX.gameCv,S.x,S.y)}
+ // effet cathodique : lignes, reflet, coins
+ x.globalAlpha=.1;for(let y=S.y;y<S.y+S.h;y+=2)axR(x,S.x,y,S.w,1,'#000000');x.globalAlpha=.06;axR(x,S.x,S.y,S.w,Math.round(S.h*.35),'#ffffff');x.globalAlpha=1;
+ if(ARC.state!='game'){const tr=(ARC.trans||0);if(tr>0){x.globalAlpha=tr;axR(x,S.x,S.y,S.w,S.h,'#ffffff');x.globalAlpha=1}}
+ x.restore();
+ // joystick (s'incline dans la direction poussée)
+ const J=L.joy,d=ARC.stick,dx=d=='left'?-1:d=='right'?1:0,dy=d=='up'?-1:d=='down'?1:0,tip={x:J.x+dx*J.r*.45,y:J.y-J.r*1.45+dy*J.r*.35};
+ axEll(x,J.x,J.y+2,J.r*1.15,J.r*.5,'#0a0618');axEll(x,J.x,J.y,J.r*1.05,J.r*.42,'#1a1a22');axEll(x,J.x,J.y-1,J.r*.7,J.r*.25,'#2c2c36');
+ const steps=Math.round(J.r*1.45);for(let k=0;k<steps;k++){const u=k/steps,X=J.x+(tip.x-J.x)*u,Y=J.y-1+(tip.y-J.y+1)*u;axR(x,X-1.5,Y,3,1,k%3?'#c0c4d0':'#8a8e9a')}
+ const br=J.r*.78;axEll(x,tip.x,tip.y+2,br+1,br+1,'#0a0618');axEll(x,tip.x,tip.y,br+1,br+1,'#0a0618');axEll(x,tip.x,tip.y,br,br,'#e8162e');axEll(x,tip.x+br*.15,tip.y+br*.2,br*.75,br*.7,'#b80a20');axEll(x,tip.x-br*.05,tip.y-br*.05,br*.8,br*.8,'#ff2a40');axEll(x,tip.x-br*.35,tip.y-br*.4,br*.28,br*.22,'#ffb0b8');
+ // boutons physiques (s'enfoncent quand on appuie)
+ L.btn.forEach(b=>{const p=ARC.press[b.id]?1:0,[c,dk,hl]=b.c,lift=p?1:3;axEll(x,b.x,b.y+3,b.r+3,b.r*.62+2,'#0a0618');axEll(x,b.x,b.y+2,b.r+2,b.r*.6+1,'#c8ccd8');axEll(x,b.x,b.y+1,b.r+1,b.r*.6,'#7a7e8a');
+  for(let k=lift;k>=0;k--)axEll(x,b.x,b.y-k,b.r,b.r*.6,k==lift?c:dk);axEll(x,b.x-b.r*.3,b.y-lift-b.r*.18,b.r*.35,b.r*.18,hl);if(p){x.globalAlpha=.35;axEll(x,b.x,b.y-lift,b.r+4,b.r*.6+3,c);x.globalAlpha=1}})}
+// ---------- navigation et actions ----------
+function arcPress(id){ARC.press[id]=1;clearTimeout(ARC['pt'+id]);ARC['pt'+id]=setTimeout(()=>{ARC.press[id]=0},150)}
+function arcMove(dir){if(!ARC.on)return false;ARC.stick=dir;clearTimeout(ARC.stT);if(!ARC.holdD)ARC.stT=setTimeout(()=>{if(!ARC.holdD)ARC.stick=''},150);
+ if(ARC.state=='menu'){const n=ARC.games.length,c=AX.L.grid.cols,i=ARC.sel,col=i%c;let j=i;
+  if(dir=='left'&&col>0)j=i-1;else if(dir=='right'&&col<c-1&&i+1<n)j=i+1;else if(dir=='up'&&i-c>=0)j=i-c;else if(dir=='down'&&i+c<n)j=i+c;ARC.sel=j;return j!==i}
+ if(ARC.state=='info'&&(dir=='left'||dir=='right')){const n=ARC.games.length;ARC.info=(ARC.info+(dir=='right'?1:-1)+n)%n;ARC.sel=ARC.info;ARC.flash=0;return true}
+ if(ARC.state=='over'&&(dir=='left'||dir=='right')){ARC.overSel=dir=='left'?0:1;return true}
+ return false}
+function arcOk(){if(!ARC.on)return;arcPress('ok');
+ if(ARC.state=='menu'){ARC.info=ARC.sel;arcGo('info')}
+ else if(ARC.state=='info'){const g=ARC.games[ARC.info];if(ARC.modules[g.id])arcStart(g);else ARC.flash=.35}
+ else if(ARC.state=='over'){if(ARC.overSel==0)arcStart(ARC.games.find(g=>g.id==ARC.over.id));else arcGo('info')}}
+function arcBack(){if(!ARC.on)return;arcPress('back');if(ARC.state=='menu'){arcQuit();return}if(ARC.state=='game')arcStop();arcGo(ARC.state=='info'?'menu':'info')}
+function arcGo(st){ARC.state=st;ARC.trans=.35;arcHud()}
+function arcStart(g){const M=ARC.modules[g.id],S=AX.L.scr;ARC.cur=g;ARC.info=ARC.games.indexOf(g);ARC.state='game';ARC.trans=0;
+ const api={w:S.w,h:S.h,end:(score)=>{const rec=ARC.record(g.id,score);arcStop();ARC.over={id:g.id,score:score|0,rec};ARC.overSel=0;arcGo('over')},best:()=>ARC.data(g.id).best,level:()=>ARC.data(g.id).level,saveLevel:(n)=>{const d=ARC.data(g.id);if(n>d.level){d.level=n;save()}}};
+ try{M.start&&M.start(api)}catch(e){console.error(e);ARC.state='info'}arcHud()}
+function arcStop(){const M=ARC.cur&&ARC.modules[ARC.cur.id];if(M&&M.stop)try{M.stop()}catch(e){}if(ARC.state=='game')ARC.state='info'}
+function arcHud(){}
+// ---------- boucle ----------
+function arcLoop(ts){if(!ARC.on)return;const dt=Math.min(.05,(ts-(ARC.last||ts))/1000);ARC.last=ts;ARC.t+=dt;if(ARC.flash>0)ARC.flash=Math.max(0,ARC.flash-dt);if(ARC.trans>0)ARC.trans=Math.max(0,ARC.trans-dt*2.2);
+ if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];try{M.update&&M.update(dt,ARC.input)}catch(e){console.error(e)}}
+ arcDraw();requestAnimationFrame(arcLoop)}
 // ---------- ouverture / sortie ----------
-function arcFit(){const s=document.getElementById('arcScr'),g=document.getElementById('arcGrid');if(!s||!g)return;
- // l'en-tête occupe le haut de l'écran ; la grille commence sous l'en-tête et sous les pièces / la musique du jeu si elles sont posées dessus
- const sr=s.getBoundingClientRect(),T=s.querySelector('.arcTop');let top=(T?T.offsetTop+T.offsetHeight:36)+6;
- for(const id of['coins','bMus']){const e=document.getElementById(id);if(!e)continue;const q=e.getBoundingClientRect();if(q.width&&q.bottom>sr.top&&q.top<sr.top+sr.height*.35&&q.left<sr.right&&q.right>sr.left)top=Math.max(top,Math.round(q.bottom-sr.top+5))}
- if(T){let padR=0;for(const id of['coins','bMus']){const e=document.getElementById(id);if(!e)continue;const q=e.getBoundingClientRect(),tr=T.getBoundingClientRect();if(q.width&&q.top<tr.bottom&&q.bottom>tr.top)padR=Math.max(padR,Math.round(sr.right-q.left+6))}T.style.paddingLeft=T.style.paddingRight=padR?padR+'px':'';T.classList.toggle('tight',padR>0&&sr.width-2*padR<300)}
- g.style.marginTop=top+'px';
- const rows=Math.ceil(ARC.games.length/ARC.cols),gap=Math.max(4,Math.min(10,sr.width*.018)),padX=Math.max(8,sr.width*.03);
- const availH=sr.height-top-10,availW=sr.width-2*padX;
- const t=Math.floor(Math.max(44,Math.min((availW-(ARC.cols-1)*gap)/ARC.cols,(availH-(rows-1)*gap)/rows,150)));s.style.setProperty('--t',t+'px');s.style.setProperty('--g',gap+'px');
- // nom sur une ligne : la taille s'ajuste à la case pour ne jamais être coupée
- g.querySelectorAll('.arcName').forEach(n=>{let f=Math.min(12,Math.max(7,t*.13));n.style.fontSize=f+'px';while(f>4.5&&n.scrollWidth>n.clientWidth+.5){f-=.5;n.style.fontSize=f+'px'}})}
-function arcOpen(o){o=o||{};ARC.back={x:typeof o.x=='number'?o.x:null,d:o.d||1};const A=document.getElementById('arc');if(!A)return;
- ARC.on=true;ARC.sel=0;ARC.mode='menu';C.st='arcade';C.path=null;A.hidden=false;void A.offsetWidth;A.classList.add('on');arcRender();arcMenu();show('arcade');arcFit();requestAnimationFrame(arcFit);setTimeout(arcFit,350);
- if(N.street&&ARC.back.x!=null){N.street={x:Math.round(ARC.back.x),d:ARC.back.d,on:1};save()}}
-function arcQuit(){if(!ARC.on)return;if(ARC.mode!='menu'){arcMenu();return}ARC.on=false;clearInterval(ARC.rep);ARC.rep=null;arcStick('');const A=document.getElementById('arc');A.classList.remove('on');setTimeout(()=>{if(!ARC.on)A.hidden=true},300);
+function arcOpen(o){o=o||{};ARC.back={x:typeof o.x=='number'?o.x:null,d:o.d||1};AX.root.hidden=false;ARC.on=true;ARC.state='menu';ARC.sel=0;ARC.t=0;ARC.trans=.6;ARC.stick='';C.st='arcade';C.path=null;
+ arcLayout();show('arcade');if(N.street&&ARC.back.x!=null){N.street={x:Math.round(ARC.back.x),d:ARC.back.d,on:1};save()}ARC.last=0;requestAnimationFrame(arcLoop);try{AX.cv.focus({preventScroll:true})}catch(e){}}
+function arcQuit(){if(!ARC.on)return;arcPress('quit');if(ARC.state=='game')arcStop();ARC.on=false;ARC.holdD=null;clearTimeout(ARC.rep);AX.root.hidden=true;
  if(typeof streetEnter=='function')streetEnter(ARC.back&&ARC.back.x!=null?ARC.back.x:undefined);else{place='home';show('home')}}
-// ---------- commandes : joystick (glisser ou flèches), clavier, tactile ----------
-function arcInit(){const J=document.getElementById('arcJoy');if(!J)return;
- const hold=d=>{if(ARC.rep)clearTimeout(ARC.rep);arcMove(d);let first=true;const go=()=>{ARC.rep=setTimeout(()=>{if(ARC.holdD!==d)return;arcMove(d);first=false;go()},first?380:150)};ARC.holdD=d;go()};
- const release=()=>{ARC.holdD=null;if(ARC.rep)clearTimeout(ARC.rep);ARC.rep=null;arcStick('')};
- // flèches autour du joystick
- J.querySelectorAll('.arcAr').forEach(a=>{a.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();hold(a.dataset.d)});['pointerup','pointercancel','pointerleave'].forEach(t=>a.addEventListener(t,release))});
- // le manche lui-même : on le pousse dans une direction
- const base=document.getElementById('arcBase');let drag=null;
- base.addEventListener('pointerdown',e=>{e.preventDefault();const r=base.getBoundingClientRect();drag={cx:r.left+r.width/2,cy:r.top+r.height/2,R:r.width/2,d:null,id:e.pointerId};try{base.setPointerCapture(e.pointerId)}catch(_){}});
- base.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.cx,dy=e.clientY-drag.cy,L=Math.hypot(dx,dy);let d=null;if(L>drag.R*.32)d=Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up');
-  if(d!==drag.d){drag.d=d;if(d)hold(d);else release()}});
- const end=()=>{if(drag){drag=null;release()}};base.addEventListener('pointerup',end);base.addEventListener('pointercancel',end);
- document.getElementById('arcEnter').onclick=arcEnter;document.getElementById('arcOut').onclick=arcQuit;
- addEventListener('keydown',e=>{if(!ARC.on||curV!='arcade')return;if(ARC.mode=='game')return;const k={ArrowUp:'up',KeyW:'up',KeyZ:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',KeyQ:'left',ArrowRight:'right',KeyD:'right'}[e.code];
-  if(k){e.preventDefault();arcMove(k);clearTimeout(ARC.kt);ARC.kt=setTimeout(()=>{if(!ARC.holdD)arcStick('')},140)}else if(e.code=='Enter'||e.code=='Space'){e.preventDefault();if(!e.repeat)arcEnter()}else if(e.code=='Escape'||e.code=='Backspace'){e.preventDefault();arcQuit()}});
- addEventListener('blur',release);new ResizeObserver(arcFit).observe(document.getElementById('arcScr'));arcRender();arcHint()}
+// ---------- commandes : joystick et boutons de la borne (souris / tactile), écran tactile, clavier ----------
+function arcPt(e){const r=AX.cv.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*AX.L.W,y:(e.clientY-r.top)/r.height*AX.L.H}}
+const arcIn=(p,a)=>a&&p.x>=a.x&&p.x<a.x+a.w&&p.y>=a.y&&p.y<a.y+a.h;
+function arcHold(d){clearTimeout(ARC.rep);ARC.holdD=d;arcMove(d);let first=true;const go=()=>{ARC.rep=setTimeout(()=>{if(ARC.holdD!==d)return;arcMove(d);first=false;go()},first?380:150)};go()}
+function arcRelease(){ARC.holdD=null;clearTimeout(ARC.rep);ARC.stick='';['up','down','left','right'].forEach(k=>ARC.input[k]=0)}
+function arcInit(){const root=document.createElement('div');root.id='arcx';root.className='arcx';root.hidden=true;root.innerHTML='<canvas id="arcCv" tabindex="-1" aria-label="Borne d’arcade : 14 jeux"></canvas>';document.body.appendChild(root);AX.root=root;AX.cv=root.querySelector('canvas');
+ let drag=null;
+ AX.cv.addEventListener('pointerdown',e=>{if(!ARC.on)return;e.preventDefault();const p=arcPt(e),L=AX.L;
+  // boutons physiques
+  for(const b of L.btn)if(Math.hypot(p.x-b.x,(p.y-b.y)*1.4)<b.r+5){if(b.id=='ok')arcOk();else if(b.id=='back')arcBack();else arcQuit();if(ARC.state=='game')ARC.input[b.id=='ok'?'a':'b']=1;return}
+  // joystick : on attrape la boule ou le socle et on pousse
+  const J=L.joy;if(Math.hypot(p.x-J.x,p.y-(J.y-J.r*.8))<J.r*2.2){drag={id:e.pointerId,d:null};try{AX.cv.setPointerCapture(e.pointerId)}catch(_){}arcDrag(p,drag);return}
+  // écran tactile
+  if(ARC.state=='menu'){const i=L.grid.cells.findIndex(c=>arcIn(p,c));if(i>=0){if(i===ARC.sel)arcOk();else ARC.sel=i}}
+  else if(ARC.state=='info'){const o=arcInfoLayout();if(arcIn(p,o.arL))arcMove('left');else if(arcIn(p,o.arR))arcMove('right');else if(arcIn(p,{x:o.bx,y:o.by,w:o.bw,h:o.bh}))arcOk()}
+  else if(ARC.state=='over'&&ARC.overBtns){const k=ARC.overBtns.findIndex(b=>arcIn(p,b));if(k>=0){ARC.overSel=k;arcOk()}}
+  else if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=L.scr;if(M.pointer&&arcIn(p,S))M.pointer('down',p.x-S.x,p.y-S.y)}});
+ AX.cv.addEventListener('pointermove',e=>{if(!ARC.on)return;const p=arcPt(e);if(drag&&drag.id===e.pointerId){arcDrag(p,drag);return}
+  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=AX.L.scr;if(M.pointer&&arcIn(p,S))M.pointer('move',p.x-S.x,p.y-S.y)}});
+ const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer)M.pointer('up',0,0)}};
+ AX.cv.addEventListener('pointerup',up);AX.cv.addEventListener('pointercancel',up);AX.cv.addEventListener('contextmenu',e=>e.preventDefault());
+ const KM={ArrowUp:'up',KeyW:'up',KeyZ:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',KeyQ:'left',ArrowRight:'right',KeyD:'right'};
+ addEventListener('keydown',e=>{if(!ARC.on)return;const d=KM[e.code];
+  if(d){e.preventDefault();ARC.input[d]=1;if(ARC.state!='game')arcMove(d);else{ARC.stick=d}return}
+  if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK'){e.preventDefault();ARC.input.a=1;if(!e.repeat&&ARC.state!='game')arcOk();else arcPress('ok');return}
+  if(e.code=='Escape'||e.code=='Backspace'||e.code=='KeyX'||e.code=='KeyL'){e.preventDefault();if(!e.repeat)arcBack();return}},true);
+ addEventListener('keyup',e=>{if(!ARC.on)return;const d=KM[e.code];if(d){ARC.input[d]=0;if(ARC.stick==d&&!ARC.holdD)ARC.stick=''}if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK')ARC.input.a=0},true);
+ addEventListener('resize',()=>{if(ARC.on)arcLayout()});addEventListener('blur',arcRelease)}
+function arcDrag(p,drag){const J=AX.L.joy,dx=p.x-J.x,dy=p.y-(J.y-J.r*.9),L=Math.hypot(dx,dy);let d=null;if(L>J.r*.45)d=Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up');
+ if(d!==drag.d){drag.d=d;['up','down','left','right'].forEach(k=>ARC.input[k]=k==d?1:0);if(d){if(ARC.state=='game'){ARC.stick=d;ARC.holdD=d}else arcHold(d)}else arcRelease()}}
 // ---------- intégration ----------
 VT.arcade='Salle d’arcade';
 window.GAMES=window.GAMES||{};GAMES.arcade={open:arcOpen,quit:arcQuit};

@@ -1,0 +1,338 @@
+[
+ {
+  "n": "1 la borne occupe tout l’écran (ouverture immédiate depuis la porte, 1er jeu sélectionné)",
+  "ok": true,
+  "info": {
+   "dt": 52,
+   "cov": {
+    "canvas": [
+     -0.328125,
+     0,
+     390.328125,
+     844
+    ],
+    "vw": 390,
+    "vh": 844,
+    "bad": [],
+    "street": true,
+    "state": "menu",
+    "sel": 0,
+    "z": "2147483000"
+   }
+  }
+ },
+ {
+  "n": "6 ni personnage, ni rue, ni interface de Little Life (441 points testés)",
+  "ok": true,
+  "info": {
+   "bad": []
+  }
+ },
+ {
+  "n": "4 les 14 jeux sont affichés dans une grille régulière, lisibles et tous atteignables",
+  "ok": true,
+  "info": {
+   "g": {
+    "n": 14,
+    "inScreen": true,
+    "overlap": false,
+    "names": true,
+    "cols": 3,
+    "rows": 5,
+    "icon": 48
+   },
+   "reach": 14
+  }
+ },
+ {
+  "n": "5 joystick (pousser le manche, maintien régulier) et boutons physiques OK / RETOUR",
+  "ok": true,
+  "info": {
+   "tilt": "right",
+   "s1": 1,
+   "s2": 4,
+   "held": [
+    3,
+    3,
+    3,
+    6,
+    9,
+    9,
+    12,
+    12
+   ],
+   "pr": true,
+   "st1": {
+    "st": "info",
+    "info": 6
+   },
+   "fl": {
+    "st": "info",
+    "flash": true
+   },
+   "st2": "menu"
+  }
+ },
+ {
+  "n": "5b clavier, écran tactile (toucher une case puis la retoucher) et flèches de la présentation",
+  "ok": true,
+  "info": {
+   "kb": 1,
+   "tap1": {
+    "sel": 9,
+    "st": "menu"
+   },
+   "tap2": "info",
+   "nxt": 10,
+   "prv": 9,
+   "esc": "menu"
+  }
+ },
+ {
+  "n": "8 transitions : menu → présentation → jeu → fin → rejouer / retour → menu",
+  "ok": true,
+  "info": {
+   "log": [
+    "start 231x395",
+    "stop",
+    "start 231x395",
+    "stop"
+   ],
+   "frames": [
+    18,
+    18
+   ],
+   "s1": "info",
+   "s2": "game",
+   "s3": {
+    "st": "over",
+    "score": 120,
+    "rec": true,
+    "best": 120
+   },
+   "s4": "game",
+   "s5": {
+    "st": "over",
+    "rec": false
+   },
+   "s6": "info",
+   "s7": "menu",
+   "s8": "menu"
+  }
+ },
+ {
+  "n": "8b QUITTER (et Échap depuis le menu) : retour dans la rue, au même endroit",
+  "ok": true,
+  "info": {
+   "q": {
+    "px": 534,
+    "arc": false,
+    "hidden": true,
+    "place": "street"
+   },
+   "q2": {
+    "street": true,
+    "arc": false
+   }
+  }
+ },
+ {
+  "n": "8c rechargement pendant l’arcade : retour dans la rue",
+  "ok": true,
+  "info": {
+   "on": true,
+   "arc": false
+  }
+ },
+ {
+  "n": "9 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ },
+ {
+  "n": "2 structure complète visible partout (fronton, flancs, écran, pupitre, joystick, boutons, façade)",
+  "ok": true,
+  "info": [
+   [
+    "petit téléphone",
+    true
+   ],
+   [
+    "téléphone",
+    true
+   ],
+   [
+    "grand téléphone",
+    true
+   ],
+   [
+    "tablette",
+    true
+   ],
+   [
+    "portable",
+    true
+   ],
+   [
+    "ordinateur",
+    true
+   ],
+   [
+    "grand écran",
+    true
+   ]
+  ]
+ },
+ {
+  "n": "3 aucun espace vide inutile (fond nu < 2 %, écran ≥ 35 % de la borne, grille ≥ 70 % de l’écran)",
+  "ok": true,
+  "info": [
+   [
+    "petit téléphone",
+    0.09,
+    53,
+    85
+   ],
+   [
+    "téléphone",
+    0.02,
+    49,
+    89
+   ],
+   [
+    "grand téléphone",
+    0.02,
+    51,
+    90
+   ],
+   [
+    "tablette",
+    0.1,
+    47,
+    88
+   ],
+   [
+    "portable",
+    0,
+    56,
+    81
+   ],
+   [
+    "ordinateur",
+    0.01,
+    56,
+    83
+   ],
+   [
+    "grand écran",
+    0,
+    56,
+    81
+   ]
+  ]
+ },
+ {
+  "n": "7 affichage propre sur téléphone, tablette et ordinateur (texte ≥ 9 px, illustrations ≥ 32 px, sans erreur)",
+  "ok": true,
+  "info": [
+   {
+    "nom": "petit téléphone",
+    "internal": "214x379",
+    "px": 1.5,
+    "font": 10.5,
+    "grid": "3x5",
+    "icon": 36,
+    "parts": true,
+    "vide": 0.09,
+    "ecran": 53,
+    "remplissage": 85,
+    "scroll": 0,
+    "er": 0
+   },
+   {
+    "nom": "téléphone",
+    "internal": "293x633",
+    "px": 1.33,
+    "font": 9.3,
+    "grid": "3x5",
+    "icon": 64,
+    "parts": true,
+    "vide": 0.02,
+    "ecran": 49,
+    "remplissage": 89,
+    "scroll": 0,
+    "er": 0
+   },
+   {
+    "nom": "grand téléphone",
+    "internal": "323x699",
+    "px": 1.33,
+    "font": 9.3,
+    "grid": "3x5",
+    "icon": 64,
+    "parts": true,
+    "vide": 0.02,
+    "ecran": 51,
+    "remplissage": 90,
+    "scroll": 0,
+    "er": 0
+   },
+   {
+    "nom": "tablette",
+    "internal": "328x472",
+    "px": 2.5,
+    "font": 17.5,
+    "grid": "5x3",
+    "icon": 100,
+    "parts": true,
+    "vide": 0.1,
+    "ecran": 47,
+    "remplissage": 88,
+    "scroll": 0,
+    "er": 0
+   },
+   {
+    "nom": "portable",
+    "internal": "683x384",
+    "px": 2,
+    "font": 14,
+    "grid": "7x2",
+    "icon": 128,
+    "parts": true,
+    "vide": 0,
+    "ecran": 56,
+    "remplissage": 81,
+    "scroll": 0,
+    "er": 0
+   },
+   {
+    "nom": "ordinateur",
+    "internal": "640x400",
+    "px": 2,
+    "font": 14,
+    "grid": "7x2",
+    "icon": 96,
+    "parts": true,
+    "vide": 0.01,
+    "ecran": 56,
+    "remplissage": 83,
+    "scroll": 0,
+    "er": 0
+   },
+   {
+    "nom": "grand écran",
+    "internal": "640x360",
+    "px": 3,
+    "font": 21,
+    "grid": "7x2",
+    "icon": 144,
+    "parts": true,
+    "vide": 0,
+    "ecran": 56,
+    "remplissage": 81,
+    "scroll": 0,
+    "er": 0
+   }
+  ]
+ }
+]
