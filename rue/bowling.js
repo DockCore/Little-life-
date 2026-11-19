@@ -4,6 +4,7 @@
 // Points d'entrée : bwOpen({x}) depuis la rue, bwQuit() pour revenir exactement au même endroit.
 const BW_LW=1.0541,BW_HALF=BW_LW/2,BW_GUT=.235,BW_PITCH=1.66,BW_HEAD=18.288,BW_DECK=19.15,BW_WALL=19.75,BW_BR=.109,BW_PR=.06,BW_PH=.381;
 const BW_OL='#1d1626',BW_DT=1/240;
+const bwFx=(n,k,g)=>{try{if(typeof JEUSON!='undefined')JEUSON.fx(n,k,g)}catch(e){}};
 const BW_BALLS=[{lb:8,n:'Rose',c:'#ff6b9a',d:'#c23a6a',h:'#ffc2d6'},{lb:10,n:'Orange',c:'#ff9a2e',d:'#c4621a',h:'#ffd9a6'},{lb:12,n:'Menthe',c:'#3fc7a8',d:'#1f8a74',h:'#b7f2e2'},
  {lb:14,n:'Bleue',c:'#3d6fdc',d:'#24409a',h:'#a9c4ff'},{lb:16,n:'Violette',c:'#7b4fc8',d:'#4a2c86',h:'#cdb6f5'}];
 // quilles : n°1 en tête, rangées espacées de 12 pouces en triangle
@@ -36,14 +37,14 @@ function bwNewGame(){BW.rolls=[];BW.stats={strikes:0,spares:0,gutters:0,first:[]
 // ---------- physique ----------
 function bwThrow(){if(BW.phase!='aim'&&BW.phase!='charge')return;const b=BW.ball,B=BW_BALLS[BW.bi],p=Math.max(.05,BW.pw);
  const v=(4.6+p*5)*(1-(B.lb-8)*.012),tx=BW.aim*.62,ang=Math.atan2(tx-b.x,BW_HEAD-b.z);b.vx=Math.sin(ang)*v;b.vz=Math.cos(ang)*v;b.spin=BW.spin;b.thrown=true;b.v0=v;
- BW.phase='roll';BW.charging=false;BW.settleT=0;BW.hitT=0;BW.pins.forEach(q=>{q.was=q.up&&!q.out});bwUI()}
+ BW.phase='roll';BW.charging=false;BW.settleT=0;BW.hitT=0;bwFx('bwThrow',p);bwRoll(true);BW.pins.forEach(q=>{q.was=q.up&&!q.out});bwUI()}
 function bwStep(dt){const b=BW.ball;
  if(b.thrown&&!b.pit){
   // effet : la boule glisse sur l'huile puis crochète en fin de piste
   if(!b.gut&&b.z<BW_HEAD){const k=b.z<8?0:Math.min(1,(b.z-8)/4);b.vx+=b.spin*.3*k*dt}
   const sp=Math.hypot(b.vx,b.vz);if(sp>0){const d=Math.max(0,sp-.22*dt)/sp;b.vx*=d;b.vz*=d}
   b.x+=b.vx*dt;b.z+=b.vz*dt;b.rot+=Math.hypot(b.vx,b.vz)*dt/BW_BR;
-  if(!b.gut&&b.z<BW_HEAD-.05&&Math.abs(b.x)>BW_HALF){b.gut=true;b.vx=0}
+  if(!b.gut&&b.z<BW_HEAD-.05&&Math.abs(b.x)>BW_HALF){b.gut=true;b.vx=0;bwFx('bwGutter',1)}
   if(b.gut){const gx=Math.sign(b.x)*(BW_HALF+BW_GUT*.52);b.x+=(gx-b.x)*Math.min(1,dt*12);b.vx=0}
   if(b.z>BW_HEAD-.2&&!b.gut&&Math.abs(b.x)>BW_HALF+BW_GUT-.02){b.x=Math.sign(b.x)*(BW_HALF+BW_GUT-.02);b.vx=-b.vx*.4}
   if(b.z>BW_DECK+.25){b.pit=true}}
@@ -52,12 +53,12 @@ function bwStep(dt){const b=BW.ball;
  if(b.thrown&&!b.pit&&!b.gut)for(const q of P){if(q.out)continue;const r=BW_BR+(q.up?BW_PR:.075),dx=q.x-b.x,dz=q.z-b.z,d=Math.hypot(dx,dz);if(d<r&&d>1e-6){
   const nx=dx/d,nz=dz/d,rv=(q.vx-b.vx)*nx+(q.vz-b.vz)*nz;if(rv<0){const mp=1.55,e=.7,j=-(1+e)*rv/(1/b.m+1/mp);b.vx-=j*nx/b.m;b.vz-=j*nz/b.m;q.vx+=j*nx/mp;q.vz+=j*nz/mp;
    // un peu d'élan vers le haut de la piste transmis à la quille
-   q.vx+=b.vx*.08;q.vz+=Math.max(0,b.vz)*.06;bwKnock(q);if(!BW.hitT)BW.hitT=BW.t}
+   q.vx+=b.vx*.08;q.vz+=Math.max(0,b.vz)*.06;bwKnock(q);if(!BW.hitT)BW.hitT=BW.t;bwFx('bwPin',Math.min(1,j/8),.015)}
   const ov=r-d;b.x-=nx*ov*.25;b.z-=nz*ov*.25;q.x+=nx*ov*.75;q.z+=nz*ov*.75}}
  // quilles entre elles
  for(let i=0;i<P.length;i++){const a=P[i];if(a.out)continue;for(let k=i+1;k<P.length;k++){const c=P[k];if(c.out)continue;const r=(a.up?BW_PR:.075)+(c.up?BW_PR:.075),dx=c.x-a.x,dz=c.z-a.z,d=Math.hypot(dx,dz);
   if(d<r&&d>1e-6){const nx=dx/d,nz=dz/d,rv=(c.vx-a.vx)*nx+(c.vz-a.vz)*nz;if(rv<0){const j=-(1+.55)*rv/2;a.vx-=j*nx;a.vz-=j*nz;c.vx+=j*nx;c.vz+=j*nz;
-    if(Math.abs(j)>.12){bwKnock(a);bwKnock(c)}}const ov=(r-d)/2;a.x-=nx*ov;a.z-=nz*ov;c.x+=nx*ov;c.z+=nz*ov}}}
+    if(Math.abs(j)>.12){bwKnock(a);bwKnock(c);bwFx('bwPin',Math.min(1,Math.abs(j)/2.5)*.6,.02)}}const ov=(r-d)/2;a.x-=nx*ov;a.z-=nz*ov;c.x+=nx*ov;c.z+=nz*ov}}}
  for(const q of P){if(q.out)continue;const sp=Math.hypot(q.vx,q.vz);
   if(sp>0){const fr=(q.up?4.5:1.8)*dt,d=Math.max(0,sp-fr)/sp;q.vx*=d;q.vz*=d}
   q.x+=q.vx*dt;q.z+=q.vz*dt;
@@ -68,7 +69,7 @@ function bwStep(dt){const b=BW.ball;
   if(Math.abs(q.x)>BW_HALF+.02&&q.z<BW_HEAD-.2)bwKnock(q);
   if(q.z>BW_DECK+.05){q.out=true;q.up=false}
   if(q.z<BW_HEAD-1.2){q.vz=Math.abs(q.vz)*.3}}}
-function bwKnock(q){if(!q.up)return;q.up=false;const sp=Math.hypot(q.vx,q.vz);if(sp>1e-3){q.dx=q.vx/sp;q.dz=q.vz/sp}else{q.dx=0;q.dz=1}q.fall=Math.max(q.fall,.05)}
+function bwKnock(q){if(!q.up)return;q.up=false;bwFx('bwPinFall',.7,.025);const sp=Math.hypot(q.vx,q.vz);if(sp>1e-3){q.dx=q.vx/sp;q.dz=q.vz/sp}else{q.dx=0;q.dz=1}q.fall=Math.max(q.fall,.05)}
 function bwMoving(){if(BW.pins.some(q=>!q.out&&(Math.hypot(q.vx,q.vz)>.03||(!q.up&&q.fall<1))))return true;const b=BW.ball;return b.thrown&&!b.pit&&Math.hypot(b.vx,b.vz)>.05}
 function bwSettle(){const was=BW.pins.filter(q=>q.was),down=was.filter(q=>!q.up||q.out).length,pos=bwPos(BW.rolls),first=pos.b==0||(pos.f==9&&pos.fresh);
  const st=BW.stats,b=BW.ball;BW.rolls.push(down);const np=bwPos(BW.rolls);
@@ -76,16 +77,17 @@ function bwSettle(){const was=BW.pins.filter(q=>q.was),down=was.filter(q=>!q.up|
  let msg=null;if(first&&down==10){msg='STRIKE !';st.strikes++}else if(!first&&down==was.length&&was.length>0&&pos.b>=1){msg='SPARE !';st.spares++}
  else if(b.gut&&down==0)msg='GOUTTIÈRE';else if(down==0)msg='RATÉ';else msg=down+(down>1?' QUILLES':' QUILLE');
  if(first&&down<10&&bwSplit())st.splits++;
- BW.msg={t:msg,big:msg=='STRIKE !'||msg=='SPARE !',T:0};BW.phase='result';BW.resT=0;BW.next=np;bwUI()}
+ BW.msg={t:msg,big:msg=='STRIKE !'||msg=='SPARE !',T:0};bwRoll(false);setTimeout(()=>bwFx(msg=='STRIKE !'?'bwStrike':msg=='SPARE !'?'bwSpare':down==0?'bwMiss':'bwCount',down/10),180);BW.phase='result';BW.resT=0;BW.next=np;bwUI()}
 function bwSplit(){const up=BW.pins.filter(q=>q.up&&!q.out).map(q=>q.n);if(up.includes(1)||up.length<2)return false;
  const col={7:0,4:1,2:2,8:2,1:3,5:3,3:4,9:4,6:5,10:6};const cs=[...new Set(up.map(n=>col[n]))].sort((a,b)=>a-b);for(let i=1;i<cs.length;i++)if(cs[i]-cs[i-1]>1)return true;return false}
 function bwAfterResult(){const np=BW.next;if(np.over){BW.phase='end';bwEnd(true);bwUI();return}
- if(np.fresh)bwRack();else{BW.pins.forEach(q=>{if(!q.up)q.out=true;else{q.vx=q.vz=0;q.x0=q.x;q.z0=q.z}})}
+ bwFx('bwReset',1);if(np.fresh)bwRack();else{BW.pins.forEach(q=>{if(!q.up)q.out=true;else{q.vx=q.vz=0;q.x0=q.x;q.z0=q.z}})}
  bwNewBall();BW.phase='aim';BW.msg=null;BW.pw=0;bwUI()}
 // ---------- boucle ----------
 function bwTick(){if(!BW.on)return;BW.t+=1/60;
  const K=BW.keys;if(BW.phase=='aim'||BW.phase=='charge'){if(K.ArrowLeft)BW.aim=Math.max(-1,BW.aim-.012);if(K.ArrowRight)BW.aim=Math.min(1,BW.aim+.012)}
- if(BW.phase=='charge'){BW.pwT+=1/60;const u=(BW.pwT/1.5)%2;BW.pw=u<1?u:2-u}
+ if(BW.phase=='charge'){BW.pwT+=1/60;const u=(BW.pwT/1.5)%2;BW.pw=u<1?u:2-u;bwFx('bwCharge',BW.pw,.09)}
+ if(BW.rollS){const b=BW.ball,sp=b.pit?0:Math.hypot(b.vx,b.vz);BW.rollS.set(Math.min(.5,sp/9*.5),b.gut?170:320+sp*25)}
  if(BW.phase=='roll'){for(let i=0;i<4;i++)bwStep(BW_DT);BW.settleT+=1/60;const b=BW.ball;
   const done=(b.pit||b.z>BW_HEAD+.3||Math.hypot(b.vx,b.vz)<.05)&&!bwMoving();if((done&&BW.settleT>1)||BW.settleT>9||(b.pit&&BW.settleT>2.5&&BW.t-(BW.hitT||BW.t)>3.2))bwSettle()}
  else if(BW.phase=='result'){for(let i=0;i<4;i++)bwStep(BW_DT);BW.resT+=1/60;if(BW.msg)BW.msg.T+=1/60;if(BW.resT>1.7)bwAfterResult()}
@@ -243,18 +245,19 @@ function bwUI(){const sc=bwScore(BW.rolls),pos=bwPos(BW.rolls),t=document.getEle
  document.querySelectorAll('#bwBalls button').forEach((b,i)=>{b.classList.toggle('on',i==BW.bi);b.disabled=!(BW.phase=='aim'||BW.phase=='intro'||BW.phase=='end')});
  const sp=document.getElementById('bwSpin');if(sp){sp.value=BW.spin;document.getElementById('bwSpinV').textContent=['Fort à gauche','Léger à gauche','Sans effet','Léger à droite','Fort à droite'][BW.spin+2]}
  const tip=document.getElementById('bwTip');if(tip)tip.textContent=BW.phase=='roll'||BW.phase=='result'?'La boule roule…':BW.phase=='end'?'Partie terminée !':(BW.touch?'Pose le doigt sur la piste pour viser, maintiens pour la puissance, relâche pour lancer.':'Vise avec la souris, maintiens le clic pour la puissance, relâche pour lancer.')}
+function bwRoll(on){try{if(on&&!BW.rollS&&typeof JEUSON!='undefined')BW.rollS=JEUSON.loop(320);else if(!on&&BW.rollS){BW.rollS.stop();BW.rollS=null}}catch(e){}}
 function bwEnd(show){const m=document.getElementById('bwEnd');if(!m)return;if(!show){m.hidden=true;return}
- const sc=bwScore(BW.rolls),st=BW.stats;st.opens=sc.F.filter(o=>!o.m.some(m=>m=='X'||m=='/')).length;const avg=st.first.length?(st.first.reduce((a,b)=>a+b,0)/st.first.length):0;N.bowl=N.bowl||{best:0,games:0};const rec=sc.total>N.bowl.best;N.bowl.games++;if(rec)N.bowl.best=sc.total;save();
+ const sc=bwScore(BW.rolls),st=BW.stats;bwFx('bwEnd',sc.total>((N.bowl&&N.bowl.best)||0)?1:0);st.opens=sc.F.filter(o=>!o.m.some(m=>m=='X'||m=='/')).length;const avg=st.first.length?(st.first.reduce((a,b)=>a+b,0)/st.first.length):0;N.bowl=N.bowl||{best:0,games:0};const rec=sc.total>N.bowl.best;N.bowl.games++;if(rec)N.bowl.best=sc.total;save();
  document.getElementById('bwFinal').textContent=sc.total;document.getElementById('bwRec').textContent=rec?'Nouveau record !':'Record : '+N.bowl.best;
  document.getElementById('bwStats').innerHTML=[['Strikes',st.strikes],['Spares',st.spares],['Frames ouvertes',st.opens],['Gouttières',st.gutters],['Splits',st.splits],['Moyenne 1re boule',avg.toFixed(1).replace('.',',')],['Parties jouées',N.bowl.games]].map(([a,b])=>`<li><span>${a}</span><b>${b}</b></li>`).join('');
  m.hidden=false}
 // ---------- ouverture / fermeture ----------
-function bwOpen(o){o=o||{};BW.back={x:typeof o.x=='number'?o.x:null,d:o.d||1};const box=document.getElementById('bowl');if(!box)return;
+function bwOpen(o){o=o||{};try{JEUSON.music('bowling');bwFx('bwWelcome',1)}catch(e){}BW.back={x:typeof o.x=='number'?o.x:null,d:o.d||1};const box=document.getElementById('bowl');if(!box)return;
  BW.on=true;BW.t=0;BW.view=0;BW.fadeIn=1;BW.phase='intro';BW.camZ=-10;BW.cam.x=0;C.st='bowling';C.path=null;
  box.hidden=false;void box.offsetWidth;box.classList.add('on');if(!BW.cv){BW.cv=document.getElementById('bwCv');BW.x=BW.cv.getContext('2d')}bwFit();
  bwNewGame();BW.phase='intro';show('bowling');say('Bienvenue au bowling ! Choisis ta boule et vise les quilles.');
  if(N.street&&BW.back.x!=null){N.street={x:Math.round(BW.back.x),d:BW.back.d,on:1};save()}bwUI()}
-function bwQuit(){if(!BW.on)return;BW.on=false;BW.keys={};BW.charging=false;const box=document.getElementById('bowl');box.classList.remove('on');bwEnd(false);setTimeout(()=>{if(!BW.on)box.hidden=true},380);
+function bwQuit(){if(!BW.on)return;bwRoll(false);try{JEUSON.stop()}catch(e){}BW.on=false;BW.keys={};BW.charging=false;const box=document.getElementById('bowl');box.classList.remove('on');bwEnd(false);setTimeout(()=>{if(!BW.on)box.hidden=true},380);
  if(typeof streetEnter=='function')streetEnter(BW.back&&BW.back.x!=null?BW.back.x:undefined);else{place='home';show('home')}}
 // ---------- commandes ----------
 function bwAimAt(clientX){const r=BW.cv.getBoundingClientRect(),px=(clientX-r.left)/r.width*BW.W,p=bwP(0,0,BW_HEAD),s=p?p[2]:60;BW.aim=Math.max(-1,Math.min(1,((px-BW.W/2)/s+BW.cam.x)/.62))}
@@ -271,8 +274,8 @@ function bwInit(){const cv=document.getElementById('bwCv');if(!cv)return;
   else if(e.code=='KeyR'&&!e.repeat)bwNewGame();else if(e.code=='Escape')bwQuit()});
  addEventListener('keyup',e=>{if(!BW.on)return;delete BW.keys[e.code];if((e.code=='Space'||e.code=='Enter')&&BW.phase=='charge')bwThrow()});
  document.getElementById('bwBalls').innerHTML=BW_BALLS.map((b,i)=>`<button data-i="${i}" aria-label="Boule ${b.n} ${b.lb} livres"><i style="background:${b.c};box-shadow:inset -3px -3px 0 ${b.d}"></i>${b.lb} lb</button>`).join('');
- document.querySelectorAll('#bwBalls button').forEach(b=>b.onclick=()=>{if(BW.phase!='aim'&&BW.phase!='intro'&&BW.phase!='end')return;BW.bi=+b.dataset.i;bwNewBall();bwUI()});
- document.getElementById('bwSpin').oninput=e=>{BW.spin=+e.target.value;bwUI()};
+ document.querySelectorAll('#bwBalls button').forEach(b=>b.onclick=()=>{if(BW.phase!='aim'&&BW.phase!='intro'&&BW.phase!='end')return;BW.bi=+b.dataset.i;bwNewBall();bwFx('bwClick',1);bwUI()});
+ document.getElementById('bwSpin').oninput=e=>{BW.spin=+e.target.value;bwFx('bwClick',1);bwUI()};
  document.getElementById('bwRestart').onclick=()=>bwNewGame();document.getElementById('bwQuit').onclick=()=>bwQuit();
  document.getElementById('bwAgain').onclick=()=>bwNewGame();document.getElementById('bwLeave').onclick=()=>bwQuit();
  new ResizeObserver(()=>{if(BW.cv){bwFit()}}).observe(document.getElementById('bowl'))}
