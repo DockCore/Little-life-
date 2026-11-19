@@ -1,0 +1,337 @@
+[
+ {
+  "n": "0 lancement depuis la case PINBALL, écran de présentation, START",
+  "ok": true,
+  "info": {
+   "st0": {
+    "st": "game",
+    "cur": "pinball",
+    "ph": "intro"
+   },
+   "st1": {
+    "ph": "jeu",
+    "balls": 3,
+    "ball": "plunger",
+    "score": 0
+   }
+  }
+ },
+ {
+  "n": "1 lancement de la boule (bouton LANCER au doigt, barre Espace), distinct des palettes",
+  "ok": true,
+  "info": {
+   "ch": 0.38986999999999966,
+   "l1": {
+    "st": "play",
+    "vy": -712.7282000000005,
+    "y": 336.660212063333
+   },
+   "l2": {
+    "st": "play",
+    "y": 17,
+    "x": 76
+   },
+   "l3": {
+    "st": "play",
+    "vy": -662
+   }
+  }
+ },
+ {
+  "n": "2 palette gauche (bouton rond gauche)",
+  "ok": true,
+  "info": {
+   "a0": [
+    "repos",
+    "repos"
+   ],
+   "g1": [
+    "haut",
+    "repos"
+   ]
+  }
+ },
+ {
+  "n": "3 palette droite (bouton rond droit)",
+  "ok": true,
+  "info": {
+   "d1": [
+    "repos",
+    "haut"
+   ]
+  }
+ },
+ {
+  "n": "4 les deux palettes en même temps (deux doigts)",
+  "ok": true,
+  "info": {
+   "s1": [
+    "haut",
+    "haut"
+   ],
+   "s2": [
+    "repos",
+    "haut"
+   ]
+  }
+ },
+ {
+  "n": "5 maintien : la palette reste levée tant que le doigt reste appuyé",
+  "ok": true,
+  "info": {
+   "g2": [
+    "haut",
+    "repos"
+   ]
+  }
+ },
+ {
+  "n": "6 relâchement : retour immédiat au repos",
+  "ok": true,
+  "info": {
+   "g3": [
+    "repos",
+    "repos"
+   ],
+   "d2": [
+    "repos",
+    "repos"
+   ],
+   "s3": [
+    "repos",
+    "repos"
+   ]
+  }
+ },
+ {
+  "n": "6b clavier (flèches), joystick de la borne, et un seul déclenchement par appui",
+  "ok": true,
+  "info": {
+   "k1": [
+    "haut",
+    "haut"
+   ],
+   "k2": [
+    "repos",
+    "haut"
+   ],
+   "cab": {
+    "a": true,
+    "b": false
+   },
+   "once": {
+    "n": 1,
+    "touches": 0
+   }
+  }
+ },
+ {
+  "n": "6c la palette frappe la boule",
+  "ok": true,
+  "info": {
+   "rest": {
+    "y": 357.5851346801265
+   },
+   "vy": -764.1021043214031,
+   "vx": 405.4103904315013
+  }
+ },
+ {
+  "n": "7 collisions avec tous les obstacles (murs, rails, lance-boules, cibles, poteaux, bumpers) : jamais traversés, 1500 lancers sans sortie",
+  "ok": true,
+  "info": {
+   "segs": 84,
+   "segFail": [],
+   "circ": 95,
+   "circFail": [],
+   "fuzzOut": 0,
+   "throws": 1500
+  }
+ },
+ {
+  "n": "8 rebond dynamique sur les bumpers (+100 points, éclairage)",
+  "ok": true,
+  "info": {
+   "gain": 175,
+   "v": 315.1666666666665,
+   "flash": true
+  }
+ },
+ {
+  "n": "9 calcul des points (cibles 250, banque complète → multiplicateur, passages, rampe 500, multiplicateur appliqué)",
+  "ok": true,
+  "info": {
+   "stand": 250,
+   "multApresCibles": 2,
+   "drop": 600,
+   "tombee": 1,
+   "multApresBanque": 3,
+   "passage": 450,
+   "lane": 1,
+   "rampe": "ramp",
+   "rampePts": 1500,
+   "sortieRampe": [
+    59,
+    339
+   ],
+   "bumperAvecMult": 300,
+   "mult": 3
+  }
+ },
+ {
+  "n": "10 perte des trois boules : décompte, nouvelle boule automatique, GAME OVER, meilleur score",
+  "ok": true,
+  "info": {
+   "seq": [
+    [
+     "perdue",
+     2
+    ],
+    [
+     "jeu",
+     "plunger"
+    ],
+    [
+     "perdue",
+     1
+    ],
+    [
+     "jeu",
+     "plunger"
+    ],
+    [
+     "perdue",
+     0
+    ],
+    [
+     "over",
+     "play"
+    ]
+   ],
+   "ph": "over",
+   "best": 12345,
+   "rec": true
+  }
+ },
+ {
+  "n": "11 redémarrage immédiat (REJOUER) et RETOUR ARCADE vers le menu des 14 jeux",
+  "ok": true,
+  "info": {
+   "re": {
+    "ph": "jeu",
+    "score": 0,
+    "balls": 3,
+    "ball": "plunger"
+   },
+   "back": {
+    "st": "menu",
+    "cur": null
+   }
+  }
+ },
+ {
+  "n": "11b aucun conflit avec Air Hockey ; nettoyage à la fermeture",
+  "ok": true,
+  "info": {
+   "h": "hockey",
+   "pb": "intro",
+   "st": "menu",
+   "touches": 0
+  }
+ },
+ {
+  "n": "12a aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ },
+ {
+  "n": "12 sur l’écran de la borne (7 tailles) : plein écran, table entière, deux gros boutons ronds identiques de chaque côté",
+  "ok": true,
+  "info": [
+   {
+    "nom": "petit téléphone",
+    "tr": 0,
+    "cssDiam": 45,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 44,
+    "ball": 8.1,
+    "er": 0
+   },
+   {
+    "nom": "téléphone",
+    "tr": 0,
+    "cssDiam": 53,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 45,
+    "ball": 10.5,
+    "er": 0
+   },
+   {
+    "nom": "grand téléphone",
+    "tr": 0,
+    "cssDiam": 59,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 44,
+    "ball": 11.7,
+    "er": 0
+   },
+   {
+    "nom": "tablette",
+    "tr": 0,
+    "cssDiam": 90,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 51,
+    "ball": 18.8,
+    "er": 0
+   },
+   {
+    "nom": "portable",
+    "tr": 0,
+    "cssDiam": 172,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 21,
+    "ball": 13.7,
+    "er": 0
+   },
+   {
+    "nom": "ordinateur",
+    "tr": 0,
+    "cssDiam": 180,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 24,
+    "ball": 14.4,
+    "er": 0
+   },
+   {
+    "nom": "grand écran",
+    "tr": 0,
+    "cssDiam": 240,
+    "same": true,
+    "inside": true,
+    "sides": true,
+    "table": true,
+    "fill": 21,
+    "ball": 19.2,
+    "er": 0
+   }
+  ]
+ }
+]

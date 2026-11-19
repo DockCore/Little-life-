@@ -133,7 +133,12 @@
     "sc": [
      1,
      1
-    ]
+    ],
+    "sc0": [
+     1,
+     1
+    ],
+    "ph": "jeu"
    }
   }
  },
@@ -142,19 +147,19 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 57,
+    "saved": 54,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 60,
+    "saved": 59,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -187,7 +192,7 @@
     "wins": {
      "difficile": 1
     },
-    "games": 2,
+    "games": 3,
     "best": 970
    }
   }
@@ -236,20 +241,20 @@
   }
  },
  {
-  "n": "[tel] 15 les 13 autres cases sont inchangées ; 30 ouvertures/fermetures sans erreur",
+  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball prêt, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 1
+   "ms": 2
   }
  },
  {
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.57,
+   "msParImage": 3.53,
    "errs": []
   }
  },
@@ -387,7 +392,12 @@
     "sc": [
      1,
      1
-    ]
+    ],
+    "sc0": [
+     1,
+     1
+    ],
+    "ph": "jeu"
    }
   }
  },
@@ -396,7 +406,7 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 51,
+    "saved": 54,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
@@ -408,7 +418,7 @@
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 58,
+    "saved": 59,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -490,20 +500,20 @@
   }
  },
  {
-  "n": "[pc] 15 les 13 autres cases sont inchangées ; 30 ouvertures/fermetures sans erreur",
+  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball prêt, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 1
+   "ms": 2
   }
  },
  {
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.45,
+   "msParImage": 4.41,
    "errs": []
   }
  }

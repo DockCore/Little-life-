@@ -20,8 +20,8 @@
   "n": "2 lancement immédiat du mini-jeu",
   "ok": true,
   "info": {
-   "msAvantScene": 60,
-   "msAvantJeu": 1547
+   "msAvantScene": 53,
+   "msAvantJeu": 1546
   }
  },
  {
@@ -420,8 +420,8 @@
   "n": "12 fluidité du rendu",
   "ok": true,
   "info": {
-   "msParImage": 1.26,
-   "fps": 60.5
+   "msParImage": 0.96,
+   "fps": 61
   }
  },
  {

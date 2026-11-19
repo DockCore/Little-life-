@@ -235,10 +235,10 @@ function arcInit(){const root=document.createElement('div');root.id='arcx';root.
   if(ARC.state=='menu'){const i=L.grid.cells.findIndex(c=>arcIn(p,c));if(i>=0){if(i===ARC.sel)arcOk();else ARC.sel=i}}
   else if(ARC.state=='info'){const o=arcInfoLayout();if(arcIn(p,o.arL))arcMove('left');else if(arcIn(p,o.arR))arcMove('right');else if(arcIn(p,{x:o.bx,y:o.by,w:o.bw,h:o.bh}))arcOk()}
   else if(ARC.state=='over'&&ARC.overBtns){const k=ARC.overBtns.findIndex(b=>arcIn(p,b));if(k>=0){ARC.overSel=k;arcOk()}}
-  else if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=L.scr;if(M.pointer&&arcIn(p,S))M.pointer('down',p.x-S.x,p.y-S.y)}});
+  else if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=L.scr;if(M.pointer&&arcIn(p,S))M.pointer('down',p.x-S.x,p.y-S.y,e.pointerId)}});
  AX.cv.addEventListener('pointermove',e=>{if(!ARC.on)return;const p=arcPt(e);if(drag&&drag.id===e.pointerId){arcDrag(p,drag);return}
-  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=AX.L.scr;if(M.pointer)M.pointer('move',p.x-S.x,p.y-S.y)}});
- const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer)M.pointer('up',0,0)}};
+  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=AX.L.scr;if(M.pointer)M.pointer('move',p.x-S.x,p.y-S.y,e.pointerId)}});
+ const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer){const p=arcPt(e),S=AX.L.scr;M.pointer('up',p.x-S.x,p.y-S.y,e.pointerId)}}};
  AX.cv.addEventListener('pointerup',up);AX.cv.addEventListener('pointercancel',up);AX.cv.addEventListener('contextmenu',e=>e.preventDefault());
  const KM={ArrowUp:'up',KeyW:'up',KeyZ:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',KeyQ:'left',ArrowRight:'right',KeyD:'right'};
  addEventListener('keydown',e=>{if(!ARC.on)return;const d=KM[e.code];

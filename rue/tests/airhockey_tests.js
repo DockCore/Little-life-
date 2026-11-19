@@ -27,7 +27,7 @@ ok(T('2-4 la table occupe 100 % de l’écran de la borne, sans Little Life derr
 const ctl=await E(async()=>{const H=ARC.modules.hockey._state,S=AX.L.scr,r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,cv=AX.cv;
  const toScr=(tx,ty)=>H.rot?{x:H.T.TH-ty,y:tx}:{x:tx,y:ty},ev=(t,tx,ty,type)=>{const q=toScr(tx,ty);cv.dispatchEvent(new PointerEvent(t,{pointerType:type,isPrimary:true,pointerId:type=='touch'?9:1,clientX:r.left+(S.x+q.x)*k,clientY:r.top+(S.y+q.y)*k,bubbles:true}))};
  const wait=ms=>new Promise(z=>setTimeout(z,ms)),T=H.T,res={};
- for(const type of['touch','mouse']){const tx=T.x0+T.pw*.3,ty=T.cy+(T.y1-T.cy)*.6;if(type=='touch')ev('pointerdown',tx,ty,type);ev('pointermove',tx,ty,type);await wait(250);res[type]={dx:Math.abs(H.me.x-tx),dy:Math.abs(H.me.y-ty)};
+ for(const type of['touch','mouse']){H.phase='jeu';H.pause=false;H.p={x:T.x0+T.rp+2,y:T.y0+T.rp+2,vx:0,vy:0};const tx=T.x0+T.pw*.3,ty=T.cy+(T.y1-T.cy)*.6;if(type=='touch')ev('pointerdown',tx,ty,type);ev('pointermove',tx,ty,type);await wait(250);res[type]={dx:Math.abs(H.me.x-tx),dy:Math.abs(H.me.y-ty)};
   ev('pointermove',T.x1-2,T.y0+4,type);await wait(250);res[type+'Haut']={y:H.me.y,lim:T.cy+T.rm,x:H.me.x,xl:T.x1-T.rm};ev('pointerup',0,0,type)}
  return res});
 ok(T('5-6 maillet au doigt et à la souris : suit le pointeur, ne franchit jamais la ligne centrale ni les bords'),['touch','mouse'].every(t=>ctl[t].dx<1.5&&ctl[t].dy<1.5&&ctl[t+'Haut'].y>=ctl[t+'Haut'].lim-.01&&ctl[t+'Haut'].x<=ctl[t+'Haut'].xl+.01),ctl);
@@ -55,8 +55,8 @@ const goal=await E(async()=>{const H=ARC.modules.hockey._state,T=H.T,M=ARC.modul
  const a={sc:H.sc.slice(),ph:H.phase,msg:H.msg&&H.msg.t,flash:!!H.flash,center:[Math.round(H.p.x-T.cx),Math.round(H.p.y-T.cy)]};step(100);const b2={ph:H.phase,center:[Math.round(H.p.x-T.cx),Math.round(H.p.y-T.cy)]};step(62);const c={ph:H.phase,sc:H.sc.slice()};
  H.sc=[1,0];H.phase='jeu';H.serve=null;H.ai.x=T.x0+T.rm;H.me.x=H.me.tx=T.x0+T.rm;H.p={x:T.cx,y:T.y1-T.rp-1,vx:0,vy:T.TH*1.5};step(3);const d={sc:H.sc.slice(),msg:H.msg&&H.msg.t};
  // tir sur le poteau : rebond, pas de but
- step(200);H.phase='jeu';H.serve=null;H.me.x=H.me.tx=T.x0+T.rm;H.ai.x=T.x1-T.rm;H.ai.x=T.x0+T.rm;H.ai.y=T.cy-T.rm;H.p={x:T.cx+T.gw/2,y:T.y0+T.rp+4,vx:0,vy:-T.TH};step(4);const e={sc:H.sc.slice()};return{a,b:b2,c,d,e}});
-ok(T('9-10 buts détectés, score exact, animation, palet au centre, pause courte puis reprise automatique'),goal.a.sc[0]==1&&goal.a.sc[1]==0&&goal.a.ph=='but'&&goal.a.msg=='BUT !'&&goal.a.flash&&goal.b.ph=='compte'&&goal.b.center[0]==0&&goal.b.center[1]==0&&goal.c.ph=='jeu'&&goal.d.sc[0]==1&&goal.d.sc[1]==1&&goal.d.msg=='BUT ADVERSE'&&goal.e.sc[0]==1&&goal.e.sc[1]==1,goal);
+ step(200);H.phase='jeu';H.serve=null;H.me.x=H.me.tx=T.x0+T.rm;H.ai.x=T.x1-T.rm;H.ai.x=T.x0+T.rm;H.ai.y=T.cy-T.rm;const sc0=H.sc.slice();H.p={x:T.cx+T.gw/2,y:T.y0+T.rp+4,vx:0,vy:-T.TH};step(4);const e={sc:H.sc.slice(),sc0,ph:H.phase};return{a,b:b2,c,d,e}});
+ok(T('9-10 buts détectés, score exact, animation, palet au centre, pause courte puis reprise automatique'),goal.a.sc[0]==1&&goal.a.sc[1]==0&&goal.a.ph=='but'&&goal.a.msg=='BUT !'&&goal.a.flash&&goal.b.ph=='compte'&&goal.b.center[0]==0&&goal.b.center[1]==0&&goal.c.ph=='jeu'&&goal.d.sc[0]==1&&goal.d.sc[1]==1&&goal.d.msg=='BUT ADVERSE'&&goal.e.sc[0]==goal.e.sc0[0]&&goal.e.sc[1]==goal.e.sc0[1],goal);
 // 11. trois difficultés : vitesses différentes, IA sans téléportation, défense meilleure en difficile
 const ai=await E(()=>{const H=ARC.modules.hockey._state,T=H.T,M=ARC.modules.hockey,res={};
  for(const lv of['facile','normal','difficile']){H.lv=lv;let conceded=0,shots=0,maxStep=0,maxV=0;
@@ -91,9 +91,9 @@ await tapIn(await E(()=>ARC.modules.hockey._state.endBtns[1]));await W(150);cons
 await p.keyboard.press('KeyP');const clean=await E(()=>{const H=ARC.modules.hockey._state;return{api:H.api,pause:H.pause,parts:H.parts.length,phase:H.phase}});
 ok(T('14 retour propre et immédiat au menu des 14 jeux (bouton ≡, RETOUR de la borne, MENU ARCADE) + nettoyage'),m1.st=='menu'&&m1.cur==null&&m1.n==14&&m2=='menu'&&m3=='menu'&&clean.api==null&&!clean.pause&&clean.parts==0&&clean.phase=='choix',{m1,m2,m3,clean});
 // 15. les autres jeux de la borne sont intacts ; cycle de vie répété sans fuite
-const others=await E(()=>{const r=[];ARC.games.forEach((g,i)=>{if(g.id=='hockey')return;ARC.sel=i;arcOk();r.push(ARC.state=='info'&&!ARC.modules[g.id]);arcBack()});
+const others=await E(()=>{const r=[];ARC.games.forEach((g,i)=>{if(g.id=='hockey')return;ARC.sel=i;arcOk();r.push(ARC.state=='info'&&(g.id=='pinball'?!!ARC.modules[g.id]:!ARC.modules[g.id]));arcBack()});
  const t0=performance.now();for(let k=0;k<30;k++){ARC.sel=ARC.games.findIndex(g=>g.id=='hockey');arcOk();arcOk();arcBack()}return{ok:r.every(Boolean),n:r.length,st:ARC.state,ms:Math.round(performance.now()-t0)}});
-ok(T('15 les 13 autres cases sont inchangées ; 30 ouvertures/fermetures sans erreur'),others.ok&&others.n==13&&others.st=='menu',others);
+ok(T('15 les 13 autres cases fonctionnent (Pinball prêt, les autres en développement) ; 30 ouvertures/fermetures sans erreur'),others.ok&&others.n==13&&others.st=='menu',others);
 const perf=await E(()=>{const M=ARC.modules.hockey,H=M._state;ARC.sel=ARC.games.findIndex(g=>g.id=='hockey');arcOk();arcOk();M.update(1/60,{okN:(H.okN||0)+1});const t=performance.now();for(let i=0;i<200;i++){M.update(1/60,{okN:H.okN});arcDraw()}const ms=(performance.now()-t)/200;arcBack();return ms});
 ok(T('16 boucle de jeu fluide et aucune erreur JavaScript'),perf<8&&errs.length==0,{msParImage:+perf.toFixed(2),errs});
 await ctx.close()}
