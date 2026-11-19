@@ -4199,6 +4199,8 @@ Object.assign(JEUSON.FX,{
  pbOver(t){const T=JEUSON.tone;[523,494,466,440,415,392].forEach((f,i)=>T(f,t+i*.16,.2,.11,'square',null,{vib:5}));T(196,t+1,.8,.12,'triangle')},
  pbRecord(t){const T=JEUSON.tone;[523,659,784,1046,1318,1568,2093].forEach((f,i)=>T(f,t+i*.08,.16,.09,'square',null,{vib:7}))}
 });
+// ---------- rue ----------
+Object.assign(JEUSON.FX,{carPass(t,k){JEUSON.noise(t,.9,.09*k,500,'bandpass',null,.7,{att:.35,sweep:180});JEUSON.tone(70,t+.1,.7,.04*k,'sawtooth',null,{slide:.8,att:.3})}});
 // ===== RUE 2D EXPLORABLE (StreetScene) =====
 // Scène latérale : le personnage du jeu (sprite + garde-robe, via sc2) marche librement sur le trottoir.
 // Tout est piloté par des données : ajouter un bâtiment = ajouter une entrée dans STREETS.centre.buildings
@@ -4395,10 +4397,14 @@ function stTick(){if(!STV.on)return;const K=STV.keys,left=K.ArrowLeft||K.KeyA||K
  if(left&&!right)dir=-1;else if(right&&!left)dir=1;if(dir)STV.auto=null;
  if(!dir&&STV.auto!=null){const d=STV.auto.x-STV.px;if(Math.abs(d)<=1.2){STV.px=STV.auto.x;const f=STV.auto.then;STV.auto=null;if(f)f()}else dir=d>0?1:-1}
  if(STV.modal)dir=0;STV.mv=!!dir;
- if(dir){C.d=dir;let nx=STV.px+dir*1.15;nx=Math.max(STC.minX,Math.min(STC.maxX,nx));STC.solids.forEach(s=>{if(dir>0&&STV.px<=s.x0-14&&nx>s.x0-14)nx=s.x0-14;if(dir<0&&STV.px>=s.x1+14&&nx<s.x1+14)nx=s.x1+14});STV.px=nx}
- const tgt=STV.px-STV.W*(.5-.1*C.d);STV.cam+=(tgt-STV.cam)*.08;STV.cam=Math.max(0,Math.min(STC.len-STV.W,STV.cam));
- if(--STV.carT<=0){STV.carT=180+Math.random()*320;const d=Math.random()<.5?1:-1;STV.cars.push({x:d>0?STV.cam-80:STV.cam+STV.W+20,d,v:1.4+Math.random()*1.2,c:['#e63946','#2d6cdf','#ffd166','#4ec9b0','#f4f4f4','#7a5c99'][Math.random()*6|0],k:Math.random()<.25?'van':'car'})}
- STV.cars.forEach(c=>c.x+=c.d*c.v);STV.cars=STV.cars.filter(c=>c.x>STV.cam-200&&c.x<STV.cam+STV.W+200);
+ if(dir){C.d=dir;let nx=STV.px+dir*2.3;nx=Math.max(STC.minX,Math.min(STC.maxX,nx));STC.solids.forEach(s=>{if(dir>0&&STV.px<=s.x0-14&&nx>s.x0-14)nx=s.x0-14;if(dir<0&&STV.px>=s.x1+14&&nx<s.x1+14)nx=s.x1+14});STV.px=nx}
+ const tgt=STV.px-STV.W*(.5-.1*C.d);STV.cam+=(tgt-STV.cam)*.12;STV.cam=Math.max(0,Math.min(STC.len-STV.W,STV.cam));
+ // une voiture toutes les 1 à 3 secondes environ, sur l'une des deux voies (pas de chevauchement dans une voie)
+ if(--STV.carT<=0){STV.carT=60+Math.random()*130;const lane=Math.random()<.5?0:1,d=lane?1:-1,kinds=['berline','berline','citadine','citadine','taxi','fourgon'],k=kinds[Math.random()*kinds.length|0],
+   sp=ST_CARS[k],sc=lane?1:.84,len=sp.L*sc,x=d>0?STV.cam-len-30:STV.cam+STV.W+30,cols=['#e63946','#2d6cdf','#f4f4f4','#4ec9b0','#7a5c99','#ff8a3d','#3a3f4a','#9fd36a'];
+  if(!STV.cars.some(c=>c.lane==lane&&Math.abs(c.x-x)<len+60))STV.cars.push({x,d,lane,k,sc,len,v:(lane?5.2:4.4)+Math.random()*1.8,c:k=='taxi'?'#ffd23f':cols[Math.random()*cols.length|0],passed:false})}
+ STV.cars.forEach(c=>{c.x+=c.d*c.v;const mid=c.x+c.len/2;if(!c.passed&&Math.abs(mid-STV.px)<c.v*1.5){c.passed=true;try{if(typeof JEUSON!='undefined')JEUSON.fx('carPass',c.lane?1:.7,.25)}catch(e){}}});
+ STV.cars=STV.cars.filter(c=>c.x>STV.cam-c.len-80&&c.x<STV.cam+STV.W+80);
  if(STV.mv&&tick-STV.lastSave>300){STV.lastSave=tick;N.street={x:Math.round(STV.px),d:C.d,on:1};save()}
  stPanel()}
 // --- rendu ---
@@ -4435,6 +4441,41 @@ function stWork(x,lum){const X=Math.round(STC.workX-STV.cam),B=ST_WALK+4,n=night
  x.fillRect(sx+12,sy+5,4,4);x.fillRect(sx+10,sy+10,7,8);x.fillRect(sx+8,sy+18,4,6);x.fillRect(sx+16,sy+18,3,6);x.fillRect(sx+17,sy+12,6,2);x.fillRect(sx+5,sy+22,6,2);
  x.fillStyle=o;x.fillRect(sx-8,sy+30,44,10);x.fillStyle=dk('#ffd166');x.fillRect(sx-7,sy+31,42,8);k=0;for(const ch of 'TRAVAUX'){const g=STF[ch];for(let j=0;j<7;j++)for(let i=0;i<5;i++)if(g[j*5+i]=='1'){x.fillStyle=o;x.fillRect(sx-6+(k+i),sy+32+j,1,1)}k+=6}
  if(stNearWork()&&!STV.modal)stTag(x,sx+14,sy-12,'Lire le panneau')}
+const ST_CARS={berline:{L:236,H:88},citadine:{L:204,H:86},taxi:{L:236,H:96},fourgon:{L:268,H:116}};
+const STCAR=new Map();
+function stCarSprite(k,col,lvl){const key=k+col+lvl;let c=STCAR.get(key);if(c)return c;const sp=ST_CARS[k],W=sp.L+4,H=sp.H+4;c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+ const R=(a,b,w,h,co)=>{x.fillStyle=co;x.fillRect(Math.round(a),Math.round(b),Math.round(w),Math.round(h))};
+ const poly=(pts,co)=>{const ys=pts.map(p=>p[1]),y0=Math.floor(Math.min(...ys)),y1=Math.ceil(Math.max(...ys));x.fillStyle=co;for(let y=y0;y<y1;y++){const yc=y+.5,xs=[];for(let i=0;i<pts.length;i++){const[a,b]=[pts[i],pts[(i+1)%pts.length]];if((a[1]<=yc&&b[1]>yc)||(b[1]<=yc&&a[1]>yc))xs.push(a[0]+(yc-a[1])/(b[1]-a[1])*(b[0]-a[0]))}xs.sort((p,q)=>p-q);for(let i=0;i+1<xs.length;i+=2)x.fillRect(Math.round(xs[i]),y,Math.round(xs[i+1])-Math.round(xs[i]),1)}};
+ const disc=(cx,cy,r,co)=>{x.fillStyle=co;for(let j=-Math.ceil(r);j<=Math.ceil(r);j++){const w=Math.round(Math.sqrt(Math.max(0,r*r-j*j)));if(w>0)x.fillRect(Math.round(cx-w),Math.round(cy+j),2*w,1)}};
+ const L=sp.L,o=2,dark=mx(col,'#000000',.35),lite=mx(col,'#ffffff',.35),glass='#9fd4ec',glassD='#5a8fb0',wy=sp.H-16+o,wr=k=='fourgon'?19:17;
+ if(k=='fourgon'){// fourgon : grande caisse, cabine avancée
+  poly([[o+6,o+12],[o+L-60,o+12],[o+L-30,o+40],[o+L-4,o+52],[o+L-2,wy+4],[o+4,wy+4]],col);R(o+6,o+12,L-66,6,lite);
+  poly([[o+L-58,o+18],[o+L-34,o+40],[o+L-58,o+40]],glass);R(o+L-90,o+22,26,18,glass);R(o+L-90,o+22,26,3,'#d6f0fb');
+  R(o+16,o+22,L-120,4,dark);R(o+14,wy-30,L-30,3,dark);R(o+L-96,o+20,2,wy-20,dark);R(o+L-74,o+48,10,3,'#2a2a2a');}
+ else{// berline / citadine / taxi : capot, habitacle vitré, coffre
+  const fr=k=='citadine'?.86:1,roofA=o+(k=='citadine'?40:58),roofB=o+L*(k=='citadine'?.7:.68),top=o+(k=='taxi'?18:10);
+  poly([[o+4,o+46],[roofA-16,o+42],[roofA,top],[roofB,top],[roofB+30*fr,o+40],[o+L-6,o+46],[o+L-2,wy+2],[o+2,wy+2]],col);
+  R(o+4,o+46,L-8,4,lite);R(o+4,wy-10,L-8,6,dark);
+  poly([[roofA-10,o+40],[roofA+3,top+5],[roofB-3,top+5],[roofB+24*fr,o+40]],glass);poly([[roofA-6,o+40],[roofA+5,top+7],[roofA+30,top+7],[roofA+18,o+40]],'#c6ebf8');
+  R((roofA+roofB)/2+4,top+4,4,o+40-top-4,col);R((roofA+roofB)/2+4,o+48,2,wy-o-56,dark);R(roofA-12,o+48,2,wy-o-56,dark);R((roofA+roofB)/2+20,o+54,10,3,'#2a2a2a');R(roofA,o+54,10,3,'#2a2a2a');
+  R(roofB+20*fr,o+38,8,6,dark);
+  if(k=='taxi'){R((roofA+roofB)/2-20,top-10,40,10,'#1d1d2b');R((roofA+roofB)/2-18,top-9,36,8,'#fff6c8');[..."TAXI"].forEach((ch,i)=>{const g=STF[ch];for(let jj=0;jj<7;jj++)for(let ii=0;ii<5;ii++)if(g[jj*5+ii]=='1')R((roofA+roofB)/2-12+i*6+ii,top-9+jj*1.1,1,1,'#1d1d2b')});
+   for(let i=0;i<10;i++)R(o+60+i*12,o+60,6,6,i%2?'#1d1d2b':'#ffffff')}}
+ // pare-chocs, phares, feux
+ R(o,wy-4,10,8,'#9aa0ad');R(o+L-10,wy-4,10,8,'#9aa0ad');R(o+L-8,o+50,7,8,'#fff3b0');R(o+1,o+50,6,8,'#e8242e');R(o+L-14,wy-14,8,3,'#ffb347');
+ // roues
+ for(const wx of[o+L*.2,o+L*.8]){disc(wx,wy,wr+3,'#141218');disc(wx,wy,wr,'#2a2830');disc(wx,wy,wr*.55,'#b8bcc8');disc(wx,wy,wr*.25,'#6a6e7a');R(wx-1,wy-wr*.5,2,wr,'#8a8e9a')}
+ // contour pixel : tout pixel vide qui touche la carrosserie devient sombre
+ const id=x.getImageData(0,0,W,H),d=id.data,a=new Uint8Array(W*H);for(let i=0;i<W*H;i++)a[i]=d[i*4+3]>0?1:0;
+ for(let y=0;y<H;y++)for(let X=0;X<W;X++){const i=y*W+X;if(a[i])continue;if((X>0&&a[i-1])||(X<W-1&&a[i+1])||(y>0&&a[i-W])||(y<H-1&&a[i+W])){d[i*4]=36;d[i*4+1]=26;d[i*4+2]=38;d[i*4+3]=255}}x.putImageData(id,0,0);
+ // nuit : la carrosserie s'assombrit (les phares restent allumés)
+ if(lvl>0){x.globalCompositeOperation='source-atop';x.fillStyle=`rgba(14,20,48,${lvl/8*.55})`;x.fillRect(0,0,W,H);x.globalCompositeOperation='source-over';if(lvl>3){R(o+L-8,o+50,7,8,'#fff6c8');R(o+1,o+50,6,8,'#ff3a3a')}}
+ STCAR.set(key,c);if(STCAR.size>48)STCAR.delete(STCAR.keys().next().value);return c}
+function stCars(x,n){const lvl=Math.round(n*2)*4;[...STV.cars].sort((a,b)=>a.lane-b.lane).forEach(c=>{const sp=stCarSprite(c.k,c.c,lvl),w=sp.width*c.sc,h=sp.height*c.sc,X=Math.round(c.x-STV.cam),base=c.lane?ST_H-2:ST_H-26,Y=Math.round(base-h);
+  if(X>STV.W+20||X+w<-20)return;x.fillStyle='rgba(10,8,20,.35)';x.fillRect(X+w*.08,base-3,w*.84,5);
+  if(c.d>0)x.drawImage(sp,X,Y,w,h);else{x.save();x.translate(X+w,Y);x.scale(-1,1);x.drawImage(sp,0,0,w,h);x.restore()}
+  // phares la nuit
+  if(n>.35){const fx=c.d>0?X+w:X,fy=Y+h*.6,a=Math.min(.45,(n-.35)*1.2),g=x.createLinearGradient(fx,0,fx+c.d*120,0);g.addColorStop(0,`rgba(255,240,180,${a})`);g.addColorStop(1,'rgba(255,240,180,0)');x.fillStyle=g;x.beginPath();x.moveTo(fx,fy-4);x.lineTo(fx+c.d*120,fy-22);x.lineTo(fx+c.d*120,fy+26);x.lineTo(fx,fy+6);x.fill()}})}
 function stTag(x,cx,y,s){const w=stTextW(s.toUpperCase())+8,X=Math.round(cx-w/2);x.fillStyle=ST_OL;x.fillRect(X,y,w,13);x.fillStyle='#fff6d6';x.fillRect(X+1,y+1,w-2,11);x.fillStyle=ST_OL;x.fillRect(Math.round(cx)-2,y+13,5,2);x.fillRect(Math.round(cx)-1,y+15,3,1);
  let k=0;for(const ch of s.toUpperCase()){const g=STF[ch]||STF[' '];for(let j=0;j<7;j++)for(let i=0;i<5;i++)if(g[j*5+i]=='1'){x.fillStyle='#3a2a2a';x.fillRect(X+4+k+i,y+3+j,1,1)}k+=6}}
 function streetDraw(){if(!STV.on||!STV.cv)return;const x=STV.x,W=STV.W,n=night,dk=t=>mx(t,'#0e1430',n*.55);x.imageSmoothingEnabled=false;x.setTransform(1,0,0,1,0,STV.oy);
@@ -4450,11 +4491,12 @@ function streetDraw(){if(!STV.on||!STV.cv)return;const x=STV.x,W=STV.W,n=night,d
  // décor urbain (derrière le personnage)
  STC.props.forEach(p=>{const X=p.x-STV.cam;if(X>-60&&X<W+60)stProp(x,p,false)});stWork(x,false);
  // voitures
- STV.cars.forEach(c=>{const X=Math.round(c.x-STV.cam),Y=ST_ROAD+6,L=c.k=='van'?58:46;x.fillStyle=ST_OL;x.fillRect(X,Y,L,18);x.fillStyle=dk(c.c);x.fillRect(X+1,Y+1,L-2,13);x.fillRect(X+(c.d>0?10:6),Y-8,c.k=='van'?40:28,10);x.fillStyle=n>.4?'#ffe9a6':dk('#bfe6f2');x.fillRect(X+(c.d>0?13:9),Y-6,10,6);x.fillRect(X+(c.d>0?25:21),Y-6,c.k=='van'?18:10,6);
-  x.fillStyle=ST_OL;x.fillRect(X+6,Y+12,10,8);x.fillRect(X+L-16,Y+12,10,8);x.fillStyle=dk('#9aa6b2');x.fillRect(X+9,Y+15,4,3);x.fillRect(X+L-13,Y+15,4,3);if(n>.35){x.fillStyle='rgba(255,240,180,.85)';x.fillRect(c.d>0?X+L-3:X,Y+4,3,4)}});
+
  // personnage du jeu (sprite + vêtements, mêmes proportions)
  const PX=Math.round(STV.px-STV.cam);x.fillStyle='rgba(20,14,28,.28)';x.fillRect(PX-12,ST_WALK-2,24,3);x.fillRect(PX-9,ST_WALK-3,18,1);
  if(typeof sc2!='undefined'&&sc2){x.save();if(SP.fl){x.translate(PX,0);x.scale(-1,1);x.drawImage(sc2,0,0,CW,CH,-40,ST_WALK-127,CW,CH)}else x.drawImage(sc2,0,0,CW,CH,PX-40,ST_WALK-127,CW,CH);x.restore()}
+ // circulation (devant le trottoir et le personnage)
+ stCars(x,n);
  // lumières
  if(n>.3){STC.props.forEach(p=>{const X=p.x-STV.cam;if(X>-60&&X<W+60)stProp(x,p,true)})}stWork(x,true);
  if(n>.3){x.fillStyle=`rgba(10,14,40,${n*.12})`;x.fillRect(0,-STV.oy,W,STV.H)}
@@ -4465,7 +4507,7 @@ function streetDraw(){if(!STV.on||!STV.cv)return;const x=STV.x,W=STV.W,n=night,d
 PLACES.street={nom:'la rue commerçante',wall:'#d7dde5',door:'#6b7a8f',floor:'tile',fa:'#d9d9d9',fb:'#cfcfcf',furn:[]};
 VT.street='La rue';
 // sprite : marche de profil dans la rue, attente quand on s’arrête (animations existantes)
-{const _sp=spUpdate;spUpdate=function(){if(C.st=='street'&&!creating&&!dressing){const mv=STV.mv,name=mv?'w'+(Math.floor(C.t/7)%4):'idle',fl=mv&&C.d<0,LB=N.look,LL=fl?Object.assign({},LB,{lf:1}):LB,k=name+JSON.stringify(LL);spName=name;if(k!==spKey&&drawFrame(name,LL))spKey=k;SP.fl=fl;return}_sp()}}
+{const _sp=spUpdate;spUpdate=function(){if(C.st=='street'&&!creating&&!dressing){const mv=STV.mv,name=mv?'w'+(Math.floor(C.t/3.5)%4):'idle',fl=mv&&C.d<0,LB=N.look,LL=fl?Object.assign({},LB,{lf:1}):LB,k=name+JSON.stringify(LL);spName=name;if(k!==spKey&&drawFrame(name,LL))spKey=k;SP.fl=fl;return}_sp()}}
 // arrivée dans la rue par le trajet, et retour direct dans la rue en sortant d’un bâtiment
 {const _arr=arrive;arrive=function(d){if(d=='street'){bub.hidden=true;streetEnter();return}if(STV.on)streetLeave();_arr(d)}}
 {const _lt=leaveTo;leaveTo=function(d){if(d=='street'&&C.viaStreet){const b=STC.buildings.find(q=>q.id==C.viaStreet);C.viaStreet=null;bub.hidden=true;doorT=0;doorA=0;streetEnter(b?stDoorX(b):undefined);return}C.viaStreet=null;_lt(d)}}

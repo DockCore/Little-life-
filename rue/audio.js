@@ -109,3 +109,5 @@ Object.assign(JEUSON.FX,{
  pbOver(t){const T=JEUSON.tone;[523,494,466,440,415,392].forEach((f,i)=>T(f,t+i*.16,.2,.11,'square',null,{vib:5}));T(196,t+1,.8,.12,'triangle')},
  pbRecord(t){const T=JEUSON.tone;[523,659,784,1046,1318,1568,2093].forEach((f,i)=>T(f,t+i*.08,.16,.09,'square',null,{vib:7}))}
 });
+// ---------- rue ----------
+Object.assign(JEUSON.FX,{carPass(t,k){JEUSON.noise(t,.9,.09*k,500,'bandpass',null,.7,{att:.35,sweep:180});JEUSON.tone(70,t+.1,.7,.04*k,'sawtooth',null,{slide:.8,att:.3})}});
