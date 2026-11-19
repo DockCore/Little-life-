@@ -97,9 +97,9 @@ await tapIn(await E(()=>ARC.modules.hockey._state.endBtns[1]));await W(150);cons
 await p.keyboard.press('KeyP');const clean=await E(()=>{const H=ARC.modules.hockey._state;return{api:H.api,pause:H.pause,parts:H.parts.length,phase:H.phase}});
 ok(T('14 retour propre et immédiat au menu des 14 jeux (bouton ≡, RETOUR de la borne, MENU ARCADE) + nettoyage'),m1.st=='menu'&&m1.cur==null&&m1.n==14&&m2=='menu'&&m3=='menu'&&clean.api==null&&!clean.pause&&clean.parts==0&&clean.phase=='choix',{m1,m2,m3,clean});
 // 15. les autres jeux de la borne sont intacts ; cycle de vie répété sans fuite
-const others=await E(()=>{const r=[];ARC.games.forEach((g,i)=>{if(g.id=='hockey')return;ARC.sel=i;arcOk();r.push(ARC.state=='info'&&(g.id=='pinball'?!!ARC.modules[g.id]:!ARC.modules[g.id]));arcBack()});
+const others=await E(()=>{const r=[];ARC.games.forEach((g,i)=>{if(g.id=='hockey')return;ARC.sel=i;arcOk();r.push(ARC.state=='info'&&(['pinball','racing'].includes(g.id)?!!ARC.modules[g.id]:!ARC.modules[g.id]));arcBack()});
  const t0=performance.now();for(let k=0;k<30;k++){ARC.sel=ARC.games.findIndex(g=>g.id=='hockey');arcOk();arcOk();arcBack()}return{ok:r.every(Boolean),n:r.length,st:ARC.state,ms:Math.round(performance.now()-t0)}});
-ok(T('15 les 13 autres cases fonctionnent (Pinball prêt, les autres en développement) ; 30 ouvertures/fermetures sans erreur'),others.ok&&others.n==13&&others.st=='menu',others);
+ok(T('15 les 13 autres cases fonctionnent (Pinball et Mini Racing prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur'),others.ok&&others.n==13&&others.st=='menu',others);
 const perf=await E(()=>{const M=ARC.modules.hockey,H=M._state;ARC.sel=ARC.games.findIndex(g=>g.id=='hockey');arcOk();arcOk();M.update(1/60,{okN:(H.okN||0)+1});const t=performance.now();for(let i=0;i<200;i++){M.update(1/60,{okN:H.okN});arcDraw()}const ms=(performance.now()-t)/200;arcBack();return ms});
 ok(T('16 boucle de jeu fluide et aucune erreur JavaScript'),perf<8&&errs.length==0,{msParImage:+perf.toFixed(2),errs});
 await ctx.close()}

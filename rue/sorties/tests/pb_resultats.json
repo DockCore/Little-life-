@@ -38,20 +38,20 @@
   "n": "1 lancement de la boule (bouton LANCER au doigt, barre Espace), distinct des palettes",
   "ok": true,
   "info": {
-   "ch": 0.3900000000000001,
+   "ch": 0.41158000000000056,
    "l1": {
     "st": "play",
-    "vy": -711.1826000000001,
-    "y": 323.977834943333
+    "vy": -718.3728,
+    "y": 335.9803417033338
    },
    "l2": {
     "st": "play",
-    "y": 18,
-    "x": 72
+    "y": 14,
+    "x": 93
    },
    "l3": {
     "st": "play",
-    "vy": -668
+    "vy": -662
    }
   }
  },
@@ -170,7 +170,7 @@
   "n": "8 rebond dynamique sur les bumpers (+100 points, éclairage)",
   "ok": true,
   "info": {
-   "gain": 100,
+   "gain": 175,
    "v": 315.1666666666665,
    "flash": true
   }

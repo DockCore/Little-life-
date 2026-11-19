@@ -34,7 +34,17 @@ const JEUSON=(()=>{
     tone(mf(ch[s%3]+12+(Math.floor(s/3)%2?12:0)),t,SD*.7,.022,'square',musG,{att:.002});
     const _=null,M=[[12,_,7,_,12,15,_,12,19,_,17,_,15,_,12,_],[17,_,12,_,8,_,12,_,17,_,15,_,12,_,8,_],[14,_,10,_,7,_,10,_,14,_,17,_,15,_,14,_],[11,_,14,_,19,_,14,_,11,_,_,_,7,_,_,_],
      [19,_,15,_,12,_,15,_,19,_,24,_,19,_,15,_],[20,_,17,_,12,_,17,_,20,_,19,_,17,_,15,_],[17,_,12,_,8,_,12,_,17,_,20,_,17,_,12,_],[11,_,14,_,19,_,23,_,19,_,14,_,11,_,_,_]],mel=M[bar][s];
-    if(mel!=null)tone(mf(57+mel),t,SD*1.6,.05,'square',musG,{vib:6,att:.003})}}
+    if(mel!=null)tone(mf(57+mel),t,SD*1.6,.05,'square',musG,{vib:6,att:.003})}},
+  // course : synthwave rétro (basse pulsée, nappes en scie hachées, arpège, batterie électro)
+  racing:{bpm:124,vol:.2,bars:[[57,60,64],[53,57,60],[48,52,55],[55,59,62],[57,60,64],[53,57,60],[50,53,57],[52,56,59]],
+   play(s,bar,t,SD,B,k){const ch=B[bar];kick(t,s%4==0?.6:0,musG);if(s==4||s==12){noise(t,.22,.16,1800,'bandpass',musG,.7);noise(t+.02,.3,.05,4000,'highpass',musG)}
+    if(s%2==0)noise(t,.03,s%4==2?.06:.03,10000,'highpass',musG);
+    tone(mf(ch[0]-24),t,SD*.8,.13,'sawtooth',musG,{att:.003});if(s%2==1)tone(mf(ch[0]-12),t,SD*.6,.06,'square',musG);
+    if(s%2==0)ch.forEach(m=>tone(mf(m),t,SD*1.1,.018,'sawtooth',musG,{att:.004}));
+    tone(mf([ch[0],ch[1],ch[2],ch[1]+12][s%4]+12),t,SD*.7,.022,'square',musG,{att:.002});
+    const _=null,M=[[12,_,_,15,_,_,19,_,17,_,15,_,12,_,10,_],[12,_,_,8,_,_,12,_,15,_,_,_,17,_,15,_],[7,_,_,10,_,_,12,_,15,_,12,_,10,_,7,_],[14,_,_,10,_,_,7,_,10,_,14,_,17,_,_,_],
+     [24,_,_,22,_,_,19,_,22,_,24,_,27,_,24,_],[20,_,_,19,_,_,17,_,15,_,17,_,20,_,_,_],[17,_,_,15,_,_,12,_,14,_,15,_,17,_,20,_],[23,_,_,_,19,_,_,_,14,_,_,_,11,_,_,_]],mel=Math.floor(k/128)%2?M[bar][s]:(s<8?M[bar][s]:null);
+    if(mel!=null)tone(mf(57+mel),t,SD*2.2,.045,'sawtooth',musG,{vib:5.5,att:.01})}}
  };
  function sched(){if(!ctx||!theme)return;const T=THEMES[theme],SD=60/T.bpm/4;if(next<ctx.currentTime)next=ctx.currentTime+.05;
   while(next<ctx.currentTime+.35){const s=step%16,bar=Math.floor(step/16)%T.bars.length;try{T.play(s,bar,next,SD,T.bars,step)}catch(e){}step++;next+=SD}}
@@ -51,6 +61,11 @@ const JEUSON=(()=>{
   // volume relatif de la musique (pause, ralenti…)
   level(v){musLevel=v;if(!ctx||!theme)return;musG.gain.setTargetAtTime(llMusicOn()?THEMES[theme].vol*v:0,ctx.currentTime,.15)},
   playing:()=>theme,
+  sfxLevel(v){if(!ensure())return;sfxG.gain.setTargetAtTime(.55*v,ctx.currentTime,.05)},
+  // moteur : son continu dont la hauteur suit la vitesse
+  engine(){if(!ensure())return null;const o1=ctx.createOscillator(),o2=ctx.createOscillator(),f=ctx.createBiquadFilter(),g=ctx.createGain();o1.type='sawtooth';o2.type='square';o1.frequency.value=60;o2.frequency.value=30;f.type='lowpass';f.frequency.value=600;f.Q.value=3;g.gain.value=0;
+   o1.connect(f);o2.connect(f);f.connect(g);g.connect(sfxG);o1.start();o2.start();
+   return{set(fr,v){const t=ctx.currentTime;o1.frequency.setTargetAtTime(fr,t,.06);o2.frequency.setTargetAtTime(fr/2,t,.06);f.frequency.setTargetAtTime(300+fr*6,t,.08);g.gain.setTargetAtTime(Math.max(0,v),t,.06)},stop(){try{g.gain.setTargetAtTime(0,ctx.currentTime,.05);o1.stop(ctx.currentTime+.3);o2.stop(ctx.currentTime+.3)}catch(e){}}}},
   // effets : nom, intensité (0..1), limite de répétition par effet
   fx(name,k=1,gap=.03){const c=ensure();if(!c||!api.FX[name])return;const now=c.currentTime;if(last[name]&&now-last[name]<gap)return;last[name]=now;try{api.FX[name](now,Math.max(0,Math.min(1.5,k)))}catch(e){}},
   FX:{},tone:(...a)=>tone(...a),noise:(...a)=>noise(...a),mf,sfx:()=>sfxG,
@@ -111,3 +126,19 @@ Object.assign(JEUSON.FX,{
 });
 // ---------- rue ----------
 Object.assign(JEUSON.FX,{carPass(t,k){JEUSON.noise(t,.9,.09*k,500,'bandpass',null,.7,{att:.35,sweep:180});JEUSON.tone(70,t+.1,.7,.04*k,'sawtooth',null,{slide:.8,att:.3})}});
+// ---------- effets de Mini Racing ----------
+Object.assign(JEUSON.FX,{
+ rcBeep(t,k){JEUSON.tone(k>0?880:440,t,k>0?.4:.16,.12,'square')},
+ rcCrash(t){const N=JEUSON.noise,T=JEUSON.tone;N(t,.6,.5,900,'lowpass',null,.8,{sweep:120});N(t,.25,.35,3000,'bandpass',null,1);T(90,t,.5,.25,'sawtooth',null,{slide:.4})},
+ rcShieldHit(t){const T=JEUSON.tone;T(1200,t,.25,.12,'triangle',null,{slide:.5});JEUSON.noise(t,.2,.2,2500,'bandpass',null,2)},
+ rcCoin(t){const T=JEUSON.tone;T(988,t,.06,.09,'square');T(1318,t+.06,.12,.09,'square')},
+ rcNitroGet(t){const T=JEUSON.tone;[523,784,1046].forEach((f,i)=>T(f,t+i*.05,.1,.08,'square'));JEUSON.noise(t,.3,.1,1500,'bandpass',null,1,{sweep:5000})},
+ rcShieldGet(t){const T=JEUSON.tone;[659,880,1175,1568].forEach((f,i)=>T(f,t+i*.06,.14,.08,'triangle',null,{vib:8}))},
+ rcNitro(t){const N=JEUSON.noise,T=JEUSON.tone;N(t,.9,.32,500,'bandpass',null,.8,{sweep:3500,att:.05});T(200,t,.8,.08,'sawtooth',null,{slide:3})},
+ rcPass(t,k){JEUSON.noise(t,.25,.07+.05*k,900,'bandpass',null,1,{att:.08,sweep:300})},
+ rcCombo(t,k){JEUSON.tone(660+Math.min(12,k)*40,t,.07,.06,'square')},
+ rcPhase(t){const T=JEUSON.tone;[523,659,784,1046,1318].forEach((f,i)=>T(f,t+i*.07,.15,.08,'square',null,{vib:6}))},
+ rcOver(t){const T=JEUSON.tone;[440,415,392,370,349].forEach((f,i)=>T(f,t+i*.18,.24,.11,'sawtooth',null,{vib:5}));T(110,t+.9,.9,.14,'triangle')},
+ rcRecord(t){const T=JEUSON.tone;[523,659,784,1046,1318,1568,2093].forEach((f,i)=>T(f,t+i*.08,.16,.09,'square',null,{vib:7}))},
+ rcClick(t){JEUSON.tone(1200,t,.03,.06,'square')}
+});

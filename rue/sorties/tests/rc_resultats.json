@@ -1,0 +1,238 @@
+[
+ {
+  "n": "TEL 0 lancement depuis la case MINI RACING : écran de départ, plein écran, borne invisible",
+  "ok": true,
+  "info": {
+   "st0": {
+    "st": "game",
+    "cur": "racing",
+    "ph": "start",
+    "mus": "racing"
+   },
+   "fc": {
+    "diff": 0,
+    "couvre": true,
+    "state": "game"
+   }
+  }
+ },
+ {
+  "n": "TEL 1 départ : compte à rebours 3-2-1-GO avec bips, 3 vies, musique synthwave",
+  "ok": true,
+  "info": {
+   "c1": {
+    "ph": "count",
+    "l": 3
+   },
+   "c2": {
+    "ph": "run",
+    "mus": "racing",
+    "fx": 5
+   }
+  }
+ },
+ {
+  "n": "TEL 2 déplacements gauche/droite (clavier, boutons ◀ ▶, glisser), la voiture reste sur la route",
+  "ok": true,
+  "info": {
+   "x0": 122,
+   "x1": 64.5,
+   "x2": 211.560914,
+   "xl": 64.5,
+   "bord": {
+    "lo": 47,
+    "hi": 247
+   },
+   "tl": {
+    "a": 216.37907640841948,
+    "bb": 178.20858544991734,
+    "c": 214.20566669991743,
+    "d": 72,
+    "cible": 72
+   }
+  }
+ },
+ {
+  "n": "TEL 3 haut accélère, bas freine",
+  "ok": true,
+  "info": {
+   "v0": 98.73092016314126,
+   "v1": 116.50787694452174,
+   "v2": 62.6415175259747
+  }
+ },
+ {
+  "n": "TEL 4 nitro : activation (A/Entrée, bouton NITRO), vitesse +, jauge qui se vide, refus si jauge vide, son",
+  "ok": true,
+  "info": {
+   "n0": 93.35980530953435,
+   "n1": 164.72235373733434,
+   "g1": 0.5840320000000019,
+   "nEnd": {
+    "on": false,
+    "g": 0.009199199999999982
+   },
+   "nVide": false,
+   "tn": true
+  }
+ },
+ {
+  "n": "TEL 5 bonus : pièce (+50), recharge nitro, bouclier 8 s, avec sons",
+  "ok": true,
+  "info": {
+   "ds": 255,
+   "coins": 1,
+   "nitro": 0.5019992,
+   "shield": 7.833399999999999,
+   "items": 0,
+   "fx": [
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ {
+  "n": "TEL 6 collisions réelles : citadine, berline, sportive, camion (−1 vie, clignotement, débris, son) ; bouclier absorbe ; invincibilité après choc",
+  "ok": true,
+  "info": {
+   "bouclier": {
+    "vies": 3,
+    "shield": 0,
+    "hit": true
+   },
+   "citadine": {
+    "avant": 3,
+    "apres": 2,
+    "inv": true,
+    "hit": true
+   },
+   "berline": {
+    "avant": 2,
+    "apres": 1,
+    "inv": true,
+    "hit": true
+   },
+   "invincible": {
+    "avant": 1,
+    "apres": 1
+   },
+   "sportive": {
+    "avant": 3,
+    "apres": 2,
+    "inv": true,
+    "hit": true
+   },
+   "camion": {
+    "avant": 2,
+    "apres": 1,
+    "inv": true,
+    "hit": true
+   },
+   "fx": true,
+   "parts": 128
+  }
+ },
+ {
+  "n": "TEL 7 dépassements : +10 points chacun, série sans collision = combo",
+  "ok": true,
+  "info": {
+   "pass": 6,
+   "combo": 6,
+   "ds": 102,
+   "vies": 3,
+   "fx": true
+  }
+ },
+ {
+  "n": "TEL 8 phases Début → Intermédiaire → Avancé → Expert selon la distance",
+  "ok": true,
+  "info": {
+   "ph": {
+    "out": [
+     1,
+     2,
+     3
+    ],
+    "fx": true
+   },
+   "pe": {
+    "ph": 3,
+    "n": 5
+   }
+  }
+ },
+ {
+  "n": "TEL 9 pause (P) gèle la course, réglage du son (tout / effets seuls / coupé, mémorisé), reprise",
+  "ok": true,
+  "info": {
+   "pa": {
+    "ph": "pause",
+    "d": 5165.1703853831705
+   },
+   "pa2": 5165.1703853831705,
+   "son1": 1,
+   "son0": {
+    "son": 0,
+    "saved": 0
+   },
+   "pr": "run"
+  }
+ },
+ {
+  "n": "TEL 10 vies à 0 → GAME OVER, score, distance, nouveau record enregistré et sauvegardé",
+  "ok": true,
+  "info": {
+   "ph": "over",
+   "rec": true,
+   "best": 123460,
+   "persiste": true
+  }
+ },
+ {
+  "n": "TEL 11 REJOUER relance une course (3 vies, score à 0)",
+  "ok": true,
+  "info": {
+   "ph": "count",
+   "l": 3,
+   "s": 0
+  }
+ },
+ {
+  "n": "TEL 12 RETOUR À LA SALLE D’ARCADE : menu de sélection, musique et moteur coupés, record conservé (pas écrasé par 5)",
+  "ok": true,
+  "info": {
+   "st": "menu",
+   "cur": null,
+   "on": true,
+   "mus": null,
+   "eng": false,
+   "best": 123460
+  }
+ },
+ {
+  "n": "TEL 13 quitter en pleine course : retour au menu, sons et animations nettoyés",
+  "ok": true,
+  "info": {
+   "mid": "count",
+   "clean": {
+    "st": "menu",
+    "mus": null,
+    "eng": false,
+    "tr": 0
+   }
+  }
+ },
+ {
+  "n": "TEL 14 record conservé après rechargement de la page",
+  "ok": true,
+  "info": {
+   "rel": 123460
+  }
+ },
+ {
+  "n": "TEL 15 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]
