@@ -9,7 +9,7 @@ const STREETS={
   buildings:[
    {id:'maison',name:'Résidence',type:'home',facade:'residence',w:150,h:176,door:{x:75,w:34},go:{place:'home'},available:true},
    {id:'bowling',le:'Le bowling',name:'Bowling',type:'leisure',facade:'bowling',w:214,h:176,door:{x:150,w:44},game:'bowling',available:true},
-   {id:'arcade',le:'La salle d’arcade',name:'Salle d’arcade',type:'leisure',facade:'arcade',w:164,h:168,door:{x:118,w:36},scene:'ArcadeScene',available:false},
+   {id:'arcade',le:'La salle d’arcade',name:'Salle d’arcade',type:'leisure',facade:'arcade',w:164,h:168,door:{x:118,w:36},game:'arcade',available:true},
    {id:'cinema',le:'Le cinéma',name:'Cinéma',type:'leisure',facade:'cinema',w:204,h:190,door:{x:102,w:46},scene:'CinemaScene',available:false},
    {id:'sport',name:'Salle de sport',type:'sport',facade:'gym',w:204,h:160,door:{x:160,w:40},go:{place:'gym'},available:true},
    {id:'resto',le:'Le restaurant',name:'Restaurant',type:'food',facade:'restaurant',w:176,h:150,door:{x:136,w:34},scene:'RestaurantScene',available:false},

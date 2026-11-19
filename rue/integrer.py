@@ -10,6 +10,8 @@ css = open(os.path.join(D, 'street.css'), encoding='utf8').read()
 js = open(os.path.join(D, 'street.js'), encoding='utf8').read()
 bcss = open(os.path.join(D, 'bowling.css'), encoding='utf8').read()
 bjs = open(os.path.join(D, 'bowling.js'), encoding='utf8').read()
+acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read()
+ajs = open(os.path.join(D, 'arcade.js'), encoding='utf8').read()
 
 def put(s, anchor, text, after=True, count=1):
     assert s.count(anchor) == count, (anchor[:60], s.count(anchor))
@@ -17,7 +19,7 @@ def put(s, anchor, text, after=True, count=1):
     return s[:i] + text + s[i:]
 
 # 1) styles : après la règle .trip.on
-s = put(s, '.trip.on{opacity:1;pointer-events:auto}', '\n/* ===RUE-CSS=== */\n' + css + bcss + '/* ===RUE-CSS-END=== */\n')
+s = put(s, '.trip.on{opacity:1;pointer-events:auto}', '\n/* ===RUE-CSS=== */\n' + css + bcss + acss + '/* ===RUE-CSS-END=== */\n')
 # 2) calque de la rue dans l'écran du haut (après le calque du trajet)
 ov = ('<div class="street" id="street" hidden><canvas id="stCv" width="320" height="260" aria-label="La rue commerçante"></canvas>'
       '<div class="stpad"><button id="stwL" aria-label="Marcher à gauche">◀</button><button id="stwR" aria-label="Marcher à droite">▶</button></div>'
@@ -25,7 +27,9 @@ ov = ('<div class="street" id="street" hidden><canvas id="stCv" width="320" heig
       '<button id="stMClose">Fermer</button></div></div></div>'
       '<div class="bowl" id="bowl" hidden><canvas id="bwCv" width="320" height="360" aria-label="Piste de bowling"></canvas>'
       '<div class="bwmodal" id="bwEnd" hidden><div class="bwmc"><b>Partie terminée</b><p class="bwfin"><span id="bwFinal">0</span>points</p><p id="bwRec"></p><ul id="bwStats"></ul>'
-      '<div class="bwbt"><button id="bwAgain">Rejouer</button><button id="bwLeave">Quitter le bowling</button></div></div></div></div>')
+      '<div class="bwbt"><button id="bwAgain">Rejouer</button><button id="bwLeave">Quitter le bowling</button></div></div></div></div>'
+      '<div class="arc" id="arc" hidden><div class="arcScr" id="arcScr"><div class="arcTop"><span class="arcLights"><i></i><i></i><i></i></span><b class="arcLogo">ARCADE</b><span class="arcLights"><i></i><i></i><i></i></span></div>'
+      '<div class="arcGrid" id="arcGrid" role="grid" aria-label="Jeux de la salle d’arcade"></div><div class="arcPlay" id="arcPlay" hidden></div></div></div>')
 s = put(s, '<p id="tripP">En route…</p></div>', ov)
 # 3) panneau du bas
 pan = ('<section class="view" id="v-street"><div class="opts seg"><button class="on" disabled id="stWhere">La rue commerçante</button>'
@@ -37,7 +41,14 @@ bpan = ('<section class="view" id="v-bowling"><table class="bwtab"><tbody id="bw
         '<div class="opts seg"><button id="bwRestart">Recommencer</button><button class="home" id="bwQuit"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Quitter</button></div>'
         '<p class="sthint" id="bwTip"></p></section>')
 s = put(s, '<section class="view" id="v-gym">', bpan, after=False)
+apan = ('<section class="view" id="v-arcade"><div class="arcDeck"><div class="arcJoy" id="arcJoy" aria-label="Joystick">'
+        '<button class="arcAr" data-d="up" aria-label="Haut">▲</button><button class="arcAr" data-d="down" aria-label="Bas">▼</button>'
+        '<button class="arcAr" data-d="left" aria-label="Gauche">◀</button><button class="arcAr" data-d="right" aria-label="Droite">▶</button>'
+        '<div class="arcBase" id="arcBase"><div class="arcStick" id="arcStick"><i></i></div></div></div>'
+        '<div class="arcBtns"><button class="arcOut" id="arcOut">SORTIR</button><button class="arcEnter" id="arcEnter" aria-label="Entrer"><span>ENTRER</span></button></div></div>'
+        '<div class="arcInfo" id="arcInfo" aria-live="polite"></div><p id="arcHint"></p></section>')
+s = put(s, '<section class="view" id="v-gym">', apan, after=False)
 # 4) module JS juste avant le démarrage de la boucle
-s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n// ===RUE-END===', after=False)
+s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + '\n// ===RUE-END===', after=False)
 open(idx, 'w', encoding='utf8').write(s)
 print('ok', len(s))

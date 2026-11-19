@@ -1,0 +1,239 @@
+[
+ {
+  "n": "1 ouverture du menu arcade depuis la porte (immédiate, sans personnage, 1er jeu sélectionné)",
+  "ok": true,
+  "info": {
+   "dt": 35,
+   "o1": {
+    "sel": 0,
+    "mode": "menu",
+    "px": 534,
+    "street": true,
+    "bad": [],
+    "tiles": 14,
+    "selName": "Space Attack"
+   }
+  }
+ },
+ {
+  "n": "2 les 14 jeux affichés (4 colonnes, cases carrées, illustration propre à chaque jeu, nom)",
+  "ok": true,
+  "info": {
+   "names": [
+    "Space Attack",
+    "Snake",
+    "Brick Breaker",
+    "Pinball",
+    "Maze Runner",
+    "Bubble Pop",
+    "Whack-a-Mole",
+    "Mini Racing",
+    "Air Hockey",
+    "Lucky Claw",
+    "Perfect Stack",
+    "Box Master",
+    "Street Basket",
+    "Memory"
+   ],
+   "cols": 4,
+   "rows": 4,
+   "square": true,
+   "art": true,
+   "empty": 2,
+   "artsDiff": 14
+  }
+ },
+ {
+  "n": "3 navigation haut/bas/gauche/droite, bords bloquants, jamais de case vide",
+  "ok": true,
+  "info": [
+   0,
+   0,
+   1,
+   5,
+   4,
+   0,
+   3,
+   13,
+   13,
+   13,
+   10,
+   12,
+   12,
+   8,
+   4,
+   0,
+   0
+  ]
+ },
+ {
+  "n": "3b clavier, manche du joystick (inclinaison visible) et flèches maintenues : déplacement fluide et précis",
+  "ok": true,
+  "info": {
+   "kb": 6,
+   "tilt": "right",
+   "j1": 1,
+   "j2": 5,
+   "held": [
+    5,
+    5,
+    5,
+    6,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "after": 7
+  }
+ },
+ {
+  "n": "4 cadre de sélection lumineux sur une seule case + infos du jeu",
+  "ok": true,
+  "info": {
+   "n": 1,
+   "i": 6,
+   "aria": "true",
+   "border": "rgb(56, 225, 255)",
+   "other": "rgb(43, 37, 96)",
+   "shadow": true,
+   "info": "Whack-a-MoleEn développement"
+  }
+ },
+ {
+  "n": "5 bouton ENTRER (effet d’appui) : « en développement » clair pour un jeu pas encore fait, vrai lancement pour un jeu enregistré, retour au menu",
+  "ok": true,
+  "info": {
+   "press": true,
+   "soon": "soon",
+   "back1": {
+    "mode": "menu",
+    "sel": 6,
+    "hidden": true
+   },
+   "soon2": "soon",
+   "back2": "menu",
+   "mod": {
+    "log": [
+     "start",
+     "stop"
+    ],
+    "inGame": {
+     "mode": "game",
+     "el": true,
+     "best": 42,
+     "level": 3
+    },
+    "mode": "menu",
+    "saved": {
+     "best": 42,
+     "level": 3,
+     "plays": 2
+    }
+   }
+  }
+ },
+ {
+  "n": "6 bouton SORTIR (et Échap) : retour au menu depuis un jeu, puis au monde principal au même endroit",
+  "ok": true,
+  "info": {
+   "s1": {
+    "mode": "menu",
+    "on": true
+   },
+   "s2": {
+    "px": 534,
+    "place": "street",
+    "st": "street",
+    "arc": false,
+    "hidden": true
+   },
+   "s3": {
+    "street": true,
+    "arc": false
+   }
+  }
+ },
+ {
+  "n": "7 rechargement dans l’arcade : retour dans la rue au même endroit",
+  "ok": true,
+  "info": {
+   "on": true,
+   "px": 591,
+   "arc": false
+  }
+ },
+ {
+  "n": "8 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ },
+ {
+  "n": "9 affichage correct sur 7 tailles d’écran",
+  "ok": true,
+  "info": [
+   {
+    "nom": "petit téléphone",
+    "t": 52,
+    "tilesIn": true,
+    "hudOverlap": false,
+    "ctlVisible": true,
+    "enterBig": true,
+    "names": true,
+    "er": 0
+   },
+   {
+    "nom": "téléphone",
+    "t": 63,
+    "tilesIn": true,
+    "hudOverlap": false,
+    "ctlVisible": true,
+    "enterBig": true,
+    "names": true,
+    "er": 0
+   },
+   {
+    "nom": "grand téléphone",
+    "t": 70,
+    "tilesIn": true,
+    "hudOverlap": false,
+    "ctlVisible": true,
+    "enterBig": true,
+    "names": true,
+    "er": 0
+   },
+   {
+    "nom": "tablette",
+    "t": 92,
+    "tilesIn": true,
+    "hudOverlap": false,
+    "ctlVisible": true,
+    "enterBig": true,
+    "names": true,
+    "er": 0
+   },
+   {
+    "nom": "ordinateur",
+    "t": 92,
+    "tilesIn": true,
+    "hudOverlap": false,
+    "ctlVisible": true,
+    "enterBig": true,
+    "names": true,
+    "er": 0
+   },
+   {
+    "nom": "grand écran",
+    "t": 92,
+    "tilesIn": true,
+    "hudOverlap": false,
+    "ctlVisible": true,
+    "enterBig": true,
+    "names": true,
+    "er": 0
+   }
+  ]
+ }
+]

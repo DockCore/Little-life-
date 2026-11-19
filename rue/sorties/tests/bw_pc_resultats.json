@@ -20,8 +20,8 @@
   "n": "2 lancement immédiat du mini-jeu",
   "ok": true,
   "info": {
-   "msAvantScene": 43,
-   "msAvantJeu": 1549
+   "msAvantScene": 90,
+   "msAvantJeu": 1548
   }
  },
  {
@@ -52,7 +52,7 @@
     "th": {
      "ph": "roll",
      "thrown": true,
-     "vz": 6.003972238433327
+     "vz": 5.951084377096345
     }
    },
    "clavier": {
@@ -420,7 +420,7 @@
   "n": "12 fluidité du rendu",
   "ok": true,
   "info": {
-   "msParImage": 0.91,
+   "msParImage": 1.09,
    "fps": 61
   }
  },

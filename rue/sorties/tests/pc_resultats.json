@@ -22,9 +22,9 @@
   "ok": true,
   "info": {
    "a": 119,
-   "b1": 181.1,
-   "b2": 146.6,
-   "b3": 167.3
+   "b1": 182.25,
+   "b2": 147.75,
+   "b3": 168.45
   }
  },
  {
@@ -32,24 +32,24 @@
   "ok": true,
   "info": {
    "fr": [
+    "w1",
+    "w2",
     "w2",
     "w3",
     "w0",
     "w0",
     "w1",
-    "w1",
     "w2",
-    "w3",
-    "w3",
-    "w0"
+    "w2",
+    "w3"
    ],
    "fl": [
-    "w1<",
-    "w1<",
-    "w2<",
-    "w2<",
     "w3<",
-    "w0<"
+    "w0<",
+    "w1<",
+    "w1<",
+    "w2<",
+    "w3<"
    ],
    "still": "idle"
   }
@@ -135,15 +135,9 @@
   }
  },
  {
-  "n": "12 arcade, cinéma, restaurant : message « bientôt », pas de sortie de la rue",
+  "n": "12 cinéma, restaurant : message « bientôt », pas de sortie de la rue",
   "ok": true,
   "info": [
-   {
-    "t": "Salle d’arcade",
-    "a": "La salle d’arcade ouvrira bientôt ses portes.",
-    "vis": true,
-    "place": "street"
-   },
    {
     "t": "Cinéma",
     "a": "Le cinéma ouvrira bientôt ses portes.",
@@ -163,9 +157,9 @@
   "ok": true,
   "info": {
    "tactile": null,
-   "cible": "arcade",
-   "px": 594,
-   "door": 594
+   "cible": "cinema",
+   "px": 776,
+   "door": 776
   }
  },
  {
@@ -189,7 +183,7 @@
    "place": "street",
    "st": "street",
    "px": 1112,
-   "cam": 989.9999996788081,
+   "cam": 989.9999995875216,
    "W": 305,
    "sp": "idle",
    "fl": false
@@ -226,8 +220,8 @@
   "n": "18 rendu de nuit et performance",
   "ok": true,
   "info": {
-   "msParImage": 0.456,
-   "fps": 61
+   "msParImage": 0.515,
+   "fps": 60.5
   }
  },
  {

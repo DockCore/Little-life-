@@ -75,16 +75,16 @@ await p.click('#clHome');await p.waitForFunction(()=>STV.on&&curV=='street',null
 ok('11 boutique de vêtements : entrée et retour devant la boutique',w.place=='street'&&Math.abs(w.px-dC)<1,{px:w.px,dC});
 
 // 12. Bâtiments pas encore aménagés : message « bientôt », on reste dans la rue
-const soon=[];for(const id of ['arcade','cinema','resto']){await tele(await door(id));await p.keyboard.press('KeyE');await W(120);
+const soon=[];for(const id of ['cinema','resto']){await tele(await door(id));await p.keyboard.press('KeyE');await W(120);
  soon.push(await E(()=>({t:document.getElementById('stMT').textContent,a:document.getElementById('stMA').textContent,vis:!document.getElementById('stModal').hidden,place})));await p.keyboard.press('Escape');await W(80)}
-ok('12 arcade, cinéma, restaurant : message « bientôt », pas de sortie de la rue',soon.every(s=>s.vis&&/bientôt/.test(s.a)&&!/Le la/.test(s.a)&&s.place=='street'),soon);
+ok('12 cinéma, restaurant : message « bientôt », pas de sortie de la rue',soon.every(s=>s.vis&&/bientôt/.test(s.a)&&!/Le la/.test(s.a)&&s.place=='street'),soon);
 
 // 13. Tactile/souris : boutons ◀ ▶ (maintenus) et clic sur un bâtiment = marche jusqu’à sa porte
 let tactile=null;
 if(MODE!='pc'){await tele(700);const bR=await p.locator('#stwR').boundingBox();const x0=(await where()).px;
  await p.mouse.move(bR.x+bR.width/2,bR.y+bR.height/2);await p.mouse.down();await W(700);await p.mouse.up();await W(80);const x1=(await where()).px;tactile={x0,x1}}
-await tele(540);await W(900);const cvb=await p.locator('#stCv').boundingBox();
-const ab=await E(()=>{const b=STC.buildings.find(q=>!q.game&&q.x+q.w/2-STV.cam>40&&q.x+q.w/2-STV.cam<STV.W-40&&Math.abs(STV.px-q.x-q.door.x)>30);return{...b,cam:STV.cam,W:STV.W,H:STV.H,oy:STV.oy}});
+await tele(720);await W(900);const cvb=await p.locator('#stCv').boundingBox();
+const ab=await E(()=>{const b=STC.buildings.find(q=>!q.game&&q.id!='maison'&&q.x+q.w/2-STV.cam>40&&q.x+q.w/2-STV.cam<STV.W-40&&Math.abs(STV.px-q.x-q.door.x)>30);return{...b,cam:STV.cam,W:STV.W,H:STV.H,oy:STV.oy}});
 await p.mouse.click(cvb.x+(ab.x+ab.w/2-ab.cam)/ab.W*cvb.width,cvb.y+(196-ab.h/2+ab.oy)/ab.H*cvb.height);await W(100);
 await p.waitForFunction(()=>STV.auto==null&&!STV.mv,null,{timeout:20000});w=await where();
 ok('13 commandes tactiles + clic sur un bâtiment',(MODE=='pc'||tactile.x1>tactile.x0+20)&&Math.abs(w.px-(ab.x+ab.door.x))<1.5,{tactile,cible:ab.id,px:w.px,door:ab.x+ab.door.x});
