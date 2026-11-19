@@ -3,6 +3,11 @@ const path=require('path'),fs=require('fs');const PW='/home/claude/.npm-global/l
 const JEU='file://'+path.resolve(__dirname,'../../index.html');const O=path.resolve(__dirname,'../sorties/tests');fs.mkdirSync(O,{recursive:true});
 const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!cond,info});console.log((cond?'OK   ':'ÉCHEC ')+n+(info!==undefined?'  '+JSON.stringify(info).slice(0,600):''))}
 const boot=async(p)=>{await p.goto(JEU);await p.waitForTimeout(2500);await p.evaluate(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}const b=document.getElementById('crOk2');if(b)b.click()});await p.waitForTimeout(700)};
+
+// en jeu : le jeu occupe tout l'écran, la borne n'est plus dessinée
+const fullCheck=async(E)=>E(()=>{arcDraw();const L=AX.L,F=L.full,g=AX.gameCv,r=AX.cv.getBoundingClientRect(),k=r.width/L.W,m=AX.x.getImageData(0,0,L.W,L.H).data,gd=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let diff=0,n=0;
+ for(let i=0;i<400;i++){const X=Math.floor(Math.random()*F.w),Y=Math.floor(Math.random()*F.h),a=((F.y+Y)*L.W+F.x+X)*4,b=(Y*g.width+X)*4;n++;if(m[a]!=gd[b]||m[a+1]!=gd[b+1]||m[a+2]!=gd[b+2])diff++}
+ const vis={l:r.left+F.x*k,t:r.top+F.y*k,r:r.left+(F.x+F.w)*k,b:r.top+(F.y+F.h)*k};return{diff,n,g:[g.width,g.height],F:[F.w,F.h],couvre:vis.l<=.6&&vis.t<=.6&&vis.r>=innerWidth-.6&&vis.b>=innerHeight-.6,state:ARC.state}});
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
 const ctx=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
 const E=(f,a)=>p.evaluate(f,a),W=ms=>p.waitForTimeout(ms);await boot(p);
@@ -11,10 +16,11 @@ await E(()=>{streetEnter();const a=STC.buildings.find(q=>q.id=='arcade');STV.px=
 await E(()=>{ARC.sel=ARC.games.findIndex(g=>g.id=='pinball')});await p.keyboard.press('Enter');await W(150);await p.keyboard.press('Enter');await W(500);
 const st0=await E(()=>({st:ARC.state,cur:ARC.cur&&ARC.cur.id,ph:ARC.modules.pinball._state.phase}));await E(()=>{ARC.modules.pinball._state.mute=true});await p.screenshot({path:`${O}/pb_01_intro.png`});
 // toucher un point de l'écran de la borne, avec un identifiant de doigt
-const touch=(t,sx,sy,id)=>E(([t,sx,sy,id])=>{const r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,S=AX.L.scr;AX.cv.dispatchEvent(new PointerEvent(t,{pointerType:'touch',isPrimary:id==1,pointerId:id,clientX:r.left+(S.x+sx)*k,clientY:r.top+(S.y+sy)*k,bubbles:true}))},[t,sx,sy,id]);
+const touch=(t,sx,sy,id)=>E(([t,sx,sy,id])=>{const r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,S=arcGS();AX.cv.dispatchEvent(new PointerEvent(t,{pointerType:'touch',isPrimary:id==1,pointerId:id,clientX:r.left+(S.x+sx)*k,clientY:r.top+(S.y+sy)*k,bubbles:true}))},[t,sx,sy,id]);
 const Lay=()=>E(()=>{const L=ARC.modules.pinball._state.L;return{bl:L.bl,br:L.br,pl:L.pl,start:ARC.modules.pinball._state.startBtn}});
 let L=await Lay();await touch('pointerdown',L.start.x+5,L.start.y+5,1);await touch('pointerup',L.start.x+5,L.start.y+5,1);await W(150);
 const st1=await E(()=>{const P=ARC.modules.pinball._state;return{ph:P.phase,balls:P.balls,ball:P.ball.st,score:P.score}});
+const fc0=await fullCheck(E);ok('0a plein écran : dès la sélection, le flipper occupe tout l’écran et la borne disparaît',fc0.diff==0&&fc0.couvre&&fc0.g[0]==fc0.F[0]&&fc0.state=='game',fc0);
 ok('0 lancement depuis la case PINBALL, écran de présentation, START',st0.st=='game'&&st0.cur=='pinball'&&st0.ph=='intro'&&st1.ph=='jeu'&&st1.balls==3&&st1.ball=='plunger'&&st1.score==0,{st0,st1});
 // 1. lancement : appui sur LANCER (doigt), puis Espace pour la boule suivante
 L=await Lay();await touch('pointerdown',L.pl.x+L.pl.w/2,L.pl.y+L.pl.h/2,2);await W(300);const ch=await E(()=>ARC.modules.pinball._state.pl);await touch('pointerup',L.pl.x+L.pl.w/2,L.pl.y+L.pl.h/2,2);await W(60);
@@ -37,7 +43,7 @@ ok('6 relâchement : retour immédiat au repos',g3[0]=='repos'&&d2[1]=='repos'&&
 await p.keyboard.down('ArrowLeft');await p.keyboard.down('ArrowRight');await W(90);const k1=await ang();await p.keyboard.up('ArrowLeft');await W(90);const k2=await ang();await p.keyboard.up('ArrowRight');await W(90);
 const cab=await E(async()=>{ARC.input.left=1;await new Promise(z=>setTimeout(z,90));const P=ARC.modules.pinball._state,a=P.ctrl.l;ARC.input.left=0;await new Promise(z=>setTimeout(z,60));return{a,b:P.ctrl.l}});
 // un seul appui = un seul déclenchement (pas de doublon)
-const once=await E(async()=>{const P=ARC.modules.pinball._state;let n=0,prev=false;const t0=performance.now();const r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,S=AX.L.scr,L=P.L;
+const once=await E(async()=>{const P=ARC.modules.pinball._state;let n=0,prev=false;const t0=performance.now();const r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,S=arcGS(),L=P.L;
  AX.cv.dispatchEvent(new PointerEvent('pointerdown',{pointerType:'touch',pointerId:11,clientX:r.left+(S.x+L.bl.x)*k,clientY:r.top+(S.y+L.bl.y)*k,bubbles:true}));
  while(performance.now()-t0<400){await new Promise(z=>requestAnimationFrame(z));const on=P.fl[0].on;if(on&&!prev)n++;prev=on}
  AX.cv.dispatchEvent(new PointerEvent('pointerup',{pointerType:'touch',pointerId:11,clientX:r.left+(S.x+L.bl.x)*k,clientY:r.top+(S.y+L.bl.y)*k,bubbles:true}));return{n,touches:P.touches.size}});
@@ -75,6 +81,11 @@ const pts=await E(()=>{const M=ARC.modules.pinball,P=M._state,TB=M._table,r={};c
  const m=P.mult;s0=P.score;const bm=TB.C.find(c=>c.type=='bumper');P.ball={x:bm.x,y:bm.y-bm.r-10,vx:0,vy:60,st:'play'};run(8);r.bumperAvecMult=P.score-s0;r.mult=m;return r});
 ok('9 calcul des points (cibles 250, banque complète → multiplicateur, passages, rampe 500, multiplicateur appliqué)',pts.stand==250&&pts.multApresCibles==2&&pts.drop==600&&pts.tombee==1&&pts.multApresBanque==3&&pts.passage>=150*3&&pts.rampe=='ramp'&&pts.rampePts>=500*3&&pts.bumperAvecMult>=100*pts.mult,pts);
 await p.screenshot({path:`${O}/pb_09_jeu.png`});
+// bouton menu à l'écran : pause, reprise, retour arcade possible sans la borne
+{const mb=await E(()=>{const P=ARC.modules.pinball._state;P.phase='jeu';return P.L.menu});await touch('pointerdown',mb.x+3,mb.y+3,30);await touch('pointerup',mb.x+3,mb.y+3,30);await W(100);
+ const pz=await E(async()=>{const P=ARC.modules.pinball._state;P.ball={x:92,y:150,vx:0,vy:0,st:'play'};const y0=P.ball.y;await new Promise(z=>setTimeout(z,250));return{paused:P.paused,moved:Math.abs(P.ball.y-y0)}});
+ const pb=await E(()=>ARC.modules.pinball._state.pauseBtns);await touch('pointerdown',pb[0].x+3,pb[0].y+3,31);await touch('pointerup',pb[0].x+3,pb[0].y+3,31);await W(60);const res=await E(()=>ARC.modules.pinball._state.paused);
+ ok('9b bouton menu à l’écran : pause (boule figée) puis reprise',pz.paused&&pz.moved<.01&&!res,{pz,res})}
 // 10. perte des trois boules -> GAME OVER, score final, meilleur score conservé
 const lost=await E(async()=>{const M=ARC.modules.pinball,P=M._state;P.phase='jeu';P.balls=3;P.score=12345;const seq=[];
  for(let k=0;k<3;k++){P.ball={x:92,y:395,vx:0,vy:300,st:'play'};for(let i=0;i<10;i++)M.update(1/60,{okN:P.okN});seq.push([P.phase,P.balls]);for(let i=0;i<110;i++)M.update(1/60,{okN:P.okN});seq.push([P.phase,P.ball&&P.ball.st])}
@@ -95,9 +106,9 @@ ok('12a aucune erreur JavaScript',errs.length==0,errs);await ctx.close();
 const sizes=[];for(const [nom,vp,dpr] of [['petit téléphone',{width:320,height:568},2],['téléphone',{width:390,height:844},3],['grand téléphone',{width:430,height:932},3],['tablette',{width:820,height:1180},2],['portable',{width:1366,height:768},1],['ordinateur',{width:1280,height:800},1],['grand écran',{width:1920,height:1080},1]]){
  const c=await b.newContext({viewport:vp,deviceScaleFactor:dpr});const q=await c.newPage();const er=[];q.on('pageerror',e=>er.push(e.message));await boot(q);
  await q.evaluate(()=>{streetEnter();GAMES.arcade.open({x:500});ARC.sel=ARC.games.findIndex(g=>g.id=='pinball');arcOk();arcOk();const M=ARC.modules.pinball;M._state.mute=true;M.update(1/60,{okN:(M._state.okN||0)+1})});await q.waitForTimeout(700);
- const m=await q.evaluate(()=>{const S=AX.L.scr,g=AX.gameCv,d=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let tr=0;for(let i=3;i<d.length;i+=4)if(d[i]<255)tr++;const P=ARC.modules.pinball._state,L=P.L,k=AX.cv.getBoundingClientRect().width/AX.L.W;
+ const m=await q.evaluate(()=>{const S=arcGS(),g=AX.gameCv,d=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let tr=0;for(let i=3;i<d.length;i+=4)if(d[i]<255)tr++;const P=ARC.modules.pinball._state,L=P.L,k=AX.cv.getBoundingClientRect().width/AX.L.W;
   const inS=(x,y,r)=>x-r>=0&&x+r<=S.w&&y-r>=0&&y+r<=S.h,sideL=L.bl.x+L.bl.r<=L.tx+1,sideR=L.br.x-L.br.r>=L.tx+L.tw-1;
   return{tr,cssDiam:Math.round(L.bl.r*2*k),same:L.bl.r==L.br.r,inside:inS(L.bl.x,L.bl.y,L.bl.r)&&inS(L.br.x,L.br.y,L.br.r)&&L.bl.y+L.bl.r+15<=S.h&&L.pl.y>=0&&L.pl.x+L.pl.w<=S.w,sides:sideL&&sideR,table:L.tx>=0&&L.tx+L.tw<=S.w+.5&&L.ty>=0&&L.ty+L.th<=S.h+.5,fill:+(L.tw*L.th/(S.w*S.h)*100).toFixed(0),ball:+(5.5*L.k*k*2).toFixed(1)}});
  await q.screenshot({path:`${O}/pb_taille_${vp.width}x${vp.height}.png`});sizes.push({nom,...m,er:er.length});await c.close()}
-ok('12 sur l’écran de la borne (7 tailles) : plein écran, table entière, deux gros boutons ronds identiques de chaque côté',sizes.every(s=>s.tr==0&&s.same&&s.inside&&s.sides&&s.table&&s.cssDiam>=44&&s.er==0),sizes);
+ok('12 en plein écran (7 tailles) : plein écran, table entière, deux gros boutons ronds identiques de chaque côté',sizes.every(s=>s.tr==0&&s.same&&s.inside&&s.sides&&s.table&&s.cssDiam>=44&&s.er==0),sizes);
 fs.writeFileSync(`${O}/pb_resultats.json`,JSON.stringify(R,null,1));console.log(R.filter(r=>r.ok).length+'/'+R.length+' tests réussis');await b.close()})();

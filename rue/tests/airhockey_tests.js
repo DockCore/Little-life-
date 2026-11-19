@@ -3,6 +3,11 @@ const path=require('path'),fs=require('fs');const PW='/home/claude/.npm-global/l
 const JEU='file://'+path.resolve(__dirname,'../../index.html');const O=path.resolve(__dirname,'../sorties/tests');fs.mkdirSync(O,{recursive:true});
 const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!cond,info});console.log((cond?'OK   ':'ÉCHEC ')+n+(info!==undefined?'  '+JSON.stringify(info).slice(0,700):''))}
 const boot=async(p)=>{await p.goto(JEU);await p.waitForTimeout(2500);await p.evaluate(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}const b=document.getElementById('crOk2');if(b)b.click()});await p.waitForTimeout(700)};
+
+// en jeu : le jeu occupe tout l'écran, la borne n'est plus dessinée
+const fullCheck=async(E)=>E(()=>{arcDraw();const L=AX.L,F=L.full,g=AX.gameCv,r=AX.cv.getBoundingClientRect(),k=r.width/L.W,m=AX.x.getImageData(0,0,L.W,L.H).data,gd=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let diff=0,n=0;
+ for(let i=0;i<400;i++){const X=Math.floor(Math.random()*F.w),Y=Math.floor(Math.random()*F.h),a=((F.y+Y)*L.W+F.x+X)*4,b=(Y*g.width+X)*4;n++;if(m[a]!=gd[b]||m[a+1]!=gd[b+1]||m[a+2]!=gd[b+2])diff++}
+ const vis={l:r.left+F.x*k,t:r.top+F.y*k,r:r.left+(F.x+F.w)*k,b:r.top+(F.y+F.h)*k};return{diff,n,g:[g.width,g.height],F:[F.w,F.h],couvre:vis.l<=.6&&vis.t<=.6&&vis.r>=innerWidth-.6&&vis.b>=innerHeight-.6,state:ARC.state}});
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
 for(const MODE of['tel','pc']){
 const ctx=await b.newContext(MODE=='tel'?{viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true}:{viewport:{width:1280,height:800},deviceScaleFactor:1});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
@@ -18,13 +23,14 @@ ok(T('1 lancement depuis la case AIR HOCKEY (présentation puis JOUER)'),sel=='A
 await p.keyboard.press('ArrowDown');await W(100);const ch=await E(()=>ARC.modules.hockey._state.ch);await p.keyboard.press('Enter');await W(150);const lv=await E(()=>({lv:ARC.modules.hockey._state.lv,ph:ARC.modules.hockey._state.phase}));
 await W(3600);const go=await E(()=>ARC.modules.hockey._state.phase);await p.screenshot({path:`${O}/ah_${MODE}_02_jeu.png`});
 // 2-4. la table remplit tout l'écran de la borne ; rien de Little Life ; aucun personnage
-const fill=await E(()=>{const S=AX.L.scr,g=AX.gameCv,d=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let tr=0;for(let i=3;i<d.length;i+=4)if(d[i]<255)tr++;
+const fill=await E(()=>{const S=arcGS(),g=AX.gameCv,d=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let tr=0;for(let i=3;i<d.length;i+=4)if(d[i]<255)tr++;
  const r=AX.cv.getBoundingClientRect(),vw=innerWidth,vh=innerHeight;let bad=0;for(let i=0;i<=16;i++)for(let j=0;j<=16;j++){const e=document.elementFromPoint(Math.min(vw-1,vw*i/16),Math.min(vh-1,vh*j/16));if(e!==AX.cv)bad++}
  const H=ARC.modules.hockey._state;return{S:[S.w,S.h],g:[g.width,g.height],transparent:tr,bad,table:[H.T.TW,H.T.TH],rot:H.rot}});
 const src=fs.readFileSync(path.resolve(__dirname,'../jeux/airhockey.js'),'utf8');
-ok(T('2-4 la table occupe 100 % de l’écran de la borne, sans Little Life derrière ni personnage'),ch==2&&lv.lv=='difficile'&&go=='jeu'&&fill.S[0]==fill.g[0]&&fill.S[1]==fill.g[1]&&fill.transparent==0&&fill.bad==0&&(fill.rot?fill.table[0]==fill.S[1]&&fill.table[1]==fill.S[0]:fill.table[0]==fill.S[0]&&fill.table[1]==fill.S[1])&&!/sc2|drawFrame|N\.look|spUpdate/.test(src),{ch,lv,go,fill});
+const fc=await fullCheck(E);ok(T('2a plein écran : dès le lancement, le jeu occupe tout l’écran et la borne disparaît'),fc.diff==0&&fc.couvre&&fc.g[0]==fc.F[0]&&fc.g[1]==fc.F[1]&&fc.state=='game',fc);
+ok(T('2-4 la table occupe 100 % de l’écran, sans Little Life derrière ni personnage'),ch==2&&lv.lv=='difficile'&&go=='jeu'&&fill.S[0]==fill.g[0]&&fill.S[1]==fill.g[1]&&fill.transparent==0&&fill.bad==0&&(fill.rot?fill.table[0]==fill.S[1]&&fill.table[1]==fill.S[0]:fill.table[0]==fill.S[0]&&fill.table[1]==fill.S[1])&&!/sc2|drawFrame|N\.look|spUpdate/.test(src),{ch,lv,go,fill});
 // 5-6. contrôle au doigt / à la souris : le maillet suit et reste dans sa moitié
-const ctl=await E(async()=>{const H=ARC.modules.hockey._state,S=AX.L.scr,r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,cv=AX.cv;
+const ctl=await E(async()=>{const H=ARC.modules.hockey._state,S=arcGS(),r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,cv=AX.cv;
  const toScr=(tx,ty)=>H.rot?{x:H.T.TH-ty,y:tx}:{x:tx,y:ty},ev=(t,tx,ty,type)=>{const q=toScr(tx,ty);cv.dispatchEvent(new PointerEvent(t,{pointerType:type,isPrimary:true,pointerId:type=='touch'?9:1,clientX:r.left+(S.x+q.x)*k,clientY:r.top+(S.y+q.y)*k,bubbles:true}))};
  const wait=ms=>new Promise(z=>setTimeout(z,ms)),T=H.T,res={};
  for(const type of['touch','mouse']){H.phase='jeu';H.pause=false;H.p={x:T.x0+T.rp+2,y:T.y0+T.rp+2,vx:0,vy:0};const tx=T.x0+T.pw*.3,ty=T.cy+(T.y1-T.cy)*.6;if(type=='touch')ev('pointerdown',tx,ty,type);ev('pointermove',tx,ty,type);await wait(250);res[type]={dx:Math.abs(H.me.x-tx),dy:Math.abs(H.me.y-ty)};
@@ -74,7 +80,7 @@ await W(300);await p.screenshot({path:`${O}/ah_${MODE}_12_defaite.png`});
 const rec=await E(()=>{const d=ARC.data('hockey');return{wins:d.wins,games:d.games,best:d.best}});
 ok(T('12 victoire et défaite (écrans, résultats enregistrés)'),end.victoire.ph=='fin'&&end.victoire.win===true&&end.victoire.sc[0]==7&&end.defaite.ph=='fin'&&end.defaite.win===false&&end.defaite.sc[1]==7&&rec.wins.difficile>=1&&rec.games>=2,{end,rec});
 // 13. redémarrage : REJOUER (toucher/clic sur le bouton dans l'écran de la borne)
-const tapIn=async(bx)=>{const c=await E(b=>{const r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,S=AX.L.scr;return{x:r.left+(S.x+b.x+b.w/2)*k,y:r.top+(S.y+b.y+b.h/2)*k}},bx);await p.mouse.click(c.x,c.y)};
+const tapIn=async(bx)=>{const c=await E(b=>{const r=AX.cv.getBoundingClientRect(),k=r.width/AX.L.W,S=arcGS();return{x:r.left+(S.x+b.x+b.w/2)*k,y:r.top+(S.y+b.y+b.h/2)*k}},bx);await p.mouse.click(c.x,c.y)};
 await tapIn(await E(()=>ARC.modules.hockey._state.endBtns[0]));await W(150);const rs=await E(()=>{const H=ARC.modules.hockey._state;return{ph:H.phase,sc:H.sc,st:ARC.state}});
 ok(T('13 REJOUER relance une partie à 0-0'),rs.ph=='compte'&&rs.sc[0]==0&&rs.sc[1]==0&&rs.st=='game',rs);
 // pause (bouton à l'écran, bouton OK de la borne, touche P) : le palet est figé

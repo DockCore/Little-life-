@@ -16,7 +16,25 @@
   }
  },
  {
-  "n": "[tel] 2-4 la table occupe 100 % de l’écran de la borne, sans Little Life derrière ni personnage",
+  "n": "[tel] 2a plein écran : dès le lancement, le jeu occupe tout l’écran et la borne disparaît",
+  "ok": true,
+  "info": {
+   "diff": 0,
+   "n": 400,
+   "g": [
+    293,
+    633
+   ],
+   "F": [
+    293,
+    633
+   ],
+   "couvre": true,
+   "state": "game"
+  }
+ },
+ {
+  "n": "[tel] 2-4 la table occupe 100 % de l’écran, sans Little Life derrière ni personnage",
   "ok": true,
   "info": {
    "ch": 2,
@@ -27,18 +45,18 @@
    "go": "jeu",
    "fill": {
     "S": [
-     231,
-     395
+     293,
+     633
     ],
     "g": [
-     231,
-     395
+     293,
+     633
     ],
     "transparent": 0,
     "bad": 0,
     "table": [
-     231,
-     395
+     293,
+     633
     ],
     "rot": false
    }
@@ -50,23 +68,23 @@
   "info": {
    "touch": {
     "dx": 0,
-    "dy": 0.01051087883956825
+    "dy": 0.013342576791842475
    },
    "touchHaut": {
-    "y": 214.27,
-    "lim": 214.27,
-    "x": 206.23,
-    "xl": 206.23
+    "y": 337.794,
+    "lim": 337.794,
+    "x": 261.706,
+    "xl": 261.706
    },
    "mouse": {
     "dx": 0,
-    "dy": 0.01051087883956825
+    "dy": 0.013342576791842475
    },
    "mouseHaut": {
-    "y": 214.27,
-    "lim": 214.27,
-    "x": 206.23,
-    "xl": 206.23
+    "y": 337.794,
+    "lim": 337.794,
+    "x": 261.706,
+    "xl": 261.706
    }
   }
  },
@@ -79,7 +97,7 @@
     "hit": true
    },
    "rebond": {
-    "vx": -410.49918774146045,
+    "vx": -657.8379388363156,
     "inside": true
    },
    "frein": true,
@@ -105,7 +123,7 @@
     "flash": true,
     "center": [
      0,
-     -190
+     -309
     ]
    },
    "b": {
@@ -147,19 +165,19 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 54,
+    "saved": 50,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 60,
+    "saved": 59,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -192,7 +210,7 @@
     "wins": {
      "difficile": 1
     },
-    "games": 3,
+    "games": 2,
     "best": 970
    }
   }
@@ -247,14 +265,14 @@
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 2
+   "ms": 1
   }
  },
  {
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 3.53,
+   "msParImage": 3.57,
    "errs": []
   }
  },
@@ -275,7 +293,25 @@
   }
  },
  {
-  "n": "[pc] 2-4 la table occupe 100 % de l’écran de la borne, sans Little Life derrière ni personnage",
+  "n": "[pc] 2a plein écran : dès le lancement, le jeu occupe tout l’écran et la borne disparaît",
+  "ok": true,
+  "info": {
+   "diff": 0,
+   "n": 400,
+   "g": [
+    640,
+    400
+   ],
+   "F": [
+    640,
+    400
+   ],
+   "couvre": true,
+   "state": "game"
+  }
+ },
+ {
+  "n": "[pc] 2-4 la table occupe 100 % de l’écran, sans Little Life derrière ni personnage",
   "ok": true,
   "info": {
    "ch": 2,
@@ -286,18 +322,18 @@
    "go": "jeu",
    "fill": {
     "S": [
-     538,
-     266
+     640,
+     400
     ],
     "g": [
-     538,
-     266
+     640,
+     400
     ],
     "transparent": 0,
     "bad": 0,
     "table": [
-     266,
-     538
+     400,
+     640
     ],
     "rot": true
    }
@@ -308,24 +344,24 @@
   "ok": true,
   "info": {
    "touch": {
-    "dx": 1.4210854715202004e-14,
+    "dx": 0,
     "dy": 0
    },
    "touchHaut": {
-    "y": 288.344,
-    "lim": 288.344,
-    "x": 237.656,
-    "xl": 237.656
+    "y": 349.016,
+    "lim": 349.016,
+    "x": 356.984,
+    "xl": 356.984
    },
    "mouse": {
-    "dx": 1.4210854715202004e-14,
+    "dx": 0,
     "dy": 0
    },
    "mouseHaut": {
-    "y": 288.344,
-    "lim": 288.344,
-    "x": 237.656,
-    "xl": 237.656
+    "y": 349.016,
+    "lim": 349.016,
+    "x": 356.984,
+    "xl": 356.984
    }
   }
  },
@@ -338,7 +374,7 @@
     "hit": true
    },
    "rebond": {
-    "vx": -559.1102860883694,
+    "vx": -665.112607986164,
     "inside": true
    },
    "frein": true,
@@ -364,7 +400,7 @@
     "flash": true,
     "center": [
      0,
-     -261
+     -307
     ]
    },
    "b": {
@@ -418,7 +454,7 @@
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -513,7 +549,7 @@
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.41,
+   "msParImage": 4.21,
    "errs": []
   }
  }

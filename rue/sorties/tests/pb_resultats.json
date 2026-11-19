@@ -1,5 +1,23 @@
 [
  {
+  "n": "0a plein écran : dès la sélection, le flipper occupe tout l’écran et la borne disparaît",
+  "ok": true,
+  "info": {
+   "diff": 0,
+   "n": 400,
+   "g": [
+    293,
+    633
+   ],
+   "F": [
+    293,
+    633
+   ],
+   "couvre": true,
+   "state": "game"
+  }
+ },
+ {
   "n": "0 lancement depuis la case PINBALL, écran de présentation, START",
   "ok": true,
   "info": {
@@ -20,20 +38,20 @@
   "n": "1 lancement de la boule (bouton LANCER au doigt, barre Espace), distinct des palettes",
   "ok": true,
   "info": {
-   "ch": 0.38986999999999966,
+   "ch": 0.3900000000000001,
    "l1": {
     "st": "play",
-    "vy": -712.7282000000005,
-    "y": 336.660212063333
+    "vy": -711.1826000000001,
+    "y": 323.977834943333
    },
    "l2": {
     "st": "play",
-    "y": 17,
-    "x": 76
+    "y": 18,
+    "x": 72
    },
    "l3": {
     "st": "play",
-    "vy": -662
+    "vy": -668
    }
   }
  },
@@ -152,7 +170,7 @@
   "n": "8 rebond dynamique sur les bumpers (+100 points, éclairage)",
   "ok": true,
   "info": {
-   "gain": 175,
+   "gain": 100,
    "v": 315.1666666666665,
    "flash": true
   }
@@ -176,6 +194,17 @@
    ],
    "bumperAvecMult": 300,
    "mult": 3
+  }
+ },
+ {
+  "n": "9b bouton menu à l’écran : pause (boule figée) puis reprise",
+  "ok": true,
+  "info": {
+   "pz": {
+    "paused": true,
+    "moved": 0
+   },
+   "res": false
   }
  },
  {
@@ -245,91 +274,91 @@
   "info": []
  },
  {
-  "n": "12 sur l’écran de la borne (7 tailles) : plein écran, table entière, deux gros boutons ronds identiques de chaque côté",
+  "n": "12 en plein écran (7 tailles) : plein écran, table entière, deux gros boutons ronds identiques de chaque côté",
   "ok": true,
   "info": [
    {
     "nom": "petit téléphone",
     "tr": 0,
-    "cssDiam": 45,
+    "cssDiam": 54,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 44,
-    "ball": 8.1,
+    "fill": 43,
+    "ball": 10.9,
     "er": 0
    },
    {
     "nom": "téléphone",
     "tr": 0,
-    "cssDiam": 53,
+    "cssDiam": 67,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 45,
-    "ball": 10.5,
+    "fill": 35,
+    "ball": 13.3,
     "er": 0
    },
    {
     "nom": "grand téléphone",
     "tr": 0,
-    "cssDiam": 59,
+    "cssDiam": 72,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 44,
-    "ball": 11.7,
+    "fill": 37,
+    "ball": 14.9,
     "er": 0
    },
    {
     "nom": "tablette",
     "tr": 0,
-    "cssDiam": 90,
+    "cssDiam": 135,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 51,
-    "ball": 18.8,
+    "fill": 56,
+    "ball": 28.6,
     "er": 0
    },
    {
     "nom": "portable",
     "tr": 0,
-    "cssDiam": 172,
+    "cssDiam": 260,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 21,
-    "ball": 13.7,
+    "fill": 28,
+    "ball": 20.9,
     "er": 0
    },
    {
     "nom": "ordinateur",
     "tr": 0,
-    "cssDiam": 180,
+    "cssDiam": 260,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 24,
-    "ball": 14.4,
+    "fill": 31,
+    "ball": 21.8,
     "er": 0
    },
    {
     "nom": "grand écran",
     "tr": 0,
-    "cssDiam": 240,
+    "cssDiam": 366,
     "same": true,
     "inside": true,
     "sides": true,
     "table": true,
-    "fill": 21,
-    "ball": 19.2,
+    "fill": 28,
+    "ball": 29.4,
     "er": 0
    }
   ]

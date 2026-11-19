@@ -103,6 +103,7 @@ function pUpdate(dt,inp){dt=Math.min(dt,.05);P.t+=dt;inp=inp||{};const n=inp.okN
  P.ctrl.l=tl||!!inp.left;P.ctrl.r=tr||!!inp.right;P.ctrl.p=tp||!!inp.a;
  if(P.phase=='intro'){pFlippers(dt);if(ok)pNewGame();pTick(dt);return}
  if(P.phase=='over'){pFlippers(dt);P.over.t+=dt;if(q.length){const d=q[q.length-1];P.sel=d=='right'||d=='down'?1:0}if(ok&&P.over.t>.8)pOverChoice(P.sel);pTick(dt);return}
+ if(P.paused){if(q.length){const d=q[q.length-1];P.psel=d=='right'||d=='down'?1:0}if(ok){if(P.psel==1){P.paused=false;P.api&&P.api.exit()}else P.paused=false}return}
  const b=P.ball;
  // lanceur : maintenir pour tendre le ressort, relâcher pour propulser (un appui bref suffit)
  if(b.st=='plunger'){if(P.ctrl.p){P.charging=true;P.pl=Math.min(1,P.pl+dt*1.3)}else if(P.charging){P.charging=false;b.st='play';b.vy=-(640+P.pl*260);b.vx=0;P.pl=0;PS.launch();P.msg=null}}
@@ -126,6 +127,8 @@ function pLayout(w,h){P.W=w;P.H=h;const land=w>h*.9;let L={land};
  if(!land){L.bl.x=Math.round(L.tx/2);L.br.x=Math.round(w-(w-L.tx-L.tw)/2)}
  // commande de lancement : au-dessus du bouton droit
  const pw=Math.round(land?r*.75:r*1.1),ph2=Math.round(land?r*1.7:r*2.6);L.pl={x:L.br.x-pw/2,y:L.br.y-r-12-ph2,w:pw,h:ph2};
+ // bouton menu (pause) : coin haut gauche en portrait, haut droit en paysage
+ const ms=Math.max(16,Math.round(Math.min(w,h)*.07));L.menu=land?{x:w-ms-6,y:6,w:ms,h:ms}:{x:6,y:6,w:ms,h:ms};
  P.L=L;P.bg=null;P.ov=null}
 const X=x=>P.L.tx+x*P.L.k,Y=y=>P.L.ty+y*P.L.k;
 // ---------- primitives pixel ----------
@@ -188,13 +191,24 @@ function pPlunger(x){const p=P.L.pl,b=P.ball,ready=b&&b.st=='plunger'&&P.phase==
  axCText(x,'LANCER',p.x+p.w/2,p.y+p.h+6,ready?'#ffe14f':'#8f97c0',1,'#05040e')}
 function pHud(x){const L=P.L,w=P.W,best=Math.max(P.api?P.api.best():0,P.score),fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
  const items=[['SCORE',fmt(P.score),'#ffe14f'],['BEST',fmt(best),'#38e1ff'],['BALL',String(Math.max(0,P.balls)),'#ff4fa3'],['MULTIPLIER','X'+P.mult,'#7cff6b']];
- if(!L.land){const H2=L.hud.h;R(x,0,0,w,H2,'#0f0a2e');R(x,0,H2-1,w,1,'#7a5cff');R(x,0,H2-3,w,1,'#ff4fa3');
-  // ligne 1 : le score, en grand ; ligne 2 : meilleur score, boules, multiplicateur
-  const sv=fmt(P.score),big=Math.max(2,Math.min(5,Math.floor((H2-34)/7/1.25),Math.floor((w-16)/Math.max(1,axTW(sv,1))))),y1=Math.max(4,Math.round((H2-(10+7*big+8+18))/2));
-  axCText(x,'SCORE',w/2,y1,'#8f97c0');axCText(x,sv,w/2,y1+10,'#ffe14f',big,'#3a0a14','#ff9a1f');
-  const cols=[['BEST',fmt(best),'#38e1ff'],['BALL',String(Math.max(0,P.balls)),'#ff4fa3'],['MULT','X'+P.mult,'#7cff6b']],yb=y1+10+7*big+8,cw=w/3;
-  cols.forEach(([l,v,c],i)=>{const cx=cw*i+cw/2;axCText(x,l,cx,yb,'#8f97c0');axCText(x,v,cx,yb+10,c,1,'#05040e')});
-  for(let i=0;i<3;i++){const on=i<P.balls;D(x,w-10-i*11,9,4,on?'#c9cedd':'#2a2550');if(on)R(x,w-12-i*11,7,1,1,'#ffffff')}}
+ if(!L.land){const H2=L.hud.h;
+  // fronton du flipper (comme la vitre lumineuse d'un vrai flipper) : logo, afficheur à points, compteurs
+  R(x,0,0,w,H2,'#0f0a2e');const gg=x.createLinearGradient(0,0,0,H2);gg.addColorStop(0,'#2a0f5a');gg.addColorStop(1,'#120a34');x.fillStyle=gg;x.fillRect(3,3,w-6,H2-6);
+  for(let i=0;i<28;i++){const sx=(i*53)%(w-10)+5,sy=(i*31)%(H2-10)+5;R(x,sx,sy,1,1,i%3?'rgba(255,255,255,.5)':'#ffd166')}
+  const fr=(c,o)=>{R(x,o,o,w-2*o,1,c);R(x,o,H2-1-o,w-2*o,1,c);R(x,o,o,1,H2-2*o,c);R(x,w-1-o,o,1,H2-2*o,c)};fr('#ff4fa3',2);x.globalAlpha=.5+.3*Math.sin(P.t*3);fr('#38e1ff',4);x.globalAlpha=1;
+  const big=H2>120;let y=big?Math.round(H2*.08):4;
+  if(big){const mw=(L.menu?L.menu.w:20)+14,ls=Math.max(2,Math.min(Math.floor((w-2*mw)/axTW('PINBALL',1)),Math.floor(H2*.18/7)));y=Math.max(y,(L.menu?L.menu.y+L.menu.h/2:12)-Math.round(7*ls/2));axCText(x,'PINBALL',w/2,y,'#ff4fa3',ls,'#05040e','#ffe14f');
+   // éclairs et rayons autour du logo
+   for(let i=0;i<6;i++){const a=-Math.PI*.9+i*Math.PI*.16,cx=w/2,cy=y+7*ls/2;x.globalAlpha=.25;R(x,cx+Math.cos(a)*(axTW('PINBALL',ls)/2+8),cy+Math.sin(a)*12,3,3,'#38e1ff');x.globalAlpha=1}
+   y+=7*ls+Math.round(H2*.06)}
+  // afficheur à points (DMD)
+  const sv=fmt(P.score),dh=Math.max(26,H2-y-(H2>120?52:36)),dw=w-24,dx=12;R(x,dx-2,y-2,dw+4,dh+4,'#05040e');R(x,dx,y,dw,dh,'#1a0a06');
+  for(let yy=y+1;yy<y+dh;yy+=2)for(let xx=dx+1;xx<dx+dw;xx+=2)R(x,xx,yy,1,1,'rgba(255,120,30,.08)');
+  const ds=Math.max(2,Math.min(6,Math.floor((dh-14)/7),Math.floor((dw-12)/Math.max(1,axTW(sv,1)))));axText(x,'SCORE',dx+4,y+3,'rgba(255,154,31,.7)');axCText(x,sv,w/2,y+Math.round((dh-7*ds)/2)+4,'#ff9a1f',ds,null,'#ffd166');
+  y+=dh+Math.max(6,Math.round(H2*.04));
+  const cols=[['BEST',fmt(best),'#38e1ff'],['BALL',String(Math.max(0,P.balls)),'#ff4fa3'],['MULTIPLIER','X'+P.mult,'#7cff6b']],cw=w/3,vs=big&&H2-y>34?2:1;
+  cols.forEach(([l,v,c],i)=>{const cx=cw*i+cw/2;axCText(x,i==2&&axTW(l)>cw-4?'MULT':l,cx,y,'#b9b4e0');axCText(x,v,cx,y+10,c,vs,'#05040e')});
+  for(let i=0;i<3;i++){const on=i<P.balls;D(x,w-12-i*11,12,4,on?'#c9cedd':'#2a2550');if(on)R(x,w-14-i*11,10,1,1,'#ffffff')}}
  else{const sc=Math.max(1,Math.min(3,Math.floor(L.side/60)));const col=(x0,list)=>{let y=8;list.forEach(([l,v,c])=>{axText(x,l,x0,y,'#8f97c0',1);y+=10;axText(x,v,x0,y,c,sc,'#05040e');y+=7*sc+10})};
   col(10,items.slice(0,2));col(L.tx+L.tw+10,items.slice(2))}}
 function pDraw(x,w,h){if(!P.L||P.W!=w||P.H!=h)pLayout(w,h);x.imageSmoothingEnabled=false;if(!P.bg)P.bg=pBg();if(!P.ov)P.ov=pOverlay();x.drawImage(P.bg,0,0);const k=P.L.k;
@@ -213,7 +227,11 @@ function pDraw(x,w,h){if(!P.L||P.W!=w||P.H!=h)pLayout(w,h);x.imageSmoothingEnabl
  // interface : scores, boutons ronds, lanceur
  pHud(x);pButton(x,P.L.bl,'#ff3f7a','#a01a4a','#ffb0cc',P.ctrl.l,'GAUCHE',-1);pButton(x,P.L.br,'#2fb8ff','#1468c4','#b0e4ff',P.ctrl.r,'DROITE',1);pPlunger(x);
  if(P.msg&&P.phase!='intro'){const m=P.msg;x.globalAlpha=Math.min(1,(1.6-m.T)*3);const sc=Math.max(1,Math.min(2,Math.floor((P.L.tw-8)/axTW(m.t,1))));axCText(x,m.t,X(92),Y(232)-m.T*6,m.c,sc,'#05040e');x.globalAlpha=1}
- if(P.phase=='intro')pIntro(x);if(P.phase=='over')pOver(x)}
+ pMenuBtn(x);if(P.paused)pPause(x);if(P.phase=='intro')pIntro(x);if(P.phase=='over')pOver(x)}
+function pMenuBtn(x){const b=P.L.menu;if(!b||P.phase=='intro'||P.phase=='over')return;R(x,b.x,b.y+2,b.w,b.h,'#05040e');R(x,b.x,b.y,b.w,b.h,P.paused?'#ffe14f':'#2a2160');R(x,b.x,b.y,b.w,1,'rgba(255,255,255,.35)');const c=P.paused?'#1a0c20':'#ffffff';
+ for(let i=0;i<3;i++)R(x,b.x+b.w*.25,b.y+b.h*(.27+i*.2),b.w*.5,Math.max(1,b.h*.11),c)}
+function pPause(x){const a=pPanel(x),cx=a.x+a.w/2;let y=a.y+14;const ts=Math.max(1,Math.min(3,Math.floor((a.w-8)/axTW('PAUSE',1))));axCText(x,'PAUSE',cx,y,'#ffffff',ts,'#05040e');y+=7*ts+16;
+ const bw=Math.min(a.w-12,100),bh=16;P.pauseBtns=[{x:Math.round(cx-bw/2),y,w:bw,h:bh},{x:Math.round(cx-bw/2),y:y+bh+8,w:bw,h:bh}];pBtnRect(x,P.pauseBtns[0],'REPRENDRE','#2f7bff','#1a4ac0',P.psel==0);pBtnRect(x,P.pauseBtns[1],'RETOUR ARCADE','#9a6bff','#5a35b0',P.psel==1)}
 function pPanel(x){const L=P.L,a={x:L.tx+4,y:L.ty+L.th*.12,w:L.tw-8,h:L.th*.62};R(x,a.x-2,a.y-2,a.w+4,a.h+4,'#38e1ff');R(x,a.x,a.y,a.w,a.h,'rgba(8,6,30,.93)');return a}
 function pBtnRect(x,b,label,col,dk,sel){R(x,b.x,b.y+2,b.w,b.h,dk);R(x,b.x,b.y,b.w,b.h,col);R(x,b.x,b.y,b.w,1,'rgba(255,255,255,.45)');if(sel){x.globalAlpha=.6+.4*Math.sin(P.t*8);R(x,b.x-2,b.y-2,b.w+4,1,'#fff');R(x,b.x-2,b.y+b.h+3,b.w+4,1,'#fff');R(x,b.x-2,b.y-2,1,b.h+6,'#fff');R(x,b.x+b.w+1,b.y-2,1,b.h+6,'#fff');x.globalAlpha=1}axCText(x,label,b.x+b.w/2,b.y+Math.round((b.h-7)/2),'#1a0c20',1)}
 function pIntro(x){const a=pPanel(x),cx=a.x+a.w/2,ts=Math.max(1,Math.min(3,Math.floor((a.w-8)/axTW('PINBALL',1))));let y=a.y+8;
@@ -234,16 +252,18 @@ function pZone(sx,sy){const L=P.L;if(!L)return null;const pl=L.pl;if(inR({x:pl.x
  // zones tactiles larges : tout le bouton rond et, plus largement, la moitié basse de chaque marge latérale
  if(Math.hypot(sx-L.bl.x,sy-L.bl.y)<L.bl.r*1.5||(sx<L.tx&&sy>L.ty+L.th*.45))return'L';if(Math.hypot(sx-L.br.x,sy-L.br.y)<L.br.r*1.5||(sx>L.tx+L.tw&&sy>L.ty+L.th*.45))return'R';return null}
 function pPointer(type,sx,sy,id){if(id==null)id=0;pAudio();
- if(type=='down'){if(P.phase=='intro'&&P.startBtn&&inR(P.startBtn,sx,sy)){pNewGame();return}
+ if(type=='down'){if(P.paused){const k=(P.pauseBtns||[]).findIndex(b=>inR(b,sx,sy));if(k==0)P.paused=false;else if(k==1){P.paused=false;P.api&&P.api.exit()}return}
+  if(P.L&&P.L.menu&&P.phase!='intro'&&P.phase!='over'&&inR({x:P.L.menu.x-4,y:P.L.menu.y-4,w:P.L.menu.w+8,h:P.L.menu.h+8},sx,sy)){P.paused=true;P.psel=0;P.touches.clear();return}
+  if(P.phase=='intro'&&P.startBtn&&inR(P.startBtn,sx,sy)){pNewGame();return}
   if(P.phase=='over'&&P.over&&P.over.t>.8&&P.overBtns){const k=P.overBtns.findIndex(b=>inR(b,sx,sy));if(k>=0){pOverChoice(k);return}}
   const z=pZone(sx,sy);if(z)P.touches.set(id,z);return}
  if(type=='up'){P.touches.delete(id);return}
  if(type=='move'&&P.touches.has(id)){const z=pZone(sx,sy);if(z&&z!='P')P.touches.set(id,z)}}
 // ---------- cycle de vie ----------
 const Pinball={
- start(api){P.api=api;P.phase='intro';P.L=null;P.touches.clear();P.okN=null;P.ball=null;P.score=0;P.balls=3;P.mult=1;P.pops=[];P.parts=[];P.msg=null;P.over=null;P.fl.forEach((f,i)=>{f.a=FL[i].rest;f.w=0;f.on=false});pAudio()},
+ start(api){P.api=api;P.paused=false;P.phase='intro';P.L=null;P.touches.clear();P.okN=null;P.ball=null;P.score=0;P.balls=3;P.mult=1;P.pops=[];P.parts=[];P.msg=null;P.over=null;P.fl.forEach((f,i)=>{f.a=FL[i].rest;f.w=0;f.on=false});pAudio()},
  update:pUpdate,draw:pDraw,pointer:pPointer,
- stop(){P.api=null;P.touches.clear();P.ctrl={l:false,r:false,p:false};P.phase='intro';P.ball=null;P.pops=[];P.parts=[];P.bg=null;P.ov=null;P.L=null;try{if(PA&&PA.state=='running')PA.suspend()}catch(e){}},
+ stop(){P.api=null;P.paused=false;P.touches.clear();P.ctrl={l:false,r:false,p:false};P.phase='intro';P.ball=null;P.pops=[];P.parts=[];P.bg=null;P.ov=null;P.L=null;try{if(PA&&PA.state=='running')PA.suspend()}catch(e){}},
  _state:P,_table:TB,_flip:FL};
 ARC.register('pinball',Pinball);
 })();

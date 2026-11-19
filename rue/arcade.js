@@ -80,7 +80,9 @@ function arcLayout(){const dpr=window.devicePixelRatio||1,vw=innerWidth,vh=inner
  const s=Math.max(1,Math.round(Math.min(dw/300,dh/380)),Math.ceil(1.3*dpr-.01)),W=Math.ceil(dw/s),H=Math.ceil(dh/s),cv=AX.cv;
  cv.width=W;cv.height=H;const cw=W*s/dpr,ch=H*s/dpr;cv.style.width=cw+'px';cv.style.height=ch+'px';cv.style.left=((vw-cw)/2)+'px';cv.style.top=((vh-ch)/2)+'px';
  const cl=(v,a,b)=>Math.max(a,Math.min(b,Math.round(v))),m=2+Math.ceil((W*s/dpr-vw)/2*dpr/s),small=H<420,sp=cl(W*.055,8,34),mh=small?cl(H*.075,26,40):cl(H*.11,30,64),ph=small?cl(H*.135,48,60):cl(H*.16,52,96),fh=small?cl(H*.03,8,20):cl(H*.07,14,64),bz=cl(Math.min(W,H)*.03,4,14);
- const L={s,W,H,m,sp,mh,ph,fh,bz};L.marq={x:m+sp-2,y:m+4,w:W-2*(m+sp-2),h:mh};
+ const L={s,W,H,m,sp,mh,ph,fh,bz};
+ // zone réellement visible (le canevas peut dépasser d'un pixel) : un mini-jeu y occupe tout l'écran, sans la borne
+ {const cx=Math.max(0,Math.floor((W*s/dpr-vw)/2*dpr/s)),cy=Math.max(0,Math.floor((H*s/dpr-vh)/2*dpr/s));L.full={x:cx,y:cy,w:W-2*cx,h:H-2*cy}}L.marq={x:m+sp-2,y:m+4,w:W-2*(m+sp-2),h:mh};
  const by0=L.marq.y+mh+3,by1=H-m-fh-ph-3;L.bez={x:m+sp+3,y:by0,w:W-2*(m+sp+3),h:by1-by0};L.scr={x:L.bez.x+bz,y:L.bez.y+bz,w:L.bez.w-2*bz,h:L.bez.h-2*bz};
  L.pan={y:by1+3,h:ph,x:m,w:W-2*m};L.front={y:L.pan.y+ph,h:H-m-L.pan.y-ph,x:m+sp,w:W-2*(m+sp)};
  // commandes : joystick à gauche, trois boutons à droite (QUITTER, RETOUR, OK)
@@ -167,7 +169,12 @@ function arcDrawOver(x){const S=AX.L.scr,cx=S.x+S.w/2,o=ARC.over,sc=axTW('PARTIE
  axR(x,cx-bw/2,y,bw,bh,'#2fd0ff');axR(x,cx-bw/2+1,y+1,bw-2,bh-2,'#0a1030');axCText(x,'SCORE FINAL :',cx,y+6,'#e8e2ff');axCText(x,String(o.score).padStart(4,'0'),cx,y+17,'#ffe14f',big,'#3a0a14','#ff9a1f');y+=bh+8;
  axCText(x,o.rec?'NOUVEAU RECORD !':'RECORD : '+ARC.data(o.id).best,cx,y,o.rec?'#7cff6b':'#8f97c0');y+=18;
  const w=Math.min(Math.floor((S.w-36)/2),bsc>1?110:90),h=bsc>1?24:16;arcPanelBtn(x,cx-w-6,y,w,h,'REJOUER','#2f7bff','#1a4ac0',ARC.overSel==0,bsc);arcPanelBtn(x,cx+6,y,w,h,'RETOUR','#9a6bff','#5a35b0',ARC.overSel==1,bsc);ARC.overBtns=[{x:cx-w-6,y,w,h},{x:cx+6,y,w,h}]}
-function arcDraw(){if(!ARC.on||!AX.L)return;const L=AX.L,x=AX.x,S=L.scr,t=ARC.t;if(!AX.bg)AX.bg=arcCabinet();x.drawImage(AX.bg,0,0);
+// écran occupé par un mini-jeu : tout l'écran (la borne disparaît) ; sinon l'écran de la borne
+function arcGS(){return ARC.state=='game'&&AX.L?AX.L.full:AX.L.scr}
+function arcDrawGame(){const L=AX.L,x=AX.x,S=L.full,M=ARC.cur&&ARC.modules[ARC.cur.id];axR(x,0,0,L.W,L.H,'#000000');if(!M)return;
+ if(!AX.gameCv||AX.gameCv.width!=S.w||AX.gameCv.height!=S.h){AX.gameCv=document.createElement('canvas');AX.gameCv.width=S.w;AX.gameCv.height=S.h}
+ const gx=AX.gameCv.getContext('2d');gx.imageSmoothingEnabled=false;try{M.draw&&M.draw(gx,S.w,S.h)}catch(e){console.error(e)}x.drawImage(AX.gameCv,S.x,S.y)}
+function arcDraw(){if(!ARC.on||!AX.L)return;if(ARC.state=='game'){arcDrawGame();return}const L=AX.L,x=AX.x,S=L.scr,t=ARC.t;if(!AX.bg)AX.bg=arcCabinet();x.drawImage(AX.bg,0,0);
  // fronton rétroéclairé qui respire, néons des flancs
  x.globalAlpha=.08+.06*Math.sin(t*2);axR(x,L.marq.x,L.marq.y,L.marq.w,L.marq.h,'#ff9ad0');x.globalAlpha=1;
  const sh=((t*.35)%1.6)-.3;if(sh>0&&sh<1){x.globalAlpha=.08;const X=L.marq.x+sh*L.marq.w;for(let k=0;k<10;k++)axR(x,X+k-L.marq.h*.3,L.marq.y+1,2,L.marq.h-2,'#ffffff');x.globalAlpha=1}
@@ -203,7 +210,7 @@ function arcOk(){if(!ARC.on)return;arcPress('ok');
  else if(ARC.state=='over'){if(ARC.overSel==0)arcStart(ARC.games.find(g=>g.id==ARC.over.id));else arcGo('info')}}
 function arcBack(){if(!ARC.on)return;arcPress('back');if(ARC.state=='menu'){arcQuit();return}if(ARC.state=='game'){arcStop();arcGo('menu');return}arcGo(ARC.state=='info'?'menu':'info')}
 function arcGo(st){ARC.state=st;ARC.trans=.35;arcHud()}
-function arcStart(g){const M=ARC.modules[g.id],S=AX.L.scr;ARC.cur=g;ARC.info=ARC.games.indexOf(g);ARC.state='game';ARC.trans=0;
+function arcStart(g){const M=ARC.modules[g.id];ARC.cur=g;ARC.info=ARC.games.indexOf(g);ARC.state='game';ARC.trans=0;const S=arcGS();
  const api={w:S.w,h:S.h,end:(score)=>{const rec=ARC.record(g.id,score);arcStop();ARC.over={id:g.id,score:score|0,rec};ARC.overSel=0;arcGo('over')},best:()=>ARC.data(g.id).best,level:()=>ARC.data(g.id).level,saveLevel:(n)=>{const d=ARC.data(g.id);if(n>d.level){d.level=n;save()}},
   // retour direct au menu des 14 jeux, données propres au jeu, enregistrement d'un score sans quitter le jeu
   exit:()=>{arcStop();arcGo('menu')},data:()=>ARC.data(g.id),save:()=>save(),record:(p)=>ARC.record(g.id,p)};
@@ -227,6 +234,8 @@ function arcRelease(){ARC.holdD=null;clearTimeout(ARC.rep);ARC.stick='';['up','d
 function arcInit(){const root=document.createElement('div');root.id='arcx';root.className='arcx';root.hidden=true;root.innerHTML='<canvas id="arcCv" tabindex="-1" aria-label="Borne d’arcade : 14 jeux"></canvas>';document.body.appendChild(root);AX.root=root;AX.cv=root.querySelector('canvas');
  let drag=null;
  AX.cv.addEventListener('pointerdown',e=>{if(!ARC.on)return;e.preventDefault();const p=arcPt(e),L=AX.L;
+  // pendant un mini-jeu, tout l'écran appartient au jeu (la borne et ses commandes ne sont pas affichées)
+  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=arcGS();if(M.pointer&&arcIn(p,S))M.pointer('down',p.x-S.x,p.y-S.y,e.pointerId);return}
   // boutons physiques
   for(const b of L.btn)if(Math.hypot(p.x-b.x,(p.y-b.y)*1.4)<b.r+5){if(b.id=='ok')arcOk();else if(b.id=='back')arcBack();else arcQuit();if(ARC.state=='game'){ARC.input[b.id=='ok'?'a':'b']=1;if(b.id=='ok')ARC.input.okN=(ARC.input.okN||0)+1}return}
   // joystick : on attrape la boule ou le socle et on pousse
@@ -237,8 +246,8 @@ function arcInit(){const root=document.createElement('div');root.id='arcx';root.
   else if(ARC.state=='over'&&ARC.overBtns){const k=ARC.overBtns.findIndex(b=>arcIn(p,b));if(k>=0){ARC.overSel=k;arcOk()}}
   else if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=L.scr;if(M.pointer&&arcIn(p,S))M.pointer('down',p.x-S.x,p.y-S.y,e.pointerId)}});
  AX.cv.addEventListener('pointermove',e=>{if(!ARC.on)return;const p=arcPt(e);if(drag&&drag.id===e.pointerId){arcDrag(p,drag);return}
-  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=AX.L.scr;if(M.pointer)M.pointer('move',p.x-S.x,p.y-S.y,e.pointerId)}});
- const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer){const p=arcPt(e),S=AX.L.scr;M.pointer('up',p.x-S.x,p.y-S.y,e.pointerId)}}};
+  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=arcGS();if(M.pointer)M.pointer('move',p.x-S.x,p.y-S.y,e.pointerId)}});
+ const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer){const p=arcPt(e),S=arcGS();M.pointer('up',p.x-S.x,p.y-S.y,e.pointerId)}}};
  AX.cv.addEventListener('pointerup',up);AX.cv.addEventListener('pointercancel',up);AX.cv.addEventListener('contextmenu',e=>e.preventDefault());
  const KM={ArrowUp:'up',KeyW:'up',KeyZ:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',KeyQ:'left',ArrowRight:'right',KeyD:'right'};
  addEventListener('keydown',e=>{if(!ARC.on)return;const d=KM[e.code];
