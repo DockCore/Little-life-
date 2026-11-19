@@ -89,3 +89,23 @@ Object.assign(JEUSON.FX,{
  bwEnd(t,k){const T=JEUSON.tone;(k>0?[523,659,784,1046,784,1046,1318]:[392,523,659,523,784]).forEach((f,i)=>T(f,t+i*.11,.2,.1,'square'))},
  bwWelcome(t){const T=JEUSON.tone;[392,523,659,784].forEach((f,i)=>T(f,t+i*.09,.16,.08,'triangle'))}
 });
+// ---------- effets du flipper ----------
+Object.assign(JEUSON.FX,{
+ pbFlip(t){const N=JEUSON.noise,T=JEUSON.tone;N(t,.06,.35,900,'bandpass',null,1.2);T(110,t,.07,.25,'square',null,{slide:.5})},
+ pbBump(t,k){const T=JEUSON.tone,N=JEUSON.noise;T(330,t,.09,.16,'square',null,{slide:2.2});T(660,t+.01,.12,.08,'triangle',null,{slide:1.6});N(t,.05,.25,3000,'bandpass',null,2)},
+ pbSling(t){const T=JEUSON.tone,N=JEUSON.noise;N(t,.05,.3,1500,'bandpass',null,1.5);T(240,t,.07,.12,'square',null,{slide:1.8})},
+ pbTarget(t){const T=JEUSON.tone;T(1175,t,.09,.1,'triangle');T(1568,t+.05,.12,.08,'triangle')},
+ pbDrop(t){const N=JEUSON.noise,T=JEUSON.tone;N(t,.08,.3,700,'bandpass',null,2);T(880,t+.02,.1,.09,'square',null,{slide:.6})},
+ pbLane(t){const T=JEUSON.tone;T(784,t,.07,.09,'square');T(1046,t+.06,.1,.09,'square')},
+ pbRamp(t,k){const T=JEUSON.tone,N=JEUSON.noise;N(t,.4,.12,600,'bandpass',null,1,{sweep:4000,att:.05});[523,659,784,1046].forEach((f,i)=>T(f*(k>1?1.25:1),t+.25+i*.06,.12,.08,'square'))},
+ pbLaunch(t,k){const T=JEUSON.tone,N=JEUSON.noise;N(t,.15,.35,400,'lowpass');T(160,t,.22,.14,'sawtooth',null,{slide:2.5+k*2})},
+ pbCharge(t,k){JEUSON.tone(120+k*300,t,.05,.05,'sawtooth')},
+ pbWall(t,k){JEUSON.noise(t,.03,.08*k,1200,'bandpass',null,1.5)},
+ pbBonus(t){const T=JEUSON.tone;[784,988,1175,1568,1976].forEach((f,i)=>T(f,t+i*.07,.14,.09,'square',null,{vib:7}))},
+ pbCombo(t,k){JEUSON.tone(880+k*80,t,.08,.07,'square')},
+ pbDrain(t){const T=JEUSON.tone;[392,330,262,196].forEach((f,i)=>T(f,t+i*.15,.22,.12,'triangle',null,{slide:.92}))},
+ pbStart(t){const T=JEUSON.tone;[523,659,784,1046,784,1046,1318].forEach((f,i)=>T(f,t+i*.08,.12,.09,'square'))},
+ pbBall(t){const T=JEUSON.tone;T(659,t,.08,.08,'square');T(988,t+.09,.14,.08,'square')},
+ pbOver(t){const T=JEUSON.tone;[523,494,466,440,415,392].forEach((f,i)=>T(f,t+i*.16,.2,.11,'square',null,{vib:5}));T(196,t+1,.8,.12,'triangle')},
+ pbRecord(t){const T=JEUSON.tone;[523,659,784,1046,1318,1568,2093].forEach((f,i)=>T(f,t+i*.08,.16,.09,'square',null,{vib:7}))}
+});

@@ -4179,6 +4179,26 @@ Object.assign(JEUSON.FX,{
  bwEnd(t,k){const T=JEUSON.tone;(k>0?[523,659,784,1046,784,1046,1318]:[392,523,659,523,784]).forEach((f,i)=>T(f,t+i*.11,.2,.1,'square'))},
  bwWelcome(t){const T=JEUSON.tone;[392,523,659,784].forEach((f,i)=>T(f,t+i*.09,.16,.08,'triangle'))}
 });
+// ---------- effets du flipper ----------
+Object.assign(JEUSON.FX,{
+ pbFlip(t){const N=JEUSON.noise,T=JEUSON.tone;N(t,.06,.35,900,'bandpass',null,1.2);T(110,t,.07,.25,'square',null,{slide:.5})},
+ pbBump(t,k){const T=JEUSON.tone,N=JEUSON.noise;T(330,t,.09,.16,'square',null,{slide:2.2});T(660,t+.01,.12,.08,'triangle',null,{slide:1.6});N(t,.05,.25,3000,'bandpass',null,2)},
+ pbSling(t){const T=JEUSON.tone,N=JEUSON.noise;N(t,.05,.3,1500,'bandpass',null,1.5);T(240,t,.07,.12,'square',null,{slide:1.8})},
+ pbTarget(t){const T=JEUSON.tone;T(1175,t,.09,.1,'triangle');T(1568,t+.05,.12,.08,'triangle')},
+ pbDrop(t){const N=JEUSON.noise,T=JEUSON.tone;N(t,.08,.3,700,'bandpass',null,2);T(880,t+.02,.1,.09,'square',null,{slide:.6})},
+ pbLane(t){const T=JEUSON.tone;T(784,t,.07,.09,'square');T(1046,t+.06,.1,.09,'square')},
+ pbRamp(t,k){const T=JEUSON.tone,N=JEUSON.noise;N(t,.4,.12,600,'bandpass',null,1,{sweep:4000,att:.05});[523,659,784,1046].forEach((f,i)=>T(f*(k>1?1.25:1),t+.25+i*.06,.12,.08,'square'))},
+ pbLaunch(t,k){const T=JEUSON.tone,N=JEUSON.noise;N(t,.15,.35,400,'lowpass');T(160,t,.22,.14,'sawtooth',null,{slide:2.5+k*2})},
+ pbCharge(t,k){JEUSON.tone(120+k*300,t,.05,.05,'sawtooth')},
+ pbWall(t,k){JEUSON.noise(t,.03,.08*k,1200,'bandpass',null,1.5)},
+ pbBonus(t){const T=JEUSON.tone;[784,988,1175,1568,1976].forEach((f,i)=>T(f,t+i*.07,.14,.09,'square',null,{vib:7}))},
+ pbCombo(t,k){JEUSON.tone(880+k*80,t,.08,.07,'square')},
+ pbDrain(t){const T=JEUSON.tone;[392,330,262,196].forEach((f,i)=>T(f,t+i*.15,.22,.12,'triangle',null,{slide:.92}))},
+ pbStart(t){const T=JEUSON.tone;[523,659,784,1046,784,1046,1318].forEach((f,i)=>T(f,t+i*.08,.12,.09,'square'))},
+ pbBall(t){const T=JEUSON.tone;T(659,t,.08,.08,'square');T(988,t+.09,.14,.08,'square')},
+ pbOver(t){const T=JEUSON.tone;[523,494,466,440,415,392].forEach((f,i)=>T(f,t+i*.16,.2,.11,'square',null,{vib:5}));T(196,t+1,.8,.12,'triangle')},
+ pbRecord(t){const T=JEUSON.tone;[523,659,784,1046,1318,1568,2093].forEach((f,i)=>T(f,t+i*.08,.16,.09,'square',null,{vib:7}))}
+});
 // ===== RUE 2D EXPLORABLE (StreetScene) =====
 // Scène latérale : le personnage du jeu (sprite + garde-robe, via sc2) marche librement sur le trottoir.
 // Tout est piloté par des données : ajouter un bâtiment = ajouter une entrée dans STREETS.centre.buildings
@@ -5255,12 +5275,13 @@ ARC.register('hockey',AirHockey);
 (function(){
 const PW=200,PH=400,BR=5.5,GRAV=430,VMAX=900;
 // ---------- sons courts ----------
-let PA=null,PAl=0;function pAudio(){try{if(!PA)PA=new (window.AudioContext||window.webkitAudioContext)();if(PA.state=='suspended')PA.resume()}catch(e){PA=null}return PA}
-function pTone(f,d,type='square',vol=.05,slide=0,delay=0){const a=PA;if(!a||P.mute)return;if(!delay){if(a.currentTime-PAl<.03)return;PAl=a.currentTime}const t=a.currentTime+delay,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(40,f+slide),t+d);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.02)}
-const PS={flip:()=>pTone(140,.05,'square',.04,-60),bump:()=>pTone(520,.08,'square',.06,300),sling:()=>pTone(300,.06,'square',.05,150),target:()=>pTone(880,.07,'triangle',.06),
- lane:()=>pTone(660,.06,'triangle',.05,220),ramp:()=>[523,659,784].forEach((f,i)=>pTone(f,.09,'square',.05,0,i*.07)),launch:()=>pTone(200,.18,'sawtooth',.05,500),
- drain:()=>[330,262,196].forEach((f,i)=>pTone(f,.18,'triangle',.07,0,i*.14)),bonus:()=>[784,988,1175,1568].forEach((f,i)=>pTone(f,.1,'square',.05,0,i*.08)),start:()=>[392,523,659,784].forEach((f,i)=>pTone(f,.1,'square',.05,0,i*.09)),
- over:()=>[523,392,330,262].forEach((f,i)=>pTone(f,.2,'triangle',.07,0,i*.18)),wall:()=>pTone(160,.03,'triangle',.03)};
+function pAudio(){try{if(typeof JEUSON!='undefined')JEUSON.ctx()}catch(e){}}
+// les sons passent par le module partagé JEUSON (musique d'arcade + effets) ; rien ne se joue s'il est absent
+const pfx=(n,k,g)=>{if(P.mute)return;try{if(typeof JEUSON!='undefined')JEUSON.fx(n,k,g)}catch(e){}};
+const PS={flip:()=>pfx('pbFlip',1,.04),bump:()=>pfx('pbBump',1,.03),sling:()=>pfx('pbSling',1,.03),target:()=>pfx('pbTarget',1,.03),drop:()=>pfx('pbDrop',1,.03),lane:()=>pfx('pbLane',1,.05),
+ ramp:(k)=>pfx('pbRamp',k||1,.2),launch:(k)=>pfx('pbLaunch',k||0,.1),charge:(k)=>pfx('pbCharge',k,.12),drain:()=>pfx('pbDrain',1,.5),bonus:()=>pfx('pbBonus',1,.3),start:()=>pfx('pbStart',1,.5),
+ over:()=>pfx('pbOver',1,1),record:()=>pfx('pbRecord',1,1),wall:(k)=>pfx('pbWall',k||.6,.06),combo:(k)=>pfx('pbCombo',k,.1),ball:()=>pfx('pbBall',1,.3)};
+const pMus=(lv)=>{try{if(typeof JEUSON=='undefined')return;if(lv==null)JEUSON.stop();else{JEUSON.music('pinball');JEUSON.level(lv)}}catch(e){}};
 // ---------- table : géométrie ----------
 const seg=(ax,ay,bx,by,o={})=>Object.assign({a:[ax,ay],b:[bx,by],e:.45,kick:0,type:'wall'},o);
 function pBuild(){const S=[],C=[];
@@ -5301,7 +5322,7 @@ const FL=[{px:54,py:350,len:33,r0:5.5,r1:3,rest:.5,up:-.48,side:0},{px:130,py:35
 const P={api:null,phase:'intro',W:0,H:0,L:null,ball:null,fl:[{a:FL[0].rest,w:0,on:false},{a:FL[1].rest,w:0,on:false}],score:0,balls:3,mult:1,t:0,pops:[],parts:[],
  lit:{stand:[0,0,0],drop:[0,0,0],lane:[0,0,0],bump:[0,0,0]},flash:{bump:[0,0,0],sling:[0,0],stand:[0,0,0],drop:[0,0,0]},chain:0,chainT:0,rampCombo:0,rampT:0,pl:0,charging:false,msg:null,touches:new Map(),ctrl:{l:false,r:false,p:false},okN:null,sel:0,over:null,stuckT:0,lastLaneIn:-1,dropT:0};
 // ---------- partie ----------
-function pNewGame(){P.score=0;P.balls=3;P.mult=1;P.lit={stand:[0,0,0],drop:[0,0,0],lane:[0,0,0],bump:[0,0,0]};P.over=null;P.pops=[];P.parts=[];P.chain=0;P.rampCombo=0;P.phase='jeu';pNewBall();pAudio();PS.start();P.stats={bump:0,ramp:0,targets:0}}
+function pNewGame(){P.score=0;P.balls=3;P.mult=1;P.lit={stand:[0,0,0],drop:[0,0,0],lane:[0,0,0],bump:[0,0,0]};P.over=null;P.pops=[];P.parts=[];P.chain=0;P.rampCombo=0;P.phase='jeu';pNewBall();PS.start();pMus(1);P.stats={bump:0,ramp:0,targets:0}}
 function pNewBall(){P.ball={x:184,y:396-BR,vx:0,vy:0,st:'plunger',rd:0};P.pl=0;P.charging=false;P.stuckT=0;P.msg={t:'BOULE '+(4-P.balls),c:'#ffe14f',T:0}}
 function pAdd(pts,x,y,col){const v=pts*P.mult;P.score+=v;P.pops.push({t:'+'+v,x,y,T:0,c:col||'#ffe14f'})}
 function pFx(x,y,c,n){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=40+Math.random()*90;P.parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:.3+Math.random()*.3,c})}}
@@ -5316,15 +5337,15 @@ function pCollideSeg(b,s){if(s.type=='drop'&&P.lit.drop[s.id])return;const ax=s.
   if(s.type=='sling'&&imp>35){b.vx+=nx*s.kick;b.vy+=ny*s.kick;P.flash.sling[s.side]=1;pAdd(10,cx,cy,'#ffffff');PS.sling();pFx(cx,cy,'#ffffff',6);pChain()}
   else if(s.type=='stand'&&imp>20){P.flash.stand[s.id]=1;if(!P.lit.stand[s.id]){P.lit.stand[s.id]=1;pAdd(250,cx,cy,'#7cff6b')}else pAdd(50,cx,cy,'#7cff6b');PS.target();P.stats.targets++;
    if(P.lit.stand.every(Boolean)){pAdd(1000,cx+20,cy,'#38e1ff');P.lit.stand=[0,0,0];pMultUp('CIBLES COMPLÈTES !')}}
-  else if(s.type=='drop'&&imp>20){P.lit.drop[s.id]=1;P.flash.drop[s.id]=1;pAdd(300,cx,cy,'#ff9a1f');PS.target();P.stats.targets++;pFx(cx,cy,'#ff9a1f',8);
+  else if(s.type=='drop'&&imp>20){P.lit.drop[s.id]=1;P.flash.drop[s.id]=1;pAdd(300,cx,cy,'#ff9a1f');PS.drop();P.stats.targets++;pFx(cx,cy,'#ff9a1f',8);
    if(P.lit.drop.every(Boolean)){pAdd(1500,cx-20,cy,'#38e1ff');P.dropT=1.6;pMultUp('BANQUE COMPLÈTE !')}}
-  else if(imp>120)PS.wall()}}
+  else if(imp>120)PS.wall(Math.min(1,imp/500))}}
 function pCollideCirc(b,c){const dx=b.x-c.x,dy=b.y-c.y,d=Math.hypot(dx,dy),R=BR+c.r;if(d>=R)return;const nx=d>1e-6?dx/d:0,ny=d>1e-6?dy/d:-1;b.x=c.x+nx*R;b.y=c.y+ny*R;
  const vn=b.vx*nx+b.vy*ny;if(vn<0){b.vx-=(1+c.e)*vn*nx;b.vy-=(1+c.e)*vn*ny}
  if(c.type=='bumper'){b.vx+=nx*c.kick;b.vy+=ny*c.kick;P.flash.bump[c.id]=1;P.lit.bump[c.id]=1;pAdd(100,c.x,c.y-c.r,'#ff4fa3');PS.bump();pFx(c.x+nx*c.r,c.y+ny*c.r,'#ff9ad0',8);P.stats.bump++;pChain();
   if(P.lit.bump.every(Boolean)){P.lit.bump=[0,0,0];pAdd(500,c.x,c.y,'#38e1ff');PS.bonus()}}}
 // enchaînement de rebonds : bonus croissant tant que la boule continue de rebondir vite
-function pChain(){if(P.chainT>0){P.chain++;if(P.chain>=3){pAdd(25*P.chain,P.ball.x,P.ball.y-12,'#ffd166');if(P.chain==5)P.msg={t:'COMBO X'+P.chain,c:'#ffd166',T:0}}}else P.chain=1;P.chainT=1.4}
+function pChain(){if(P.chainT>0){P.chain++;if(P.chain>=3){pAdd(25*P.chain,P.ball.x,P.ball.y-12,'#ffd166');PS.combo(P.chain);if(P.chain==5)P.msg={t:'COMBO X'+P.chain,c:'#ffd166',T:0}}}else P.chain=1;P.chainT=1.4}
 function pFlipGeom(i){const f=FL[i],a=P.fl[i].a;return{px:f.px,py:f.py,qx:f.px+Math.cos(a)*f.len,qy:f.py+Math.sin(a)*f.len,r0:f.r0,r1:f.r1,w:P.fl[i].w}}
 function pCollideFlip(b,i){const g=pFlipGeom(i),ex=g.qx-g.px,ey=g.qy-g.py,L2=ex*ex+ey*ey;let t=((b.x-g.px)*ex+(b.y-g.py)*ey)/L2;t=Math.max(0,Math.min(1,t));
  const cx=g.px+ex*t,cy=g.py+ey*t,rr=g.r0+(g.r1-g.r0)*t,dx=b.x-cx,dy=b.y-cy,d=Math.hypot(dx,dy),R=BR+rr;if(d>=R)return;
@@ -5334,7 +5355,7 @@ function pCollideFlip(b,i){const g=pFlipGeom(i),ex=g.qx-g.px,ey=g.qy-g.py,L2=ex*
 function pFlippers(dt){for(let i=0;i<2;i++){const f=FL[i],s=P.fl[i],on=i?P.ctrl.r:P.ctrl.l;if(on&&!s.on)PS.flip();s.on=on;const target=on?f.up:f.rest,dir=Math.sign(target-s.a),sp=on?24:15,old=s.a;
   if(dir){s.a+=dir*sp*dt;if((dir>0&&s.a>target)||(dir<0&&s.a<target))s.a=target}s.w=(s.a-old)/dt}}
 function pStep(dt){const b=P.ball;pFlippers(dt);if(b.st=='ramp'){b.rd+=b.rs*dt;b.rs=Math.max(170,b.rs-120*dt);const q=rampAt(b.rd);b.x=q.x;b.y=q.y;
-  if(b.rd>=RLEN){b.st='play';b.vx=q.dx*b.rs*.6;b.vy=Math.max(80,q.dy*b.rs*.6);P.stats.ramp++;P.rampCombo=P.rampT>0?P.rampCombo+1:1;P.rampT=5;const pts=500*P.rampCombo;pAdd(pts,b.x,b.y-14,'#38e1ff');PS.ramp();P.msg={t:P.rampCombo>1?'RAMPE COMBO X'+P.rampCombo:'RAMPE !',c:'#38e1ff',T:0};if(P.rampCombo>=3)pMultUp('SUPER COMBO !')}return}
+  if(b.rd>=RLEN){b.st='play';b.vx=q.dx*b.rs*.6;b.vy=Math.max(80,q.dy*b.rs*.6);P.stats.ramp++;P.rampCombo=P.rampT>0?P.rampCombo+1:1;P.rampT=5;const pts=500*P.rampCombo;pAdd(pts,b.x,b.y-14,'#38e1ff');PS.ramp(P.rampCombo);P.msg={t:P.rampCombo>1?'RAMPE COMBO X'+P.rampCombo:'RAMPE !',c:'#38e1ff',T:0};if(P.rampCombo>=3)pMultUp('SUPER COMBO !')}return}
  if(b.st=='plunger'){b.x=184;b.y=396-BR-P.pl*14;b.vx=b.vy=0;return}
  b.vy+=GRAV*dt;const sp=Math.hypot(b.vx,b.vy);if(sp>VMAX){b.vx*=VMAX/sp;b.vy*=VMAX/sp}
  b.x+=b.vx*dt;b.y+=b.vy*dt;
@@ -5352,11 +5373,12 @@ function pUpdate(dt,inp){dt=Math.min(dt,.05);P.t+=dt;inp=inp||{};const n=inp.okN
  P.ctrl.l=tl||!!inp.left;P.ctrl.r=tr||!!inp.right;P.ctrl.p=tp||!!inp.a;
  if(P.phase=='intro'){pFlippers(dt);if(ok)pNewGame();pTick(dt);return}
  if(P.phase=='over'){pFlippers(dt);P.over.t+=dt;if(q.length){const d=q[q.length-1];P.sel=d=='right'||d=='down'?1:0}if(ok&&P.over.t>.8)pOverChoice(P.sel);pTick(dt);return}
+ pMus(P.paused?.3:(P.phase=='over'?.35:1));
  if(P.paused){if(q.length){const d=q[q.length-1];P.psel=d=='right'||d=='down'?1:0}if(ok){if(P.psel==1){P.paused=false;P.api&&P.api.exit()}else P.paused=false}return}
  const b=P.ball;
  // lanceur : maintenir pour tendre le ressort, relâcher pour propulser (un appui bref suffit)
- if(b.st=='plunger'){if(P.ctrl.p){P.charging=true;P.pl=Math.min(1,P.pl+dt*1.3)}else if(P.charging){P.charging=false;b.st='play';b.vy=-(640+P.pl*260);b.vx=0;P.pl=0;PS.launch();P.msg=null}}
- if(P.phase=='perdue'){P.lostT-=dt;pFlippers(dt);if(P.lostT<=0){if(P.balls<=0){P.phase='over';P.sel=0;const rec=P.api?P.api.record(P.score):false;P.over={t:0,rec};PS.over()}else{P.phase='jeu';pNewBall()}}pTick(dt);return}
+ if(b.st=='plunger'){if(P.ctrl.p){P.charging=true;P.pl=Math.min(1,P.pl+dt*1.3);PS.charge(P.pl)}else if(P.charging){P.charging=false;b.st='play';b.vy=-(640+P.pl*260);b.vx=0;PS.launch(P.pl);P.pl=0;P.msg=null}}
+ if(P.phase=='perdue'){P.lostT-=dt;pFlippers(dt);if(P.lostT<=0){if(P.balls<=0){P.phase='over';P.sel=0;const rec=P.api?P.api.record(P.score):false;P.over={t:0,rec};PS.over();if(rec)setTimeout(()=>{if(P.phase=='over')PS.record()},1500);pMus(.35)}else{P.phase='jeu';pNewBall();PS.ball()}}pTick(dt);return}
  const sp=Math.max(Math.hypot(b.vx,b.vy),300),nsub=Math.min(30,Math.max(4,Math.ceil(sp*dt/(BR*.4)))),h=dt/nsub;for(let i=0;i<nsub;i++){pStep(h);if(b.y>PH+14)break}
  if(b.y>PH+14&&b.st=='play'){P.balls--;P.phase='perdue';P.lostT=1.6;P.msg={t:P.balls>0?'BOULE PERDUE':'DERNIÈRE BOULE PERDUE',c:'#ff4f6a',T:0};PS.drain();P.chain=0}
  // boule immobile hors des palettes : petite secousse automatique pour ne jamais bloquer
@@ -5510,9 +5532,9 @@ function pPointer(type,sx,sy,id){if(id==null)id=0;pAudio();
  if(type=='move'&&P.touches.has(id)){const z=pZone(sx,sy);if(z&&z!='P')P.touches.set(id,z)}}
 // ---------- cycle de vie ----------
 const Pinball={
- start(api){P.api=api;P.paused=false;P.phase='intro';P.L=null;P.touches.clear();P.okN=null;P.ball=null;P.score=0;P.balls=3;P.mult=1;P.pops=[];P.parts=[];P.msg=null;P.over=null;P.fl.forEach((f,i)=>{f.a=FL[i].rest;f.w=0;f.on=false});pAudio()},
+ start(api){P.api=api;P.paused=false;pMus(.8);P.phase='intro';P.L=null;P.touches.clear();P.okN=null;P.ball=null;P.score=0;P.balls=3;P.mult=1;P.pops=[];P.parts=[];P.msg=null;P.over=null;P.fl.forEach((f,i)=>{f.a=FL[i].rest;f.w=0;f.on=false});pAudio()},
  update:pUpdate,draw:pDraw,pointer:pPointer,
- stop(){P.api=null;P.paused=false;P.touches.clear();P.ctrl={l:false,r:false,p:false};P.phase='intro';P.ball=null;P.pops=[];P.parts=[];P.bg=null;P.ov=null;P.L=null;try{if(PA&&PA.state=='running')PA.suspend()}catch(e){}},
+ stop(){P.api=null;P.paused=false;pMus(null);P.touches.clear();P.ctrl={l:false,r:false,p:false};P.phase='intro';P.ball=null;P.pops=[];P.parts=[];P.bg=null;P.ov=null;P.L=null;},
  _state:P,_table:TB,_flip:FL};
 ARC.register('pinball',Pinball);
 })();
