@@ -201,12 +201,14 @@ function arcOk(){if(!ARC.on)return;arcPress('ok');
  if(ARC.state=='menu'){ARC.info=ARC.sel;arcGo('info')}
  else if(ARC.state=='info'){const g=ARC.games[ARC.info];if(ARC.modules[g.id])arcStart(g);else ARC.flash=.35}
  else if(ARC.state=='over'){if(ARC.overSel==0)arcStart(ARC.games.find(g=>g.id==ARC.over.id));else arcGo('info')}}
-function arcBack(){if(!ARC.on)return;arcPress('back');if(ARC.state=='menu'){arcQuit();return}if(ARC.state=='game')arcStop();arcGo(ARC.state=='info'?'menu':'info')}
+function arcBack(){if(!ARC.on)return;arcPress('back');if(ARC.state=='menu'){arcQuit();return}if(ARC.state=='game'){arcStop();arcGo('menu');return}arcGo(ARC.state=='info'?'menu':'info')}
 function arcGo(st){ARC.state=st;ARC.trans=.35;arcHud()}
 function arcStart(g){const M=ARC.modules[g.id],S=AX.L.scr;ARC.cur=g;ARC.info=ARC.games.indexOf(g);ARC.state='game';ARC.trans=0;
- const api={w:S.w,h:S.h,end:(score)=>{const rec=ARC.record(g.id,score);arcStop();ARC.over={id:g.id,score:score|0,rec};ARC.overSel=0;arcGo('over')},best:()=>ARC.data(g.id).best,level:()=>ARC.data(g.id).level,saveLevel:(n)=>{const d=ARC.data(g.id);if(n>d.level){d.level=n;save()}}};
+ const api={w:S.w,h:S.h,end:(score)=>{const rec=ARC.record(g.id,score);arcStop();ARC.over={id:g.id,score:score|0,rec};ARC.overSel=0;arcGo('over')},best:()=>ARC.data(g.id).best,level:()=>ARC.data(g.id).level,saveLevel:(n)=>{const d=ARC.data(g.id);if(n>d.level){d.level=n;save()}},
+  // retour direct au menu des 14 jeux, données propres au jeu, enregistrement d'un score sans quitter le jeu
+  exit:()=>{arcStop();arcGo('menu')},data:()=>ARC.data(g.id),save:()=>save(),record:(p)=>ARC.record(g.id,p)};
  try{M.start&&M.start(api)}catch(e){console.error(e);ARC.state='info'}arcHud()}
-function arcStop(){const M=ARC.cur&&ARC.modules[ARC.cur.id];if(M&&M.stop)try{M.stop()}catch(e){}if(ARC.state=='game')ARC.state='info'}
+function arcStop(){const M=ARC.cur&&ARC.modules[ARC.cur.id];if(M&&M.stop)try{M.stop()}catch(e){}ARC.cur=null;ARC.input.dirQ=[];if(ARC.state=='game')ARC.state='info'}
 function arcHud(){}
 // ---------- boucle ----------
 function arcLoop(ts){if(!ARC.on)return;const dt=Math.min(.05,(ts-(ARC.last||ts))/1000);ARC.last=ts;ARC.t+=dt;if(ARC.flash>0)ARC.flash=Math.max(0,ARC.flash-dt);if(ARC.trans>0)ARC.trans=Math.max(0,ARC.trans-dt*2.2);
@@ -226,7 +228,7 @@ function arcInit(){const root=document.createElement('div');root.id='arcx';root.
  let drag=null;
  AX.cv.addEventListener('pointerdown',e=>{if(!ARC.on)return;e.preventDefault();const p=arcPt(e),L=AX.L;
   // boutons physiques
-  for(const b of L.btn)if(Math.hypot(p.x-b.x,(p.y-b.y)*1.4)<b.r+5){if(b.id=='ok')arcOk();else if(b.id=='back')arcBack();else arcQuit();if(ARC.state=='game')ARC.input[b.id=='ok'?'a':'b']=1;return}
+  for(const b of L.btn)if(Math.hypot(p.x-b.x,(p.y-b.y)*1.4)<b.r+5){if(b.id=='ok')arcOk();else if(b.id=='back')arcBack();else arcQuit();if(ARC.state=='game'){ARC.input[b.id=='ok'?'a':'b']=1;if(b.id=='ok')ARC.input.okN=(ARC.input.okN||0)+1}return}
   // joystick : on attrape la boule ou le socle et on pousse
   const J=L.joy;if(Math.hypot(p.x-J.x,p.y-(J.y-J.r*.8))<J.r*2.2){drag={id:e.pointerId,d:null};try{AX.cv.setPointerCapture(e.pointerId)}catch(_){}arcDrag(p,drag);return}
   // écran tactile
@@ -235,18 +237,18 @@ function arcInit(){const root=document.createElement('div');root.id='arcx';root.
   else if(ARC.state=='over'&&ARC.overBtns){const k=ARC.overBtns.findIndex(b=>arcIn(p,b));if(k>=0){ARC.overSel=k;arcOk()}}
   else if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=L.scr;if(M.pointer&&arcIn(p,S))M.pointer('down',p.x-S.x,p.y-S.y)}});
  AX.cv.addEventListener('pointermove',e=>{if(!ARC.on)return;const p=arcPt(e);if(drag&&drag.id===e.pointerId){arcDrag(p,drag);return}
-  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=AX.L.scr;if(M.pointer&&arcIn(p,S))M.pointer('move',p.x-S.x,p.y-S.y)}});
+  if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id],S=AX.L.scr;if(M.pointer)M.pointer('move',p.x-S.x,p.y-S.y)}});
  const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer)M.pointer('up',0,0)}};
  AX.cv.addEventListener('pointerup',up);AX.cv.addEventListener('pointercancel',up);AX.cv.addEventListener('contextmenu',e=>e.preventDefault());
  const KM={ArrowUp:'up',KeyW:'up',KeyZ:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',KeyQ:'left',ArrowRight:'right',KeyD:'right'};
  addEventListener('keydown',e=>{if(!ARC.on)return;const d=KM[e.code];
-  if(d){e.preventDefault();ARC.input[d]=1;if(ARC.state!='game')arcMove(d);else{ARC.stick=d}return}
-  if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK'){e.preventDefault();ARC.input.a=1;if(!e.repeat&&ARC.state!='game')arcOk();else arcPress('ok');return}
+  if(d){e.preventDefault();ARC.input[d]=1;if(ARC.state!='game')arcMove(d);else{ARC.stick=d;(ARC.input.dirQ=ARC.input.dirQ||[]).push(d)}return}
+  if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK'){e.preventDefault();ARC.input.a=1;if(!e.repeat)ARC.input.okN=(ARC.input.okN||0)+1;if(!e.repeat&&ARC.state!='game')arcOk();else arcPress('ok');return}
   if(e.code=='Escape'||e.code=='Backspace'||e.code=='KeyX'||e.code=='KeyL'){e.preventDefault();if(!e.repeat)arcBack();return}},true);
  addEventListener('keyup',e=>{if(!ARC.on)return;const d=KM[e.code];if(d){ARC.input[d]=0;if(ARC.stick==d&&!ARC.holdD)ARC.stick=''}if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK')ARC.input.a=0},true);
  addEventListener('resize',()=>{if(ARC.on)arcLayout()});addEventListener('blur',arcRelease)}
 function arcDrag(p,drag){const J=AX.L.joy,dx=p.x-J.x,dy=p.y-(J.y-J.r*.9),L=Math.hypot(dx,dy);let d=null;if(L>J.r*.45)d=Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up');
- if(d!==drag.d){drag.d=d;['up','down','left','right'].forEach(k=>ARC.input[k]=k==d?1:0);if(d){if(ARC.state=='game'){ARC.stick=d;ARC.holdD=d}else arcHold(d)}else arcRelease()}}
+ if(d!==drag.d){drag.d=d;['up','down','left','right'].forEach(k=>ARC.input[k]=k==d?1:0);if(d){if(ARC.state=='game'){ARC.stick=d;ARC.holdD=d;(ARC.input.dirQ=ARC.input.dirQ||[]).push(d)}else arcHold(d)}else arcRelease()}}
 // ---------- intégration ----------
 VT.arcade='Salle d’arcade';
 window.GAMES=window.GAMES||{};GAMES.arcade={open:arcOpen,quit:arcQuit};

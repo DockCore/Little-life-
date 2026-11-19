@@ -1,0 +1,510 @@
+[
+ {
+  "n": "[tel] 1 lancement depuis la case AIR HOCKEY (présentation puis JOUER)",
+  "ok": true,
+  "info": {
+   "sel": "Air Hockey",
+   "info": {
+    "st": "info",
+    "ready": true
+   },
+   "l1": {
+    "st": "game",
+    "cur": "hockey",
+    "ph": "choix"
+   }
+  }
+ },
+ {
+  "n": "[tel] 2-4 la table occupe 100 % de l’écran de la borne, sans Little Life derrière ni personnage",
+  "ok": true,
+  "info": {
+   "ch": 2,
+   "lv": {
+    "lv": "difficile",
+    "ph": "compte"
+   },
+   "go": "jeu",
+   "fill": {
+    "S": [
+     231,
+     395
+    ],
+    "g": [
+     231,
+     395
+    ],
+    "transparent": 0,
+    "bad": 0,
+    "table": [
+     231,
+     395
+    ],
+    "rot": false
+   }
+  }
+ },
+ {
+  "n": "[tel] 5-6 maillet au doigt et à la souris : suit le pointeur, ne franchit jamais la ligne centrale ni les bords",
+  "ok": true,
+  "info": {
+   "touch": {
+    "dx": 0,
+    "dy": 0.01051087883956825
+   },
+   "touchHaut": {
+    "y": 214.27,
+    "lim": 214.27,
+    "x": 206.23,
+    "xl": 206.23
+   },
+   "mouse": {
+    "dx": 0,
+    "dy": 0.01051087883956825
+   },
+   "mouseHaut": {
+    "y": 214.27,
+    "lim": 214.27,
+    "x": 206.23,
+    "xl": 206.23
+   }
+  }
+ },
+ {
+  "n": "[tel] 7-8 le palet réagit : frappe, rebond, freinage, vitesse max, aucune traversée ni sortie (300 tirs)",
+  "ok": true,
+  "info": {
+   "frappe": {
+    "vy": -2.1,
+    "hit": true
+   },
+   "rebond": {
+    "vx": -410.49918774146045,
+    "inside": true
+   },
+   "frein": true,
+   "vmax": true,
+   "tirs": {
+    "pass": 0,
+    "outside": 0,
+    "overlap": 0
+   }
+  }
+ },
+ {
+  "n": "[tel] 9-10 buts détectés, score exact, animation, palet au centre, pause courte puis reprise automatique",
+  "ok": true,
+  "info": {
+   "a": {
+    "sc": [
+     1,
+     0
+    ],
+    "ph": "but",
+    "msg": "BUT !",
+    "flash": true,
+    "center": [
+     0,
+     -190
+    ]
+   },
+   "b": {
+    "ph": "compte",
+    "center": [
+     0,
+     0
+    ]
+   },
+   "c": {
+    "ph": "jeu",
+    "sc": [
+     1,
+     0
+    ]
+   },
+   "d": {
+    "sc": [
+     1,
+     1
+    ],
+    "msg": "BUT ADVERSE"
+   },
+   "e": {
+    "sc": [
+     1,
+     1
+    ]
+   }
+  }
+ },
+ {
+  "n": "[tel] 11 trois difficultés : facile < normal < difficile (vitesse et défense), sans téléportation",
+  "ok": true,
+  "info": {
+   "facile": {
+    "saved": 57,
+    "shots": 60,
+    "vmax": 0.95,
+    "cap": 0.95
+   },
+   "normal": {
+    "saved": 59,
+    "shots": 60,
+    "vmax": 1.67,
+    "cap": 1.6674999999999998
+   },
+   "difficile": {
+    "saved": 60,
+    "shots": 60,
+    "vmax": 2.67,
+    "cap": 2.665
+   }
+  }
+ },
+ {
+  "n": "[tel] 12 victoire et défaite (écrans, résultats enregistrés)",
+  "ok": true,
+  "info": {
+   "end": {
+    "victoire": {
+     "ph": "fin",
+     "win": true,
+     "sc": [
+      7,
+      3
+     ]
+    },
+    "defaite": {
+     "ph": "fin",
+     "win": false,
+     "sc": [
+      2,
+      7
+     ]
+    }
+   },
+   "rec": {
+    "wins": {
+     "difficile": 1
+    },
+    "games": 2,
+    "best": 970
+   }
+  }
+ },
+ {
+  "n": "[tel] 13 REJOUER relance une partie à 0-0",
+  "ok": true,
+  "info": {
+   "ph": "compte",
+   "sc": [
+    0,
+    0
+   ],
+   "st": "game"
+  }
+ },
+ {
+  "n": "[tel] 13b pause : bouton à l’écran, OK de la borne et touche P",
+  "ok": true,
+  "info": {
+   "pz": {
+    "pause": true,
+    "moved": 0
+   },
+   "pz2": false,
+   "pz3": true
+  }
+ },
+ {
+  "n": "[tel] 14 retour propre et immédiat au menu des 14 jeux (bouton ≡, RETOUR de la borne, MENU ARCADE) + nettoyage",
+  "ok": true,
+  "info": {
+   "m1": {
+    "st": "menu",
+    "cur": null,
+    "n": 14
+   },
+   "m2": "menu",
+   "m3": "menu",
+   "clean": {
+    "api": null,
+    "pause": false,
+    "parts": 0,
+    "phase": "choix"
+   }
+  }
+ },
+ {
+  "n": "[tel] 15 les 13 autres cases sont inchangées ; 30 ouvertures/fermetures sans erreur",
+  "ok": true,
+  "info": {
+   "ok": true,
+   "n": 13,
+   "st": "menu",
+   "ms": 1
+  }
+ },
+ {
+  "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
+  "ok": true,
+  "info": {
+   "msParImage": 4.57,
+   "errs": []
+  }
+ },
+ {
+  "n": "[pc] 1 lancement depuis la case AIR HOCKEY (présentation puis JOUER)",
+  "ok": true,
+  "info": {
+   "sel": "Air Hockey",
+   "info": {
+    "st": "info",
+    "ready": true
+   },
+   "l1": {
+    "st": "game",
+    "cur": "hockey",
+    "ph": "choix"
+   }
+  }
+ },
+ {
+  "n": "[pc] 2-4 la table occupe 100 % de l’écran de la borne, sans Little Life derrière ni personnage",
+  "ok": true,
+  "info": {
+   "ch": 2,
+   "lv": {
+    "lv": "difficile",
+    "ph": "compte"
+   },
+   "go": "jeu",
+   "fill": {
+    "S": [
+     538,
+     266
+    ],
+    "g": [
+     538,
+     266
+    ],
+    "transparent": 0,
+    "bad": 0,
+    "table": [
+     266,
+     538
+    ],
+    "rot": true
+   }
+  }
+ },
+ {
+  "n": "[pc] 5-6 maillet au doigt et à la souris : suit le pointeur, ne franchit jamais la ligne centrale ni les bords",
+  "ok": true,
+  "info": {
+   "touch": {
+    "dx": 1.4210854715202004e-14,
+    "dy": 0
+   },
+   "touchHaut": {
+    "y": 288.344,
+    "lim": 288.344,
+    "x": 237.656,
+    "xl": 237.656
+   },
+   "mouse": {
+    "dx": 1.4210854715202004e-14,
+    "dy": 0
+   },
+   "mouseHaut": {
+    "y": 288.344,
+    "lim": 288.344,
+    "x": 237.656,
+    "xl": 237.656
+   }
+  }
+ },
+ {
+  "n": "[pc] 7-8 le palet réagit : frappe, rebond, freinage, vitesse max, aucune traversée ni sortie (300 tirs)",
+  "ok": true,
+  "info": {
+   "frappe": {
+    "vy": -2.1,
+    "hit": true
+   },
+   "rebond": {
+    "vx": -559.1102860883694,
+    "inside": true
+   },
+   "frein": true,
+   "vmax": true,
+   "tirs": {
+    "pass": 0,
+    "outside": 0,
+    "overlap": 0
+   }
+  }
+ },
+ {
+  "n": "[pc] 9-10 buts détectés, score exact, animation, palet au centre, pause courte puis reprise automatique",
+  "ok": true,
+  "info": {
+   "a": {
+    "sc": [
+     1,
+     0
+    ],
+    "ph": "but",
+    "msg": "BUT !",
+    "flash": true,
+    "center": [
+     0,
+     -261
+    ]
+   },
+   "b": {
+    "ph": "compte",
+    "center": [
+     0,
+     0
+    ]
+   },
+   "c": {
+    "ph": "jeu",
+    "sc": [
+     1,
+     0
+    ]
+   },
+   "d": {
+    "sc": [
+     1,
+     1
+    ],
+    "msg": "BUT ADVERSE"
+   },
+   "e": {
+    "sc": [
+     1,
+     1
+    ]
+   }
+  }
+ },
+ {
+  "n": "[pc] 11 trois difficultés : facile < normal < difficile (vitesse et défense), sans téléportation",
+  "ok": true,
+  "info": {
+   "facile": {
+    "saved": 51,
+    "shots": 60,
+    "vmax": 0.95,
+    "cap": 0.95
+   },
+   "normal": {
+    "saved": 60,
+    "shots": 60,
+    "vmax": 1.67,
+    "cap": 1.6674999999999998
+   },
+   "difficile": {
+    "saved": 58,
+    "shots": 60,
+    "vmax": 2.67,
+    "cap": 2.665
+   }
+  }
+ },
+ {
+  "n": "[pc] 12 victoire et défaite (écrans, résultats enregistrés)",
+  "ok": true,
+  "info": {
+   "end": {
+    "victoire": {
+     "ph": "fin",
+     "win": true,
+     "sc": [
+      7,
+      3
+     ]
+    },
+    "defaite": {
+     "ph": "fin",
+     "win": false,
+     "sc": [
+      2,
+      7
+     ]
+    }
+   },
+   "rec": {
+    "wins": {
+     "difficile": 1
+    },
+    "games": 2,
+    "best": 970
+   }
+  }
+ },
+ {
+  "n": "[pc] 13 REJOUER relance une partie à 0-0",
+  "ok": true,
+  "info": {
+   "ph": "compte",
+   "sc": [
+    0,
+    0
+   ],
+   "st": "game"
+  }
+ },
+ {
+  "n": "[pc] 13b pause : bouton à l’écran, OK de la borne et touche P",
+  "ok": true,
+  "info": {
+   "pz": {
+    "pause": true,
+    "moved": 0
+   },
+   "pz2": false,
+   "pz3": true
+  }
+ },
+ {
+  "n": "[pc] 14 retour propre et immédiat au menu des 14 jeux (bouton ≡, RETOUR de la borne, MENU ARCADE) + nettoyage",
+  "ok": true,
+  "info": {
+   "m1": {
+    "st": "menu",
+    "cur": null,
+    "n": 14
+   },
+   "m2": "menu",
+   "m3": "menu",
+   "clean": {
+    "api": null,
+    "pause": false,
+    "parts": 0,
+    "phase": "choix"
+   }
+  }
+ },
+ {
+  "n": "[pc] 15 les 13 autres cases sont inchangées ; 30 ouvertures/fermetures sans erreur",
+  "ok": true,
+  "info": {
+   "ok": true,
+   "n": 13,
+   "st": "menu",
+   "ms": 1
+  }
+ },
+ {
+  "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
+  "ok": true,
+  "info": {
+   "msParImage": 4.45,
+   "errs": []
+  }
+ }
+]

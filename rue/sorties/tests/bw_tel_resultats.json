@@ -20,8 +20,8 @@
   "n": "2 lancement immédiat du mini-jeu",
   "ok": true,
   "info": {
-   "msAvantScene": 83,
-   "msAvantJeu": 1550
+   "msAvantScene": 60,
+   "msAvantJeu": 1547
   }
  },
  {
@@ -57,7 +57,7 @@
    },
    "clavier": {
     "a0": 0.1803531096774195,
-    "aL": -0.04764689032258053,
+    "aL": -0.035646890322580525,
     "spK": -1,
     "chK": "charge",
     "thK": "roll"
@@ -420,8 +420,8 @@
   "n": "12 fluidité du rendu",
   "ok": true,
   "info": {
-   "msParImage": 1.14,
-   "fps": 61
+   "msParImage": 1.26,
+   "fps": 60.5
   }
  },
  {

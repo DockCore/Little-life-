@@ -12,6 +12,9 @@ bcss = open(os.path.join(D, 'bowling.css'), encoding='utf8').read()
 bjs = open(os.path.join(D, 'bowling.js'), encoding='utf8').read()
 acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read()
 ajs = open(os.path.join(D, 'arcade.js'), encoding='utf8').read()
+# mini-jeux de la borne : un fichier par jeu dans rue/jeux/, chargés après la borne
+import glob
+jeux = ''.join('\n' + open(f, encoding='utf8').read().rstrip() for f in sorted(glob.glob(os.path.join(D, 'jeux', '*.js'))))
 
 def put(s, anchor, text, after=True, count=1):
     assert s.count(anchor) == count, (anchor[:60], s.count(anchor))
@@ -42,6 +45,6 @@ s = put(s, '<section class="view" id="v-gym">', bpan, after=False)
 apan = '<section class="view" id="v-arcade"></section>'
 s = put(s, '<section class="view" id="v-gym">', apan, after=False)
 # 4) module JS juste avant le démarrage de la boucle
-s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + '\n// ===RUE-END===', after=False)
+s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + jeux + '\n// ===RUE-END===', after=False)
 open(idx, 'w', encoding='utf8').write(s)
 print('ok', len(s))
