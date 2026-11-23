@@ -74,49 +74,49 @@
    "cine_hall": {
     "solid": 150,
     "bad": 0,
-    "steps": 7493,
+    "steps": 7334,
     "through": 0,
     "arrived": 40
    },
    "cine_couloir": {
     "solid": 63,
     "bad": 0,
-    "steps": 5267,
+    "steps": 4727,
     "through": 0,
     "arrived": 40
    },
    "cine_wc": {
     "solid": 36,
     "bad": 0,
-    "steps": 3973,
+    "steps": 4047,
     "through": 0,
     "arrived": 40
    },
    "cine_prive": {
     "solid": 48,
     "bad": 0,
-    "steps": 3378,
+    "steps": 3724,
     "through": 0,
     "arrived": 40
    },
    "cine_s1": {
     "solid": 39,
     "bad": 0,
-    "steps": 5098,
+    "steps": 4968,
     "through": 0,
     "arrived": 40
    },
    "cine_s2": {
     "solid": 57,
     "bad": 0,
-    "steps": 6827,
+    "steps": 7967,
     "through": 0,
     "arrived": 40
    },
    "cine_s3": {
     "solid": 75,
     "bad": 0,
-    "steps": 7702,
+    "steps": 9410,
     "through": 0,
     "arrived": 40
    }
@@ -199,18 +199,18 @@
   }
  },
  {
-  "n": "TEL 8 regarder un film : lumières éteintes, rideaux ouverts, film projeté, musique de film ; à la fin billet utilisé, friandises mangées, bonheur en hausse",
+  "n": "TEL 8 regarder un film : lumières éteintes, rideaux ouverts, vraie vidéo lue en mode cinéma, musique du jeu coupée ; à la fin billet utilisé, friandises mangées, bonheur en hausse, retour dans la salle",
   "ok": true,
   "info": {
    "mid": {
-    "dim": 0.9999959219284237,
-    "curt": 0.9994080252797479,
-    "t": 5.066666666666654,
+    "dim": 0.9999960850512868,
+    "curt": 0.9999076623215785,
+    "t": 3.535999,
     "th": "cinefilm"
    },
    "fin": {
-    "h0": 37.36009999987977,
-    "h1": 68.34389999987978,
+    "h0": 36.62809999987281,
+    "h1": 67.59509999987276,
     "billet": null,
     "s": {
      "pop": 0,
@@ -219,11 +219,12 @@
     },
     "vus": 1,
     "film": null,
+    "open": false,
     "msg": "FIN. Nori a adoré « LA VAGUE GÉANTE » ! Les lumières se rallument."
    },
    "after": {
-    "dim": 0.00024173036505257273,
-    "curt": 0.0020015204867790664
+    "dim": 0.00014218621868285113,
+    "curt": 0.0013472954063210325
    }
   }
  },
@@ -284,15 +285,15 @@
   "ok": true,
   "info": {
    "perf": {
-    "cine_hall": 3.26,
-    "cine_couloir": 0.04,
-    "cine_wc": 1.95,
-    "cine_prive": 0.81,
-    "cine_s1": 1.08,
-    "cine_s2": 1.57,
-    "cine_s3": 1.92
+    "cine_hall": 3.93,
+    "cine_couloir": 0.06,
+    "cine_wc": 2.39,
+    "cine_prive": 0.88,
+    "cine_s1": 1.02,
+    "cine_s2": 1.49,
+    "cine_s3": 1.68
    },
-   "gym": 2.05
+   "gym": 1.18
   }
  },
  {
@@ -337,6 +338,348 @@
  },
  {
   "n": "TEL 16 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ },
+ {
+  "n": "PC 1 entrée dans le cinéma depuis la rue (façade, taille et porte du bâtiment inchangées)",
+  "ok": true,
+  "info": {
+   "fac": {
+    "w": 204,
+    "h": 190,
+    "door": {
+     "x": 102,
+     "w": 46
+    },
+    "facade": "cinema",
+    "go": {
+     "place": "cine_hall"
+    },
+    "av": true
+   },
+   "in1": true
+  }
+ },
+ {
+  "n": "PC 2 toutes les pièces accessibles par leurs portes (hall, couloir, 3 salles, toilettes, personnel) et retour devant la bonne porte",
+  "ok": true,
+  "info": [
+   {
+    "room": "cine_couloir",
+    "got": true,
+    "rn": 18,
+    "back": true,
+    "front": true
+   },
+   {
+    "room": "cine_s1",
+    "got": true,
+    "rn": 14,
+    "back": true,
+    "front": true
+   },
+   {
+    "room": "cine_s2",
+    "got": true,
+    "rn": 18,
+    "back": true,
+    "front": true
+   },
+   {
+    "room": "cine_s3",
+    "got": true,
+    "rn": 22,
+    "back": true,
+    "front": true
+   },
+   {
+    "room": "cine_wc",
+    "got": true,
+    "rn": 14,
+    "back": true,
+    "front": true
+   },
+   {
+    "room": "cine_prive",
+    "got": true,
+    "rn": 14,
+    "back": true,
+    "front": true
+   }
+  ]
+ },
+ {
+  "n": "PC 3 collisions : meubles solides infranchissables, 280 déplacements sans jamais traverser un meuble",
+  "ok": true,
+  "info": {
+   "cine_hall": {
+    "solid": 150,
+    "bad": 0,
+    "steps": 6796,
+    "through": 0,
+    "arrived": 40
+   },
+   "cine_couloir": {
+    "solid": 63,
+    "bad": 0,
+    "steps": 5368,
+    "through": 0,
+    "arrived": 40
+   },
+   "cine_wc": {
+    "solid": 36,
+    "bad": 0,
+    "steps": 3510,
+    "through": 0,
+    "arrived": 40
+   },
+   "cine_prive": {
+    "solid": 48,
+    "bad": 0,
+    "steps": 3299,
+    "through": 0,
+    "arrived": 40
+   },
+   "cine_s1": {
+    "solid": 39,
+    "bad": 0,
+    "steps": 4665,
+    "through": 0,
+    "arrived": 40
+   },
+   "cine_s2": {
+    "solid": 57,
+    "bad": 0,
+    "steps": 7776,
+    "through": 0,
+    "arrived": 40
+   },
+   "cine_s3": {
+    "solid": 75,
+    "bad": 0,
+    "steps": 9656,
+    "through": 0,
+    "arrived": 40
+   }
+  }
+ },
+ {
+  "n": "PC 4 circulation naturelle : guichet, bornes, confiserie, portes, allées de chaque rangée, cabines et locaux tous atteignables",
+  "ok": true,
+  "info": {
+   "cine_hall": [],
+   "cine_couloir": [],
+   "cine_s1": [],
+   "cine_s2": [],
+   "cine_s3": [],
+   "cine_wc": [],
+   "cine_prive": []
+  }
+ },
+ {
+  "n": "PC 5 acheter un billet au guichet (prix plein) et à la borne (1 pièce de moins), refus sans assez de pièces",
+  "ok": true,
+  "info": {
+   "t0": [
+    "Salle 1 · PETIT ROBOTAnimation · 10",
+    "Salle 2 · MISSION ÉTOILEAventure spatiale · 12",
+    "Salle 3 · LA VAGUE GÉANTEGrand spectacle · 14",
+    "Retour"
+   ],
+   "b1": {
+    "c": 290,
+    "b": {
+     "s": 1,
+     "t": "PETIT ROBOT"
+    }
+   },
+   "b2": {
+    "c": 277,
+    "b": {
+     "s": 3,
+     "t": "LA VAGUE GÉANTE"
+    }
+   },
+   "dis": 3,
+   "poor": {
+    "c": 5,
+    "b": {
+     "s": 3,
+     "t": "LA VAGUE GÉANTE"
+    }
+   }
+  }
+ },
+ {
+  "n": "PC 6 confiserie : pop-corn, boisson et bonbons achetés (6 + 4 + 3 pièces), inventaire affiché",
+  "ok": true,
+  "info": {
+   "c": 87,
+   "s": {
+    "pop": 1,
+    "boi": 1,
+    "bon": 1
+   },
+   "info": "🎟 Billet : salle 3 · LA VAGUE GÉANTE · 1 pop-corn, 1 boisson, 1 bonbons"
+  }
+ },
+ {
+  "n": "PC 7 s’asseoir dans un fauteuil libre (jamais sur un spectateur), personnage assis vu de dos",
+  "ok": true,
+  "info": {
+   "seatPick": {
+    "j": 5,
+    "occ": 0,
+    "any": true
+   },
+   "sp": {
+    "sp": "dk0",
+    "st": "cine",
+    "film": false
+   }
+  }
+ },
+ {
+  "n": "PC 8 regarder un film : lumières éteintes, rideaux ouverts, vraie vidéo lue en mode cinéma, musique du jeu coupée ; à la fin billet utilisé, friandises mangées, bonheur en hausse, retour dans la salle",
+  "ok": true,
+  "info": {
+   "mid": {
+    "dim": 0.9999962416492353,
+    "curt": 0.9999104324519311,
+    "t": 3.581147,
+    "th": "cinefilm"
+   },
+   "fin": {
+    "h0": 31.979099999876397,
+    "h1": 62.946099999876346,
+    "billet": null,
+    "s": {
+     "pop": 0,
+     "boi": 0,
+     "bon": 0
+    },
+    "vus": 1,
+    "film": null,
+    "open": false,
+    "msg": "FIN. Nori a adoré « LA VAGUE GÉANTE » ! Les lumières se rallument."
+   },
+   "after": {
+    "dim": 0.00014218621868285113,
+    "curt": 0.0013472954063210325
+   }
+  }
+ },
+ {
+  "n": "PC 9 billet d’une autre salle : on peut s’asseoir mais le film ne démarre pas, le billet est conservé",
+  "ok": true,
+  "info": {
+   "st": "cine",
+   "film": false,
+   "msg": "Pas de billet pour cette salle : le film ne démarre pas. Achète-le à la billetterie ou à la borne.",
+   "billet": {
+    "s": 1,
+    "t": "PETIT ROBOT"
+   }
+  }
+ },
+ {
+  "n": "PC 10 toilettes : côté hommes/femmes respecté, passage aux toilettes (besoin rétabli), lavage des mains",
+  "ok": true,
+  "info": {
+   "wc": {
+    "wrong": "Ce sont les toilettes des femmes : celles des hommes sont à gauche.",
+    "hidden": true,
+    "wc1": 99.9994,
+    "wash": true
+   },
+   "up": {
+    "st": "idle",
+    "walk": true
+   }
+  }
+ },
+ {
+  "n": "PC 11 local technique, réserve et espace du personnel visitables",
+  "ok": true,
+  "info": {
+   "pv": [
+    "Local techniqueServeur et tableau électrique",
+    "RéserveStock de la confiserie",
+    "Coin du personnelCasiers et pause café",
+    "SortirRetour au couloir"
+   ],
+   "pvMsg": "La réserve : sacs de maïs, gobelets, packs de boissons et bonbons."
+  }
+ },
+ {
+  "n": "PC 12 interactions au toucher : borne, porte des salles, fauteuil (s’asseoir puis se lever)",
+  "ok": true,
+  "info": {
+   "borne": "borne",
+   "porte": "cine_couloir",
+   "assis": "cine",
+   "leve": "idle"
+  }
+ },
+ {
+  "n": "PC 14 performances : une image par pièce bien sous les 16 ms (60 i/s), comparable aux autres lieux",
+  "ok": true,
+  "info": {
+   "perf": {
+    "cine_hall": 1.99,
+    "cine_couloir": 0.06,
+    "cine_wc": 1.44,
+    "cine_prive": 0.54,
+    "cine_s1": 1.09,
+    "cine_s2": 1.48,
+    "cine_s3": 1.36
+   },
+   "gym": 1.19
+  }
+ },
+ {
+  "n": "PC 13 billet, friandises et films vus conservés après rechargement",
+  "ok": true,
+  "info": {
+   "billet": {
+    "s": 2,
+    "t": "MISSION ÉTOILE"
+   },
+   "snacks": {
+    "pop": 2,
+    "boi": 0,
+    "bon": 1
+   },
+   "vus": 3
+  }
+ },
+ {
+  "n": "PC 15 « Partir » ramène dans la rue devant le cinéma ; la salle de sport et le magasin de vêtements fonctionnent toujours",
+  "ok": true,
+  "info": {
+   "out": {
+    "street": true,
+    "near": true,
+    "place": "street"
+   },
+   "other": {
+    "g": {
+     "place": "gym",
+     "RN": 20,
+     "curV": "gym",
+     "furn": 10
+    },
+    "c": {
+     "place": "clothes",
+     "RN": 20,
+     "curV": "clothes"
+    }
+   }
+  }
+ },
+ {
+  "n": "PC 16 aucune erreur JavaScript",
   "ok": true,
   "info": []
  }

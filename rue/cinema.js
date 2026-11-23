@@ -8,13 +8,16 @@ Object.assign(FONT,{B:['110','101','110','101','110'],F:['111','100','110','100'
  K:['101','110','100','110','101'],Y:['101','101','010','010','010'],W:['101','101','111','111','101'],Z:['111','001','010','100','111'],J:['001','001','001','101','111'],Q:['111','101','101','111','001'],
  '>':['100','010','001','010','100'],'·':['000','000','010','000','000'],'!':['010','010','010','000','010'],'?':['111','001','010','000','010']});
 const GOLD='#d9a441',GOLDL='#f3cd6a',RED='#b8263a',REDD='#7e1828',WOOD='#6b3e30',DARK='#26304a',INK='#1a1420';
-// ---------- les films (originaux, inventés pour Little Life) ----------
+// ---------- bibliothèque de films ----------
+// Un film = un vrai fichier vidéo MP4 (H.264 + AAC, lisible sur iPhone) dans le dossier films/, plus une ligne ici.
+// Pour en ajouter un : déposer films/mon-film.mp4 (et une image films/mon-film.png), puis ajouter {id:'mon-film',s:<salle>,t:'TITRE',g:'Genre',p:<prix>,src,poster}.
+// Sous-titres et moments de réaction (rire, surprise, peur, émotion) : facultatifs, dans FILMS_DATA (rue/films_data.js) ; la durée réelle est lue dans la vidéo.
 const FILMS=[
- {s:1,t:'PETIT ROBOT',g:'Animation',d:'Un petit robot cherche une fleur au coucher du soleil.',p:10,c:'#3fa0d0'},
- {s:2,t:'MISSION ÉTOILE',g:'Aventure spatiale',d:'Une fusée part explorer une planète inconnue.',p:12,c:'#8a5fd0'},
- {s:3,t:'LA VAGUE GÉANTE',g:'Grand spectacle',d:'Une surfeuse affronte la plus grande vague du monde.',p:14,c:'#2fb3a0'}];
+ {id:'petit-robot',s:1,t:'PETIT ROBOT',g:'Animation',d:'Un petit robot cherche quelque chose de beau.',p:10,c:'#3fa0d0'},
+ {id:'mission-etoile',s:2,t:'MISSION ÉTOILE',g:'Aventure spatiale',d:'La capitaine Lou part explorer une planète inconnue.',p:12,c:'#8a5fd0'},
+ {id:'vague-geante',s:3,t:'LA VAGUE GÉANTE',g:'Grand spectacle',d:'Maya affronte la plus grande vague du monde.',p:14,c:'#2fb3a0'}];
+FILMS.forEach(F=>{F.src=F.src||'films/'+F.id+'.mp4';F.poster=F.poster||'films/'+F.id+'.png';Object.assign(F,(typeof FILMS_DATA!='undefined'&&FILMS_DATA[F.id])||{},{subs:(typeof FILMS_DATA!='undefined'&&FILMS_DATA[F.id]&&FILMS_DATA[F.id].subs)||[],reactions:(typeof FILMS_DATA!='undefined'&&FILMS_DATA[F.id]&&FILMS_DATA[F.id].reactions)||[]})});
 const SNACKS=[{k:'pop',n:'Pop-corn',p:6,a:'acheté',d:'Grand seau, bien chaud'},{k:'boi',n:'Boisson',p:4,a:'achetée',d:'Soda frais'},{k:'bon',n:'Bonbons',p:3,a:'achetés',d:'Assortiment acidulé'}];
-const FILM_DUR=42; // secondes
 // ---------- les pièces ----------
 const ROOMS={
  cine_hall:{nom:'le cinéma',titre:'Hall du cinéma',rn:22,wall:'#ead8c2',door:'#9fd0e0',floor:'carpet',fa:'#7a2638',fb:'#6a1f30',
@@ -194,35 +197,14 @@ CI.scr=rn=>({u0:2.2,u1:rn-2.2,z0:Math.round(WHI*.3),z1:Math.round(WHI*.84)});
 function doorZone(){const DS=RN-16,z=Math.round(WHI*.7)+2;return[P3(0,9.5+DS,0),P3(0,12.7+DS,0),P3(0,12.7+DS,z),P3(0,9.5+DS,z)]}
 {const _pb=placeBG;placeBG=function(n){const k=bgKey;_pb(n);if(isCine(place)&&bgKey!==k){G=bgx;bgx.save();try{const Z=doorZone();bgx.beginPath();bgx.rect(0,0,LW,LH);bgx.moveTo(Z[0][0],Z[0][1]);Z.slice(1).forEach(p=>bgx.lineTo(p[0],p[1]));bgx.closePath();bgx.clip('evenodd');cineDeco(n)}catch(e){console.error(e)}finally{bgx.restore()}G=rx}}}
 // ---------- écran, rideaux, film, obscurité ----------
-const FW=96,FH=48,FC=document.createElement('canvas');FC.width=FW;FC.height=FH;const fcx=FC.getContext('2d');
-const fr=(x,y,w,h,c)=>{fcx.fillStyle=c;fcx.fillRect(Math.round(x),Math.round(y),Math.max(1,Math.round(w)),Math.max(1,Math.round(h)))};
-function filmFrame(s,t){fcx.imageSmoothingEnabled=false;const F=FILMS[s-1],tt=t;
- if(tt<4||tt>FILM_DUR-4){fr(0,0,FW,FH,'#05040e');const tx=tt<4?F.t:'FIN',sc=1;const w=axTW(tx,sc);fcx.globalAlpha=Math.min(1,Math.min(tt,FILM_DUR-tt)/1.2);axText(fcx,tx,Math.round((FW-w)/2),20,tt<4?F.c:'#ffffff',sc);if(tt<4)axText(fcx,'UN FILM LITTLE LIFE',Math.round((FW-axTW('UN FILM LITTLE LIFE',1))/2),32,'#8f97c0',1);fcx.globalAlpha=1;return}
- const p=(tt-4)/(FILM_DUR-8);
- if(s==1){// petit robot : coucher de soleil, colline, fleur
-  const sky=['#ff9a5a','#ff7a6a','#c05a8a','#5a3a8a'];sky.forEach((c,i)=>fr(0,i*9,FW,9,c));fr(0,36,FW,12,'#3a7a3a');for(let x=0;x<FW;x++){const hgt=4+Math.sin(x*.08)*3;fr(x,36-hgt,1,hgt,'#4a9a4a')}
-  fcx.fillStyle='#ffd166';fcx.beginPath();fcx.arc(70,26-p*10,7,0,7);fcx.fill();const rx2=10+p*60,b=Math.floor(tt*4)%2;
-  fr(rx2,22-b,10,9,'#d4dce4');fr(rx2+2,15-b,6,6,'#d4dce4');fr(rx2+3,17-b,1,1,INK);fr(rx2+6,17-b,1,1,INK);fr(rx2+4,12-b,1,3,'#8a96a6');fr(rx2+4,11-b,2,1,'#e0533d');fr(rx2+1,31,3,3,'#8a96a6');fr(rx2+6,31,3,3,'#8a96a6');
-  if(p>.55){fr(80,26,1,8,'#3a7a3a');fr(78,23,5,4,'#ff4fa3');fr(79,24,3,2,'#ffe14f')}if(p>.8){for(let i=0;i<5;i++){const a=tt*2+i;fr(rx2+5+Math.cos(a)*9,14+Math.sin(a)*4,2,2,'#ff4fa3')}}}
- else if(s==2){// mission étoile : décollage, espace, planète
-  fr(0,0,FW,FH,'#05030f');for(let i=0;i<40;i++){const x=(i*53+tt*(p>.2?30:2))%FW,y=(i*29)%FH;fr(FW-x,y,1,1,i%5?'#ffffff':'#ffd166')}
-  if(p<.25){const y=36-p*4*36;fr(0,40,FW,8,'#3a3a52');fr(44,y,8,14,'#e8eef2');fr(46,y-4,4,4,'#e0533d');fr(47,y+4,2,2,'#3f8fd0');for(let i=0;i<6;i++)fr(45+Math.random()*6,y+14+i,2,2,i%2?'#ffb347':'#ffe14f')}
-  else if(p<.7){const k=(p-.25)/.45;fr(20+k*20,20+Math.sin(tt*3)*3,14,8,'#e8eef2');fr(34+k*20,22+Math.sin(tt*3)*3,4,4,'#e0533d');for(let i=0;i<4;i++)fr(12+k*20-i*3,22+Math.sin(tt*3)*3,3,4,i%2?'#ffb347':'#ffe14f');fcx.fillStyle='#8a5fd0';fcx.beginPath();fcx.arc(110-k*30,30,18,0,7);fcx.fill()}
-  else{fcx.fillStyle='#8a5fd0';fcx.beginPath();fcx.arc(48,70,44,0,7);fcx.fill();fr(0,38,FW,10,'#6a3fb0');fr(44,26,8,12,'#e8eef2');fr(46,22,4,4,'#e0533d');const w=Math.floor(tt*3)%2;fr(58,30,4,6,'#ffd166');fr(56+w*6,28,2,3,'#ffd166');fr(59,27,3,3,'#f1c7a3')}}
- else{// la vague géante : océan, vague, surfeuse, dauphins
-  fr(0,0,FW,20,'#7fd0f0');fr(0,20,FW,28,'#1d6fa0');fcx.fillStyle='#ffd166';fcx.beginPath();fcx.arc(18,12,6,0,7);fcx.fill();
-  const wv=Math.min(1,p*1.6);for(let x=0;x<FW;x++){const h=8+wv*24*Math.exp(-Math.pow((x-60+p*20)/22,2))+Math.sin(x*.3+tt*3)*1.5;fr(x,48-h-6,1,h,'#2a8ac0');fr(x,48-h-6,1,2,'#e8f8ff')}
-  const sx=40+Math.sin(tt*1.5)*10,sy=48-6-8-wv*20+Math.sin(tt*2)*2;fr(sx,sy+6,12,2,'#ffe14f');fr(sx+4,sy,3,6,'#e0533d');fr(sx+4,sy-3,3,3,'#c98f62');
-  if(p>.6){for(let i=0;i<2;i++){const ph=(tt*.8+i*.5)%1,dx=10+i*50+ph*20,dy=40-Math.sin(ph*Math.PI)*14;fr(dx,dy,7,3,'#8a96a6');fr(dx+5,dy-2,2,2,'#8a96a6')}}}
- fcx.fillStyle='rgba(0,0,0,.12)';for(let y=0;y<FH;y+=2)fcx.fillRect(0,y,FW,1)}
-function wallImg(img,u0,u1,z0,z1){const a=(u1-u0)/img.width*TW/2,b=(u1-u0)/img.width*TH/2,d=(z1-z0)/img.height,p=P3(u0,0,z1);rx.save();rx.imageSmoothingEnabled=false;rx.transform(a,b,0,d,p[0],p[1]);rx.drawImage(img,0,0);rx.restore()}
+function wallImg(img,u0,u1,z0,z1){const iw=img.videoWidth||img.width,ih=img.videoHeight||img.height;if(!iw||!ih)return;const a=(u1-u0)/iw*TW/2,b=(u1-u0)/iw*TH/2,d=(z1-z0)/ih,p=P3(u0,0,z1);rx.save();rx.imageSmoothingEnabled=false;rx.transform(a,b,0,d,p[0],p[1]);rx.drawImage(img,0,0);rx.restore()}
 function screenDyn(){const P=PLACES[place];if(!P||!P.salle)return;const S=CI.scr(RN),F=CI.film,on=F&&F.on&&F.s==P.salle;
- if(on){filmFrame(P.salle,F.t);wallImg(FC,S.u0,S.u1,S.z0,S.z1)}
+ if(on&&CM.v&&CM.v.readyState>=2)wallImg(CM.v,S.u0,S.u1,S.z0,S.z1)
  // rideaux rouges : fermés hors séance, ils s'ouvrent au début du film
  const o=CI.curt,half=(S.u1-S.u0)/2+.3,cw=half*(1-o)+.7,G0=G;G=rx;
  for(const side of[0,1]){const a=side?S.u1+.5-cw:S.u0-.5,b=a+cw;WR(a,b,S.z0-6,S.z1+4,'#8e1a2c');for(let u=a+.15;u<b;u+=.45)WR(u,u+.18,S.z0-6,S.z1+4,'#a82a3c');WR(side?a:b-.12,side?a+.12:b,S.z0-6,S.z1+4,REDD)}G=G0}
 function salleDark(){const P=PLACES[place];if(!P||!P.salle)return;const d=CI.dim;if(d<=.01)return;{const G0=G;G=rx;rx.globalAlpha=.72*d;poly([P3(-.4,RN+.4,-2),P3(-.4,RN+.4,WHI+2),P3(-.4,-.4,WHI+2),P3(RN+.4,-.4,WHI+2),P3(RN+.4,-.4,-2),P3(RN+.4,RN+.4,-8)],'#060410');rx.globalAlpha=1;G=G0}
- const S=CI.scr(RN),F=CI.film,on=F&&F.on;if(on){rx.globalAlpha=d;wallImg(FC,S.u0,S.u1,S.z0,S.z1);rx.globalAlpha=1;
+ const S=CI.scr(RN),F=CI.film,on=F&&F.on;if(on){if(CM.v&&CM.v.readyState>=2){rx.globalAlpha=d;wallImg(CM.v,S.u0,S.u1,S.z0,S.z1);rx.globalAlpha=1}
   // faisceau du projecteur depuis la cabine
   const pv=RN-2.2,src=P3(0,pv-.7,Math.round(WHI*.87)),G0=G;G=rx;rx.globalCompositeOperation='lighter';rx.globalAlpha=.07*d;poly([src,P3(S.u0,0,S.z1),P3(S.u1,0,S.z0)],'#bfe8ff');rx.globalAlpha=.05*d;poly([src,P3(S.u1,0,S.z1),P3(S.u0,0,S.z0)],'#bfe8ff');rx.globalAlpha=1;rx.globalCompositeOperation='source-over';G=G0}
  // éclairage au sol des marches et des allées, panneau de sortie
@@ -250,9 +232,9 @@ function washDyn(){if(place!='cine_wc')return;const f=PLACES.cine_wc.furn.find(o
 {const _sp=spUpdate;spUpdate=function(){const nm=C.st=='cine'?'dk0':C.st=='ciwash'?washFrame():null;if(nm&&!creating&&!dressing){const L=N.look,k=nm+JSON.stringify(L);if(k!==spKey&&drawFrame(nm,L))spKey=k;spName=nm;SP.fl=false;return}_sp()}}
 // ---------- musique : ambiance du hall et bande originale pendant les films ----------
 MTH.cinema={bpm:88,lp:3200,v:0.4,sw:.18,ch:[[50,53,57,60],[55,59,62,65],[48,52,55,59],[45,48,52,55]],sc:[0,2,3,5,7,9,10],root:74,lead:'triangle',dens:.34};
-MTH.cinefilm={bpm:70,lp:2600,v:0.38,ch:[[45,52,57,60],[41,48,53,57],[48,55,60,64],[43,50,55,59]],sc:[0,2,4,7,9],root:69,lead:'sine',dens:.22};
+MTH.cinefilm={bpm:70,lp:2600,v:0,ch:[[45,52,57,60]],sc:[0],root:69,lead:'sine',dens:0};// pendant la séance : la musique du jeu se tait, seul le son du film joue
 {const _tn=themeNow;themeNow=function(){if(isCine(place)&&!(typeof tscr!=='undefined'&&!tscr.hidden))return CI.film&&CI.film.on?'cinefilm':'cinema';return _tn()}}
-{const _ts=themeSched;themeSched=function(T,t,k){if(curTh=='cinema'||curTh=='cinefilm'){const s=k%16,bar=Math.floor(k/16)%4,ch=T.ch[bar],SD=60/T.bpm/4;
+{const _ts=themeSched;themeSched=function(T,t,k){if(curTh=='cinefilm')return;if(curTh=='cinema'){const s=k%16,bar=Math.floor(k/16)%4,ch=T.ch[bar],SD=60/T.bpm/4;
   if(curTh=='cinema'){// jazz de hall de cinéma : contrebasse, balais, accords de piano électrique, vibraphone
    if(s%4==0)pl(ch[0]-12+[0,7,5,3][s/4],t,SD*3.4,.16,'triangle');if(s%4==2)nz(t,.08,.05,6000);if(s==4||s==12)nz(t,.18,.06,2400,'bandpass');
    if(s==0||s==7)ch.forEach(m=>pl(m+12,t,SD*5,.02,'sine'));if(!MOT||k%128==0)MOT=motif(T);const d=MOT[s];if(d>=0&&s%2==0)pl(T.root+T.sc[d%T.sc.length]+(ch[0]%12)-(T.ch[0][0]%12),t,SD*2.5,.035,'triangle')}
@@ -284,8 +266,8 @@ function sitIn(f,j){if(CI.busy||C.st=='cine')return;if(j==null){say('Cette rang�
  goto(aisle[0]*12,88+aisle[1]*5,()=>{C.st='cinego';C.path=null;CI.seatPath=[[left?f.x-.2:f.x+f.w+.2,f.y+.45],[f.x+j+.5,f.y+.45]];})}
 function standUpCine(){if(C.st!='cine'&&C.st!='cinego')return;const f=CI.seat&&CI.seat.f;if(CI.film&&CI.film.on)stopFilm(false);C.st='idle';C.idle=120;if(f){const left=CI.seat.j+.5<f.w/2;C.x=(left?2.05:f.x+f.w+.95)*12;C.y=88+(f.y+f.h+.15)*5;C.tx=C.x;C.ty=C.y}CI.seat=null;ciUI()}
 function startFilm(){const P=PLACES[place],S=ST();if(!P.salle)return;if(!(S.billet&&S.billet.s==P.salle)){say('Pas de billet pour cette salle : le film ne démarre pas. Achète-le à la billetterie ou à la borne.');return}
- CI.film={s:P.salle,t:0,on:true};const sn=S.snacks;CI.pop0=sn.pop>0;if(CI.pop0&&CI.seat)CI.seat.f.pb=CI.seat.j+1;
- say('Les lumières s’éteignent… « '+FILMS[P.salle-1].t+' » commence !'+(sn.pop||sn.boi||sn.bon?' Pense à tes friandises.':''));ciUI()}
+ const FI=FILMS.find(f=>f.s==P.salle);CI.film={s:P.salle,id:FI.id,on:true};const sn=S.snacks;CI.pop0=sn.pop>0;if(CI.pop0&&CI.seat)CI.seat.f.pb=CI.seat.j+1;
+ say('Les lumières s’éteignent… « '+FI.t+' » va commencer.');ciUI();setTimeout(()=>{if(C.st=='cine'&&CI.film&&CI.film.on&&!CM.open)CM.show(FI)},1300)}
 function stopFilm(done){const F=CI.film;CI.film=null;const S=ST();CI.pop0=false;Object.values(ROOMS).forEach(R=>R.furn.forEach(f=>{if(f.pb)delete f.pb}));if(done&&F){S.billet=null;S.vus=(S.vus||0)+1;add('happy',20);
   const sn=S.snacks;if(sn.pop>0){sn.pop--;add('hunger',12);add('happy',4)}if(sn.boi>0){sn.boi--;add('happy',3);add('wc',-12)}if(sn.bon>0){sn.bon--;add('happy',4)}
   try{bars()}catch(e){}save();say('FIN. '+NAME()+' a adoré « '+FILMS[F.s-1].t+' » ! Les lumières se rallument.');try{talk(['Quel film ! Je veux le revoir.','J’ai pleuré à la fin… ne le dis à personne.','Le pop-corn rend tout meilleur.'][S.vus%3])}catch(e){}}
@@ -315,8 +297,7 @@ const pfxC=(n,k)=>{try{if(typeof JEUSON!='undefined')JEUSON.fx(n,k||1,.05)}catch
  if(C.st=='cinego'&&CI.seatPath){const w=CI.seatPath[0],cu=C.x/12,cv=(C.y-88)/5,du=w[0]-cu,dv=w[1]-cv,l=Math.hypot(du,dv),sp=.06;if(l<sp){C.x=w[0]*12;C.y=88+w[1]*5;CI.seatPath.shift();if(!CI.seatPath.length){CI.seatPath=null;C.st='cine';C.d=1;C.tx=C.x;C.ty=C.y;
     say(NAME()+' s’installe dans le fauteuil.');ciUI();if(PLACES[place].salle&&ST().billet&&ST().billet.s==PLACES[place].salle)setTimeout(()=>{if(C.st=='cine'&&!CI.film)startFilm()},700);else if(PLACES[place].salle)startFilm()}}
   else{C.x+=du/l*sp*12;C.y+=dv/l*sp*5}}
- const P=PLACES[place],F=CI.film,want=F&&F.on?1:0;CI.dim+=(want-CI.dim)*.04;CI.curt+=((F&&F.on&&F.t>1?1:0)-CI.curt)*.03;
- if(F&&F.on){F.t+=1/60;if(F.t>=FILM_DUR)stopFilm(true)}
+ const P=PLACES[place],F=CI.film,want=F&&F.on?1:0;CI.dim+=(want-CI.dim)*.04;CI.curt+=((F&&F.on?1:0)-CI.curt)*.03;
  if(C.st=='ciwc'&&CI.wc){if(--CI.wc.t<=0){N.wc=100;CI.wc=null;C.alpha=null;C.st='idle';C.idle=60;try{bars()}catch(e){}say('Ça va mieux ! Pense à te laver les mains.');ciUI()}}
  if(C.st=='ciwash'&&CI.wash)washTick();
 
@@ -373,5 +354,103 @@ function ciUI(){const g=document.getElementById('ciG'),info=document.getElementB
   tile(g,'Coin du personnel','Casiers et pause café',()=>{goto(5.5*12,88+10.2*5,()=>{C.d=1;say('Le coin du personnel : casiers, table et machine à café.')})});tile(g,'Sortir','Retour au couloir',goMainDoor)}}
 function leave(){if(CI.busy)return;if(C.st=='cine'||C.st=='cinego')standUpCine();if(place=='cine_hall'){CI.mode=null;goHome()}else goMainDoor()}
 (function init(){const lv=document.getElementById('ciLeave');if(lv)lv.onclick=leave;fadeEl()})();
-window.CINE={FILMS,SNACKS,ROOMS,CI,ST,ciUI,goDoor,goMainDoor,enterRoom,backRoom,buyTicket,buySnack,sitIn,freeSeat,standUpCine,startFilm,stopFilm,useWC,washHands,npcPrep,npcImg,npcLook,NPCL,washStop,WASH,BASINS,basinFree,leave,setRoom,FILM_DUR,isCine};
+// ======================= MODE CINÉMA : vraie lecture vidéo en plein écran, vue depuis le fauteuil =======================
+// Vue composée : la vidéo (balise <video>, lecture « dans la page » compatible iPhone) occupe la majeure partie de l'écran ;
+// par-dessus, un calque pixel art : salle sombre, rideaux, rangées de fauteuils, spectateurs (vrais personnages du jeu, de dos)
+// et Nori, de dos, avec exactement sa tenue (image « assis de dos » du jeu dessinée avec ses vêtements), éclairés par la lumière du film.
+const CM={open:false,el:null,v:null,cv:null,cx:null,F:null,state:'off',lights:1,light:[40,40,60],lum:.2,react:null,ri:0,hideT:0,last:0,raf:0,bust:null,heads:[],audio:null,gain:null};
+const IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform=='MacIntel'&&navigator.maxTouchPoints>1);
+const fmtT=s=>{s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function cmBuild(){if(CM.el)return;const e=document.createElement('div');e.id='cineMode';e.hidden=true;
+ e.innerHTML='<video id="cmVid" playsinline webkit-playsinline preload="auto" disablepictureinpicture></video><canvas id="cmFg"></canvas><div class="cmSub" id="cmSub"></div>'+
+  '<div class="cmUi" id="cmUi"><div class="cmTop"><span id="cmTitle"></span><button id="cmQuit" aria-label="Quitter la séance">✕ Quitter</button></div>'+
+  '<div class="cmBot"><button id="cmPlay" aria-label="Pause">❚❚</button><div class="cmBar" id="cmBar"><i id="cmFill"></i></div><span id="cmTime">0:00 / 0:00</span>'+
+  '<button id="cmMute" aria-label="Couper le son">🔊</button><input type="range" id="cmVol" min="0" max="1" step="0.05" aria-label="Volume"></div></div>'+
+  '<div class="cmPanel" id="cmStart"><b id="cmSTitle"></b><small id="cmSInfo"></small><button id="cmGo">▶ Lancer la séance</button><small id="cmRot">Tourne ton téléphone pour un écran plus grand</small></div>'+
+  '<div class="cmPanel" id="cmEnd" hidden><b>FIN</b><small id="cmETxt"></small><button id="cmBack">Revenir dans la salle</button></div><div class="cmWait" id="cmWait" hidden>Chargement…</div>';
+ document.body.appendChild(e);CM.el=e;CM.v=e.querySelector('#cmVid');CM.cv=e.querySelector('#cmFg');CM.cx=CM.cv.getContext('2d');
+ const V=CM.v,$=id=>e.querySelector('#'+id);
+ $('cmGo').onclick=()=>cmPlay();$('cmQuit').onclick=()=>cmClose(false);$('cmBack').onclick=()=>cmClose(true);
+ $('cmPlay').onclick=ev=>{ev.stopPropagation();if(V.paused){V.play().catch(()=>{})}else V.pause();cmPoke()};
+ $('cmMute').onclick=ev=>{ev.stopPropagation();const S=ST();S.mute=!S.mute;cmVol();cmPoke()};$('cmVol').oninput=ev=>{const S=ST();S.vol=+ev.target.value;S.mute=false;cmVol();cmPoke()};
+ $('cmBar').onclick=ev=>{ev.stopPropagation();const r=ev.currentTarget.getBoundingClientRect();if(V.duration)V.currentTime=Math.max(0,Math.min(V.duration-.5,(ev.clientX-r.left)/r.width*V.duration));cmPoke()};
+ e.addEventListener('pointerdown',ev=>{if(ev.target.closest('button,input,.cmBar'))return;if(CM.state=='play'||CM.state=='pause'){const u=$('cmUi');u.classList.toggle('on');CM.hideT=performance.now()}});
+ V.addEventListener('playing',()=>{$('cmWait').hidden=true;CM.state='play';$('cmPlay').textContent='❚❚';$('cmPlay').setAttribute('aria-label','Pause')});
+ V.addEventListener('pause',()=>{if(CM.state=='play'){CM.state='pause';$('cmPlay').textContent='▶';$('cmPlay').setAttribute('aria-label','Lecture');$('cmUi').classList.add('on')}});
+ V.addEventListener('waiting',()=>{if(CM.state=='play')$('cmWait').hidden=false});V.addEventListener('ended',cmEnd);
+ V.addEventListener('error',()=>{if(!CM.open)return;$('cmWait').hidden=true;$('cmSInfo').textContent='La vidéo n’a pas pu être chargée. Vérifie ta connexion puis réessaie.';$('cmStart').hidden=false;CM.state='start'});
+ addEventListener('resize',()=>{if(CM.open)cmLayout()});if(window.visualViewport)visualViewport.addEventListener('resize',()=>{if(CM.open)cmLayout()})}
+// volume : sur iPhone le volume d'une vidéo n'est pas réglable par le code → on passe par un mixeur Web Audio (créé au toucher « Lancer »)
+function cmVol(){const S=ST(),v=S.vol==null?1:S.vol,m=!!S.mute,V=CM.v;if(CM.gain){CM.gain.gain.value=m?0:v;V.muted=false}else{V.volume=v;V.muted=m}
+ const b=CM.el.querySelector('#cmMute');b.textContent=m||v==0?'🔇':v<.5?'🔉':'🔊';CM.el.querySelector('#cmVol').value=v}
+function cmAudio(){if(CM.audio||!IOS)return;try{const A=window.AudioContext||window.webkitAudioContext;CM.audio=new A();const src=CM.audio.createMediaElementSource(CM.v);CM.gain=CM.audio.createGain();src.connect(CM.gain);CM.gain.connect(CM.audio.destination)}catch(e){CM.audio=null;CM.gain=null}}
+function cmShow(F){cmBuild();const e=CM.el,V=CM.v,$=id=>e.querySelector('#'+id);CM.F=F;CM.open=true;CM.state='start';CM.lights=0;CM.ri=0;CM.react=null;
+ $('cmTitle').textContent=F.t;$('cmSTitle').textContent=F.t;$('cmSInfo').textContent=F.g+' · salle '+F.s+(F.dur?' · '+Math.round(F.dur/60)+' min':'');$('cmStart').hidden=false;$('cmEnd').hidden=true;$('cmWait').hidden=true;$('cmUi').classList.remove('on');$('cmSub').textContent='';
+ $('cmRot').hidden=!(innerHeight>innerWidth);V.poster=F.poster;if(V.getAttribute('src')!==F.src){V.src=F.src;V.load()}V.currentTime=0;cmVol();cmPrep();e.hidden=false;e.classList.remove('on');cmLayout();
+ requestAnimationFrame(()=>e.classList.add('on'));cancelAnimationFrame(CM.raf);CM.raf=requestAnimationFrame(cmLoop);ciUI()}
+function cmPlay(){const e=CM.el,V=CM.v;cmAudio();if(CM.audio&&CM.audio.state!='running')CM.audio.resume().catch(()=>{});cmVol();e.querySelector('#cmStart').hidden=true;e.querySelector('#cmWait').hidden=false;CM.state='play';CM.hideT=performance.now();
+ const p=V.play();if(p&&p.catch)p.catch(err=>{e.querySelector('#cmWait').hidden=true;e.querySelector('#cmStart').hidden=false;CM.state='start';e.querySelector('#cmSInfo').textContent='Touche « Lancer la séance » pour démarrer le film.'})}
+function cmPoke(){CM.hideT=performance.now();CM.el.querySelector('#cmUi').classList.add('on')}
+function cmEnd(){if(!CM.open||CM.state=='end')return;CM.state='end';const e=CM.el;e.querySelector('#cmUi').classList.remove('on');e.querySelector('#cmSub').textContent='';
+ e.querySelector('#cmETxt').textContent='« '+CM.F.t+' » · Les lumières se rallument…';setTimeout(()=>{if(CM.state=='end')e.querySelector('#cmEnd').hidden=false},1200);CM.endT=setTimeout(()=>{if(CM.state=='end')cmClose(true)},7000)}
+function cmClose(done){if(!CM.open)return;clearTimeout(CM.endT);const e=CM.el,V=CM.v;try{V.pause()}catch(_){}e.classList.remove('on');CM.state='off';
+ setTimeout(()=>{e.hidden=true;CM.open=false;cancelAnimationFrame(CM.raf);try{V.removeAttribute('src');V.load()}catch(_){}},450);
+ const film=CI.film;stopFilm(!!done);if(!done&&film)say('Séance interrompue. Ton billet reste valable : touche « Regarder » pour relancer le film.');ciUI()}
+// mise en page : le film le plus grand possible, la salle et Nori dessous
+function cmLayout(){const W=innerWidth,H=(window.visualViewport?visualViewport.height:innerHeight),port=H>W;let fw,fh,fx,fy;
+ if(port){fw=W;fh=Math.round(W*9/16);fx=0;fy=Math.round(H*.24)}else{fh=Math.round(H*.81);fw=Math.min(W,Math.round(fh*16/9));fh=Math.round(fw*9/16);fx=Math.round((W-fw)/2);fy=Math.round(H*.025)}
+ Object.assign(CM.v.style,{left:fx+'px',top:fy+'px',width:fw+'px',height:fh+'px'});CM.film={fx,fy,fw,fh,W,H,port};
+ const sc=port?W/160:H/180,lw=port?160:Math.max(160,Math.round(W/sc)),lh=port?Math.round(H/sc):180;CM.cv.width=lw;CM.cv.height=lh;CM.sc=sc;const sub=CM.el.querySelector('#cmSub');Object.assign(sub.style,{left:fx+'px',width:fw+'px',top:(fy+fh-Math.max(34,fh*.2))+'px'})}
+// images des personnages (préparées une fois : Nori avec sa tenue, quelques spectateurs)
+function cropTop(img,hFrac){const c=document.createElement('canvas'),g=c.getContext('2d');g.drawImage(img,0,0);const d=g.getImageData(0,0,CW,CH).data;let y0=CH,x0=CW,x1=0;
+ for(let y=0;y<CH;y++)for(let x=0;x<CW;x++)if(d[(y*CW+x)*4+3]>20){if(y<y0)y0=y;if(x<x0)x0=x;if(x>x1)x1=x}const h=Math.round((CH-y0)*hFrac),o=document.createElement('canvas');o.width=x1-x0+1;o.height=h;o.getContext('2d').drawImage(c,x0,y0,o.width,h,0,0,o.width,h);
+ // contour éclairable : pixels opaques en bord de silhouette
+ const od=o.getContext('2d').getImageData(0,0,o.width,o.height).data,edge=[];for(let y=0;y<o.height;y++)for(let x=0;x<o.width;x++){const a=i=>od[i*4+3]>20,i=y*o.width+x;if(!a(i))continue;if(y==0||x==0||x==o.width-1||!a(i-o.width)||!a(i-1)||!a(i+1))edge.push(x,y)}o.edge=edge;return o}
+function cmPrep(){try{const L=N.look;if(drawFrame('dk0',L)){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);CM.bust=cropTop(c,.68)}
+  CM.heads=[0,1,2,3,4,5].map(i=>{if(!drawFrame('dk0',npcLook(i)))return null;const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);return cropTop(c,.42)}).filter(Boolean)}catch(e){console.error(e)}spKey=''}
+function cmLight(){const V=CM.v;if(V.readyState<2)return;try{if(!CM.smp){CM.smp=document.createElement('canvas');CM.smp.width=8;CM.smp.height=4}const g=CM.smp.getContext('2d');g.drawImage(V,0,0,8,4);const d=g.getImageData(0,0,8,4).data;let r=0,gg=0,b=0;for(let i=0;i<d.length;i+=4){r+=d[i];gg+=d[i+1];b+=d[i+2]}const n=d.length/4;
+ const t=[r/n,gg/n,b/n];CM.light=CM.light.map((v,i)=>v+(t[i]-v)*.25);CM.lum=(CM.light[0]*.3+CM.light[1]*.59+CM.light[2]*.11)/255}catch(e){}}
+// personnage éclairé : assombri par la salle, liseré coloré par la lumière du film
+function litSprite(g,img,x,y,k,dark,lightCol,rim){if(!img)return;const w=img.width*k,h=img.height*k;g.imageSmoothingEnabled=false;
+ if(!CM.tmp)CM.tmp=document.createElement('canvas');const T=CM.tmp;T.width=Math.ceil(w);T.height=Math.ceil(h);const t=T.getContext('2d');t.imageSmoothingEnabled=false;t.drawImage(img,0,0,w,h);
+ t.globalCompositeOperation='source-atop';t.fillStyle='rgba(6,4,16,'+dark.toFixed(3)+')';t.fillRect(0,0,w,h);t.fillStyle=lightCol;const E=img.edge||[];for(let i=0;i<E.length;i+=2)t.fillRect(Math.floor(E[i]*k),Math.floor(E[i+1]*k),Math.ceil(k),Math.ceil(k)*(rim||1));t.globalCompositeOperation='source-over';
+ g.drawImage(T,Math.round(x),Math.round(y))}
+function seatBack(g,x,y,w,h,shade,lc){g.fillStyle=shade;g.fillRect(x+1,y,w-2,h);g.fillRect(x,y+2,w,h-2);g.fillStyle=lc;g.fillRect(x+2,y,w-4,1);g.fillStyle='rgba(0,0,0,.35)';g.fillRect(x+w/2-1,y+3,2,h-3)}
+function bubble(g,txt,cx,y){const w=axTW(txt,1)+8;g.fillStyle='#1a1420';g.fillRect(cx-w/2-1,y-1,w+2,13);g.fillStyle='#fff8ea';g.fillRect(cx-w/2,y,w,11);g.fillRect(cx-2,y+11,4,2);axText(g,txt,Math.round(cx-w/2+4),y+2,'#1a1420',1)}
+function cmLoop(now){if(!CM.open)return;CM.raf=requestAnimationFrame(cmLoop);const V=CM.v,g=CM.cx,lw=CM.cv.width,LH=CM.cv.height,F=CM.film,sc=CM.sc,t=now/1000,dt=Math.min(.1,(now-(CM.last||now))/1000);CM.last=now;
+ if((now|0)%3==0||!CM.lt||now-CM.lt>120){CM.lt=now;cmLight()}
+ // lumières : éteintes pendant le film, se rallument à la fin
+ const tgt=CM.state=='end'?1:CM.state=='start'?.35:.0;CM.lights+=(tgt-CM.lights)*Math.min(1,dt*(CM.state=='end'?.6:2));const Lg=CM.lights;
+ const lc='rgb('+CM.light.map(v=>Math.round(Math.min(255,v*1.3+30))).join(',')+')',lumK=Math.min(1,.25+CM.lum*1.4);
+ g.clearRect(0,0,lw,LH);g.imageSmoothingEnabled=false;const fx=F.fx/sc,fy=F.fy/sc,fw=F.fw/sc,fh=F.fh/sc;
+ // salle autour de l'écran : murs sombres, rideaux rouges, faisceau du projecteur
+ const room=(a)=>'rgba('+Math.round(lerpN(10,80,Lg))+','+Math.round(lerpN(8,40,Lg))+','+Math.round(lerpN(20,48,Lg))+','+a+')';
+ g.fillStyle=room(1);g.fillRect(0,0,lw,LH);g.clearRect(Math.round(fx),Math.round(fy),Math.round(fw),Math.round(fh));
+ g.fillStyle='rgba('+CM.light.map(v=>Math.round(v)).join(',')+','+(.12*lumK*(1-Lg)).toFixed(3)+')';g.fillRect(0,fy+fh,lw,LH-fy-fh);
+ for(const sx2 of[.12,.38,.62,.88]){const y2=Math.round(fy*.45),x2=Math.round(lw*sx2);if(y2>10){g.fillStyle='rgba(255,190,110,'+(.05+.25*Lg)+')';g.fillRect(x2-6,y2-6,13,13);g.fillStyle=Lg>.3?'#ffe0a8':'#7a5a3a';g.fillRect(x2-2,y2-1,5,3);g.fillStyle='#d9a441';g.fillRect(x2-3,y2+2,7,1)}}
+ const cw=Math.max(4,lw*.06);for(const sx of[fx-cw,fx+fw]){g.fillStyle='#5a0e1c';g.fillRect(sx,fy-4,cw,fh+8);for(let x=sx;x<sx+cw;x+=3){g.fillStyle=Lg>.3?'#8e1a2c':'#6a1222';g.fillRect(x,fy-4,1,fh+8)}}
+ g.fillStyle='#6a1222';g.fillRect(fx-cw,fy-7,fw+2*cw,5);g.fillStyle='#d9a441';g.fillRect(fx-cw,fy-2,fw+2*cw,1);
+ // rangées de spectateurs (de dos) entre Nori et l'écran
+ const base=Math.round(fy+fh+(F.port?10:3)),reactNow=CM.react&&t-CM.react.t<1.6?CM.react:null,hw=(CM.heads[0]||{width:40}).width;
+ const rows=(F.port?[[base,.36],[base+20,.46],[base+44,.6]]:[[base,.36],[base+13,.46]]).map(([ry,k])=>[ry,k,Math.ceil(lw/(hw*k*1.15))]);rows.forEach(([ry,k,n],ri)=>{const step=lw/n;for(let i=0;i<n;i++){const x=step*i+(ri?step/2:0)-step*.2,h=CM.heads[(i*2+ri*3)%Math.max(1,CM.heads.length)];if(!h)continue;
+  if((i*7+ri*3)%5==2)continue;let dy=Math.round(Math.sin(t*.7+i*2+ri)*.6);if(reactNow&&(i+ri)%2==0)dy-=reactNow.k=='rire'?Math.abs(Math.sin((t-reactNow.t)*14))*2:reactNow.k=='surprise'?2:0;
+  litSprite(g,h,x,ry-h.height*k+dy,k,.5-Lg*.3,lc);seatBack(g,Math.round(x-1),ry-Math.round(h.height*k*.25),Math.round(h.width*k+2),Math.round(10*k+4),Lg>.3?'#7e1828':'#3a0c16',lc)}});
+ // Nori, de dos, dans son fauteuil (petits mouvements naturels et réactions)
+ const B=CM.bust;if(B){const k=F.port?2:Math.max(1,Math.round(LH*.24/B.height)),bw=B.width*k,bh=B.height*k;let bx=lw/2-bw/2,by=LH-bh-(F.port?14:4);
+  const sway=Math.sin(t*.35)*1.2,breathe=Math.sin(t*1.6)>.92?1:0;bx+=Math.round(sway);by+=breathe;let txt=null;
+  if(reactNow){const e=t-reactNow.t;if(reactNow.k=='rire'){by-=Math.round(Math.abs(Math.sin(e*12))*3*k*.5);txt='HA HA !'}else if(reactNow.k=='surprise'){by-=Math.round((e<.3?e/.3:Math.max(0,1-(e-.3)/.6))*4*k*.6);txt='OH !'}else if(reactNow.k=='peur'){by+=Math.round(Math.min(1,e*4)*3*k*.5);txt='!'}else if(reactNow.k=='emotion'){bx+=Math.round(Math.sin(e*2)*k);txt='SNIF…'}}
+  litSprite(g,B,bx,by,k,.38-Lg*.3,lc,1);
+  // fauteuil de Nori et voisins (dossiers au premier plan), pop-corn sur l'accoudoir
+  const sy=Math.round(by+bh*.74),sw=Math.round(bw*1.2);seatBack(g,Math.round(lw/2-sw/2),sy,sw,LH-sy,Lg>.3?'#9a2236':'#4a0e1a',lc);seatBack(g,Math.round(lw/2-sw/2-sw-4),sy+4,sw,LH-sy,Lg>.3?'#8e1a2c':'#3a0c16',lc);seatBack(g,Math.round(lw/2+sw/2+4),sy+4,sw,LH-sy,Lg>.3?'#8e1a2c':'#3a0c16',lc);
+  if(CI.pop0){const px2=Math.round(lw/2+sw/2+1),py2=sy-6;g.fillStyle='#c8202e';g.fillRect(px2,py2,6,8);g.fillStyle='#ffffff';g.fillRect(px2+2,py2,1,8);g.fillStyle='#f5d76e';g.fillRect(px2,py2-2,6,3);
+   const ph=(t%9)/9;if(ph<.12&&CM.state=='play'){g.fillStyle='#fff3c4';g.fillRect(Math.round(lerpN(px2+2,lw/2,ph/.12)),Math.round(lerpN(py2-3,by+bh*.35,ph/.12)),2,2)}}
+  if(txt&&CM.state=='play'){const bwid=axTW(txt,1)+8;bubble(g,txt,Math.round(Math.max(bwid/2+2,bx-bwid/2-3)),Math.round(by+bh*.25))}}
+ // progression, sous-titres, réactions
+ if(V.duration){const cur=V.currentTime,d=V.duration;CM.el.querySelector('#cmFill').style.width=(cur/d*100).toFixed(2)+'%';const tm=fmtT(cur)+' / '+fmtT(d);const te=CM.el.querySelector('#cmTime');if(te.textContent!==tm)te.textContent=tm;
+  const sub=(CM.F.subs||[]).find(s=>cur>=s.a&&cur<=s.b),st=sub?sub.txt:'';const se=CM.el.querySelector('#cmSub');if(se.textContent!==st)se.textContent=st;
+  const R=CM.F.reactions||[];while(CM.ri<R.length&&R[CM.ri].t<=cur){if(cur-R[CM.ri].t<1.2)CM.react={k:R[CM.ri].k,t};CM.ri++}if(CM.ri>0&&R[CM.ri-1]&&cur<R[CM.ri-1].t-1)CM.ri=0}
+ if(CM.state=='play'&&performance.now()-CM.hideT>3200)CM.el.querySelector('#cmUi').classList.remove('on')}
+const lerpN=(a,b,t)=>a+(b-a)*Math.max(0,Math.min(1,t));
+CM.show=cmShow;CM.play=cmPlay;CM.close=cmClose;CM.end=cmEnd;CM.layout=cmLayout;
+window.CINE={FILMS,SNACKS,ROOMS,CI,ST,ciUI,goDoor,goMainDoor,enterRoom,backRoom,buyTicket,buySnack,sitIn,freeSeat,standUpCine,startFilm,stopFilm,CM,useWC,washHands,npcPrep,npcImg,npcLook,NPCL,washStop,WASH,BASINS,basinFree,leave,setRoom,isCine};
 })();

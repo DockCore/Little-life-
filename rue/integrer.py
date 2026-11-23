@@ -12,7 +12,7 @@ bcss = open(os.path.join(D, 'bowling.css'), encoding='utf8').read()
 bjs = open(os.path.join(D, 'bowling.js'), encoding='utf8').read()
 acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read() + open(os.path.join(D, 'cinema.css'), encoding='utf8').read()
 ajs = open(os.path.join(D, 'arcade.js'), encoding='utf8').read()
-cjs = open(os.path.join(D, 'cinema.js'), encoding='utf8').read()
+cjs = open(os.path.join(D, 'films_data.js'), encoding='utf8').read() + open(os.path.join(D, 'cinema.js'), encoding='utf8').read()
 # mini-jeux de la borne : un fichier par jeu dans rue/jeux/, chargés après la borne
 import glob
 jeux = ''.join('\n' + open(f, encoding='utf8').read().rstrip() for f in sorted(glob.glob(os.path.join(D, 'jeux', '*.js'))))

@@ -32,24 +32,24 @@
   "ok": true,
   "info": {
    "fr": [
-    "w0",
     "w1",
     "w2",
     "w0",
     "w1",
     "w2",
     "w3",
-    "w1",
+    "w0",
     "w2",
-    "w3"
+    "w3",
+    "w0"
    ],
    "fl": [
-    "w0<",
     "w2<",
     "w3<",
     "w0<",
     "w2<",
-    "w3<"
+    "w3<",
+    "w0<"
    ],
    "still": "idle"
   }
@@ -68,7 +68,7 @@
   "n": "5 caméra qui suit et reste bornée",
   "ok": true,
   "info": {
-   "rel": 0.43370813261865276,
+   "rel": 0.4383057970453198,
    "cam0": 0
   }
  },
@@ -180,7 +180,7 @@
    "place": "street",
    "st": "street",
    "px": 1112,
-   "cam": 991.999999999966,
+   "cam": 991.9999999999501,
    "W": 300,
    "sp": "idle",
    "fl": false
@@ -217,8 +217,8 @@
   "n": "18 rendu de nuit et performance",
   "ok": true,
   "info": {
-   "msParImage": 0.526,
-   "fps": 59
+   "msParImage": 0.632,
+   "fps": 60.5
   }
  },
  {
