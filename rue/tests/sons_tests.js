@@ -51,7 +51,7 @@ if(QUI=='pinball'||QUI=='tout'){
  await reset();const lost=await E(async()=>{const M=ARC.modules.pinball,P=M._state;P.phase='jeu';P.balls=1;P.ball={x:92,y:395,vx:0,vy:300,st:'play'};for(let i=0;i<130;i++)M.update(1/60,{okN:P.okN});await new Promise(z=>setTimeout(z,300));return{ph:P.phase,lvl:JEUSON._state().mus}});
  const f2=await fx();ok('P3 boule perdue et GAME OVER sonores, musique baissée en fin de partie',f2.dnDrain>=1&&f2.pbOver>=1&&lost.ph=='over',{f2,lost});
  // pause : musique baissée ; sortie : musique coupée
- await E(()=>{const M=ARC.modules.pinball,P=M._state;M.update(1/60,{okN:(P.okN||0)+1})});await W(200);await E(()=>{const P=ARC.modules.pinball._state;P.paused=true});await W(500);const pz=await E(()=>JEUSON._state().mus);
+ await E(()=>{const M=ARC.modules.pinball,P=M._state;if(P.phase=='select'||P.phase=='over'){if(P.over){P.over.t=1;P.osel=0}P.okN=P.okN||0;M.update(1/60,{okN:P.okN+1})}});await W(200);await E(()=>{const P=ARC.modules.pinball._state;P.paused=true});await W(500);const pz=await E(()=>JEUSON._state().mus);
  await E(()=>{ARC.modules.pinball._state.paused=false});await W(500);const rp=await E(()=>JEUSON._state().mus);
  await E(()=>arcBack());await W(700);const out=await E(()=>({th:JEUSON.playing(),st:JEUSON._state()}));
  ok('P4 pause : musique baissée puis rétablie ; retour au menu : musique du flipper arrêtée',pz<rp*.6&&out.th==null&&out.st.mus<.01,{pz,rp,out});
