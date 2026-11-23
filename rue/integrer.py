@@ -10,8 +10,9 @@ css = open(os.path.join(D, 'street.css'), encoding='utf8').read()
 js = open(os.path.join(D, 'audio.js'), encoding='utf8').read().rstrip() + '\n' + open(os.path.join(D, 'street.js'), encoding='utf8').read()
 bcss = open(os.path.join(D, 'bowling.css'), encoding='utf8').read()
 bjs = open(os.path.join(D, 'bowling.js'), encoding='utf8').read()
-acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read()
+acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read() + open(os.path.join(D, 'cinema.css'), encoding='utf8').read()
 ajs = open(os.path.join(D, 'arcade.js'), encoding='utf8').read()
+cjs = open(os.path.join(D, 'cinema.js'), encoding='utf8').read()
 # mini-jeux de la borne : un fichier par jeu dans rue/jeux/, chargés après la borne
 import glob
 jeux = ''.join('\n' + open(f, encoding='utf8').read().rstrip() for f in sorted(glob.glob(os.path.join(D, 'jeux', '*.js'))))
@@ -43,8 +44,12 @@ bpan = ('<section class="view" id="v-bowling"><table class="bwtab"><tbody id="bw
         '<p class="sthint" id="bwTip"></p></section>')
 s = put(s, '<section class="view" id="v-gym">', bpan, after=False)
 apan = '<section class="view" id="v-arcade"></section>'
+cpan = ('<section class="view" id="v-cinema"><div class="opts seg"><button class="on" disabled id="ciWhere">Cinéma</button>'
+        '<button class="home" id="ciLeave"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div>'
+        '<p class="ciInfo" id="ciInfo"></p><div class="actg" id="ciG"></div></section>')
 s = put(s, '<section class="view" id="v-gym">', apan, after=False)
+s = put(s, '<section class="view" id="v-gym">', cpan, after=False)
 # 4) module JS juste avant le démarrage de la boucle
-s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + jeux + '\n// ===RUE-END===', after=False)
+s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + jeux + '\n' + cjs.rstrip() + '\n// ===RUE-END===', after=False)
 open(idx, 'w', encoding='utf8').write(s)
 print('ok', len(s))

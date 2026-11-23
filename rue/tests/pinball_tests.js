@@ -75,7 +75,7 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
  // ---- 13. plein écran ----
  const fc=await fullCheck(E);ok(T('13 plein écran, sans borne, sans défilement'),fc.diff==0&&fc.couvre&&fc.state=='game'&&(await E(()=>document.scrollingElement.scrollTop==0)),fc);
  // ---- 10. records indépendants ----
- const ind=await E(()=>{const M=ARC.modules.pinball,P=M._state,d=ARC.data('pinball');d.tables.alien.best=1111;d.tables.city.best=0;d.tables.space.best=2222;M._use(1);P.phase='jeu';P.best0=1111;P.score=900;P.newRec=false;M.update(1/60,{okN:P.okN});const a=d.tables.alien.best;P.score=3333;M.update(1/60,{okN:P.okN});
+ const ind=await E(()=>{const M=ARC.modules.pinball,P=M._state,d=ARC.data('pinball');d.tables.alien.best=1111;d.tables.city.best=0;d.tables.space.best=2222;M._use(1);P.phase='jeu';P.ball={x:184,y:390,vx:0,vy:0,st:'plunger'};P.pl=0;P.charging=false;P.best0=1111;P.score=900;P.newRec=false;M.update(1/60,{okN:P.okN});const a=d.tables.alien.best;P.score=3333;M.update(1/60,{okN:P.okN});
   return{dino:d.tables.dino.best,alien:d.tables.alien.best,alienAvant:a,city:d.tables.city.best,space:d.tables.space.best}});
  ok(T('10 records indépendants entre les 4 tables'),ind.dino==7300&&ind.alienAvant==1111&&ind.alien==3333&&ind.city==0&&ind.space==2222,ind);
  // ---- 14. fin de partie et retours ----

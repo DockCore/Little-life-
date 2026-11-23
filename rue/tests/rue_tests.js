@@ -75,9 +75,9 @@ await p.click('#clHome');await p.waitForFunction(()=>STV.on&&curV=='street',null
 ok('11 boutique de vêtements : entrée et retour devant la boutique',w.place=='street'&&Math.abs(w.px-dC)<1,{px:w.px,dC});
 
 // 12. Bâtiments pas encore aménagés : message « bientôt », on reste dans la rue
-const soon=[];for(const id of ['cinema','resto']){await tele(await door(id));await p.keyboard.press('KeyE');await W(120);
+const soon=[];for(const id of ['resto']){await tele(await door(id));await p.keyboard.press('KeyE');await W(120);
  soon.push(await E(()=>({t:document.getElementById('stMT').textContent,a:document.getElementById('stMA').textContent,vis:!document.getElementById('stModal').hidden,place})));await p.keyboard.press('Escape');await W(80)}
-ok('12 cinéma, restaurant : message « bientôt », pas de sortie de la rue',soon.every(s=>s.vis&&/bientôt/.test(s.a)&&!/Le la/.test(s.a)&&s.place=='street'),soon);
+ok('12 restaurant : message « bientôt », pas de sortie de la rue',soon.every(s=>s.vis&&/bientôt/.test(s.a)&&!/Le la/.test(s.a)&&s.place=='street'),soon);
 
 // 13. Tactile/souris : boutons ◀ ▶ (maintenus) et clic sur un bâtiment = marche jusqu’à sa porte
 let tactile=null;

@@ -1,0 +1,5 @@
+/* cinéma : fondu entre les pièces, panneau du bas */
+#ciFade{position:absolute;inset:0;background:#05040e;opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:6}
+#ciFade.on{opacity:1}
+#v-cinema{overflow:hidden}
+.ciInfo{margin:0 2px;font:600 12px var(--rd,system-ui);color:var(--ink2,#6b5a52);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
