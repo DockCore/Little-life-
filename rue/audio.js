@@ -207,3 +207,7 @@ Object.assign(JEUSON.FX,{
  pbNewRec(t){const T=JEUSON.tone,N=JEUSON.noise;[[523,659,784],[587,740,880],[659,830,988],[784,988,1175,1568]].forEach((c,i)=>c.forEach(f=>T(f,t+i*.14,i==3?.6:.13,.06,'square',null,{vib:i==3?7:0})));N(t+.42,.6,.08,8000,'highpass',null,1,{att:.05});[2093,2637,3136].forEach((f,i)=>T(f,t+.5+i*.07,.2,.04,'triangle'))},
  pbSel(t){JEUSON.tone(1046,t,.05,.07,'square');JEUSON.tone(1568,t+.04,.06,.05,'square')}
 });
+// ---------- cinéma : robinet et lavage des mains ----------
+Object.assign(JEUSON.FX,{
+ wtTap(t){const T=JEUSON.tone;T(1900,t,.07,.05,'square',null,{slide:.7});T(2600,t+.03,.05,.03,'triangle');JEUSON.noise(t,.08,.12,3500,'bandpass',null,3)},
+ wtScrub(t){JEUSON.noise(t,.12,.1,2600,'bandpass',null,1.2,{att:.03,sweep:1800});JEUSON.noise(t+.06,.08,.06,4200,'highpass',null,1)}});

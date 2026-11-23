@@ -4302,6 +4302,10 @@ Object.assign(JEUSON.FX,{
  pbNewRec(t){const T=JEUSON.tone,N=JEUSON.noise;[[523,659,784],[587,740,880],[659,830,988],[784,988,1175,1568]].forEach((c,i)=>c.forEach(f=>T(f,t+i*.14,i==3?.6:.13,.06,'square',null,{vib:i==3?7:0})));N(t+.42,.6,.08,8000,'highpass',null,1,{att:.05});[2093,2637,3136].forEach((f,i)=>T(f,t+.5+i*.07,.2,.04,'triangle'))},
  pbSel(t){JEUSON.tone(1046,t,.05,.07,'square');JEUSON.tone(1568,t+.04,.06,.05,'square')}
 });
+// ---------- cinéma : robinet et lavage des mains ----------
+Object.assign(JEUSON.FX,{
+ wtTap(t){const T=JEUSON.tone;T(1900,t,.07,.05,'square',null,{slide:.7});T(2600,t+.03,.05,.03,'triangle');JEUSON.noise(t,.08,.12,3500,'bandpass',null,3)},
+ wtScrub(t){JEUSON.noise(t,.12,.1,2600,'bandpass',null,1.2,{att:.03,sweep:1800});JEUSON.noise(t+.06,.08,.06,4200,'highpass',null,1)}});
 // ===== RUE 2D EXPLORABLE (StreetScene) =====
 // Scène latérale : le personnage du jeu (sprite + garde-robe, via sc2) marche librement sur le trottoir.
 // Tout est piloté par des données : ajouter un bâtiment = ajouter une entrée dans STREETS.centre.buildings
@@ -6075,7 +6079,7 @@ const ROOMS={
   furn:[{n:'Tapis',x:2,y:5,w:14,h:2.5,s:0,cl:{f:5,m:2,a:7}},{n:'Banc',x:4.5,y:9.6,w:2.5,h:.8,s:1},{n:'Banc',x:10.5,y:9.6,w:2.5,h:.8,s:1},{n:'Totem',x:14.8,y:10.6,w:1,h:.6,s:1},
    {n:'Plante',x:15.8,y:1.3,w:1,h:1,s:1},{n:'Plante',x:1.2,y:9.3,w:1,h:1,s:1},{n:'Kakemono',x:8.4,y:14.8,w:1,h:.4,s:1,f:0},{n:'Plante',x:15.8,y:15.8,w:1,h:1,s:1}]},
  cine_wc:{nom:'les toilettes',titre:'Toilettes',rn:14,parent:'cine_couloir',wall:'#e4ecef',door:'#5a8ab0',floor:'check',fa:'#f2f4f5',fb:'#d6e2e8',doors:[],
-  furn:[{n:'Lavabos',x:.2,y:2,w:1,h:3.6,r:1,s:1},{n:'CabineWC',x:1.3,y:.2,w:1.7,h:1.7,s:1,k:'H'},{n:'CabineWC',x:3.1,y:.2,w:1.7,h:1.7,s:1,k:'H'},{n:'Urinoir',x:5,y:.1,w:.6,h:.45,s:1},{n:'Urinoir',x:5.8,y:.1,w:.6,h:.45,s:1},
+  furn:[{n:'Ilot',x:2.8,y:8,w:7,h:1.2,s:1},{n:'Visiteur',x:6.4,y:6.75,w:.8,h:.5,s:0},{n:'CabineWC',x:1.3,y:.2,w:1.7,h:1.7,s:1,k:'H'},{n:'CabineWC',x:3.1,y:.2,w:1.7,h:1.7,s:1,k:'H'},{n:'Urinoir',x:5,y:.1,w:.6,h:.45,s:1},{n:'Urinoir',x:5.8,y:.1,w:.6,h:.45,s:1},
    {n:'Cloison',x:6.8,y:0,w:.25,h:2.3,s:1},{n:'CabineWC',x:7.3,y:.2,w:1.7,h:1.7,s:1,k:'F'},{n:'CabineWC',x:9.1,y:.2,w:1.7,h:1.7,s:1,k:'F'},{n:'CabineWC',x:10.9,y:.2,w:1.7,h:1.7,s:1,k:'F'},{n:'Plante',x:11.8,y:11.4,w:1,h:1,s:1}]},
  cine_prive:{nom:'l’espace du personnel',titre:'Espace du personnel',rn:14,parent:'cine_couloir',wall:'#c9cdd2',door:'#6a6e78',floor:'tile',fa:'#b9bfc6',fb:'#aeb4bc',doors:[],
   furn:[{n:'Armoire',x:1.2,y:.2,w:1.4,h:.7,s:1},{n:'Serveur',x:2.9,y:.2,w:1,h:1,s:1},{n:'Cloison',x:4.6,y:0,w:.25,h:2.2,s:1},{n:'Etagere',x:5.3,y:.2,w:3.2,h:.9,s:1},{n:'Etagere',x:8.9,y:.2,w:3.2,h:.9,s:1,k:1},
@@ -6155,6 +6159,21 @@ function isoCabine(f){const{x,y,w,h}=f,col=f.k=='F'?'#c0607a':'#4a7fb0',busy=CI.
  poly([P3(x+.6,y+h,40),P3(x+.9,y+h,40),P3(x+.9,y+h,37),P3(x+.6,y+h,37)],busy?'#e0533d':'#6cc04a')}
 function isoUrinoir(f){const{x,y}=f;B3(x+.1,y,.4,.35,12,18,'#f2f5f7',{t:'#ffffff'});B3(x+.18,y+.25,.24,.12,13,8,'#dfe6ea',{flat:1});B3(x+.25,y,.1,.1,30,6,'#aeb8c2',{flat:1})}
 function isoLavabos(f){const{x,y,w,h}=f;fshadow(f);B3(x,y,w,h,0,22,'#3a3f4a',{t:'#e8eef2',r:'#2a2e38'});for(let v=y+.6;v<y+h;v+=1.2){const p=P3(x+.55,v,22);ell(Math.round(p[0]),Math.round(p[1]),6,3,'#c4ccd4');ell(Math.round(p[0]),Math.round(p[1]),4,2,'#f4f6f8');B3(x+.15,v-.05,.1,.1,22,6,'#aeb8c2',{flat:1})}}
+const BASINS=[3.8,5.3,6.8],WASHV=7.1;
+function isoIlot(f){const{x,y,w,h}=f;fshadow(f);B3(x,y,w,h,0,20,'#3a3f4a',{t:'#4a505c',r:'#2a2e38'});for(let u=x+.9;u<x+w;u+=1.8){ln(P3(u,y+h,3),P3(u,y+h,17),'#2a2e38');const p=P3(u-.1,y+h,11);G.fillStyle='#aeb8c2';G.fillRect(Math.round(p[0])-2,Math.round(p[1]),4,1)}
+ B3(x-.06,y-.06,w+.12,h+.12,20,3,'#e8eef2',{t:'#f8fafb',r:'#c4ccd4'});
+ BASINS.forEach(u=>{const p=P3(u,y+.55,23);ell(Math.round(p[0]),Math.round(p[1]),9,4,'#aeb8c2');ell(Math.round(p[0]),Math.round(p[1]),8,3,'#dfe8ee');ell(Math.round(p[0]),Math.round(p[1])+1,3,1,'#8a96a2');
+  B3(u-.07,y+.08,.14,.14,23,9,'#c4ccd4',{t:'#ffffff',flat:1});B3(u-.06,y+.08,.12,.32,31,2,'#c4ccd4',{t:'#ffffff',flat:1});B3(u+.18,y+.1,.1,.1,23,4,'#e0533d',{flat:1})});
+ [x+.35,x+w-.55].forEach(u=>{B3(u,y+.3,.22,.22,23,8,'#ffffff',{t:'#f0f4f6'});B3(u+.07,y+.3,.08,.12,31,3,'#8a96a2',{flat:1})})}
+// autres clients : dessinés avec le vrai système de personnages du jeu (mêmes images, vraies tenues), images préparées hors du dessin
+const NPCL=[{g:'f',sk:2,hc:3,wd:{cheveux:'bun|1',haut:'blouse|2',bas:'jupe|1',chaussures:'bottine|0'}},{g:'m',sk:1,hc:0,wd:{cheveux:'mi|0',haut:'polo|3',bas:'cargo|1',chaussures:'running|2'}},
+ {g:'f',sk:0,hc:1,wd:{cheveux:'tails|2',haut:'hoodie|4',bas:'legging|0',chaussures:'basket|3'}},{g:'m',sk:2,hc:2,wd:{cheveux:'top|1',haut:'tee|5',bas:'jean|1',veste:'vjean|0',chaussures:'basket|0'}},
+ {g:'f',sk:1,hc:0,wd:{cheveux:'long|1',haut:'pull|1',bas:'plisse|2',chaussures:'mocass|1'}},{g:'m',sk:0,hc:4,wd:{cheveux:'nat|0',haut:'flan|2',bas:'chino|0',chaussures:'bottes|1',tete:'bonnet|2'}}];
+const NPCC=new Map();function npcLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,NPCL[i%NPCL.length],{wd:Object.assign({},NPCL[i%NPCL.length].wd)})}
+function npcPrep(list){let did=false;for(const[i,nm]of list){const k=i+'|'+nm;if(NPCC.has(k))continue;try{if(drawFrame(nm,npcLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NPCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
+const npcImg=(i,nm)=>NPCC.get(i+'|'+nm);
+function isoVisiteur(f){const n=CI.npc;if(!n)return;const u=BASINS[n.b],img=npcImg(n.i||0,n.w?(Math.floor(tick/7)%2?'cu2':'cu1'):'idle');if(!img)return;const p=P3(u,WASHV,0),a=Math.min(1,Math.min(n.T-n.t,n.t)/25);
+ rx.globalAlpha=a;gshadow(p[0],p[1],24);charDraw(img,p[0],p[1]+(n.w?1:0),false,CW,CH);rx.globalAlpha=1}
 function isoCloison(f){const{x,y,w,h}=f;B3(x,y,w,h,0,50,'#e2e6ea',{t:'#f4f6f8',r:'#c4ccd4'})}
 function isoArmoire(f){const{x,y,w,h}=f;fshadow(f);B3(x,y,w,h,0,46,'#8a96a2',{t:'#a8b2be'});ln(P3(x+w/2,y+h,4),P3(x+w/2,y+h,44),'#6a7480');const p=P3(x+w*.3,y+h,34);G.fillStyle='#f5c84c';
  for(let i=0;i<5;i++)G.fillRect(Math.round(p[0])-i,Math.round(p[1])+i,2*i+1,1);G.fillStyle=INK;G.fillRect(Math.round(p[0]),Math.round(p[1])+1,1,2)}
@@ -6168,9 +6187,9 @@ function isoCasiers(f){const{x,y,w,h}=f;fshadow(f);B3(x,y,w,h,0,48,'#4a7fb0',{t:
 function isoTableCafe(f){const{x,y,w,h}=f;fshadow(f);[[x-.5,y+.3],[x+w+.05,y+.3]].forEach(([a,b])=>{legs(a,b,.45,.45,9,'#4a525e',.08);B3(a,b,.45,.45,9,2,'#3f8fd0',{t:'#5fa8e0'})});
  legs(x+.1,y+.1,w-.2,h-.2,18,'#4a525e',.1);B3(x,y,w,h,18,2,'#e8eef2',{t:'#ffffff'});B3(x+.4,y+.4,.25,.25,20,4,'#ffffff');B3(x+1.2,y+.6,.5,.35,20,1,'#f5c84c',{flat:1})}
 Object.assign(PLD,{Guichet:isoGuichet,Borne:isoBorne,Popcorn:isoPopcorn,Prepa:isoPrepa,Confiserie:isoConfiserie,Bonbons:isoBonbons,TableBasse:isoTableBasse,Totem:isoTotem,Potelet:isoPotelet,Kakemono:isoKakemono,
- Banc:isoBanc,Rangee:isoRangee,Scene:isoScene,CabineWC:isoCabine,Urinoir:isoUrinoir,Lavabos:isoLavabos,Cloison:isoCloison,Armoire:isoArmoire,Serveur:isoServeur,Etagere:isoEtagere,Cartons:isoCartons,Casiers:isoCasiers,TableCafe:isoTableCafe});
+ Banc:isoBanc,Rangee:isoRangee,Scene:isoScene,CabineWC:isoCabine,Urinoir:isoUrinoir,Lavabos:isoLavabos,Ilot:isoIlot,Visiteur:isoVisiteur,Cloison:isoCloison,Armoire:isoArmoire,Serveur:isoServeur,Etagere:isoEtagere,Cartons:isoCartons,Casiers:isoCasiers,TableCafe:isoTableCafe});
 // meubles fixes : dessinés une fois puis recopiés (performances)
-FC_PLD.push('Rangee','Guichet','Prepa','Confiserie','Bonbons','TableBasse','Totem','Potelet','Kakemono','Banc','Scene','Urinoir','Lavabos','Cloison','Armoire','Etagere','Cartons','Casiers','TableCafe');
+FC_PLD.push('Ilot','Rangee','Guichet','Prepa','Confiserie','Bonbons','TableBasse','Totem','Potelet','Kakemono','Banc','Scene','Urinoir','Lavabos','Cloison','Armoire','Etagere','Cartons','Casiers','TableCafe');
 // ---------- décor mural ----------
 const W=()=>WHI;
 function doorL(a,b,lbl,col,glass){const H=Math.round(W()*.66);WL(a-.15,b+.15,0,H+3,GOLD);WL(a,b,0,H,'#140c10');const m=(a+b)/2;
@@ -6209,7 +6228,7 @@ function cineDeco(n){const P=PLACES[place],H=W(),rn=RN;
   // cabine de projection (fenêtres en hauteur, côté spectateurs) et panneau SORTIE au-dessus de la porte
   const pv=rn-2.2;WL(pv-1.2,pv+.4,Math.round(H*.8),Math.round(H*.95),'#0a0608');WL(pv-1.05,pv-.45,Math.round(H*.83),Math.round(H*.92),'#5a6a80');WL(pv-.3,pv+.25,Math.round(H*.83),Math.round(H*.92),'#5a6a80');
   const dm=DOORS[1];WL(dm-.9,dm+.9,Math.round(H*.7),Math.round(H*.78),'#0e3a1a');wallText('SORTIE',0,dm+.75,Math.round(H*.715),.12,1.3,'#5cff8a')}
- else if(place=='cine_wc'){for(let z=10;z<H;z+=10){WL(0,rn,z,z+1,'#cfdce2');WR(0,rn,z,z+1,'#cfdce2')}for(let s=1;s<rn;s+=1){WL(s,s+.04,0,H,'#cfdce2');WR(s,s+.04,0,H,'#cfdce2')}
+ else if(place=='cine_wc'){WL(1.8,5.8,Math.round(H*.4),Math.round(H*.42),'#c4ccd4');for(let z=10;z<H;z+=10){WL(0,rn,z,z+1,'#cfdce2');WR(0,rn,z,z+1,'#cfdce2')}for(let s=1;s<rn;s+=1){WL(s,s+.04,0,H,'#cfdce2');WR(s,s+.04,0,H,'#cfdce2')}
   WL(1.9,5.7,Math.round(H*.42),Math.round(H*.78),'#8a96a6');WL(2,5.6,Math.round(H*.44),Math.round(H*.76),'#d8eef6');WL(2.5,3.1,Math.round(H*.5),Math.round(H*.7),'#eef8fc');
   WL(6.2,6.8,Math.round(H*.4),Math.round(H*.55),'#e8eef2');WL(6.3,6.7,Math.round(H*.42),Math.round(H*.44),'#3a3f4a');
   WR(1.4,6.4,Math.round(H*.8),Math.round(H*.92),'#2a5a90');wallText('HOMMES',1,2.6,Math.round(H*.83),.16,1.6,'#ffffff');WR(7.4,12.6,Math.round(H*.8),Math.round(H*.92),'#a04060');wallText('FEMMES',1,8.6,Math.round(H*.83),.16,1.6,'#ffffff')}
@@ -6219,7 +6238,9 @@ function cineDeco(n){const P=PLACES[place],H=W(),rn=RN;
  // portes intérieures de la pièce
  if(place!='cine_couloir')(P.doors||[]).forEach(d=>d.w=='L'?doorL(d.a,d.b,d.lbl,RED):doorR(d.a,d.b,d.lbl,RED))}
 CI.scr=rn=>({u0:2.2,u1:rn-2.2,z0:Math.round(WHI*.3),z1:Math.round(WHI*.84)});
-{const _pb=placeBG;placeBG=function(n){const k=bgKey;_pb(n);if(isCine(place)&&bgKey!==k){G=bgx;try{cineDeco(n)}catch(e){console.error(e)}G=rx}}}
+// la porte principale (dessinée fermée par le décor commun) reste au-dessus du décor mural : on la protège pendant qu'on peint carrelage, soubassement…
+function doorZone(){const DS=RN-16,z=Math.round(WHI*.7)+2;return[P3(0,9.5+DS,0),P3(0,12.7+DS,0),P3(0,12.7+DS,z),P3(0,9.5+DS,z)]}
+{const _pb=placeBG;placeBG=function(n){const k=bgKey;_pb(n);if(isCine(place)&&bgKey!==k){G=bgx;bgx.save();try{const Z=doorZone();bgx.beginPath();bgx.rect(0,0,LW,LH);bgx.moveTo(Z[0][0],Z[0][1]);Z.slice(1).forEach(p=>bgx.lineTo(p[0],p[1]));bgx.closePath();bgx.clip('evenodd');cineDeco(n)}catch(e){console.error(e)}finally{bgx.restore()}G=rx}}}
 // ---------- écran, rideaux, film, obscurité ----------
 const FW=96,FH=48,FC=document.createElement('canvas');FC.width=FW;FC.height=FH;const fcx=FC.getContext('2d');
 const fr=(x,y,w,h,c)=>{fcx.fillStyle=c;fcx.fillRect(Math.round(x),Math.round(y),Math.max(1,Math.round(w)),Math.max(1,Math.round(h)))};
@@ -6256,7 +6277,13 @@ function salleDark(){const P=PLACES[place];if(!P||!P.salle)return;const d=CI.dim
  rx.fillStyle='rgba(255,179,71,'+(.9*d).toFixed(2)+')';P.furn.filter(f=>f.n=='Rangee').forEach(f=>{for(const u of[2.1,f.x+f.w+.9]){const a=P3(u,f.y+f.h+.3,0);rx.fillRect(Math.round(a[0])-1,Math.round(a[1]),3,1)}});
  const dm=DOORS[1],a=P3(0,dm,Math.round(WHI*.74));rx.fillStyle='rgba(92,255,138,'+(.35*d)+')';rx.fillRect(Math.round(a[0])-8,Math.round(a[1])-5,22,10)}
 {const _dd=doorDraw;doorDraw=function(){_dd();if(isCine(place))try{screenDyn()}catch(e){console.error(e)}}}
-{const _dw=drawWorld;drawWorld=function(){_dw();if(isCine(place))try{salleDark()}catch(e){console.error(e)}}}
+function washDyn(){if(place!='cine_wc')return;const f=PLACES.cine_wc.furn.find(o=>o.n=='Ilot'),G0=G;G=rx;
+ const flow=[];if(CI.wash&&CI.wash.t>=WASH.on+4&&CI.wash.t<WASH.off)flow.push([CI.wash.b,1]);if(CI.npc&&CI.npc.w)flow.push([CI.npc.b,0]);
+ flow.forEach(([b,me])=>{const u=BASINS[b],a=P3(u,f.y+.38,30),c=P3(u,f.y+.5,24);for(let y=Math.round(a[1]);y<c[1];y++){rx.fillStyle=(y+tick)%4<2?'#9fdcf5':'#d8f2fc';rx.fillRect(Math.round(a[0])-1,y,2,1)}
+  for(let i=0;i<4;i++){const ph=(tick*.15+i*.25)%1;rx.fillStyle='rgba(216,242,252,'+(1-ph)+')';rx.fillRect(Math.round(c[0]+(i-1.5)*3*ph),Math.round(c[1]-ph*3),1,1)}
+  if(me&&CI.wash.t>WASH.scrub0&&CI.wash.t<WASH.scrub1){const h=P3(u,WASHV+.42,28);for(let i=0;i<6;i++){const ph=(tick*.05+i/6)%1;rx.fillStyle='rgba(255,255,255,'+(.9-ph*.7)+')';rx.fillRect(Math.round(h[0]+Math.sin(i*2.1+tick*.2)*5),Math.round(h[1]-ph*10),2,2)}}});
+ if(CI.wash&&HEAD){const k=Math.min(1,CI.wash.t/WASH.dur),x=Math.round(HEAD[0])-13,y=Math.round(HEAD[1])-6;rx.fillStyle='#1a1420';rx.fillRect(x-1,y-1,28,5);rx.fillStyle='#d8f2fc';rx.fillRect(x,y,26,3);rx.fillStyle='#3f8fd0';rx.fillRect(x,y,Math.round(26*k),3)}G=G0}
+{const _dw=drawWorld;drawWorld=function(){_dw();if(isCine(place))try{salleDark();washDyn()}catch(e){console.error(e)}}}
 // ---------- chemins : même algorithme que le jeu, mais grille étendue à toute la pièce (les grandes salles dépassent 16 cases) ----------
 {const _fp=findPath;findPath=function(s,g){if(!isCine(place)||RN<=16)return _fp(s,g);const R=3,N=Math.ceil(RN*R),cen=i=>(i+.5)/R,ok=new Uint8Array(N*N);for(let j=0;j<N;j++)for(let i=0;i<N;i++)ok[j*N+i]=walkable(cen(i),cen(j))?1:0;
  const near=p=>{let bi=-1,bd=1e9;for(let k=0;k<N*N;k++)if(ok[k]){const d=Math.hypot(cen(k%N)-p[0],cen(k/N|0)-p[1]);if(d<bd){bd=d;bi=k}}return bi};const S=near(s),T=near(g);if(S<0||T<0)return[];
@@ -6268,7 +6295,7 @@ function salleDark(){const P=PLACES[place];if(!P||!P.salle)return;const d=CI.dim
  const pts=[];for(let k=best;k>=0;k=came[k])pts.unshift([cen(k%N),cen(k/N|0)]);if(best==T&&walkable(g[0],g[1]))pts[pts.length-1]=[g[0],g[1]];
  const out=[];let cur=s,i=0;while(i<pts.length){let j=pts.length-1;while(j>i&&!los(cur,pts[j]))j--;out.push(pts[j]);cur=pts[j];i=j+1}return out}}
 // ---------- personnage assis dans un fauteuil : vu de dos (image du bureau) ----------
-{const _sp=spUpdate;spUpdate=function(){if(C.st=='cine'&&!creating&&!dressing){const L=N.look,k='dk0'+JSON.stringify(L);if(k!==spKey&&drawFrame('dk0',L))spKey=k;spName='dk0';SP.fl=false;return}_sp()}}
+{const _sp=spUpdate;spUpdate=function(){const nm=C.st=='cine'?'dk0':C.st=='ciwash'?washFrame():null;if(nm&&!creating&&!dressing){const L=N.look,k=nm+JSON.stringify(L);if(k!==spKey&&drawFrame(nm,L))spKey=k;spName=nm;SP.fl=false;return}_sp()}}
 // ---------- musique : ambiance du hall et bande originale pendant les films ----------
 MTH.cinema={bpm:88,lp:3200,v:0.4,sw:.18,ch:[[50,53,57,60],[55,59,62,65],[48,52,55,59],[45,48,52,55]],sc:[0,2,3,5,7,9,10],root:74,lead:'triangle',dens:.34};
 MTH.cinefilm={bpm:70,lp:2600,v:0.38,ch:[[45,52,57,60],[41,48,53,57],[48,55,60,64],[43,50,55,59]],sc:[0,2,4,7,9],root:69,lead:'sine',dens:.22};
@@ -6285,14 +6312,14 @@ function fadeEl(){let e=document.getElementById('ciFade');if(!e){e=document.crea
 function fadeTo(cb){const e=fadeEl();e.classList.add('on');CI.busy=true;setTimeout(()=>{try{cb()}finally{setTimeout(()=>{e.classList.remove('on');CI.busy=false},60)}},230)}
 function setRoom(p){place=p;setRN(PLACES[p].rn);bgKey='';C.path=null;C.gf=null;C.cafe=null;try{fit()}catch(e){}}
 // entrée dans une pièce par sa porte principale (animation d'entrée habituelle du jeu)
-function enterRoom(p,msg){fadeTo(()=>{if(CI.film)stopFilm(false);setRoom(p);C.x=-.45*12;C.y=88+DOORS[1]*5;C.tx=C.x;C.ty=C.y;doorA=1;doorT=1;C.st='enter';C.alpha=0;C.t=0;C.after=()=>{show('cinema');ciUI();if(msg)say(msg)};CI.mode=null;show('cinema');ciUI()})}
+function enterRoom(p,msg){fadeTo(()=>{if(CI.film)stopFilm(false);washStop();setRoom(p);if(p=='cine_wc')CI.npc=Math.random()<.5?{b:2,t:300,T:420,w:0,i:Math.random()<.5?1:4}:null;C.x=-.45*12;C.y=88+DOORS[1]*5;C.tx=C.x;C.ty=C.y;doorA=1;doorT=1;C.st='enter';C.alpha=0;C.t=0;C.after=()=>{show('cinema');ciUI();if(msg)say(msg)};CI.mode=null;show('cinema');ciUI()})}
 // retour dans la pièce précédente, devant la porte par laquelle on était entré
-function backRoom(){const p=place,par=PLACES[p].parent;if(!par)return;fadeTo(()=>{if(CI.film)stopFilm(false);setRoom(par);const d=PLACES[par].doors.find(o=>o.to==p);const t=doorFront(d);C.x=t[0]*12;C.y=88+t[1]*5;C.tx=C.x;C.ty=C.y;C.st='idle';C.idle=200;C.alpha=null;C.d=d.w=='L'?1:-1;doorA=0;doorT=0;CI.mode=null;show('cinema');ciUI();say(NAME()+' revient dans '+PLACES[par].nom+'.')})}
+function backRoom(){const p=place,par=PLACES[p].parent;if(!par)return;fadeTo(()=>{if(CI.film)stopFilm(false);washStop();setRoom(par);const d=PLACES[par].doors.find(o=>o.to==p);const t=doorFront(d);C.x=t[0]*12;C.y=88+t[1]*5;C.tx=C.x;C.ty=C.y;C.st='idle';C.idle=200;C.alpha=null;C.d=d.w=='L'?1:-1;doorA=0;doorT=0;CI.mode=null;show('cinema');ciUI();say(NAME()+' revient dans '+PLACES[par].nom+'.')})}
 const doorFront=d=>d.w=='L'?[1.45,(d.a+d.b)/2]:[(d.a+d.b)/2,1.45];
 function goDoor(d){if(CI.busy)return;const t=doorFront(d);standUpCine();say(NAME()+' se dirige vers la porte.');goto(t[0]*12,88+t[1]*5,()=>{C.d=d.w=='L'?-1:1;
  const T=PLACES[d.to];let msg=NAME()+' entre dans '+T.nom+'.';if(T.salle){const b=ST().billet,F=FILMS[T.salle-1];msg=b&&b.s==T.salle?'Salle '+T.salle+' : « '+F.t+' ». Installe-toi dans un fauteuil, le film commence dès que tu es assis.':'Salle '+T.salle+' : « '+F.t+' ». Tu peux visiter, mais il te faut un billet pour voir le film.'}
  if(d.to=='cine_prive')msg='Espace réservé au personnel… '+NAME()+' jette un œil discret.';enterRoom(d.to,msg)})}
-function goMainDoor(){if(CI.busy)return;standUpCine();say(NAME()+' sort de '+PLACES[place].nom+'.');goto(DOORS[0]*12,88+DOORS[1]*5,()=>backRoom())}
+function goMainDoor(){if(CI.busy||CI.wash)return;standUpCine();say(NAME()+' sort de '+PLACES[place].nom+'.');goto(DOORS[0]*12,88+DOORS[1]*5,()=>backRoom())}
 // ---------- achats ----------
 function pay(p,what){if((N.coins||0)<p){say('Il manque '+(p-(N.coins||0))+' pièce'+(p-(N.coins||0)>1?'s':'')+' pour '+what+'.');return false}earn(-p);try{fx.push({k:'$',x:C.x,y:C.y,l:50})}catch(e){}return true}
 function buyTicket(i,borne){const F=FILMS[i],p=F.p-(borne?1:0),S=ST();if(S.billet&&S.billet.s==F.s){say('Tu as déjà un billet pour la salle '+F.s+'.');return}
@@ -6314,7 +6341,23 @@ function stopFilm(done){const F=CI.film;CI.film=null;const S=ST();CI.pop0=false;
 // ---------- toilettes ----------
 function useWC(f){if(CI.wc)return;const fem=N.look&&N.look.g=='f';if((f.k=='F')!==fem){say(fem?'Ce sont les toilettes des hommes : les toilettes des femmes sont à droite.':'Ce sont les toilettes des femmes : celles des hommes sont à gauche.');return}
  goto((f.x+f.w/2)*12,88+(f.y+f.h+.9)*5,()=>{CI.wc={f,t:150};C.alpha=0;C.st='ciwc';say(NAME()+' est aux toilettes…')})}
-function washHands(){const L=PLACES[place].furn.find(f=>f.n=='Lavabos');goto((L.x+L.w+.9)*12,88+(L.y+L.h/2)*5,()=>{C.d=-1;C.st='ciwash';CI.wash=90;say(NAME()+' se lave les mains. Propre !')})}
+const WASH={dur:300,on:40,scrub0:56,scrub1:236,off:244};
+function basinFree(i){return!(CI.npc&&CI.npc.b==i)&&!(CI.wash&&CI.wash.b==i)&&!(CI.occ&&CI.occ.includes(i))}
+function washHands(){if(place!='cine_wc'||CI.wash||CI.wc||C.st=='ciwash')return;const st=[C.x/12,(C.y-88)/5],free=[0,1,2].filter(basinFree);
+ if(!free.length){say('Tous les lavabos sont occupés. Attends un instant…');ciUI();return}
+ const ok=free.map(i=>{const t=[BASINS[i],WASHV],pth=findPath(st,t);return{i,t,reach:Math.hypot(st[0]-t[0],st[1]-t[1])<.4||!!(pth&&pth.length&&Math.hypot(pth[pth.length-1][0]-t[0],pth[pth.length-1][1]-t[1])<.5),d:Math.hypot(st[0]-t[0],st[1]-t[1])}}).filter(o=>o.reach).sort((a,b)=>a.d-b.d);
+ if(!ok.length){say('Aucun lavabo n’est accessible d’ici.');return}const o=ok[0];CI.washGo=o.i;say(NAME()+' va se laver les mains.');
+ goto(o.t[0]*12,88+o.t[1]*5,()=>{if(!basinFree(o.i)){CI.washGo=null;say('Ce lavabo vient d’être pris. Réessaie.');return}CI.washGo=null;C.x=o.t[0]*12;C.y=88+o.t[1]*5;C.tx=C.x;C.ty=C.y;C.st='ciwash';C.d=1;CI.wash={b:o.i,t:0,h0:N.hyg||0};ciUI()})}
+function washFrame(){const t=CI.wash?CI.wash.t:0;if(t<18)return'idle';if(t<WASH.on-4)return'idle';if(t<WASH.scrub0)return'cu1';if(t<WASH.scrub1)return Math.floor((t-WASH.scrub0)/7)%2?'cu2':'cu1';if(t<WASH.off+8)return'cu1';if(t<WASH.dur-18)return'idle';return Math.floor(t/5)%2?'cu1':'idle'}
+function washLean(t){return t<18?0:t<36?(t-18)/18:t<WASH.off+8?1:t<WASH.off+26?1-(t-WASH.off-8)/18:0}
+function washTick(){const W2=CI.wash;W2.t++;const t=W2.t;C.hop=-washLean(t)*.75;
+ if(t==WASH.on){pfxC('wtTap');CI.water=JEUSON&&JEUSON.loop?JEUSON.loop(1500,'bandpass'):null;if(CI.water)CI.water.set(.22,1500)}
+ if(t>WASH.scrub0&&t<WASH.scrub1){if((t-WASH.scrub0)%14==0)pfxC('wtScrub');const now=Date.now(),base=Math.max(N.washAt||0,now-864e5);N.washAt=Math.min(now,base+864e5*.15/(WASH.scrub1-WASH.scrub0))}
+ if(t==WASH.off){pfxC('wtTap');if(CI.water){CI.water.stop();CI.water=null}}
+ if(t%15==0)ciUI();
+ if(t>=WASH.dur){CI.wash=null;C.hop=0;C.st='idle';C.idle=90;add('happy',2);try{needsTick();bars()}catch(e){}save();say(NAME()+' a les mains propres. Hygiène : '+Math.round(N.hyg||0)+' %.');ciUI()}}
+function washStop(){if(CI.water){CI.water.stop();CI.water=null}if(CI.wash){CI.wash=null;C.hop=0;if(C.st=='ciwash')C.st='idle'}}
+const pfxC=(n,k)=>{try{if(typeof JEUSON!='undefined')JEUSON.fx(n,k||1,.05)}catch(e){}};
 // ---------- boucle : séance, toilettes, installation dans le fauteuil ----------
 {const _up=update;update=function(){_up();if(!isCine(place))return;
  if(C.st=='cinego'&&CI.seatPath){const w=CI.seatPath[0],cu=C.x/12,cv=(C.y-88)/5,du=w[0]-cu,dv=w[1]-cv,l=Math.hypot(du,dv),sp=.06;if(l<sp){C.x=w[0]*12;C.y=88+w[1]*5;CI.seatPath.shift();if(!CI.seatPath.length){CI.seatPath=null;C.st='cine';C.d=1;C.tx=C.x;C.ty=C.y;
@@ -6323,7 +6366,10 @@ function washHands(){const L=PLACES[place].furn.find(f=>f.n=='Lavabos');goto((L.
  const P=PLACES[place],F=CI.film,want=F&&F.on?1:0;CI.dim+=(want-CI.dim)*.04;CI.curt+=((F&&F.on&&F.t>1?1:0)-CI.curt)*.03;
  if(F&&F.on){F.t+=1/60;if(F.t>=FILM_DUR)stopFilm(true)}
  if(C.st=='ciwc'&&CI.wc){if(--CI.wc.t<=0){N.wc=100;CI.wc=null;C.alpha=null;C.st='idle';C.idle=60;try{bars()}catch(e){}say('Ça va mieux ! Pense à te laver les mains.');ciUI()}}
- if(C.st=='ciwash'){if(--CI.wash<=0){C.st='idle';C.idle=60;add('happy',2)}}}}
+ if(C.st=='ciwash'&&CI.wash)washTick();
+
+ if(place=='cine_wc'){npcPrep([[1,'idle'],[1,'cu1'],[1,'cu2'],[4,'idle'],[4,'cu1'],[4,'cu2']]);const n=CI.npc;if(n){n.t--;n.w=n.t>40&&n.t<n.T-30;if(n.t<=0)CI.npc=null}else if(Math.random()<1/1500&&basinFree(2)&&CI.washGo!==2)CI.npc={b:2,t:420,T:420,w:0,i:Math.random()<.5?1:4}}
+ else if(CI.npc)CI.npc=null}}
 // ---------- toucher dans le cinéma ----------
 function doorAt(mx2,my){for(const d of PLACES[place].doors||[])for(let k=0;k<70;k+=5){const[a,b]=isoInv(mx2,my+k);if(d.w=='R'&&b>-.6&&b<1.3&&a>=d.a-.15&&a<=d.b+.15)return d;if(d.w=='L'&&a>-.6&&a<1.3&&b>=d.a-.15&&b<=d.b+.15)return d}return null}
 function mainDoorAt(mx2,my){if(place=='cine_hall')return false;for(let k=0;k<70;k+=5){const[a,b]=isoInv(mx2,my+k);if(a>-.6&&a<1.3&&b>=DV0-.1&&b<=DV1+.1)return true}return false}
@@ -6337,7 +6383,7 @@ function mainDoorAt(mx2,my){if(place=='cine_hall')return false;for(let k=0;k<70;
  if(f=hitF(['Confiserie','Popcorn','Frigo','Prepa','Bonbons'])){goto(16*12,88+4.6*5,()=>{C.d=-1;CI.mode='snacks';ciUI();say('À la confiserie : pop-corn, boissons et bonbons.')});return}
  if(f=hitF(['Totem','Kakemono'])){say('À l’affiche : '+FILMS.map(F=>'salle '+F.s+' « '+F.t+' » ('+F.g.toLowerCase()+')').join(' · ')+'.');return}
  if(f=hitF(['Rangee'])){const[a]=isoInv(mx2,my+8);sitIn(f,freeSeat(f,a));return}
- if(f=hitF(['CabineWC'])){useWC(f);return}if(f=hitF(['Lavabos'])){washHands();return}if(f=hitF(['Urinoir'])){useWC({k:'H',x:f.x-.6,y:f.y,w:1.6,h:1.7});return}
+ if(f=hitF(['CabineWC'])){useWC(f);return}if(f=hitF(['Ilot','Visiteur'])){washHands();return}if(f=hitF(['Urinoir'])){useWC({k:'H',x:f.x-.6,y:f.y,w:1.6,h:1.7});return}
  if(f=hitF(['Serveur','Armoire'])){say('Le local technique : serveur de projection et tableau électrique. On ne touche à rien !');return}
  if(f=hitF(['Etagere','Cartons'])){say('La réserve : maïs à pop-corn, gobelets, boissons et bonbons pour la confiserie.');return}
  if(f=hitF(['Casiers','TableCafe','Café'])){say('Le coin du personnel : casiers, table et machine à café pour la pause.');return}
@@ -6369,13 +6415,13 @@ function ciUI(){const g=document.getElementById('ciG'),info=document.getElementB
   tile(g,CI.film&&CI.film.on?'Film en cours…':'Regarder « '+F.t+' »',S.billet&&S.billet.s==P.salle?(sit?'Installé':'Assieds-toi pour commencer'):'Billet nécessaire',()=>{if(C.st=='cine'){if(!CI.film)startFilm()}else{const R=rows();const f=R[Math.floor(R.length/2)];sitIn(f,freeSeat(f))}},CI.film&&CI.film.on);
   tile(g,'Sortir de la salle','Retour au couloir',goMainDoor);return}
  if(place=='cine_wc'){const fem=N.look&&N.look.g=='f',cab=P.furn.filter(f=>f.n=='CabineWC'&&(f.k=='F')==fem)[0];tile(g,'Aller aux toilettes',fem?'Côté femmes':'Côté hommes',()=>useWC(cab),!!CI.wc);
-  tile(g,'Se laver les mains','Lavabos',washHands,!!CI.wc);tile(g,'Sortir','Retour au couloir',goMainDoor,!!CI.wc);return}
+  {const fr=[0,1,2].filter(basinFree).length;tile(g,'Se laver les mains',CI.wash?'Lavage… '+Math.round(100*CI.wash.t/WASH.dur)+' %':fr?'Environ 5 s · hygiène +15':'Tous les lavabos sont occupés',washHands,!!CI.wc||!!CI.wash||!fr)}tile(g,'Sortir','Retour au couloir',goMainDoor,!!CI.wc);return}
  if(place=='cine_prive'){tile(g,'Local technique','Serveur et tableau électrique',()=>{goto(2.5*12,88+2.4*5,()=>{C.d=-1;say('Le serveur de projection envoie les films dans les 3 salles. Les voyants clignotent : tout va bien.')})});
   tile(g,'Réserve','Stock de la confiserie',()=>{goto(8.5*12,88+2.4*5,()=>{C.d=-1;say('La réserve : sacs de maïs, gobelets, packs de boissons et bonbons.')})});
   tile(g,'Coin du personnel','Casiers et pause café',()=>{goto(5.5*12,88+10.2*5,()=>{C.d=1;say('Le coin du personnel : casiers, table et machine à café.')})});tile(g,'Sortir','Retour au couloir',goMainDoor)}}
 function leave(){if(CI.busy)return;if(C.st=='cine'||C.st=='cinego')standUpCine();if(place=='cine_hall'){CI.mode=null;goHome()}else goMainDoor()}
 (function init(){const lv=document.getElementById('ciLeave');if(lv)lv.onclick=leave;fadeEl()})();
-window.CINE={FILMS,SNACKS,ROOMS,CI,ST,ciUI,goDoor,goMainDoor,enterRoom,backRoom,buyTicket,buySnack,sitIn,freeSeat,standUpCine,startFilm,stopFilm,useWC,washHands,leave,setRoom,FILM_DUR,isCine};
+window.CINE={FILMS,SNACKS,ROOMS,CI,ST,ciUI,goDoor,goMainDoor,enterRoom,backRoom,buyTicket,buySnack,sitIn,freeSeat,standUpCine,startFilm,stopFilm,useWC,washHands,npcPrep,npcImg,npcLook,NPCL,washStop,WASH,BASINS,basinFree,leave,setRoom,FILM_DUR,isCine};
 })();
 // ===RUE-END===
 requestAnimationFrame(loop);

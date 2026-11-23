@@ -1,0 +1,234 @@
+[
+ {
+  "n": "PC 1 porte bleue des toilettes sans carrelage (et portes du hall et du couloir sans soubassement par-dessus)",
+  "ok": true,
+  "info": {
+   "cine_wc": {
+    "n": 1640,
+    "bad": 0
+   },
+   "cine_hall": {
+    "n": 1520,
+    "bad": 0
+   },
+   "cine_couloir": {
+    "n": 1640,
+    "bad": 0
+   }
+  }
+ },
+ {
+  "n": "PC 2 lavage des mains, homme sweat, jean, baskets, casquette, sac : se penche, ouvre le robinet, se frotte les mains, referme, se redresse ; tenue conservée à chaque image",
+  "ok": true,
+  "info": {
+   "seq": [
+    "idle",
+    "cu1",
+    "cu2"
+   ],
+   "chk": [
+    {
+     "same": true,
+     "habits": 1563
+    },
+    {
+     "same": true,
+     "habits": 1523
+    },
+    {
+     "same": true,
+     "habits": 1563
+    },
+    {
+     "same": true,
+     "habits": 1523
+    }
+   ],
+   "wd": true
+  }
+ },
+ {
+  "n": "PC 3 lavage des mains, homme chemise, chino, blazer, lunettes, écharpe : se penche, ouvre le robinet, se frotte les mains, referme, se redresse ; tenue conservée à chaque image",
+  "ok": true,
+  "info": {
+   "seq": [
+    "idle",
+    "cu1",
+    "cu2"
+   ],
+   "chk": [
+    {
+     "same": true,
+     "habits": 948
+    },
+    {
+     "same": true,
+     "habits": 910
+    },
+    {
+     "same": true,
+     "habits": 948
+    },
+    {
+     "same": true,
+     "habits": 910
+    }
+   ],
+   "wd": true
+  }
+ },
+ {
+  "n": "PC 4 lavage des mains, femme robe, ballerines, bandeau, collier, cheveux longs : se penche, ouvre le robinet, se frotte les mains, referme, se redresse ; tenue conservée à chaque image",
+  "ok": true,
+  "info": {
+   "seq": [
+    "idle",
+    "cu1",
+    "cu2"
+   ],
+   "chk": [
+    {
+     "same": true,
+     "habits": 460
+    },
+    {
+     "same": true,
+     "habits": 473
+    },
+    {
+     "same": true,
+     "habits": 460
+    },
+    {
+     "same": true,
+     "habits": 473
+    }
+   ],
+   "wd": true
+  }
+ },
+ {
+  "n": "PC 5 lavage des mains, femme manteau, jupe plissée, bottes, bonnet : se penche, ouvre le robinet, se frotte les mains, referme, se redresse ; tenue conservée à chaque image",
+  "ok": true,
+  "info": {
+   "seq": [
+    "idle",
+    "cu1",
+    "cu2"
+   ],
+   "chk": [
+    {
+     "same": true,
+     "habits": 1218
+    },
+    {
+     "same": true,
+     "habits": 1206
+    },
+    {
+     "same": true,
+     "habits": 1218
+    },
+    {
+     "same": true,
+     "habits": 1206
+    }
+   ],
+   "wd": true
+  }
+ },
+ {
+  "n": "PC 6 jauge HYGIÈNE : augmente progressivement pendant le lavage (+15)",
+  "ok": true,
+  "info": [
+   [
+    30,
+    45,
+    true
+   ],
+   [
+    30,
+    45,
+    true
+   ],
+   [
+    30,
+    45,
+    true
+   ],
+   [
+    30,
+    45,
+    true
+   ]
+  ]
+ },
+ {
+  "n": "PC 7 sons : robinet ouvert et fermé, frottements, eau qui coule pendant le lavage",
+  "ok": true,
+  "info": [
+   [
+    [
+     "wtTap",
+     "wtScrub"
+    ],
+    1
+   ],
+   [
+    [
+     "wtTap",
+     "wtScrub"
+    ],
+    1
+   ],
+   [
+    [
+     "wtTap",
+     "wtScrub"
+    ],
+    1
+   ],
+   [
+    [
+     "wtTap",
+     "wtScrub"
+    ],
+    1
+   ]
+  ]
+ },
+ {
+  "n": "PC 8 lavabo occupé évité, refus si tous sont occupés (bouton grisé) ou inaccessibles",
+  "ok": true,
+  "info": {
+   "b1": 1,
+   "msg": "Tous les lavabos sont occupés. Attends un instant…",
+   "st": "idle",
+   "dis": true,
+   "sub": "Se laver les mainsTous les lavabos sont occupés",
+   "msg2": "Aucun lavabo n’est accessible d’ici."
+  }
+ },
+ {
+  "n": "PC 9 durée affichée (« environ 5 s », puis pourcentage), toilettes et sortie toujours présentes, pas de sortie pendant le lavage",
+  "ok": true,
+  "info": {
+   "before": [
+    "Aller aux toilettesCôté femmes",
+    "Se laver les mainsEnviron 5 s · hygiène +15",
+    "SortirRetour au couloir"
+   ],
+   "during": [
+    "Aller aux toilettesCôté femmes",
+    "Se laver les mainsLavage… 30 %[x]",
+    "SortirRetour au couloir"
+   ],
+   "stay": "cine_wc"
+  }
+ },
+ {
+  "n": "PC 10 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]
