@@ -3,7 +3,7 @@
   "n": "1 la borne occupe tout l’écran (ouverture immédiate depuis la porte, 1er jeu sélectionné)",
   "ok": true,
   "info": {
-   "dt": 54,
+   "dt": 35,
    "cov": {
     "canvas": [
      -0.328125,
@@ -99,8 +99,8 @@
     "stop"
    ],
    "frames": [
-    18,
-    18
+    19,
+    19
    ],
    "s1": "info",
    "s2": "game",

@@ -165,13 +165,13 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 55,
+    "saved": 54,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
@@ -272,7 +272,7 @@
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 3.6,
+   "msParImage": 3.77,
    "errs": []
   }
  },
@@ -427,11 +427,11 @@
    "e": {
     "sc": [
      1,
-     2
+     1
     ],
     "sc0": [
      1,
-     2
+     1
     ],
     "ph": "jeu"
    }
@@ -442,7 +442,7 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 49,
+    "saved": 52,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
@@ -549,7 +549,7 @@
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.52,
+   "msParImage": 4.46,
    "errs": []
   }
  }

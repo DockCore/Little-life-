@@ -20,7 +20,7 @@
   "n": "2 lancement immédiat du mini-jeu",
   "ok": true,
   "info": {
-   "msAvantScene": 76,
+   "msAvantScene": 49,
    "msAvantJeu": 1557
   }
  },
@@ -47,7 +47,7 @@
     "a2": 1,
     "ch": {
      "ph": "charge",
-     "pw": 0.3333333333333333
+     "pw": 0.3444444444444444
     },
     "th": {
      "ph": "roll",
@@ -57,7 +57,7 @@
    },
    "clavier": {
     "a0": 0.1803531096774195,
-    "aL": -0.04764689032258053,
+    "aL": -0.035646890322580525,
     "spK": -1,
     "chK": "charge",
     "thK": "roll"
@@ -75,7 +75,7 @@
      "touch": true
     },
     "m": 0.3005885161290324,
-    "pw": 0.31111111111111106,
+    "pw": 0.3,
     "ph": "roll"
    },
    "sizes": [
@@ -420,7 +420,7 @@
   "n": "12 fluidité du rendu",
   "ok": true,
   "info": {
-   "msParImage": 1.41,
+   "msParImage": 1.3,
    "fps": 61
   }
  },
