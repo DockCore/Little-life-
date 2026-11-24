@@ -104,7 +104,7 @@
   }
  },
  {
-  "n": "3 déplacements au joystick tactile dans les 4 directions : le coureur part du bon côté, s’arrête net au centre d’une case, regarde dans sa direction",
+  "n": "3 déplacements à la croix directionnelle tactile dans les 4 directions : le coureur part du bon côté, s’arrête net au centre d’une case, regarde dans sa direction",
   "ok": true,
   "info": {
    "cross": [
@@ -150,7 +150,7 @@
    "rnd": {
     "bad": 0,
     "angle": 0,
-    "cases": 19,
+    "cases": 21,
     "maxStill": 0
    }
   }
@@ -245,7 +245,7 @@
   "info": {
    "tiles": [
     29,
-    27,
+    28,
     26
    ],
    "wall": 0,
@@ -327,7 +327,7 @@
   "info": {
    "l1": {
     "land": true,
-    "T": 15,
+    "T": 14,
     "w": 633,
     "h": 293,
     "dir": null,
@@ -350,7 +350,7 @@
   }
  },
  {
-  "n": "12 joystick tactile fonctionnel après chaque rotation (droite en paysage, gauche en portrait, bas après rotation doigt posé)",
+  "n": "12 croix directionnelle tactile fonctionnel après chaque rotation (droite en paysage, gauche en portrait, bas après rotation doigt posé)",
   "ok": true,
   "info": {
    "a": [
@@ -378,8 +378,8 @@
     "on": true,
     "mus": null
    },
-   "t0": 99.3458000000092,
-   "t1": 99.3458000000092,
+   "t0": 99.2459000000093,
+   "t1": 99.2459000000093,
    "autres": {
     "mole": true,
     "racing": true,
@@ -409,12 +409,72 @@
    "reussites_sur_4": [
     4,
     4,
-    2,
+    3,
     4,
-    2
+    1
    ],
-   "detail": "N1:gagné 50s 0 touché(s) · N1:gagné 150s 1 touché(s) · N1:gagné 58s 0 touché(s) · N1:gagné 40s 0 touché(s) · N2:gagné 53s 1 touché(s) · N2:gagné 68s 0 touché(s) · N2:gagné 60s 2 touché(s) · N2:gagné 70s 2 touché(s) · N3:gagné 111s 1 touché(s) · N3:gagné 89s 1 touché(s) · N3:perdu 98s 3 touché(s) · N3:perdu 101s 3 touché(s) · N4:gagné 102s 2 touché(s) · N4:gagné 58s 0 touché(s) · N4:gagné 79s 1 touché(s) · N4:gagné 54s 1 touché(s) · N5:gagné 45s 0 touché(s) · N5:perdu 181s 3 touché(s) · N5:perdu 97s 3 touché(s) · N5:gagné 77s 1 touché(s)"
+   "detail": "N1:gagné 47s 0 touché(s) · N1:gagné 57s 0 touché(s) · N1:gagné 60s 0 touché(s) · N1:gagné 41s 0 touché(s) · N2:gagné 71s 2 touché(s) · N2:gagné 60s 1 touché(s) · N2:gagné 84s 1 touché(s) · N2:gagné 54s 2 touché(s) · N3:gagné 110s 2 touché(s) · N3:perdu 74s 3 touché(s) · N3:gagné 55s 0 touché(s) · N3:gagné 113s 2 touché(s) · N4:gagné 67s 0 touché(s) · N4:gagné 49s 0 touché(s) · N4:gagné 52s 0 touché(s) · N4:gagné 85s 2 touché(s) · N5:perdu 91s 3 touché(s) · N5:gagné 56s 0 touché(s) · N5:perdu 53s 3 touché(s) · N5:perdu 116s 3 touché(s)"
   }
+ },
+ {
+  "n": "17 tablettes (iPad, iPad Air, iPad Pro, tablette Android, debout et couchées) : jeu plein écran, labyrinthe entier et lisible, croix et boutons ENTER/EXIT entièrement visibles, assez grands pour le pouce, sans chevaucher le labyrinthe ; la croix répond au toucher",
+  "ok": true,
+  "info": [
+   {
+    "nom": "iPad debout",
+    "ok": true,
+    "mode": "dessous",
+    "T": 12,
+    "croix": 170,
+    "bouton": 70,
+    "depl": 2
+   },
+   {
+    "nom": "iPad couché",
+    "ok": true,
+    "mode": "dessous",
+    "T": 14,
+    "croix": 172,
+    "bouton": 68,
+    "depl": 2
+   },
+   {
+    "nom": "iPad Air debout",
+    "ok": true,
+    "mode": "dessous",
+    "T": 12,
+    "croix": 170,
+    "bouton": 70,
+    "depl": 2
+   },
+   {
+    "nom": "iPad Air couché",
+    "ok": true,
+    "mode": "dessous",
+    "T": 16,
+    "croix": 172,
+    "bouton": 68,
+    "depl": 2
+   },
+   {
+    "nom": "iPad Pro couché",
+    "ok": true,
+    "mode": "dessous",
+    "T": 17,
+    "croix": 170,
+    "bouton": 70,
+    "depl": 2
+   },
+   {
+    "nom": "Android tablette",
+    "ok": true,
+    "mode": "dessous",
+    "T": 12,
+    "croix": 170,
+    "bouton": 70,
+    "depl": 2
+   }
+  ]
  },
  {
   "n": "15 aucune erreur JavaScript",

@@ -38,11 +38,11 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  const calme=()=>E(()=>{const S=ARC.modules.maze._state;S.grace=1e9;S._ens=S._ens||S.ens;S.ens=[]});
  const place=(x,y)=>E(([x,y])=>{const P=ARC.modules.maze._state.p;Object.assign(P,{x,y,dir:null,moving:false,want:null,wantT:0})},[x,y]);
  await calme();
- // ---- 3. déplacements dans les 4 directions au joystick tactile ----
+ // ---- 3. déplacements dans les 4 directions au croix directionnelle tactile ----
  const cross=await E(()=>{const M=ARC.modules.maze._state.map;for(let y=1;y<M.H-1;y++)for(let x=1;x<M.W-1;x++)if(!M.walls[y][x]&&!M.walls[y-1][x]&&!M.walls[y+1][x]&&!M.walls[y][x-1]&&!M.walls[y][x+1])return[x,y];return null});
  const mv={};for(const d of ['right','left','down','up']){await place(cross[0],cross[1]);await W(60);const a=await st();await joy(d,230);await W(450);const z=await st();mv[d]=[+(z.x-a.x).toFixed(2),+(z.y-a.y).toFixed(2),Number.isInteger(z.x)&&Number.isInteger(z.y)]}
  const face=await E(()=>ARC.modules.maze._state.p.face);
- ok('3 déplacements au joystick tactile dans les 4 directions : le coureur part du bon côté, s’arrête net au centre d’une case, regarde dans sa direction',
+ ok('3 déplacements à la croix directionnelle tactile dans les 4 directions : le coureur part du bon côté, s’arrête net au centre d’une case, regarde dans sa direction',
   mv.right[0]>=1&&mv.right[1]==0&&mv.left[0]<=-1&&mv.left[1]==0&&mv.down[1]>=1&&mv.down[0]==0&&mv.up[1]<=-1&&mv.up[0]==0&&Object.values(mv).every(v=>v[2])&&face=='up',{cross,mv,face});
  // ---- 4. murs : jamais traversés, choc animé + son ; jamais bloqué dans un angle (20 s de commandes au hasard) ----
  await place(1,1);await E(()=>{window.__fx.length=0});await joy('right',500);await W(100);const w1=await E(()=>{const P=ARC.modules.maze._state.p;return{x:P.x,y:P.y,bump:P.bump,face:P.face,fx:window.__fx.filter(n=>n=='mzBump').length}});
@@ -104,11 +104,11 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  await p.setViewportSize({width:844,height:390});await W(700);const l1=await E(()=>{const S=ARC.modules.maze._state;return{land:S.L.land,T:S.L.T,w:S.W,h:S.H,dir:S.touch.dir,ph:S.phase,full:arcGS()}});await p.screenshot({path:`${O}/mz_11_paysage.png`});
  const a1=await st();await joy('right',230);await W(450);const a2=await st();
  await p.setViewportSize({width:390,height:844});await W(700);const l2=await E(()=>{const S=ARC.modules.maze._state;return{land:S.L.land,T:S.L.T,w:S.W,h:S.H,mm:!!S.L.mm}});const b1=await st();await joy('left',230);await W(450);const b2=await st();
- // rotation avec le doigt posé sur le joystick : rien ne reste coincé
+ // rotation avec le doigt posé sur la croix : rien ne reste coincé
  const J=await E(()=>ARC.modules.maze._state.L.joy);const jc=await scr(J.x,J.y);await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:jc.x,y:jc.y,id:6}]});await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:jc.x,y:jc.y-40,id:6}]});await W(100);
  await p.setViewportSize({width:844,height:390});await W(600);const stuck=await E(()=>ARC.modules.maze._state.touch.dir);await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await place(cross[0],cross[1]);const c1=await st();await joy('down',230);await W(450);const c2=await st();
  ok('11 portrait ⇄ paysage en pleine partie : dimensions, échelle et caméra recalculées (paysage : labyrinthe entier ; portrait : vue rapprochée + carte), aucun blocage, doigt relâché proprement',l1.land&&l1.w>l1.h&&l1.T>=12&&l1.full.w>l1.full.h&&!l2.land&&l2.mm&&stuck==null&&l1.ph=='play',{l1,l2,stuck});
- ok('12 joystick tactile fonctionnel après chaque rotation (droite en paysage, gauche en portrait, bas après rotation doigt posé)',a2.x-a1.x>=1&&b2.x-b1.x<=-1&&c2.y-c1.y>=1,{a:[a1.x,a2.x],b:[b1.x,b2.x],c:[c1.y,c2.y]});
+ ok('12 croix directionnelle tactile fonctionnel après chaque rotation (droite en paysage, gauche en portrait, bas après rotation doigt posé)',a2.x-a1.x>=1&&b2.x-b1.x<=-1&&c2.y-c1.y>=1,{a:[a1.x,a2.x],b:[b1.x,b2.x],c:[c1.y,c2.y]});
  await p.setViewportSize({width:390,height:844});await W(500);
  // ---- 13. EXIT : retour au catalogue, plus rien du jeu ne tourne ----
  await btn('bEx');await W(500);const ex=await E(()=>({st:ARC.state,cur:ARC.cur,api:ARC.modules.maze._state.api,on:ARC.on,mus:typeof JEUSON.playing=='function'?JEUSON.playing():null}));
@@ -138,5 +138,24 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
 
  const parN=[0,1,2,3,4].map(l=>r.filter(o=>o.lv==l+1&&o.ph=='done').length);
  ok('16 les 5 niveaux sont terminables avec les gardiens et les pièges actifs (joueur automatique, 4 parties par niveau) ; difficulté croissante',parN.every(n=>n>=1)&&parN[0]>=3,{reussites_sur_4:parN,detail:r.map(o=>'N'+o.lv+':'+(o.ph=='done'?'gagné':'perdu')+' '+o.t+'s '+o.hits+' touché(s)').join(' · ')});
+ // ---- 17. tablettes (iPad, iPad Air, iPad Pro, tablette Android ; debout et couchées) : borne, jeu plein écran, croix et boutons ----
+ const TAB=[['iPad debout',768,1024],['iPad couché',1024,768],['iPad Air debout',820,1180],['iPad Air couché',1180,820],['iPad Pro couché',1366,1024],['Android tablette',800,1280]],tr=[];
+ for(const [nom,w,h] of TAB){const c=await b.newContext({viewport:{width:w,height:h},deviceScaleFactor:2,hasTouch:true,isMobile:nom!='iPad Pro couché'});const q=await c.newPage();q.on('pageerror',e=>errs.push(nom+': '+e.message));
+  await q.goto(JEU);await q.waitForTimeout(1300);await q.evaluate(()=>{document.getElementById('intro')&&document.getElementById('intro').remove();tscr.hidden=true;document.getElementById('crOk2').click()});await q.waitForTimeout(300);
+  await q.evaluate(()=>{streetEnter();const a=STC.buildings.find(q=>q.id=='arcade');STV.px=a.x+a.door.x;stInteract();ARC.sel=ARC.games.findIndex(g=>g.id=='maze');arcOk();arcOk()});await q.waitForTimeout(400);
+  const toCss=(gx,gy)=>q.evaluate(([gx,gy])=>{const r=AX.cv.getBoundingClientRect(),S=arcGS(),k=r.width/AX.L.W;return{x:r.left+(S.x+gx)*k,y:r.top+(S.y+gy)*k,k}},[gx,gy]);
+  const Lg=await q.evaluate(()=>ARC.modules.maze._state.L);const ok1=await toCss(Lg.bOk.x,Lg.bOk.y);await q.touchscreen.tap(ok1.x,ok1.y);await q.waitForTimeout(2400);
+  const m=await q.evaluate(()=>{const S=ARC.modules.maze._state,L=S.L,c=AX.cv.getBoundingClientRect(),k=c.width/AX.L.W;S.grace=1e9;S.ens=[];
+   const box=o=>({l:(o.x-o.r)*k+c.left,t:(o.y-o.r)*k+c.top,r:(o.x+o.r)*k+c.left,b:(o.y+o.r+8)*k+c.top});const maze={l:L.ox*k,t:L.oy*k,r:(L.ox+L.mw)*k,b:(L.oy+L.mh)*k};
+   return{ph:S.phase,mode:L.mode,T:L.T,cam:L.cam,pad:box(L.joy),ok:box(L.bOk),ex:box(L.bEx),maze,padPx:Math.round(2*L.joy.r*k),btnPx:Math.round(2*L.bEx.r*k),W:innerWidth,H:innerHeight,cv:[c.left,c.top,c.right,c.bottom].map(Math.round)}});
+  // un vrai toucher sur la branche droite puis sur la branche du bas
+  const P0=await q.evaluate(()=>{const S=ARC.modules.maze._state;const M=S.map;for(let y=1;y<M.H-1;y++)for(let x=1;x<M.W-2;x++)if(!M.walls[y][x]&&!M.walls[y][x+1]&&!M.walls[y][x+2]){Object.assign(S.p,{x,y,dir:null,moving:false,want:null,wantT:0});return[x,y]}});
+  const J=Lg.joy;const cd=await c.newCDPSession(q);const press=async(dx,dy,ms)=>{const pt=await toCss(J.x+dx*J.r*.7,J.y+dy*J.r*.7);await cd.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:pt.x,y:pt.y,id:2}]});await q.waitForTimeout(ms);await cd.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await q.waitForTimeout(400)};
+  const pa=await q.evaluate(()=>ARC.modules.maze._state.p.x);await press(1,0,220);const pb=await q.evaluate(()=>({x:ARC.modules.maze._state.p.x,dir:ARC.modules.maze._state.touch.dir}));
+  await q.screenshot({path:`${O}/mz_17_${w}x${h}.png`});
+  const inV=o=>o.l>=0&&o.t>=0&&o.r<=m.W+1&&o.b<=m.H+1,sep=o=>o.b<=m.maze.t||o.t>=m.maze.b||o.r<=m.maze.l||o.l>=m.maze.r;
+  const good=m.ph=='play'&&m.cv[0]<=0&&m.cv[1]<=0&&m.cv[2]>=w&&m.cv[3]>=h&&!m.cam&&m.T>=12&&inV(m.pad)&&inV(m.ok)&&inV(m.ex)&&sep(m.pad)&&sep(m.ok)&&sep(m.ex)&&m.padPx>=110&&m.btnPx>=44&&pb.x-pa>=1&&pb.dir==null;
+  tr.push({nom,ok:good,dbg:good?undefined:{ex:m.ex,ok:m.ok,pad:m.pad,maze:m.maze,W:m.W,H:m.H,cv:m.cv,ph:m.ph,cam:m.cam},mode:m.mode,T:m.T,croix:m.padPx,bouton:m.btnPx,depl:+(pb.x-pa).toFixed(2)});await c.close()}
+ ok('17 tablettes (iPad, iPad Air, iPad Pro, tablette Android, debout et couchées) : jeu plein écran, labyrinthe entier et lisible, croix et boutons ENTER/EXIT entièrement visibles, assez grands pour le pouce, sans chevaucher le labyrinthe ; la croix répond au toucher',tr.every(t=>t.ok),tr);
  ok('15 aucune erreur JavaScript',errs.length==0,errs);
  await b.close();fs.writeFileSync(path.join(O,'maze_resultats.json'),JSON.stringify(R,null,1));const n=R.filter(r=>r.ok).length;console.log(`\n${n}/${R.length} tests réussis`);process.exit(n==R.length?0:1)})();
