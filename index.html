@@ -6317,9 +6317,17 @@ function enterRoom(p,msg){fadeTo(()=>{if(CI.film)stopFilm(false);washStop();setR
 // retour dans la pièce précédente, devant la porte par laquelle on était entré
 function backRoom(){const p=place,par=PLACES[p].parent;if(!par)return;fadeTo(()=>{if(CI.film)stopFilm(false);washStop();setRoom(par);const d=PLACES[par].doors.find(o=>o.to==p);const t=doorFront(d);C.x=t[0]*12;C.y=88+t[1]*5;C.tx=C.x;C.ty=C.y;C.st='idle';C.idle=200;C.alpha=null;C.d=d.w=='L'?1:-1;doorA=0;doorT=0;CI.mode=null;show('cinema');ciUI();say(NAME()+' revient dans '+PLACES[par].nom+'.')})}
 const doorFront=d=>d.w=='L'?[1.45,(d.a+d.b)/2]:[(d.a+d.b)/2,1.45];
-function goDoor(d){if(CI.busy)return;const t=doorFront(d);standUpCine();say(NAME()+' se dirige vers la porte.');goto(t[0]*12,88+t[1]*5,()=>{C.d=d.w=='L'?-1:1;
+function goDoor(d){if(CI.busy)return;const t=doorFront(d);standUpCine();const T0=PLACES[d.to];
+ if(T0.salle){const b=ST().billet,F=FILMS[T0.salle-1];if(!(b&&b.s==T0.salle)){say(NAME()+' se dirige vers la salle '+T0.salle+'…');goto(t[0]*12,88+t[1]*5,()=>{C.d=1;say('Le contrôleur : « Il te faut un billet pour la salle '+T0.salle+' (« '+F.t+' »). Billetterie et bornes dans le hall ! »')});return}
+  say(NAME()+' présente son billet pour « '+F.t+' ».');goto(t[0]*12,88+t[1]*5,()=>{C.d=1;enterSalle(d)});return}
+ say(NAME()+' se dirige vers la porte.');goto(t[0]*12,88+t[1]*5,()=>{C.d=d.w=='L'?-1:1;
  const T=PLACES[d.to];let msg=NAME()+' entre dans '+T.nom+'.';if(T.salle){const b=ST().billet,F=FILMS[T.salle-1];msg=b&&b.s==T.salle?'Salle '+T.salle+' : « '+F.t+' ». Installe-toi dans un fauteuil, le film commence dès que tu es assis.':'Salle '+T.salle+' : « '+F.t+' ». Tu peux visiter, mais il te faut un billet pour voir le film.'}
  if(d.to=='cine_prive')msg='Espace réservé au personnel… '+NAME()+' jette un œil discret.';enterRoom(d.to,msg)})}
+// entrée directe en vue spectateur : Nori est installé dans un fauteuil libre, les lumières sont éteintes, le film démarre
+function enterSalle(d){const s=PLACES[d.to].salle;fadeTo(()=>{washStop();setRoom(d.to);const R=rows(),f=R[Math.min(R.length-1,Math.floor(R.length/2))],j=freeSeat(f);CI.seat={f,j};C.x=(f.x+j+.5)*12;C.y=88+(f.y+.45)*5;C.tx=C.x;C.ty=C.y;C.path=null;C.st='cine';C.d=1;
+ CI.dim=1;CI.curt=1;CI.mode=null;CI.direct=d;show('cinema');startFilm(true)})}
+// après la séance (fin ou « Quitter ») : retour dans le couloir, devant la porte de la salle
+function exitSalle(){const d=CI.direct;CI.direct=null;if(!d)return;const p=place;setRoom('cine_couloir');const t=doorFront(d);C.x=t[0]*12;C.y=88+t[1]*5;C.tx=C.x;C.ty=C.y;C.st='idle';C.idle=200;C.alpha=null;C.d=-1;CI.seat=null;CI.dim=0;CI.curt=0;doorA=0;doorT=0;show('cinema');ciUI()}
 function goMainDoor(){if(CI.busy||CI.wash)return;standUpCine();say(NAME()+' sort de '+PLACES[place].nom+'.');goto(DOORS[0]*12,88+DOORS[1]*5,()=>backRoom())}
 // ---------- achats ----------
 function pay(p,what){if((N.coins||0)<p){say('Il manque '+(p-(N.coins||0))+' pièce'+(p-(N.coins||0)>1?'s':'')+' pour '+what+'.');return false}earn(-p);try{fx.push({k:'$',x:C.x,y:C.y,l:50})}catch(e){}return true}
@@ -6332,9 +6340,9 @@ function freeSeat(f,uHint){const fr2=[];for(let j=0;j<f.w;j++)if(!(f.occ&&f.occ[
 function sitIn(f,j){if(CI.busy||C.st=='cine')return;if(j==null){say('Cette rangée est complète.');return}const left=j+.5<f.w/2,aisle=left?[2.05,f.y+f.h+.15]:[f.x+f.w+.95,f.y+f.h+.15];CI.seat={f,j};
  goto(aisle[0]*12,88+aisle[1]*5,()=>{C.st='cinego';C.path=null;CI.seatPath=[[left?f.x-.2:f.x+f.w+.2,f.y+.45],[f.x+j+.5,f.y+.45]];})}
 function standUpCine(){if(C.st!='cine'&&C.st!='cinego')return;const f=CI.seat&&CI.seat.f;if(CI.film&&CI.film.on)stopFilm(false);C.st='idle';C.idle=120;if(f){const left=CI.seat.j+.5<f.w/2;C.x=(left?2.05:f.x+f.w+.95)*12;C.y=88+(f.y+f.h+.15)*5;C.tx=C.x;C.ty=C.y}CI.seat=null;ciUI()}
-function startFilm(){const P=PLACES[place],S=ST();if(!P.salle)return;if(!(S.billet&&S.billet.s==P.salle)){say('Pas de billet pour cette salle : le film ne démarre pas. Achète-le à la billetterie ou à la borne.');return}
+function startFilm(direct){const P=PLACES[place],S=ST();if(!P.salle)return;if(!(S.billet&&S.billet.s==P.salle)){say('Pas de billet pour cette salle : le film ne démarre pas. Achète-le à la billetterie ou à la borne.');return}
  const FI=FILMS.find(f=>f.s==P.salle);CI.film={s:P.salle,id:FI.id,on:true};const sn=S.snacks;CI.pop0=sn.pop>0;if(CI.pop0&&CI.seat)CI.seat.f.pb=CI.seat.j+1;
- say('Les lumières s’éteignent… « '+FI.t+' » va commencer.');ciUI();setTimeout(()=>{if(C.st=='cine'&&CI.film&&CI.film.on&&!CM.open)CM.show(FI)},1300)}
+ say('Les lumières s’éteignent… « '+FI.t+' » va commencer.');ciUI();if(direct){CM.show(FI,true);return}setTimeout(()=>{if(C.st=='cine'&&CI.film&&CI.film.on&&!CM.open)CM.show(FI)},1300)}
 function stopFilm(done){const F=CI.film;CI.film=null;const S=ST();CI.pop0=false;Object.values(ROOMS).forEach(R=>R.furn.forEach(f=>{if(f.pb)delete f.pb}));if(done&&F){S.billet=null;S.vus=(S.vus||0)+1;add('happy',20);
   const sn=S.snacks;if(sn.pop>0){sn.pop--;add('hunger',12);add('happy',4)}if(sn.boi>0){sn.boi--;add('happy',3);add('wc',-12)}if(sn.bon>0){sn.bon--;add('happy',4)}
   try{bars()}catch(e){}save();say('FIN. '+NAME()+' a adoré « '+FILMS[F.s-1].t+' » ! Les lumières se rallument.');try{talk(['Quel film ! Je veux le revoir.','J’ai pleuré à la fin… ne le dis à personne.','Le pop-corn rend tout meilleur.'][S.vus%3])}catch(e){}}
@@ -6407,7 +6415,7 @@ function ciUI(){const g=document.getElementById('ciG'),info=document.getElementB
   tile(g,'Borne automatique','Billet en libre-service',()=>goto(9.5*12,88+2.5*5,()=>{C.d=-1;CI.mode='borne';ciUI();say('Borne automatique : choisis ton film.')}));
   tile(g,'Confiserie','Pop-corn, boissons, bonbons',()=>goto(16*12,88+4.6*5,()=>{C.d=-1;CI.mode='snacks';ciUI();say('À la confiserie : que veux-tu ?')}));
   tile(g,'Aller aux salles','Couloir des salles 1, 2 et 3',()=>goDoor(P.doors[0]));return}
- if(place=='cine_couloir'){P.doors.forEach(d=>{const T=PLACES[d.to];tile(g,d.lbl=='WC'?'Toilettes':d.lbl=='PRIVÉ'?'Espace personnel':'Salle '+T.salle,T.salle?FILMS[T.salle-1].t+(S.billet&&S.billet.s==T.salle?' · ton billet':''):d.lbl=='PRIVÉ'?'Réservé au personnel':'Hommes et femmes',()=>goDoor(d))});
+ if(place=='cine_couloir'){P.doors.forEach(d=>{const T=PLACES[d.to];tile(g,d.lbl=='WC'?'Toilettes':d.lbl=='PRIVÉ'?'Espace personnel':'Salle '+T.salle,T.salle?FILMS[T.salle-1].t+(S.billet&&S.billet.s==T.salle?' · voir le film':' · billet nécessaire'):d.lbl=='PRIVÉ'?'Réservé au personnel':'Hommes et femmes',()=>goDoor(d))});
   tile(g,'Retour au hall','',goMainDoor);return}
  if(P.salle){const F=FILMS[P.salle-1],sit=C.st=='cine'||C.st=='cinego';
   if(!sit)tile(g,'S’asseoir','Choisir un fauteuil libre',()=>{const R=rows();const f=R[Math.min(R.length-1,Math.floor(R.length/2))];sitIn(f,freeSeat(f))});
@@ -6451,18 +6459,18 @@ function cmBuild(){if(CM.el)return;const e=document.createElement('div');e.id='c
 function cmVol(){const S=ST(),v=S.vol==null?1:S.vol,m=!!S.mute,V=CM.v;if(CM.gain){CM.gain.gain.value=m?0:v;V.muted=false}else{V.volume=v;V.muted=m}
  const b=CM.el.querySelector('#cmMute');b.textContent=m||v==0?'🔇':v<.5?'🔉':'🔊';CM.el.querySelector('#cmVol').value=v}
 function cmAudio(){if(CM.audio||!IOS)return;try{const A=window.AudioContext||window.webkitAudioContext;CM.audio=new A();const src=CM.audio.createMediaElementSource(CM.v);CM.gain=CM.audio.createGain();src.connect(CM.gain);CM.gain.connect(CM.audio.destination)}catch(e){CM.audio=null;CM.gain=null}}
-function cmShow(F){cmBuild();const e=CM.el,V=CM.v,$=id=>e.querySelector('#'+id);CM.F=F;CM.open=true;CM.state='start';CM.lights=0;CM.ri=0;CM.react=null;
+function cmShow(F,auto){cmBuild();const e=CM.el,V=CM.v,$=id=>e.querySelector('#'+id);CM.F=F;CM.open=true;CM.state='start';CM.lights=0;CM.ri=0;CM.react=null;
  $('cmTitle').textContent=F.t;$('cmSTitle').textContent=F.t;$('cmSInfo').textContent=F.g+' · salle '+F.s+(F.dur?' · '+Math.round(F.dur/60)+' min':'');$('cmStart').hidden=false;$('cmEnd').hidden=true;$('cmWait').hidden=true;$('cmUi').classList.remove('on');$('cmSub').textContent='';
  $('cmRot').hidden=!(innerHeight>innerWidth);V.poster=F.poster;if(V.getAttribute('src')!==F.src){V.src=F.src;V.load()}V.currentTime=0;cmVol();cmPrep();e.hidden=false;e.classList.remove('on');cmLayout();
- requestAnimationFrame(()=>e.classList.add('on'));cancelAnimationFrame(CM.raf);CM.raf=requestAnimationFrame(cmLoop);ciUI()}
-function cmPlay(){const e=CM.el,V=CM.v;cmAudio();if(CM.audio&&CM.audio.state!='running')CM.audio.resume().catch(()=>{});cmVol();e.querySelector('#cmStart').hidden=true;e.querySelector('#cmWait').hidden=false;CM.state='play';CM.hideT=performance.now();
- const p=V.play();if(p&&p.catch)p.catch(err=>{e.querySelector('#cmWait').hidden=true;e.querySelector('#cmStart').hidden=false;CM.state='start';e.querySelector('#cmSInfo').textContent='Touche « Lancer la séance » pour démarrer le film.'})}
+ requestAnimationFrame(()=>e.classList.add('on'));cancelAnimationFrame(CM.raf);CM.raf=requestAnimationFrame(cmLoop);ciUI();if(auto)cmPlay(true)}
+function cmPlay(auto){const e=CM.el,V=CM.v;cmAudio();if(CM.audio&&CM.audio.state!='running')CM.audio.resume().catch(()=>{});cmVol();e.querySelector('#cmStart').hidden=true;e.querySelector('#cmWait').hidden=false;CM.state='play';CM.hideT=performance.now();
+ const p=V.play();if(p&&p.catch)p.catch(err=>{e.querySelector('#cmWait').hidden=true;e.querySelector('#cmStart').hidden=false;CM.state='start';e.querySelector('#cmSInfo').textContent=auto?CM.F.g+' · salle '+CM.F.s+' · touche pour démarrer':'Touche « Lancer la séance » pour démarrer le film.'})}
 function cmPoke(){CM.hideT=performance.now();CM.el.querySelector('#cmUi').classList.add('on')}
 function cmEnd(){if(!CM.open||CM.state=='end')return;CM.state='end';const e=CM.el;e.querySelector('#cmUi').classList.remove('on');e.querySelector('#cmSub').textContent='';
  e.querySelector('#cmETxt').textContent='« '+CM.F.t+' » · Les lumières se rallument…';setTimeout(()=>{if(CM.state=='end')e.querySelector('#cmEnd').hidden=false},1200);CM.endT=setTimeout(()=>{if(CM.state=='end')cmClose(true)},7000)}
 function cmClose(done){if(!CM.open)return;clearTimeout(CM.endT);const e=CM.el,V=CM.v;try{V.pause()}catch(_){}e.classList.remove('on');CM.state='off';
  setTimeout(()=>{e.hidden=true;CM.open=false;cancelAnimationFrame(CM.raf);try{V.removeAttribute('src');V.load()}catch(_){}},450);
- const film=CI.film;stopFilm(!!done);if(!done&&film)say('Séance interrompue. Ton billet reste valable : touche « Regarder » pour relancer le film.');ciUI()}
+ const film=CI.film,direct=!!CI.direct;stopFilm(!!done);if(direct)exitSalle();if(!done&&film)say(direct?'Séance interrompue. Ton billet reste valable : repasse la porte de la salle pour relancer le film.':'Séance interrompue. Ton billet reste valable : touche « Regarder » pour relancer le film.');ciUI()}
 // mise en page : le film le plus grand possible, la salle et Nori dessous
 function cmLayout(){const W=innerWidth,H=(window.visualViewport?visualViewport.height:innerHeight),port=H>W;let fw,fh,fx,fy;
  if(port){fw=W;fh=Math.round(W*9/16);fx=0;fy=Math.round(H*.24)}else{fh=Math.round(H*.81);fw=Math.min(W,Math.round(fh*16/9));fh=Math.round(fw*9/16);fx=Math.round((W-fw)/2);fy=Math.round(H*.025)}
@@ -6519,7 +6527,7 @@ function cmLoop(now){if(!CM.open)return;CM.raf=requestAnimationFrame(cmLoop);con
  if(CM.state=='play'&&performance.now()-CM.hideT>3200)CM.el.querySelector('#cmUi').classList.remove('on')}
 const lerpN=(a,b,t)=>a+(b-a)*Math.max(0,Math.min(1,t));
 CM.show=cmShow;CM.play=cmPlay;CM.close=cmClose;CM.end=cmEnd;CM.layout=cmLayout;
-window.CINE={FILMS,SNACKS,ROOMS,CI,ST,ciUI,goDoor,goMainDoor,enterRoom,backRoom,buyTicket,buySnack,sitIn,freeSeat,standUpCine,startFilm,stopFilm,CM,useWC,washHands,npcPrep,npcImg,npcLook,NPCL,washStop,WASH,BASINS,basinFree,leave,setRoom,isCine};
+window.CINE={FILMS,SNACKS,ROOMS,CI,ST,ciUI,goDoor,goMainDoor,enterRoom,backRoom,buyTicket,buySnack,sitIn,freeSeat,standUpCine,startFilm,stopFilm,CM,useWC,washHands,enterSalle,exitSalle,npcPrep,npcImg,npcLook,NPCL,washStop,WASH,BASINS,basinFree,leave,setRoom,isCine};
 })();
 // ===RUE-END===
 requestAnimationFrame(loop);

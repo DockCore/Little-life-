@@ -60,6 +60,19 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
   const ls=await E(()=>{const r=CINE.CM.v.getBoundingClientRect(),el=document.getElementById('cineMode');return{part:+(r.width*r.height/(innerWidth*innerHeight)).toFixed(2),top:el.contains(document.elementFromPoint(innerWidth/2,innerHeight/2)),play:!CINE.CM.v.paused}});
   await p.screenshot({path:`${O}/mc_${mode}_05_paysage.png`});await p.setViewportSize({width:390,height:844});await E(()=>CINE.CM.close(false));
   ok(T('14 téléphone tourné pendant le film : le film s’agrandit (majorité de l’écran) et continue'),ls.part>=.5&&ls.top&&ls.play,ls)}
+ // ---- 16. porte d'une salle : vue spectateur directe ----
+ const dir=await E(async()=>{const w=ms=>new Promise(r=>setTimeout(r,ms)),wait=async(f,n=200)=>{let t=0;while(!f()&&t<n){await w(100);t++}return f()};if(CINE.CM.open){CINE.CM.close(false);await w(700)}
+  CINE.standUpCine();CINE.setRoom('cine_couloir');C.x=6*12;C.y=88+6*5;C.st='idle';N.cine={billet:null,snacks:{pop:0,boi:0,bon:0},vus:0};CINE.ciUI();
+  [...document.querySelectorAll('#ciG .tile')].find(b=>/Salle 2/.test(b.textContent)).click();await wait(()=>/billet/.test(document.getElementById('status').textContent)&&C.st=='idle',150);
+  const refus={place,open:CINE.CM.open,msg:document.getElementById('status').textContent};
+  N.cine.billet={s:2,t:'MISSION ÉTOILE'};const t0=Date.now();[...document.querySelectorAll('#ciG .tile')].find(b=>/Salle 2/.test(b.textContent)).click();
+  let sawIso=false;const ok1=await wait(()=>{if(place=='cine_s2'&&!CINE.CM.open&&C.st!='cine')sawIso=true;return CINE.CM.open},250);await wait(()=>CINE.CM.v.currentTime>.5,150);
+  const vue={open:ok1,place,st:C.st,sawIso,play:!CINE.CM.v.paused&&CINE.CM.v.currentTime>.5,secs:((Date.now()-t0)/1000).toFixed(1)};
+  CINE.CM.v.currentTime=CINE.CM.v.duration-1;await wait(()=>!CINE.CM.open,150);await w(600);
+  const d=PLACES.cine_couloir.doors.find(o=>o.to=='cine_s2');return{refus,vue,fin:{place,st:C.st,u:+(C.x/12).toFixed(2),v:+((C.y-88)/5).toFixed(2),porte:(d.a+d.b)/2,billet:N.cine.billet,vus:N.cine.vus}}});
+ await p.screenshot({path:`${O}/mc_${mode}_06_sortie.png`});
+ ok(T('16 porte de la salle : sans billet le contrôleur refuse ; avec billet, directement en vue spectateur (aucune scène pour s’asseoir), film lancé ; à la fin retour dans le couloir devant la porte'),
+  dir.refus.place=='cine_couloir'&&!dir.refus.open&&/billet/.test(dir.refus.msg)&&dir.vue.open&&!dir.vue.sawIso&&dir.vue.st=='cine'&&dir.vue.play&&dir.fin.place=='cine_couloir'&&dir.fin.st=='idle'&&Math.abs(dir.fin.u-dir.fin.porte)<.3&&dir.fin.v<1.6&&dir.fin.billet==null&&dir.fin.vus==1,dir);
  ok(T('15 aucune erreur JavaScript'),errs.length==0,errs);await ctx.close()}
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--autoplay-policy=no-user-gesture-required']});
  const modes=process.argv[2]?[process.argv[2]]:['tel','pc'];for(const m of modes)await session(b,m);await b.close();

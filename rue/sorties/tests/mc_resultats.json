@@ -1,195 +1,10 @@
 [
  {
-  "n": "TEL 1 assis avec un billet : lumières baissées, transition en fondu vers le mode cinéma plein écran, jauges et interface du jeu masquées",
-  "ok": true,
-  "info": {
-   "opened": true,
-   "dims": 0.970123752991818,
-   "cover": {
-    "full": true,
-    "top": true,
-    "fade": true,
-    "start": true,
-    "st": "cine"
-   }
-  }
- },
- {
-  "n": "TEL 2 vraie vidéo lue (fichier MP4 H.264 + AAC) : le temps avance, images et son décodés, durée réelle de 2 min",
-  "ok": true,
-  "info": {
-   "t": 2.590534,
-   "dur": 120,
-   "rs": 4,
-   "w": 640,
-   "h": 360,
-   "src": "films/petit-robot.mp4",
-   "audio": 46387,
-   "video": 22273,
-   "st": "play"
-  }
- },
- {
-  "n": "TEL 3 composition : film le plus grand possible (toute la largeur en portrait, la majorité de l’écran en paysage), fauteuils, spectateurs de dos et Nori au premier plan",
-  "ok": true,
-  "info": {
-   "fw": 390,
-   "fh": 219,
-   "W": 390,
-   "H": 844,
-   "part": 0.26,
-   "bust": true,
-   "heads": 6
-  }
- },
- {
-  "n": "TEL 4 Nori porte exactement sa tenue (image identique au personnage du jeu avec ses vêtements : casquette, sweat, sac)",
-  "ok": true,
-  "info": {
-   "avec": 1,
-   "sans": 0.1379585326953748,
-   "wd": "{\"cheveux\":\"nat|0\",\"haut\":\"hoodie|2\",\"bas\":\"jean|0\",\"chaussures\":\"basket|1\",\"tete\":\"casq|3\",\"sac\":\"sac|0\"}"
-  }
- },
- {
-  "n": "TEL 5 pendant la séance Nori reste assis et ne peut pas se déplacer (toucher l’écran ne le fait pas bouger)",
-  "ok": true,
-  "info": {
-   "pos0": [
-    78,
-    125.25,
-    "cine"
-   ],
-   "pos1": [
-    78,
-    125.25,
-    "cine"
-   ]
-  }
- },
- {
-  "n": "TEL 6 pause puis reprise de la lecture",
-  "ok": true,
-  "info": {
-   "pa": {
-    "p": true,
-    "t": 4.157063,
-    "st": "pause"
-   },
-   "pa2": 4.157063,
-   "re": {
-    "p": false,
-    "t": 5.373047
-   }
-  }
- },
- {
-  "n": "TEL 7 progression du film affichée (barre et temps « 0:07 / 2:00 »)",
-  "ok": true,
-  "info": {
-   "w": "4.48%",
-   "txt": "0:05 / 2:00"
-  }
- },
- {
-  "n": "TEL 8 réglage du volume (mémorisé) et coupure du son",
-  "ok": true,
-  "info": {
-   "v1": {
-    "vol": 0.4,
-    "saved": 0.4
-   },
-   "m1": {
-    "muted": true,
-    "icon": "🔇"
-   },
-   "m2": false
-  }
- },
- {
-  "n": "TEL 9 dialogues sous-titrés au bon moment",
-  "ok": true,
-  "info": {
-   "sub": "Salut, tas de ferraille !",
-   "react": "rire"
-  }
- },
- {
-  "n": "TEL 10 Nori réagit aux scènes (rire quand Plume se moque de Bip)",
-  "ok": true,
-  "info": {
-   "sub": "Salut, tas de ferraille !",
-   "react": "rire"
-  }
- },
- {
-  "n": "TEL 11 la musique du jeu se tait pendant la séance (seul le son du film)",
-  "ok": true,
-  "info": {}
- },
- {
-  "n": "TEL 12 quitter la séance : retour propre dans la salle, billet conservé, Nori toujours assis",
-  "ok": true,
-  "info": {
-   "open": false,
-   "film": null,
-   "billet": {
-    "s": 1,
-    "t": "PETIT ROBOT"
-   },
-   "st": "cine",
-   "hid": true,
-   "msg": "Séance interrompue. Ton billet reste valable : touche « Regarder » pour relancer le film."
-  }
- },
- {
-  "n": "TEL 13 fin du film : lecture arrêtée, « FIN », lumières qui se rallument progressivement, retour à la vue de la salle, Nori peut se lever et marcher, progression sauvegardée",
-  "ok": true,
-  "info": {
-   "ended": true,
-   "endShot": {
-    "fin": true,
-    "l": 0.6000812604612126
-   },
-   "dimA": 0.3321416142533554,
-   "dimB": 0.0449379970093624,
-   "back": {
-    "open": false,
-    "place": "cine_s2",
-    "st": "cine",
-    "billet": null,
-    "vus": 1,
-    "pop": 0,
-    "msg": "FIN. Nori a adoré « MISSION ÉTOILE » ! Les lumières se rallument.",
-    "saved": true
-   },
-   "up": {
-    "st": "walk",
-    "x": 179.39999999999998
-   },
-   "moved": 201.95999999999998
-  }
- },
- {
-  "n": "TEL 14 téléphone tourné pendant le film : le film s’agrandit (majorité de l’écran) et continue",
-  "ok": true,
-  "info": {
-   "part": 0.54,
-   "top": true,
-   "play": true
-  }
- },
- {
-  "n": "TEL 15 aucune erreur JavaScript",
-  "ok": true,
-  "info": []
- },
- {
   "n": "PC 1 assis avec un billet : lumières baissées, transition en fondu vers le mode cinéma plein écran, jauges et interface du jeu masquées",
   "ok": true,
   "info": {
    "opened": true,
-   "dims": 0.970123752991818,
+   "dims": 0.968878909366477,
    "cover": {
     "full": true,
     "top": true,
@@ -203,14 +18,14 @@
   "n": "PC 2 vraie vidéo lue (fichier MP4 H.264 + AAC) : le temps avance, images et son décodés, durée réelle de 2 min",
   "ok": true,
   "info": {
-   "t": 2.566586,
+   "t": 2.595468,
    "dur": 120,
    "rs": 4,
    "w": 640,
    "h": 360,
    "src": "films/petit-robot.mp4",
-   "audio": 46013,
-   "video": 22242,
+   "audio": 46387,
+   "video": 22273,
    "st": "play"
   }
  },
@@ -258,13 +73,13 @@
   "info": {
    "pa": {
     "p": true,
-    "t": 4.144517,
+    "t": 4.160395,
     "st": "pause"
    },
-   "pa2": 4.144517,
+   "pa2": 4.160395,
    "re": {
     "p": false,
-    "t": 5.351468
+    "t": 5.383377
    }
   }
  },
@@ -272,7 +87,7 @@
   "n": "PC 7 progression du film affichée (barre et temps « 0:07 / 2:00 »)",
   "ok": true,
   "info": {
-   "w": "4.45%",
+   "w": "4.48%",
    "txt": "0:05 / 2:00"
   }
  },
@@ -334,10 +149,10 @@
    "ended": true,
    "endShot": {
     "fin": true,
-    "l": 0.6080479783993528
+    "l": 0.6042700958515592
    },
-   "dimA": 0.282103337498718,
-   "dimB": 0.03975826372204479,
+   "dimA": 0.33214161425323074,
+   "dimB": 0.04493799700934555,
    "back": {
     "open": false,
     "place": "cine_s2",
@@ -353,6 +168,34 @@
     "x": 179.39999999999998
    },
    "moved": 201.95999999999998
+  }
+ },
+ {
+  "n": "PC 16 porte de la salle : sans billet le contrôleur refuse ; avec billet, directement en vue spectateur (aucune scène pour s’asseoir), film lancé ; à la fin retour dans le couloir devant la porte",
+  "ok": true,
+  "info": {
+   "refus": {
+    "place": "cine_couloir",
+    "open": false,
+    "msg": "Le contrôleur : « Il te faut un billet pour la salle 2 (« MISSION ÉTOILE »). Billetterie et bornes dans le hall ! »"
+   },
+   "vue": {
+    "open": true,
+    "place": "cine_s2",
+    "st": "cine",
+    "sawIso": false,
+    "play": true,
+    "secs": "0.9"
+   },
+   "fin": {
+    "place": "cine_couloir",
+    "st": "idle",
+    "u": 8,
+    "v": 1.45,
+    "porte": 8,
+    "billet": null,
+    "vus": 1
+   }
   }
  },
  {

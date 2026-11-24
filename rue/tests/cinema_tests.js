@@ -16,11 +16,12 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
  // ---- 2. toutes les pièces : aller et retour par les portes ----
  const tour=[];for(const[door,room]of[[['cine_hall',0],'cine_couloir'],[['cine_couloir',0],'cine_s1'],[['cine_couloir',1],'cine_s2'],[['cine_couloir',2],'cine_s3'],[['cine_couloir',3],'cine_wc'],[['cine_couloir',4],'cine_prive']]){
   if(await E(()=>place)!=door[0]){await E(d=>{CINE.setRoom(d)},door[0])}
-  await until(()=>!CINE.CI.busy&&C.st!='enter');await E(i=>CINE.goDoor(PLACES[place].doors[i]),door[1]);const got=await until(r=>place==r&&C.st=='idle',room,20000);const rn=await E(()=>RN);await p.screenshot({path:`${O}/ci_${mode}_02_${room}.png`});
-  await E(()=>CINE.goMainDoor());const back=await until(r=>place==r&&C.st=='idle',door[0],20000);const pos=await E(()=>{const d=PLACES[place].doors.find(o=>o.to==CINE_last);return{u:C.x/12,v:(C.y-88)/5,d}}).catch(()=>null);
+  await until(()=>!CINE.CI.busy&&C.st!='enter');const sal=/_s\d$/.test(room);if(sal)await E(r=>{N.cine=N.cine||{};N.cine.billet={s:+r.slice(-1),t:''}},room);
+  await E(i=>CINE.goDoor(PLACES[place].doors[i]),door[1]);const got=await until(([r,sal])=>place==r&&(sal?CINE.CM.open&&C.st=='cine':C.st=='idle'),[room,sal],20000);const rn=await E(()=>RN);await p.screenshot({path:`${O}/ci_${mode}_02_${room}.png`});
+  if(sal)await E(()=>CINE.CM.close(false));else await E(()=>CINE.goMainDoor());const back=await until(r=>place==r&&C.st=='idle',door[0],20000);const pos=await E(()=>{const d=PLACES[place].doors.find(o=>o.to==CINE_last);return{u:C.x/12,v:(C.y-88)/5,d}}).catch(()=>null);
   const front=await E(r=>{const d=(PLACES[place].doors||[]).find(o=>o.to==r);if(!d)return place;const u=C.x/12,v=(C.y-88)/5,t=d.w=='L'?[1.45,(d.a+d.b)/2]:[(d.a+d.b)/2,1.45];return Math.hypot(u-t[0],v-t[1])<.3},room);
   tour.push({room,got,rn,back,front})}
- ok(T('2 toutes les pièces accessibles par leurs portes (hall, couloir, 3 salles, toilettes, personnel) et retour devant la bonne porte'),tour.every(t=>t.got&&t.back&&t.front)&&new Set(tour.filter(t=>/s\d/.test(t.room)).map(t=>t.rn)).size==3,tour);
+ ok(T('2 toutes les pièces accessibles par leurs portes (hall, couloir, 3 salles en vue spectateur directe, toilettes, personnel) et retour devant la bonne porte'),tour.every(t=>t.got&&t.back&&t.front)&&new Set(tour.filter(t=>/s\d/.test(t.room)).map(t=>t.rn)).size==3,tour);
  // ---- 3. collisions : aucun meuble solide n'est traversable, déplacements sans traverser ----
  const col=await E(()=>{const out={};for(const r of Object.keys(CINE.ROOMS)){CINE.setRoom(r);let solid=0,bad=0;for(const f of PLACES[r].furn.filter(f=>f.s)){for(let i=1;i<4;i++)for(let j=1;j<4;j++){const u=f.x+f.w*i/4,v=f.y+f.h*i/4;if(u<1.15||v<1.2||u>RN-1.15||v>RN-1.2)continue;solid++;if(walkable(u,v))bad++}}
    // 40 déplacements aléatoires : chaque pas reste hors des meubles
