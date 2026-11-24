@@ -39,9 +39,9 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  ok('4 croix tactile : DROITE, GAUCHE, AVANT (vers le fond), ARRIÈRE, diagonale déplacent bien le chariot',a1.gx>a0.gx+10&&a2.gx<a1.gx-5&&a3.gz>a2.gz+8&&a4.gz<a3.gz-3&&a5.gx>a4.gx&&a5.gz>a4.gz,{a0,a1,a2,a3,a4,a5});
  // limites : la pince ne sort jamais de sa course (la vitrine)
  await pad(1,0,2600);await pad(0,-1,2200);const lim=await st();const Wd=await E(()=>ARC.modules.claw._world);
- ok('5 butées : le chariot s’arrête aux bords, les doigts ouverts restent dans la vitrine',Math.abs(lim.gx-(Wd.WX-Wd.REACH))<.01&&Math.abs(lim.gz-(Wd.WD-Wd.REACH))<.01,{lim,Wd});
+ ok('5 butées : le chariot s’arrête aux bords, les doigts ouverts restent dans la vitrine',Math.abs(lim.gx-Wd.BND.x1)<.01&&Math.abs(lim.gz-Wd.BND.z1)<.01,{lim,Wd});
  // ---- 6. viser un lot et DESCENDRE : descente, arrêt au contact, fermeture, montée, retour, ouverture ----
- const tgt=await E(()=>{const S=ARC.modules.claw._state,W=ARC.modules.claw._world;const c=S.ps.filter(p=>p.x>W.REACH&&p.x<W.WX-W.REACH&&p.z>W.REACH&&p.z<W.WD-W.REACH).sort((a,b)=>b.y-a.y)[0];return{x:c.x,z:c.z,y:c.y,id:c.T.id}});
+ const tgt=await E(()=>{const S=ARC.modules.claw._state,W=ARC.modules.claw._world;const c=S.ps.filter(p=>p.x>W.BND.x0&&p.x<W.BND.x1&&p.z>W.BND.z0&&p.z<W.BND.z1).sort((a,b)=>b.y-a.y)[0];return{x:c.x,z:c.z,y:c.y,id:c.T.id}});
  for(let i=0;i<14;i++){const s=await st();const dx=tgt.x-s.gx,dz=tgt.z-s.gz;if(Math.abs(dx)<1.2&&Math.abs(dz)<1.2)break;await pad(Math.abs(dx)>1.2?Math.sign(dx):0,Math.abs(dz)>1.2?-Math.sign(dz):0,Math.min(500,Math.max(60,Math.hypot(dx,dz)/30*1000)))}
  const aimed=await st();await big();const seq=[];let stopY=null;for(let i=0;i<120;i++){const s=await st();if(seq[seq.length-1]!==s.ph)seq.push(s.ph);if(s.ph=='grab'&&stopY==null)stopY=s.y;if(s.ph=='close'&&i%4==0&&!fs.existsSync(`${O}/cl_03_prise.png`))await p.screenshot({path:`${O}/cl_03_prise.png`});
   if(s.ph=='home'&&!fs.existsSync(`${O}/cl_04_montee.png`))await p.screenshot({path:`${O}/cl_04_montee.png`});if(s.ph=='win'){await p.screenshot({path:`${O}/cl_05_victoire_reelle.png`});await W(900);await big()}if(s.ph=='ready'||s.ph=='nocredit')break;await W(100)}
@@ -49,7 +49,7 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  ok('6 DESCENDRE : descente → arrêt au premier contact (tas ou sol) → fermeture → montée → retour au-dessus de la goulotte → ouverture',['drop','grab','close','rise','home','release','settle'].every(k=>seq.includes(k))&&stopY<80&&stopY>=minY-.01&&after.ph=='ready'&&after.cr==s3b.cr,{tgt,aimed:{gx:aimed.gx,gz:aimed.gz},stopY,minY,seq,after});
  // ---- 7. physique : quelques tentatives automatiques complètes, invariants contrôlés en continu ----
  const res=await E(async()=>{const M=ARC.modules.claw,S=M._state,W=M._world;let wins=0,lifted=0,tries=0;const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  for(let a=0;a<4;a++){S.credits=Math.max(S.credits,2);S.phase='ready';M._insert();tries++;const t=S.ps.filter(p=>p.x>W.REACH&&p.x<W.WX-W.REACH&&p.z>W.REACH&&p.z<W.WD-W.REACH).sort((a,b)=>b.y-a.y)[a%2];
+  for(let a=0;a<4;a++){S.credits=Math.max(S.credits,2);S.phase='ready';M._insert();tries++;const t=S.ps.filter(p=>p.x>W.BND.x0&&p.x<W.BND.x1&&p.z>W.BND.z0&&p.z<W.BND.z1).sort((a,b)=>b.y-a.y)[a%2];
    S.claw.gx=t.x;S.claw.gz=t.z;await sleep(500);const w0=S.won.length;M._drop();let lf=false;for(let i=0;i<160;i++){await sleep(60);if(S.lifted)lf=true;if(S.phase=='win'){S.pt=1;M._big()}if(S.phase=='ready'||S.phase=='nocredit')break}
    if(S.won.length>w0)wins++;if(lf)lifted++}return{tries,wins,lifted,score:S.score,col:JSON.stringify(N.arcade.claw.col||{})}});
  const v=await E(()=>window.__viol);

@@ -5670,7 +5670,7 @@ const WX=100,WD=64,TOPY=92,GRAV=170;
 const CHX=30,CHZ=28,CHH=14,CHT=1.6;
 const WALLS=[{x0:CHX,x1:CHX+CHT,z0:0,z1:CHZ+CHT,y0:-80,y1:CHH},{x0:0,x1:CHX+CHT,z0:CHZ,z1:CHZ+CHT,y0:-80,y1:CHH}];
 // pince : moyeu, 2 segments par doigt, rayon des capsules
-const HUB=4,L1=10,L2=10,CR=1.4,HR=4.2,REACH=15,HOME={x:15,z:15};
+const HUB=4,L1=10,L2=10,CR=1.4,HR=4.2,HOME={x:15,z:15};
 const SUB=4,ITER=3,DT=1/240,KG=.62;
 // ---------- les lots ----------
 const RAR=[{n:'COMMUN',c:'#c8d2e6',d:'#5a6478',pts:10,w:52},{n:'RARE',c:'#38b6ff',d:'#13508a',pts:25,w:30},{n:'ÉPIQUE',c:'#c06bff',d:'#56208f',pts:60,w:13},{n:'LÉGENDAIRE',c:'#ffc21a',d:'#8a5a00',pts:150,w:5}];
@@ -5703,14 +5703,33 @@ function fillPile(n,drop){for(let i=0;i<n;i++){const T=pickType();let x,z;do{x=r
  CL.ps.push(newPrize(T,x,drop?TOPY-6+i*4:T.r+2+i*6.5,z))}}
 // ---------- géométrie de la pince ----------
 // open : 0 = fermée, 1 = grande ouverte. Chaque doigt : articulation au moyeu → genou → pointe (recourbée vers l'intérieur).
-function fingers(c){const a=.35+.72*c.open,b=a-1.06,o=[];
- for(let i=0;i<3;i++){const ph=c.rot+i*2.0944,ux=Math.cos(ph),uz=Math.sin(ph);
-  const j={x:c.x+ux*HUB,y:c.y-1.2,z:c.z+uz*HUB},kr=L1*Math.sin(a),ky=L1*Math.cos(a),k={x:j.x+ux*kr,y:j.y-ky,z:j.z+uz*kr};
-  const tr=L2*Math.sin(b),ty=L2*Math.cos(b),t={x:k.x+ux*tr,y:k.y-ty,z:k.z+uz*tr};o.push({j,k,t,ux,uz,ph})}return o}
+// Chaque doigt a sa propre ouverture (c.op[i]) : un doigt qui bute contre la vitre ou une plaque ne s'ouvre pas plus loin.
+function finger(c,i,open){const a=.35+.72*open,b=a-1.06,ph=c.rot+i*2.0944,ux=Math.cos(ph),uz=Math.sin(ph);
+ const j={x:c.x+ux*HUB,y:c.y-1.2,z:c.z+uz*HUB},kr=L1*Math.sin(a),ky=L1*Math.cos(a),k={x:j.x+ux*kr,y:j.y-ky,z:j.z+uz*kr};
+ const tr=L2*Math.sin(b),ty=L2*Math.cos(b),t={x:k.x+ux*tr,y:k.y-ty,z:k.z+uz*tr};return{j,k,t,ux,uz,ph}}
+function fingers(c){const o=[];for(let i=0;i<3;i++)o.push(finger(c,i,c.op?c.op[i]:c.open));return o}
+// ---------- décor solide : vitrine et plaques de la goulotte (géométrie exacte, pas de zone invisible) ----------
+function ptBox(x,y,z,B){const dx=Math.max(B.x0-x,0,x-B.x1),dy=Math.max(B.y0-y,0,y-B.y1),dz=Math.max(B.z0-z,0,z-B.z1);return Math.sqrt(dx*dx+dy*dy+dz*dz)}
+// distance libre entre une capsule de doigt et le décor (négatif = contact / pénétration). glass=false : seulement les plaques
+function segClear(A,B,glass){let m=1e9;for(let i=0;i<=10;i++){const t=i/10,x=A.x+(B.x-A.x)*t,y=A.y+(B.y-A.y)*t,z=A.z+(B.z-A.z)*t;
+ if(glass)m=Math.min(m,x-CR,WX-CR-x,z-CR,WD-CR-z);for(const W of WALLS)m=Math.min(m,ptBox(x,y,z,W)-CR)}return m}
+function fingerClear(f,glass){return Math.min(segClear(f.j,f.k,glass),segClear(f.k,f.t,glass))}
+// le moyeu (cylindre chromé, rayon HR, de y à y+9) contre les plaques
+function hubClear(c){let m=1e9;for(let i=0;i<=4;i++){const y=c.y+1+i*2;for(const W of WALLS)m=Math.min(m,ptBox(c.x,y,c.z,W)-HR)}return m}
+// ouverture réelle de chaque doigt : la commande c.open, limitée par le contact avec la vitre et les plaques
+// En s'ouvrant comme en se fermant, un doigt s'arrête au contact (vitre, plaque) : on cherche, entre sa position précédente et la commande,
+// la position la plus proche de la commande qui ne touche rien.
+function fitFingers(c){c.op=c.op||[c.open,c.open,c.open];for(let i=0;i<3;i++){const t=c.open;let o=t;if(fingerClear(finger(c,i,t),true)<0){
+  let lo=c.op[i];if(fingerClear(finger(c,i,lo),true)<0)lo=0;let hi=t;for(let k=0;k<14;k++){const m=(lo+hi)/2;if(fingerClear(finger(c,i,m),true)<0)hi=m;else lo=m}o=lo}c.op[i]=o}}
+// hauteur de la pointe la plus basse
+function tipLow(c){let m=1e9;for(const f of fingers(c))m=Math.min(m,f.t.y,f.k.y);return m}
+// butées du moyeu, calculées une fois sur la géométrie réelle de la pince fermée : elle peut longer la vitre au plus près
+const BND=(()=>{const c={x:0,z:0,y:50,rot:-Math.PI/2,open:0};let x0=HR,x1=HR,z0=HR,z1=HR;for(const f of fingers(c))for(const q of[f.j,f.k,f.t]){x0=Math.max(x0,-q.x+CR);x1=Math.max(x1,q.x+CR);z0=Math.max(z0,-q.z+CR);z1=Math.max(z1,q.z+CR)}
+ const e=.15;return{x0:x0+e,x1:WX-x1-e,z0:z0+e,z1:WD-z1-e}})();
 // profondeur de la pointe la plus basse sous le moyeu, pour une ouverture donnée
 function tipDepth(open){const a=.35+.72*open,b=a-1.06;return 1.2+L1*Math.cos(a)+L2*Math.cos(b)}
-// hauteur minimale du moyeu : pointes au-dessus du sol, et au-dessus des plaques de la goulotte quand on est tout près
-function hubMin(x,z,open){const d=tipDepth(open)+CR+.3;if(x<CHX+CHT+REACH&&z<CHZ+CHT+REACH)return d+CHH+1.5;return d}
+// longueur de câble maximale : pointes au niveau du sol (partout, y compris au-dessus du trou). Aucune autre butée invisible.
+function hubMin(x,z,open){return tipDepth(open)+CR+.05}
 // ---------- physique ----------
 // sphère contre capsule cinématique (segment A-B de rayon cr) ; mv = déplacement de la pince pendant le pas (frottement)
 function capsule(p,A,B,cr,mv,mu,grip){const abx=B.x-A.x,aby=B.y-A.y,abz=B.z-A.z,ll=abx*abx+aby*aby+abz*abz;
@@ -5760,11 +5779,17 @@ function step(){const c=CL.claw,ps=CL.ps,F=fingers(c),mv={x:c.x-c.lx,y:c.y-c.ly,
 // ---------- pince : chariot, câble, balancement ----------
 function newClaw(){return{gx:HOME.x,gz:HOME.z,x:HOME.x,z:HOME.z,y:TOPY,lx:HOME.x,ly:TOPY,lz:HOME.z,open:.55,rot:-Math.PI/2,swx:0,swz:0,vwx:0,vwz:0,gvx:0,gvz:0,grip:0,force:1,res:0,vy:0}}
 function moveGantry(dt,tx,tz,sp){const c=CL.claw,ox=c.gx,oz=c.gz;let dx=tx-c.gx,dz=tz-c.gz;const L=Math.hypot(dx,dz),m=sp*dt;if(L>m){dx*=m/L;dz*=m/L}c.gx+=dx;c.gz+=dz;
- c.gx=cl(c.gx,REACH,WX-REACH);c.gz=cl(c.gz,REACH,WD-REACH);return Math.hypot(c.gx-ox,c.gz-oz)>1e-4}
+ c.gx=cl(c.gx,BND.x0,BND.x1);c.gz=cl(c.gz,BND.z0,BND.z1);return Math.hypot(c.gx-ox,c.gz-oz)>1e-4}
+// commande du joueur : chaque axe indépendant, si bien que la pince glisse le long d'une paroi à pleine vitesse
+function moveAxes(dt,mx,mz,sp){const c=CL.claw,ox=c.gx,oz=c.gz,n=mx&&mz?Math.SQRT1_2:1;c.gx=cl(c.gx+mx*n*sp*dt,BND.x0,BND.x1);c.gz=cl(c.gz+mz*n*sp*dt,BND.z0,BND.z1);return c.gx!=ox||c.gz!=oz}
 // balancement du câble : petit pendule amorti excité par les accélérations du chariot
 function sway(dt){const c=CL.claw,vx=(c.gx-(c.pgx==null?c.gx:c.pgx))/dt,vz=(c.gz-(c.pgz==null?c.gz:c.pgz))/dt,ax=(vx-c.gvx)/dt,az=(vz-c.gvz)/dt;c.pgx=c.gx;c.pgz=c.gz;c.gvx=vx;c.gvz=vz;
- const len=Math.max(6,TOPY+10-c.y),k=GRAV/len*1.4;c.vwx+=(-k*c.swx-ax*.04)*dt;c.vwz+=(-k*c.swz-az*.04)*dt;c.vwx*=Math.pow(.2,dt);c.vwz*=Math.pow(.2,dt);c.swx=cl(c.swx+c.vwx*dt,-2.2,2.2);c.swz=cl(c.swz+c.vwz*dt,-2.2,2.2);
- c.x=cl(c.gx+c.swx,REACH-.6,WX-REACH+.6);c.z=cl(c.gz+c.swz,REACH-.6,WD-REACH+.6)}
+ const len=Math.max(6,TOPY+10-c.y),k=GRAV/len*1.4;c.vwx+=(-k*c.swx-ax*.04)*dt;c.vwz+=(-k*c.swz-az*.04)*dt;c.vwx*=Math.pow(.2,dt);c.vwz*=Math.pow(.2,dt);c.swx=cl(c.swx+c.vwx*dt,-1.2,1.2);c.swz=cl(c.swz+c.vwz*dt,-1.2,1.2);
+ // avant la descente le balancement s'amortit ; pendant la descente, la prise et la montée, la pince ne bouge plus à l'horizontale
+ // (sinon le moyeu glisserait latéralement dans une plaque ou contre la vitre alors qu'elle est posée)
+ if(CL.phase=='open'){c.swx*=.75;c.swz*=.75;c.vwx=c.vwz=0}
+ if(CL.phase=='drop'||CL.phase=='grab'||CL.phase=='close'||CL.phase=='rise'){c.swx=c.x-c.gx;c.swz=c.z-c.gz;c.vwx=c.vwz=0;return}
+ c.x=cl(c.gx+c.swx,BND.x0,BND.x1);c.z=cl(c.gz+c.swz,BND.z0,BND.z1)}
 // ---------- déroulement d'une partie ----------
 function newGame(){CL.score=0;CL.credits=CREDITS0;CL.won=[];CL.pend=[];CL.miss=0;CL.att=0;CL.toast=null;toReady()}
 function toReady(){CL.phase='ready';CL.pt=0;const c=CL.claw;c.open=.55;c.grip=0}
@@ -5792,7 +5817,7 @@ function update(dt,inp){dt=Math.min(dt,.05);inp=inp||{};CL.t+=dt;CL.pt+=dt;const
  let mx=CL.touch.dir.x+(inp.right?1:0)-(inp.left?1:0),mz=CL.touch.dir.z+(inp.up?1:0)-(inp.down?1:0);mx=cl(mx,-1,1);mz=cl(mz,-1,1);CL.mdir={x:mx,z:mz};
  if(okP)big();
  const ph=CL.phase;let moving=false;
- if(ph=='aim'){CL.aimT-=dt;if(mx||mz){const L=Math.hypot(mx,mz);moving=moveGantry(dt,c.gx+mx/L*40,c.gz+mz/L*40,30)}if(CL.aimT<=0){CL.aimT=0;drop()}}
+ if(ph=='aim'){CL.aimT-=dt;if(mx||mz)moving=moveAxes(dt,mx,mz,30);if(CL.aimT<=0){CL.aimT=0;drop()}}
  else if(ph=='open'){c.open=Math.min(1,c.open+dt*1.6);if(CL.pt>.35){CL.phase='drop';CL.pt=0}}
  else if(ph=='grab'){if(CL.pt>.25){CL.phase='close';CL.pt=0;fx('clClose')}}
  else if(ph=='close'){c.grip=1;if(CL.pt>1){CL.phase='rise';CL.pt=0;c.vy=0;fx('clRise')}}
@@ -5821,14 +5846,26 @@ function update(dt,inp){dt=Math.min(dt,.05);inp=inp||{};CL.t+=dt;CL.pt+=dt;const
  for(const q of CL.parts){q.x+=q.vx*dt;q.y+=q.vy*dt;q.vy+=120*dt;q.l-=dt;q.a+=q.va*dt}CL.parts=CL.parts.filter(q=>q.l>0);
  if(CL.toast){CL.toast.t-=dt;if(CL.toast.t<=0)CL.toast=null}}
 // un sous-pas : mouvement de la pince (descente, fermeture) puis physique, avec réaction au contact
-function substep(){const c=CL.claw;
- if(CL.phase=='drop')c.y=Math.max(hubMin(c.x,c.z,c.open),c.y-28*DT);
+function substep(){const c=CL.claw;let hit=null;
+ if(CL.phase=='drop'){const y0=c.y,opB=(c.op||[c.open,c.open,c.open]).slice();c.y=Math.max(hubMin(c.x,c.z,c.open),c.y-28*DT);fitFingers(c);
+  // contact réel avec une plaque de la goulotte (doigt ou moyeu) : on recule exactement au point de contact
+  if(c.y<y0&&(hubClear(c)<0||fingers(c).some(f=>fingerClear(f,false)<0))){const touch=y=>{c.op=opB.slice();c.y=y;fitFingers(c);return hubClear(c)<0||fingers(c).some(f=>fingerClear(f,true)<0)};
+   let lo=c.y,hi=y0;for(let k=0;k<20;k++){const m=(lo+hi)/2;if(touch(m))lo=m;else hi=m}touch(hi);
+   // sécurité : tant qu'un doigt ou le moyeu touche encore la plaque à cette hauteur, on remonte d'un cheveu
+   for(let k=0;k<40&&(hubClear(c)<0||fingers(c).some(f=>fingerClear(f,true)<0));k++){c.y+=.002;fitFingers(c)}hit='plaque'}
+  // sol : la pointe réelle la plus basse (un doigt retenu par la vitre reste plus fermé, donc plus bas) touche le fond
+  if(!hit){const low=tipLow(c);if(low<CR+.05){c.y+=CR+.05-low;fitFingers(c);hit='sol'}}}
  if(CL.phase=='close'){c.open=Math.max(0,c.open-1.3*DT);c.grip=1}
- // les pointes descendent en se refermant : le sol (ou une plaque) repousse la pince vers le haut, comme un câble qui se détend
- if(CL.phase=='close'||CL.phase=='grab')c.y=Math.max(c.y,hubMin(c.x,c.z,c.open));
+ fitFingers(c);
+ // les pointes descendent en se refermant : le sol repousse la pince vers le haut, comme un câble qui se détend
+ if(CL.phase=='close'||CL.phase=='grab'){const low=tipLow(c);if(low<CR+.05){c.y+=CR+.05-low;fitFingers(c)}}
  step();
- // la descente s'arrête dès que la pince rencontre une vraie résistance (tas, sol, plaque)
- if(CL.phase=='drop'&&(c.res>1.1||c.y<=hubMin(c.x,c.z,c.open)+1e-3)){CL.phase='grab';CL.pt=0;fx('clStop')}
+ // la descente s'arrête au premier vrai contact : tas de peluches qui résiste, plaque, ou câble entièrement déroulé (sol)
+ if(CL.phase=='drop'){const why=hit||(c.res>1.1?'peluche':c.y<=hubMin(c.x,c.z,c.open)+1e-3?'sol':null);if(why){CL.phase='grab';CL.pt=0;c.stop=why;fx('clStop');
+  // écart mesuré au moment exact de l'arrêt (≤ 0 = contact) : sert aux tests, prouve qu'aucun arrêt n'a lieu « à distance »
+  let g=1e9;if(why=='plaque'){g=hubClear(c);for(const f of fingers(c))g=Math.min(g,fingerClear(f,false))}else if(why=='sol')g=tipLow(c)-CR;
+  else for(const f of fingers(c))for(const p of CL.ps)for(const[A,B]of[[f.j,f.k],[f.k,f.t]]){const abx=B.x-A.x,aby=B.y-A.y,abz=B.z-A.z,ll=abx*abx+aby*aby+abz*abz;let t=((p.x-A.x)*abx+(p.y-A.y)*aby+(p.z-A.z)*abz)/ll;t=t<0?0:t>1?1:t;g=Math.min(g,Math.hypot(p.x-A.x-abx*t,p.y-A.y-aby*t,p.z-A.z-abz*t)-p.r-CR)}
+  c.stopGap=g}}
  // fermeture bloquée par un lot trop gros : le moteur cale (plus la pince est faible, plus tôt)
  if(CL.phase=='close'&&c.res>2.2*(.5+c.force*.5))c.open=Math.min(1,c.open+1.3*DT)}
 function nextWin(){CL.winI++;CL.pt=0;if(CL.winI>=CL.got.length){CL.got=[];const b=CL._back;CL._back=null;if(b=='ready'&&CL.phase=='win'){CL.phase=CL.credits>0?'ready':'nocredit';return}afterResult()}}
@@ -5934,7 +5971,7 @@ function bake(){const L=CL.L,c=document.createElement('canvas');c.width=L.w;c.he
  CL.cache=c}
 function rr(x,X,Y,W,H,r){r=Math.min(r,W/2,H/2);x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath()}
 // hauteur du tas sous l'axe de la pince (pour l'ombre et le viseur laser)
-function groundUnder(x0,z0){let h=inHole(x0,z0)?-20:0;for(const p of CL.ps){const d=Math.hypot(p.x-x0,p.z-z0);if(d<p.r){const y=p.y+Math.sqrt(p.r*p.r-d*d);if(y>h)h=y}}return h}
+function groundUnder(x0,z0){let h=inHole(x0,z0)?-20:0;for(const W of WALLS)if(x0>=W.x0&&x0<=W.x1&&z0>=W.z0&&z0<=W.z1)h=Math.max(h,W.y1);for(const p of CL.ps){const d=Math.hypot(p.x-x0,p.z-z0);if(d<p.r){const y=p.y+Math.sqrt(p.r*p.r-d*d);if(y>h)h=y}}return h}
 function drawClawPart(x,f,front){const a=P(f.j.x,f.j.y,f.j.z),b=P(f.k.x,f.k.y,f.k.z),c=P(f.t.x,f.t.y,f.t.z),w=Math.max(2,CR*2*a.s);
  x.lineCap='round';x.lineJoin='round';x.strokeStyle='#1a1424';x.lineWidth=w+2;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.lineTo(c.x,c.y);x.stroke();
  x.strokeStyle=front?'#c9d0e0':'#8a90a8';x.lineWidth=w;x.stroke();x.strokeStyle=front?'#ffffff':'#b8bed0';x.lineWidth=Math.max(1,w*.35);x.beginPath();x.moveTo(a.x-w*.15,a.y-w*.15);x.lineTo(b.x-w*.15,b.y-w*.15);x.stroke();
@@ -6027,7 +6064,7 @@ function radar(x,R0){const s=R0.w/WX,c=CL.claw;x.fillStyle='#05020a';x.fillRect(
  const X=v=>R0.x+v*s,Y=v=>R0.y+R0.h-v*s;// z = 0 (vitre avant) en bas
  x.fillStyle='#000';x.fillRect(X(0),Y(CHZ),CHX*s,CHZ*s);x.strokeStyle='#7ff3ff';x.lineWidth=1;x.strokeRect(X(0)+.5,Y(CHZ)+.5,CHX*s,CHZ*s);
  for(const p of CL.ps){x.fillStyle=RAR[p.T.rar].c;x.beginPath();x.arc(X(p.x),Y(p.z),Math.max(1.2,p.r*s*.8),0,7);x.fill()}
- const on=Math.floor(CL.t*5)%2;x.strokeStyle=on?'#ff3b5a':'#ffffff';x.beginPath();x.arc(X(c.x),Y(c.z),Math.max(2,6*s),0,7);x.stroke();x.fillStyle='#ff3b5a';x.fillRect(Math.round(X(c.x))-1,Math.round(Y(c.z))-1,2,2);
+ const on=Math.floor(CL.t*5)%2;x.strokeStyle=on?'#ff3b5a':'#ffffff';let rr=0;for(const f of fingers(c))rr=Math.max(rr,Math.hypot(f.k.x-c.x,f.k.z-c.z),Math.hypot(f.t.x-c.x,f.t.z-c.z));x.beginPath();x.arc(X(c.x),Y(c.z),Math.max(2,rr*s),0,7);x.stroke();CL.radarMark={x:X(c.x),y:Y(c.z)};x.fillStyle='#ff3b5a';x.fillRect(Math.round(X(c.x))-1,Math.round(Y(c.z))-1,2,2);
  if(R0.y-9>(CL.L.land?CL.L.hud:CL.L.deck.y))CT(x,'VUE DU DESSUS',R0.x+R0.w/2,R0.y-9,'#8a6aa8');if(CL.L.land&&R0.y+R0.h+12<CL.L.pad.y-CL.L.pad.r-17)CT(x,'VITRE',R0.x+R0.w/2,R0.y+R0.h+4,'#5a4a78')}
 // ---------- panneaux (titre, victoire, collection, plus de crédits) ----------
 function panel(x,w,h,col){const L=CL.L,G=L.mach,W=Math.min(w,L.w-8),X=Math.round(L.w/2-W/2),Y=Math.round(cl(G.y+G.h/2-h/2,L.hud+2,L.h-h-2));x.globalAlpha=.94;R(x,X,Y,W,h,'#120820');x.globalAlpha=1;
@@ -6099,7 +6136,7 @@ const Claw={start(api){CL.api=api;CL.phase='title';CL.t=0;CL.pt=0;CL.okN=null;CL
  update,draw,pointer,
  resize(){CL.touch={pad:null,dir:{x:0,z:0},big:null};CL.L=null},
  stop(){try{if(MOT){MOT.stop();MOT=null}JEUSON.sfxLevel(1);JEUSON.stop()}catch(e){}CL.api=null;CL.phase='title';CL.L=null;CL.cache=null;CL.spr={};CL.parts=[];CL.touch={pad:null,dir:{x:0,z:0},big:null}},
- _state:CL,_prizes:PRIZES,_rar:RAR,_world:{WX,WD,TOPY,CHX,CHZ,CHH,REACH,HOME},_step:step,_fingers:fingers,_reset:reset,_newPrize:newPrize,_big:big,_drop:drop,_insert:insert,_newGame:newGame,_hubMin:hubMin,_substep:substep,_update:update};
+ _state:CL,_prizes:PRIZES,_rar:RAR,_world:{WX,WD,TOPY,CHX,CHZ,CHH,CHT,HOME,BND,CR,HR,WALLS},_step:step,_fingers:fingers,_reset:reset,_newPrize:newPrize,_big:big,_drop:drop,_insert:insert,_newGame:newGame,_hubMin:hubMin,_P:P,_fingerClear:fingerClear,_hubClear:hubClear,_fit:fitFingers,_tipLow:tipLow,_substep:substep,_update:update};
 ARC.register('claw',Claw);
 })();
 // ===== MINI-JEU MAZE RUNNER (module de la borne d'arcade) =====

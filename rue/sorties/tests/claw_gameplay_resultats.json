@@ -1,0 +1,428 @@
+[
+ {
+  "n": "[portrait] 1 déplacements : DROITE, GAUCHE, AVANT (fond), ARRIÈRE — environ 10 unités pour 0,4 s, sans dérive sur l’autre axe",
+  "ok": true,
+  "info": {
+   "d0": [
+    50.706,
+    31.294
+   ],
+   "d": [
+    [
+     13.5,
+     0
+    ],
+    [
+     -13.5,
+     0
+    ],
+    [
+     0,
+     13.5
+    ],
+    [
+     0,
+     -13.5
+    ]
+   ]
+  }
+ },
+ {
+  "n": "[portrait] 2 les quatre coins sont atteints ; butées = limites intérieures réelles (pince fermée au contact des vitres : x 8.0–92.0, z 9.0–58.7 sur un plateau 100×64)",
+  "ok": true,
+  "info": {
+   "corners": [
+    [
+     7.984,
+     8.979
+    ],
+    [
+     92.016,
+     8.979
+    ],
+    [
+     92.016,
+     58.735
+    ],
+    [
+     7.984,
+     58.735
+    ]
+   ],
+   "B": {
+    "x0": 7.983720120626739,
+    "x1": 92.01633445546213,
+    "z0": 8.978978074554513,
+    "z1": 58.735479453114046
+   }
+  }
+ },
+ {
+  "n": "[portrait] 3 le long des parois : en poussant contre la vitre la pince glisse sans se bloquer (vitesse conservée sur l’axe libre)",
+  "ok": true,
+  "info": {
+   "w0": [
+    7.984,
+    58.735
+   ],
+   "w1": [
+    7.984,
+    38.937
+   ],
+   "w1b": [
+    7.984,
+    8.979
+   ],
+   "w2": [
+    29.901,
+    8.979
+   ]
+  }
+ },
+ {
+  "n": "[portrait] viseur : laser, ombre et repère de la vue du dessus sont calculés sur la position réelle du moyeu (écart chariot/moyeu < 1,2 de balancement)",
+  "ok": true,
+  "info": {
+   "hubVsLaser": true,
+   "radar": true,
+   "dx": 0.117,
+   "dz": 0.03
+  }
+ },
+ {
+  "n": "[portrait] 4 sortie : à côté de la plaque et au-dessus du trou, la pince descend jusqu’au sol ou au tas (aucune zone invisible) ; elle ne s’arrête sur une plaque qu’au contact mesuré d’un doigt",
+  "ok": true,
+  "info": [
+   {
+    "n": "juste à droite de la plaque",
+    "at": [
+     40.1,
+     12.5
+    ],
+    "stop": "sol",
+    "gap": 0.05,
+    "low": 1.45
+   },
+   {
+    "n": "juste derrière la plaque",
+    "at": [
+     16.4,
+     33.7
+    ],
+    "stop": "plaque",
+    "gap": 0,
+    "low": 1.7
+   },
+   {
+    "n": "au-dessus du trou",
+    "at": [
+     15,
+     15
+    ],
+    "stop": "sol",
+    "gap": 0.05,
+    "low": 1.45
+   },
+   {
+    "n": "pile au-dessus de la plaque",
+    "at": [
+     29.3,
+     12.5
+    ],
+    "stop": "plaque",
+    "gap": 0,
+    "low": 15.24
+   }
+  ]
+ },
+ {
+  "n": "[portrait] 5 descentes en 8 endroits : chaque arrêt correspond à un contact réel (peluche touchée, plaque touchée ou pointes au sol), jamais avant",
+  "ok": true,
+  "info": [
+   [
+    "coin arrière gauche",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "coin avant droit",
+    "peluche",
+    "écart -0.95",
+    "pointe 9.37"
+   ],
+   [
+    "centre",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "fond",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "juste à droite de la plaque",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "juste derrière la plaque",
+    "plaque",
+    "écart 0",
+    "pointe 1.7"
+   ],
+   [
+    "au-dessus du trou",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "pile au-dessus de la plaque",
+    "plaque",
+    "écart 0",
+    "pointe 15.24"
+   ]
+  ]
+ },
+ {
+  "n": "[portrait] 6 récupération réelle : peluche visée à la croix, saisie, remontée, lâchée dans la goulotte → ajoutée à la collection",
+  "ok": true,
+  "info": {
+   "tries": 4,
+   "col0": 3,
+   "col1": 4
+  }
+ },
+ {
+  "n": "[portrait] 7 tactile portrait : sur toute la session, aucun doigt ni moyeu dans la vitre ou une plaque, aucune pointe sous le sol, aucun lot hors vitrine, aucune erreur",
+  "ok": true,
+  "info": {
+   "g": {
+    "glass": 3.0870523914927617e-9,
+    "plate": 1.646574809832657e-8,
+    "prize": 0,
+    "floor": 1.4499999999999984,
+    "n": 20374
+   },
+   "errs": []
+  }
+ },
+ {
+  "n": "[paysage] 1 déplacements : DROITE, GAUCHE, AVANT (fond), ARRIÈRE — environ 10 unités pour 0,4 s, sans dérive sur l’autre axe",
+  "ok": true,
+  "info": {
+   "d0": [
+    50.352,
+    30.929
+   ],
+   "d": [
+    [
+     13.5,
+     0
+    ],
+    [
+     -13.5,
+     0
+    ],
+    [
+     0,
+     13.5
+    ],
+    [
+     0,
+     -13.5
+    ]
+   ]
+  }
+ },
+ {
+  "n": "[paysage] 2 les quatre coins sont atteints ; butées = limites intérieures réelles (pince fermée au contact des vitres : x 8.0–92.0, z 9.0–58.7 sur un plateau 100×64)",
+  "ok": true,
+  "info": {
+   "corners": [
+    [
+     7.984,
+     8.979
+    ],
+    [
+     92.016,
+     8.979
+    ],
+    [
+     92.016,
+     58.735
+    ],
+    [
+     7.984,
+     58.735
+    ]
+   ],
+   "B": {
+    "x0": 7.983720120626739,
+    "x1": 92.01633445546213,
+    "z0": 8.978978074554513,
+    "z1": 58.735479453114046
+   }
+  }
+ },
+ {
+  "n": "[paysage] 3 le long des parois : en poussant contre la vitre la pince glisse sans se bloquer (vitesse conservée sur l’axe libre)",
+  "ok": true,
+  "info": {
+   "w0": [
+    7.984,
+    58.735
+   ],
+   "w1": [
+    7.984,
+    38.937
+   ],
+   "w1b": [
+    7.984,
+    8.979
+   ],
+   "w2": [
+    29.903,
+    8.979
+   ]
+  }
+ },
+ {
+  "n": "[paysage] viseur : laser, ombre et repère de la vue du dessus sont calculés sur la position réelle du moyeu (écart chariot/moyeu < 1,2 de balancement)",
+  "ok": true,
+  "info": {
+   "hubVsLaser": true,
+   "radar": true,
+   "dx": 0.117,
+   "dz": 0.03
+  }
+ },
+ {
+  "n": "[paysage] 4 sortie : à côté de la plaque et au-dessus du trou, la pince descend jusqu’au sol ou au tas (aucune zone invisible) ; elle ne s’arrête sur une plaque qu’au contact mesuré d’un doigt",
+  "ok": true,
+  "info": [
+   {
+    "n": "juste à droite de la plaque",
+    "at": [
+     40.1,
+     12.5
+    ],
+    "stop": "sol",
+    "gap": 0.05,
+    "low": 1.45
+   },
+   {
+    "n": "juste derrière la plaque",
+    "at": [
+     16.4,
+     33.7
+    ],
+    "stop": "plaque",
+    "gap": 0,
+    "low": 1.7
+   },
+   {
+    "n": "au-dessus du trou",
+    "at": [
+     15,
+     15
+    ],
+    "stop": "sol",
+    "gap": 0.05,
+    "low": 1.45
+   },
+   {
+    "n": "pile au-dessus de la plaque",
+    "at": [
+     29.9,
+     12.5
+    ],
+    "stop": "plaque",
+    "gap": 0,
+    "low": 15.39
+   }
+  ]
+ },
+ {
+  "n": "[paysage] 5 descentes en 8 endroits : chaque arrêt correspond à un contact réel (peluche touchée, plaque touchée ou pointes au sol), jamais avant",
+  "ok": true,
+  "info": [
+   [
+    "coin arrière gauche",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "coin avant droit",
+    "peluche",
+    "écart -0.837",
+    "pointe 12.52"
+   ],
+   [
+    "centre",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "fond",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "juste à droite de la plaque",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "juste derrière la plaque",
+    "plaque",
+    "écart 0",
+    "pointe 1.7"
+   ],
+   [
+    "au-dessus du trou",
+    "sol",
+    "écart 0.05",
+    "pointe 1.45"
+   ],
+   [
+    "pile au-dessus de la plaque",
+    "plaque",
+    "écart 0",
+    "pointe 15.39"
+   ]
+  ]
+ },
+ {
+  "n": "[paysage] 6 récupération réelle : peluche visée à la croix, saisie, remontée, lâchée dans la goulotte → ajoutée à la collection",
+  "ok": true,
+  "info": {
+   "tries": 1,
+   "col0": 3,
+   "col1": 4
+  }
+ },
+ {
+  "n": "[paysage] 7 tactile paysage : sur toute la session, aucun doigt ni moyeu dans la vitre ou une plaque, aucune pointe sous le sol, aucun lot hors vitrine, aucune erreur",
+  "ok": true,
+  "info": {
+   "g": {
+    "glass": 2.5083437549255905e-9,
+    "plate": 1.070001487413208e-8,
+    "prize": 0,
+    "floor": 1.4499999999999984,
+    "n": 15682
+   },
+   "errs": []
+  }
+ }
+]
