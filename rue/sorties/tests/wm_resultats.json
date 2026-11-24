@@ -37,7 +37,7 @@
     "ph": "play",
     "score": 0,
     "combo": 0,
-    "time": 59.48340000000003
+    "time": 59.48330000000004
    }
   }
  },
@@ -48,9 +48,9 @@
    "dur": "60.8",
    "g": {
     "ph": "over",
-    "score": 3650,
+    "score": 3270,
     "hits": 98,
-    "golds": 8,
+    "golds": 5,
     "misses": 0,
     "escaped": 0,
     "best": 98,
@@ -86,7 +86,7 @@
     "whEnd",
     "whRecord"
    ],
-   "golds": 8
+   "golds": 5
   }
  },
  {
@@ -124,18 +124,18 @@
   "ok": true,
   "info": [
    {
-    "apparitions": 6,
-    "duree": 1.16,
+    "apparitions": 5,
+    "duree": 1.32,
     "maxUp": 1
    },
    {
     "apparitions": 14,
-    "duree": 0.89,
+    "duree": 0.91,
     "maxUp": 2
    },
    {
-    "apparitions": 25,
-    "duree": 0.63,
+    "apparitions": 24,
+    "duree": 0.65,
     "maxUp": 3
    }
   ]
@@ -144,7 +144,7 @@
   "n": "TEL 8 meilleur score enregistré dans la sauvegarde",
   "ok": true,
   "info": {
-   "mem": 3650,
+   "mem": 3270,
    "ls": true
   }
  },
@@ -176,8 +176,8 @@
   "n": "TEL 10 record conservé après rechargement de la page",
   "ok": true,
   "info": {
-   "rel": 3650,
-   "avant": 3650
+   "rel": 3270,
+   "avant": 3270
   }
  },
  {

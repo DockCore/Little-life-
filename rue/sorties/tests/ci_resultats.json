@@ -74,49 +74,49 @@
    "cine_hall": {
     "solid": 150,
     "bad": 0,
-    "steps": 6441,
+    "steps": 6971,
     "through": 0,
     "arrived": 40
    },
    "cine_couloir": {
     "solid": 63,
     "bad": 0,
-    "steps": 5796,
+    "steps": 6071,
     "through": 0,
     "arrived": 40
    },
    "cine_wc": {
     "solid": 36,
     "bad": 0,
-    "steps": 3875,
+    "steps": 3666,
     "through": 0,
     "arrived": 40
    },
    "cine_prive": {
     "solid": 48,
     "bad": 0,
-    "steps": 3625,
+    "steps": 3572,
     "through": 0,
     "arrived": 40
    },
    "cine_s1": {
     "solid": 39,
     "bad": 0,
-    "steps": 4692,
+    "steps": 4671,
     "through": 0,
     "arrived": 40
    },
    "cine_s2": {
     "solid": 57,
     "bad": 0,
-    "steps": 6924,
+    "steps": 6994,
     "through": 0,
     "arrived": 40
    },
    "cine_s3": {
     "solid": 75,
     "bad": 0,
-    "steps": 8361,
+    "steps": 9677,
     "through": 0,
     "arrived": 40
    }
@@ -203,14 +203,14 @@
   "ok": true,
   "info": {
    "mid": {
-    "dim": 0.9999960850512868,
-    "curt": 0.9999076623215785,
-    "t": 3.605382,
+    "dim": 0.9999957520087747,
+    "curt": 0.9999018623887539,
+    "t": 3.572471,
     "th": "cinefilm"
    },
    "fin": {
-    "h0": 32.41049999988025,
-    "h1": 63.37779999987994,
+    "h0": 36.83419999987477,
+    "h1": 67.80299999987473,
     "billet": null,
     "s": {
      "pop": 0,
@@ -223,8 +223,8 @@
     "msg": "FIN. Nori a adoré « LA VAGUE GÉANTE » ! Les lumières se rallument."
    },
    "after": {
-    "dim": 0.00014218622034855715,
-    "curt": 0.0013472960492626066
+    "dim": 0.00014218621591487532,
+    "curt": 0.001347294365401
    }
   }
  },
@@ -248,7 +248,7 @@
    "wc": {
     "wrong": "Ce sont les toilettes des femmes : celles des hommes sont à gauche.",
     "hidden": true,
-    "wc1": 99.9994,
+    "wc1": 100,
     "wash": true
    },
    "up": {
@@ -285,15 +285,15 @@
   "ok": true,
   "info": {
    "perf": {
-    "cine_hall": 2.42,
-    "cine_couloir": 0.63,
-    "cine_wc": 1.37,
-    "cine_prive": 0.77,
-    "cine_s1": 1.18,
-    "cine_s2": 1.47,
-    "cine_s3": 1.74
+    "cine_hall": 4.24,
+    "cine_couloir": 0.04,
+    "cine_wc": 1.6,
+    "cine_prive": 0.74,
+    "cine_s1": 1.14,
+    "cine_s2": 2.05,
+    "cine_s3": 2.81
    },
-   "gym": 1.19
+   "gym": 1.42
   }
  },
  {
@@ -416,49 +416,49 @@
    "cine_hall": {
     "solid": 150,
     "bad": 0,
-    "steps": 5597,
+    "steps": 6700,
     "through": 0,
     "arrived": 40
    },
    "cine_couloir": {
     "solid": 63,
     "bad": 0,
-    "steps": 6075,
+    "steps": 5652,
     "through": 0,
     "arrived": 40
    },
    "cine_wc": {
     "solid": 36,
     "bad": 0,
-    "steps": 3377,
+    "steps": 4431,
     "through": 0,
     "arrived": 40
    },
    "cine_prive": {
     "solid": 48,
     "bad": 0,
-    "steps": 3521,
+    "steps": 3689,
     "through": 0,
     "arrived": 40
    },
    "cine_s1": {
     "solid": 39,
     "bad": 0,
-    "steps": 4466,
+    "steps": 4951,
     "through": 0,
     "arrived": 40
    },
    "cine_s2": {
     "solid": 57,
     "bad": 0,
-    "steps": 7790,
+    "steps": 7483,
     "through": 0,
     "arrived": 40
    },
    "cine_s3": {
     "solid": 75,
     "bad": 0,
-    "steps": 9128,
+    "steps": 9137,
     "through": 0,
     "arrived": 40
    }
@@ -547,12 +547,12 @@
    "mid": {
     "dim": 0.9999951985776262,
     "curt": 0.9998924723189508,
-    "t": 3.536203,
+    "t": 3.553493,
     "th": "cinefilm"
    },
    "fin": {
-    "h0": 37.35019999987968,
-    "h1": 68.31689999987961,
+    "h0": 31.731599999876973,
+    "h1": 62.69889999987692,
     "billet": null,
     "s": {
      "pop": 0,
@@ -565,8 +565,8 @@
     "msg": "FIN. Nori a adoré « LA VAGUE GÉANTE » ! Les lumières se rallument."
    },
    "after": {
-    "dim": 0.00014811064053571108,
-    "curt": 0.0013889628832448589
+    "dim": 0.00014218621047726174,
+    "curt": 0.0013472924045358704
    }
   }
  },
@@ -627,15 +627,15 @@
   "ok": true,
   "info": {
    "perf": {
-    "cine_hall": 2.78,
-    "cine_couloir": 0.03,
-    "cine_wc": 1.32,
-    "cine_prive": 0.56,
-    "cine_s1": 1.02,
-    "cine_s2": 2,
-    "cine_s3": 1.28
+    "cine_hall": 3.03,
+    "cine_couloir": 0.23,
+    "cine_wc": 1.81,
+    "cine_prive": 0.88,
+    "cine_s1": 1.2,
+    "cine_s2": 1.26,
+    "cine_s3": 1.68
    },
-   "gym": 1.44
+   "gym": 0.96
   }
  },
  {

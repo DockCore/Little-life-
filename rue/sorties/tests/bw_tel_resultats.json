@@ -20,8 +20,8 @@
   "n": "2 lancement immédiat du mini-jeu",
   "ok": true,
   "info": {
-   "msAvantScene": 60,
-   "msAvantJeu": 1554
+   "msAvantScene": 151,
+   "msAvantJeu": 1545
   }
  },
  {
@@ -47,12 +47,12 @@
     "a2": 1,
     "ch": {
      "ph": "charge",
-     "pw": 0.3333333333333333
+     "pw": 0.3444444444444444
     },
     "th": {
      "ph": "roll",
      "thrown": true,
-     "vz": 5.965750758643211
+     "vz": 6.0186386199787005
     }
    },
    "clavier": {
@@ -420,8 +420,8 @@
   "n": "12 fluidité du rendu",
   "ok": true,
   "info": {
-   "msParImage": 0.86,
-   "fps": 61
+   "msParImage": 0.92,
+   "fps": 60.5
   }
  },
  {

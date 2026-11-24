@@ -1,28 +1,174 @@
 [
  {
-  "n": "1 orientation : en vertical sur mobile « Tourne ton téléphone » + jeu en pause ; à l’horizontale le jeu reprend aussitôt ; application installée en paysage",
+  "n": "1 orientation au choix (menu ☰ › Orientation de l’écran) : Auto suit l’appareil dans les deux sens ; Portrait et Paysage verrouillent l’affichage (écran « Tourne ton téléphone » + pause si on tient l’appareil autrement) ; changement sans redémarrage ni perte, préférence gardée, bouton « Auto » de secours",
   "ok": true,
   "info": {
-   "t1": {
-    "rot": "flex",
-    "txt": "Tourne ton téléphone / Little Life se joue à l’horizontale.",
-    "pause": true,
-    "land": false
+   "opt": {
+    "vis": true,
+    "lab": "Orientation de l’écranAutoPortraitPaysage",
+    "on": "auto"
    },
-   "gel": [
-    0,
-    0
-   ],
-   "t2": {
+   "autoP": {
+    "mode": "auto",
+    "land": false,
     "rot": "none",
-    "pause": false,
-    "land": true
+    "txt": "Little Life se vit en mode portrait.",
+    "m": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "t": [
+     0,
+     844
+    ],
+    "l": [
+     0,
+     360
+    ],
+    "marque": "même partie",
+    "coins": 4321
    },
-   "vit": [
-    42,
-    66
-   ],
-   "manifest": "landscape"
+   "autoPrun": true,
+   "autoL": {
+    "mode": "auto",
+    "land": true,
+    "rot": "none",
+    "txt": "Little Life se vit en mode portrait.",
+    "m": [
+     0,
+     0,
+     844,
+     390
+    ],
+    "t": [
+     0,
+     390
+    ],
+    "l": [
+     557,
+     0
+    ],
+    "marque": "même partie",
+    "coins": 4321
+   },
+   "autoLrun": true,
+   "paysP": {
+    "mode": "paysage",
+    "land": false,
+    "rot": "flex",
+    "txt": "Tu as choisi l’affichage horizontal.",
+    "m": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "t": [
+     0,
+     844
+    ],
+    "l": [
+     0,
+     360
+    ],
+    "marque": "même partie",
+    "coins": 4321
+   },
+   "paysPrun": false,
+   "paysL": {
+    "mode": "paysage",
+    "land": true,
+    "rot": "none",
+    "txt": "Tu as choisi l’affichage horizontal.",
+    "m": [
+     0,
+     0,
+     844,
+     390
+    ],
+    "t": [
+     0,
+     390
+    ],
+    "l": [
+     557,
+     0
+    ],
+    "marque": "même partie",
+    "coins": 4321
+   },
+   "paysLrun": true,
+   "portL": {
+    "mode": "portrait",
+    "land": true,
+    "rot": "flex",
+    "txt": "Tu as choisi l’affichage vertical.",
+    "m": [
+     0,
+     0,
+     844,
+     390
+    ],
+    "t": [
+     0,
+     390
+    ],
+    "l": [
+     557,
+     0
+    ],
+    "marque": "même partie",
+    "coins": 4321
+   },
+   "portLrun": false,
+   "portP": {
+    "mode": "portrait",
+    "land": false,
+    "rot": "none",
+    "txt": "Tu as choisi l’affichage vertical.",
+    "m": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "t": [
+     0,
+     844
+    ],
+    "l": [
+     0,
+     360
+    ],
+    "marque": "même partie",
+    "coins": 4321
+   },
+   "portPrun": true,
+   "reload": "portrait",
+   "secours": {
+    "mode": "auto",
+    "land": true,
+    "rot": "none",
+    "txt": "Tu as choisi l’affichage vertical.",
+    "m": [
+     0,
+     0,
+     844,
+     390
+    ],
+    "t": [
+     0,
+     390
+    ],
+    "l": [
+     557,
+     0
+    ],
+    "coins": 4321
+   },
+   "bloque": "flex"
   }
  },
  {
@@ -43,11 +189,11 @@
   "info": {
    "res": {
     "droite": {
-     "dx": 77,
+     "dx": 76,
      "dy": 0
     },
     "gauche": {
-     "dx": -79,
+     "dx": -75,
      "dy": 0
     },
     "haut": {
@@ -206,9 +352,9 @@
     "b": 390
    },
    "hole": {
-    "i": 8,
-    "x": 594,
-    "y": 329.2452083333333,
+    "i": 4,
+    "x": 422,
+    "y": 227.911875,
     "cell": 129,
     "cellH": 76
    },
@@ -239,6 +385,73 @@
    "block": false,
    "cls": "ll2",
    "w": 560
+  }
+ },
+ {
+  "n": "11 aucune bande noire en haut : la console colle aux 4 bords réels (même avec marge iOS simulée, 100vh faux, bloc parasite et page défilée), pièce sous la zone sûre, barre d’état iOS transparente",
+  "ok": true,
+  "info": {
+   "meta": "black-translucent",
+   "res": [
+    "844x390 noir:0 sûre:37",
+    "932x430 noir:0 sûre:37",
+    "667x375 noir:0 sûre:41",
+    "1180x820 noir:0 sûre:132"
+   ]
+  }
+ },
+ {
+  "n": "12 portrait intact : disposition verticale d’origine, identique avant et après un passage en paysage",
+  "ok": true,
+  "info": {
+   "a": {
+    "land": false,
+    "m": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "l": [
+     360,
+     484
+    ],
+    "needs": true,
+    "KK": 2.101,
+    "pos": "relative"
+   },
+   "mid": {
+    "land": true,
+    "m": [
+     0,
+     0,
+     844,
+     390
+    ],
+    "l": [
+     0,
+     390
+    ],
+    "needs": true,
+    "KK": 2.585,
+    "pos": "fixed"
+   },
+   "z": {
+    "land": false,
+    "m": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "l": [
+     360,
+     484
+    ],
+    "needs": true,
+    "KK": 2.101,
+    "pos": "relative"
+   }
   }
  },
  {

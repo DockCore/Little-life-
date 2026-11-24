@@ -21,15 +21,35 @@ const PANOK=()=>{const lo=document.querySelector('.frame.low'),r=lo.getBoundingC
  return{bad,over:v?v.scrollWidth-v.clientWidth:0}};
 
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--autoplay-policy=no-user-gesture-required']});const errs=[];
- // ---- 1. orientation forcée : en vertical sur mobile, écran « tourne ton téléphone » et jeu en pause ; à l'horizontale le jeu reprend ----
+ // ---- 1. choix libre de l'orientation : Auto / Portrait / Paysage, depuis le menu, sans redémarrer ni rien perdre ----
  {const ctx=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true,isMobile:true});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(e.message));await boot(p);
-  const t1=await p.evaluate(()=>{const f=frameN=>0;return{rot:getComputedStyle(document.getElementById('rotx')).display,txt:document.querySelector('#rotx p').textContent+' / '+document.querySelector('#rotx small').textContent,pause:rotQ.matches,land:LS.land}});
-  const c0=await p.evaluate(()=>C.t);await p.waitForTimeout(400);const c1=await p.evaluate(()=>C.t);await p.screenshot({path:`${O}/ls_01_portrait.png`});
-  await p.setViewportSize({width:844,height:390});await p.waitForTimeout(700);const t2=await p.evaluate(()=>({rot:getComputedStyle(document.getElementById('rotx')).display,pause:rotQ.matches,land:LS.land}));
-  const c2=await p.evaluate(()=>C.t);await p.waitForTimeout(400);const c3=await p.evaluate(()=>C.t);
-  const man=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../../manifest.webmanifest'),'utf8'));
-  ok('1 orientation : en vertical sur mobile « Tourne ton téléphone » + jeu en pause ; à l’horizontale le jeu reprend aussitôt ; application installée en paysage',
-   t1.rot=='flex'&&t1.pause&&!t1.land&&c1==c0&&t2.rot=='none'&&!t2.pause&&t2.land&&c3!=c2&&man.orientation=='landscape',{t1,gel:[c0,c1],t2,vit:[c2,c3],manifest:man.orientation});
+  const E=(f,a)=>p.evaluate(f,a),W=ms=>p.waitForTimeout(ms);
+  const st=()=>E(()=>{const m=document.querySelector('main').getBoundingClientRect(),t=topbox.getBoundingClientRect(),l=document.querySelector('.frame.low').getBoundingClientRect();return{mode:LS.mode,land:LS.land,rot:getComputedStyle(document.getElementById('rotx')).display,txt:document.querySelector('#rotx small').textContent,
+   m:[m.left,m.top,m.right,m.bottom].map(Math.round),t:[t.top|0,Math.round(t.bottom)],l:[l.left|0,l.top|0],marque:window.__marque,coins:N.coins}});
+  const run=async()=>{const a=await E(()=>C.t);await W(350);return (await E(()=>C.t))!=a};
+  await E(()=>{window.__marque='même partie';N.coins=4321});
+  const pick=async m=>{const b=await E(()=>{document.getElementById('bMenu').click();return 1});await W(400);const r=await E(m=>{const x=document.querySelector('.gor [data-or="'+m+'"]');x.scrollIntoView({block:'center'});const q=x.getBoundingClientRect();return{x:q.left+q.width/2,y:q.top+q.height/2}},m);await p.touchscreen.tap(r.x,r.y);await W(400);await E(()=>document.getElementById('gClose').click());await W(300)};
+  const R1={};
+  R1.autoP=await st();R1.autoPrun=await run();
+  const opt=await E(()=>{document.getElementById('bMenu').click();const g=document.querySelector('.gor');const r={vis:!!g&&g.offsetParent!==null,lab:g&&g.textContent,on:g&&g.querySelector('.on').dataset.or};document.getElementById('gClose').click();return r});
+  await p.setViewportSize({width:844,height:390});await W(600);R1.autoL=await st();R1.autoLrun=await run();
+  await p.screenshot({path:`${O}/ls_01_auto_paysage.png`});
+  // Paysage choisi en tenant le téléphone en vertical
+  await p.setViewportSize({width:390,height:844});await W(500);await pick('paysage');R1.paysP=await st();R1.paysPrun=await run();await p.screenshot({path:`${O}/ls_01_paysage_tenu_vertical.png`});
+  await p.setViewportSize({width:844,height:390});await W(600);R1.paysL=await st();R1.paysLrun=await run();
+  // Portrait choisi en tenant le téléphone à l'horizontale
+  await pick('portrait');R1.portL=await st();R1.portLrun=await run();await p.screenshot({path:`${O}/ls_01_portrait_tenu_horizontal.png`});
+  await p.setViewportSize({width:390,height:844});await W(600);R1.portP=await st();R1.portPrun=await run();await p.screenshot({path:`${O}/ls_01_portrait.png`});
+  // préférence gardée après rechargement ; bouton de secours « Auto » sur l'écran de rotation
+  await p.reload();await W(2500);await E(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}});await W(300);R1.reload=await E(()=>LS.mode);
+  await p.setViewportSize({width:844,height:390});await W(600);const bl=await st();const bt=await E(()=>{const q=document.getElementById('rotAuto').getBoundingClientRect();return{x:q.left+q.width/2,y:q.top+q.height/2}});await p.touchscreen.tap(bt.x,bt.y);await W(600);R1.secours=await st();
+  const full=(x,w,h)=>x.m[0]==0&&x.m[1]==0&&x.m[2]==w&&x.m[3]==h;
+  const good=opt.vis&&opt.on=='auto'&&/Orientation de l’écran/.test(opt.lab)&&
+   !R1.autoP.land&&R1.autoP.rot=='none'&&R1.autoPrun&&full(R1.autoP,390,844)&&R1.autoL.land&&R1.autoL.rot=='none'&&R1.autoLrun&&full(R1.autoL,844,390)&&R1.autoL.t[0]==0&&
+   R1.paysP.rot=='flex'&&!R1.paysPrun&&/horizontal/.test(R1.paysP.txt)&&R1.paysL.rot=='none'&&R1.paysL.land&&R1.paysLrun&&full(R1.paysL,844,390)&&R1.paysL.t[0]==0&&
+   R1.portL.rot=='flex'&&!R1.portLrun&&/vertical/.test(R1.portL.txt)&&R1.portP.rot=='none'&&!R1.portP.land&&R1.portPrun&&full(R1.portP,390,844)&&
+   [R1.autoL,R1.paysL,R1.portP].every(x=>x.marque=='même partie'&&x.coins==4321)&&R1.reload=='portrait'&&bl.rot=='flex'&&R1.secours.mode=='auto'&&R1.secours.rot=='none'&&R1.secours.land;
+  ok('1 orientation au choix (menu ☰ › Orientation de l’écran) : Auto suit l’appareil dans les deux sens ; Portrait et Paysage verrouillent l’affichage (écran « Tourne ton téléphone » + pause si on tient l’appareil autrement) ; changement sans redémarrage ni perte, préférence gardée, bouton « Auto » de secours',good,{opt,...R1,bloque:bl.rot});
   await ctx.close()}
  // ---- 2. chaque format : scène à gauche sur toute la hauteur, panneau à droite, pièce entière visible, sans déformation ni bande ----
  const fm=[];for(const [nom,w,h,dpr] of FORMATS){const ctx=await b.newContext({viewport:{width:w,height:h},deviceScaleFactor:dpr,hasTouch:true,isMobile:true});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(nom+': '+e.message));await boot(p);
@@ -95,5 +115,36 @@ const PANOK=()=>{const lo=document.querySelector('.frame.low'),r=lo.getBoundingC
  // ---- 9. PC inchangé : pas de mode paysage mobile sur un ordinateur ----
  {const c2=await b.newContext({viewport:{width:1280,height:800}});const q=await c2.newPage();q.on('pageerror',e=>errs.push('pc: '+e.message));await boot(q);const r=await q.evaluate(()=>({land:LS.land,block:LS.block,cls:document.documentElement.className,w:document.querySelector('main').getBoundingClientRect().width|0}));
   ok('9 ordinateur : disposition d’origine conservée (pas d’écran de rotation, pas de colonne)',!r.land&&!r.block&&r.w<=560,r);await c2.close()}
+ // ---- 11. aucune bande en haut : la console occupe réellement toute la hauteur, même si la page est décalée ou si 100vh est faux ----
+ {const FS=[[844,390],[932,430],[667,375],[1180,820]],res=[];
+  for(const [w,h] of FS){const c=await b.newContext({viewport:{width:w,height:h},deviceScaleFactor:2,hasTouch:true,isMobile:true});const q=await c.newPage();q.on('pageerror',e=>errs.push('11: '+e.message));await boot(q);
+   const geo=()=>q.evaluate(()=>{const m=document.querySelector('main').getBoundingClientRect(),t=topbox.getBoundingClientRect(),l=document.querySelector('.frame.low').getBoundingClientRect(),rc=RC.getBoundingClientRect();
+    return{m:[m.left,m.top,m.right,m.bottom].map(Math.round),t:[t.top,t.bottom].map(Math.round),l:[l.top,l.bottom].map(Math.round),rc:[rc.top,rc.bottom].map(Math.round),sy:scrollY}});
+   const band=async()=>{const png=await q.screenshot();const {PNG}=(()=>{try{return require('/home/claude/.npm-global/lib/node_modules/pngjs')}catch(e){return{}}})();return png.length};
+   const g0=await geo();
+   // pire cas iOS : barre d'état « opaque » simulée (marge haute de 47 px sur la racine), 100vh trop grand, bloc parasite avant le jeu, page défilée
+   await q.evaluate(()=>{const st=document.createElement('style');st.id='ios-bad';st.textContent=':root,html{padding-top:47px!important;height:calc(100vh + 80px)!important}body{height:calc(100vh + 80px)!important;padding-top:20px!important}';document.head.appendChild(st);
+    const d=document.createElement('div');d.id='parasite';d.style.cssText='height:60px;background:#000';document.body.insertBefore(d,document.body.firstChild);scrollTo(0,40);dispatchEvent(new Event('resize'))});await q.waitForTimeout(500);
+   const g1=await geo();
+   // pixels : ligne du haut de la scène (hors HUD) jamais noire
+   const dark=await q.evaluate(async()=>{const r=topbox.getBoundingClientRect();return null});
+   const shot=await q.screenshot({clip:{x:Math.round(w*.3),y:0,width:Math.round(w*.25),height:6}});
+   const sharp=(()=>{try{return require('/home/claude/.npm-global/lib/node_modules/sharp')}catch(e){return null}})();
+   let noir=-1;try{const {execFileSync}=require('child_process');fs.writeFileSync('/tmp/_b.png',shot);noir=+execFileSync('python3',['-c',"from PIL import Image\nim=Image.open('/tmp/_b.png').convert('RGB')\nprint(sum(1 for p in im.getdata() if max(p)<60))"]).toString().trim()}catch(e){noir=-2}
+   await q.screenshot({path:`${O}/ls_11_${w}x${h}.png`});
+   // zone sûre du haut (barre d'état iPad) : la pièce descend d'autant, les jauges restent visibles
+   await q.evaluate(()=>{document.getElementById('ios-bad').remove();document.getElementById('parasite').remove();scrollTo(0,0);LS.probe.style.height='24px';LS.decide();dispatchEvent(new Event('resize'))});await q.waitForTimeout(400);
+   const sa=await q.evaluate(()=>{isoSetup();const k=RC.getBoundingClientRect().width/RC.width;return{top:LS.res.top,piece:Math.round(RC.getBoundingClientRect().top+(Math.min(IY(0,0),IY(RN,0),IY(0,RN))-WHI)*k)}});
+   await q.evaluate(()=>{LS.probe.style.height='env(safe-area-inset-top,0px)';LS.decide();dispatchEvent(new Event('resize'))});
+   const full=g=>g.m[0]==0&&g.m[1]==0&&g.m[2]==w&&g.m[3]==h&&g.t[0]==0&&g.t[1]==h&&g.l[0]==0&&g.l[1]==h;
+   res.push({f:w+'x'+h,ok:full(g0)&&full(g1)&&noir==0&&sa.top==34&&sa.piece>=24,g0,g1,noir,sa});await c.close()}
+  const meta=fs.readFileSync(path.resolve(__dirname,'../../index.html'),'utf8').match(/apple-mobile-web-app-status-bar-style" content="([^"]+)"/)[1];
+  ok('11 aucune bande noire en haut : la console colle aux 4 bords réels (même avec marge iOS simulée, 100vh faux, bloc parasite et page défilée), pièce sous la zone sûre, barre d’état iOS transparente',res.every(r=>r.ok)&&meta=='black-translucent',{meta,res:res.filter(r=>!r.ok).length?res.filter(r=>!r.ok):res.map(r=>r.f+' noir:'+r.noir+' sûre:'+r.sa.piece)})}
+ // ---- 12. le portrait (orientation libre) n'est pas cassé : aller-retour vertical → horizontal → vertical identique ----
+ {const c=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:3,hasTouch:true,isMobile:true});const q=await c.newPage();q.on('pageerror',e=>errs.push('12: '+e.message));await q.goto(JEU+'?orient=libre');await q.waitForTimeout(2500);
+  await q.evaluate(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}document.getElementById('crOk2').click()});await q.waitForTimeout(800);
+  const pg=()=>q.evaluate(()=>{const m=document.querySelector('main').getBoundingClientRect(),l=document.querySelector('.frame.low').getBoundingClientRect(),h=document.querySelector('.hud .needs').getBoundingClientRect();return{land:LS.land,m:[m.left,m.top,m.width,m.height].map(Math.round),l:[l.top,l.height].map(Math.round),needs:!!document.querySelector('.hud>.needs,.hud .needs')&&h.width>0,KK:+KK.toFixed(3),pos:getComputedStyle(document.querySelector('main')).position}});
+  const a=await pg();await q.screenshot({path:`${O}/ls_12_portrait_avant.png`});await q.setViewportSize({width:844,height:390});await q.waitForTimeout(600);const mid=await pg();await q.setViewportSize({width:390,height:844});await q.waitForTimeout(700);const z=await pg();await q.screenshot({path:`${O}/ls_12_portrait_apres.png`});
+  ok('12 portrait intact : disposition verticale d’origine, identique avant et après un passage en paysage',!a.land&&a.pos!='fixed'&&mid.land&&JSON.stringify(a)==JSON.stringify(z)&&a.m[1]==0&&a.m[3]==844,{a,mid,z});await c.close()}
  ok('10 aucune erreur JavaScript',errs.length==0,errs);
  await b.close();fs.writeFileSync(path.join(O,'paysage_resultats.json'),JSON.stringify(R,null,1));const n=R.filter(r=>r.ok).length;console.log(`\n${n}/${R.length} tests réussis`);process.exit(n==R.length?0:1)})();

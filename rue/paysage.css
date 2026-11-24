@@ -5,7 +5,9 @@ html.needrot #rotx{display:flex!important}
 html.land{--sideW:clamp(250px,34vw,380px);--sl:env(safe-area-inset-left,0px);--sr:env(safe-area-inset-right,0px);--sb:env(safe-area-inset-bottom,0px)}
 html.land :root,html.land{padding:0!important}
 html.land body{background:#1d140f}
-html.land main{max-width:none!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:0!important;display:block!important;position:relative;border:0!important;border-radius:0!important;box-shadow:none!important}
+/* la console est fixée aux quatre bords réels de l'écran : ni décalage du flux, ni défilement, ni 100vh faux après rotation */
+html.land,html.land body{height:100%!important;margin:0!important;padding:0!important;overflow:hidden!important}
+html.land main{max-width:none!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;display:block!important;position:fixed!important;inset:0!important;border:0!important;border-radius:0!important;box-shadow:none!important}
 html.land main .frame.top{position:absolute!important;left:0;top:0;bottom:0;right:var(--sideW);width:auto!important;height:auto!important;flex:none!important;border:0!important;border-radius:0!important;margin:0!important}
 html.land main .frame.low,html.land.ll2 main:not(.dressing):not(.creating) .frame.low{position:absolute!important;top:0!important;bottom:0!important;right:0!important;left:auto!important;width:var(--sideW)!important;height:auto!important;max-height:none!important;
  border:0!important;border-left:3px solid var(--ink,#3b2a24)!important;border-radius:0!important;box-shadow:-3px 0 0 rgba(59,42,36,.18)!important;
@@ -68,3 +70,12 @@ html.land #v-sofa .czm{gap:6px}
 html.land #v-sofa .czm .tile{height:84px!important}
 html.land #v-sofa .czm .tile span{white-space:normal;font-size:10.5px}
 html.land main[data-v="bowling"] .hud2{display:none!important}
+/* barre d'état iOS transparente (black-translucent) : les éléments du haut restent sous la zone sûre */
+.st-head{padding-top:calc(12px + env(safe-area-inset-top,0px))!important}
+.gmenu{padding-top:calc(20px + env(safe-area-inset-top,0px))!important}
+html.land .gmenu{padding-top:calc(8px + env(safe-area-inset-top,0px))!important}
+/* réglage d'orientation (même style que « Police ») */
+.gor .row{display:flex;gap:6px;width:100%}
+.gor .row button{flex:1;height:38px;font-size:13.5px!important;white-space:nowrap;padding:0 4px!important;letter-spacing:0!important;position:relative}
+.gor .row button.on{background:var(--ok,#ffd27a)}
+#rotAuto{margin-top:14px;padding:10px 18px;border-radius:12px;border:2px solid #3b2a24;background:#ffd27a;color:#3b2a24;font:700 15px var(--rd,system-ui);box-shadow:0 3px 0 #3b2a24;pointer-events:auto}
