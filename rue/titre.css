@@ -1,0 +1,54 @@
+
+/* ===== ÉCRAN TITRE (illustration officielle + deux vrais boutons animés) ===== */
+#tscr.tscr{position:fixed;inset:0;z-index:50;display:block;overflow:hidden;background:#69b8ec;touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+#tscr.tscr[hidden]{display:none}
+/* fond de remplissage (uniquement là où l'illustration ne couvre pas l'écran, ex. paysage) : copie floutée, l'illustration reste intacte */
+#tscr .tbd{position:absolute;inset:-60px;background-position:center;background-size:cover;filter:blur(22px) saturate(1.15) brightness(.92);transform:scale(1.08)}
+#tscr .tbox{position:absolute;left:var(--tx,0);top:var(--ty,0);width:var(--tw,100vw);height:var(--th,100dvh);aspect-ratio:auto;max-width:none;transform-origin:50% 45%}
+#tscr .tart{display:block;width:100%;height:100%;image-rendering:auto;pointer-events:none;-webkit-user-drag:none;filter:none;opacity:1}
+#tscr .tbtn{all:unset;position:absolute;display:block;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;z-index:2}
+#tscr .tbtn:focus-visible .tface{filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 3px #2b6cff)}
+#tscr .tsock{position:absolute;inset:0;background:radial-gradient(120% 140% at 50% 30%,#2a3160,#0f1430 70%);-webkit-mask:var(--sil) center/100% 100% no-repeat;mask:var(--sil) center/100% 100% no-repeat;opacity:0;transition:opacity .12s}
+#tscr .tface{position:absolute;inset:0;display:block;transform-origin:50% 56%;will-change:transform;transition:transform .16s cubic-bezier(.3,1.5,.5,1)}
+#tscr .tface img{display:block;width:100%;height:100%;pointer-events:none;-webkit-user-drag:none}
+#tscr .tshine,#tscr .tfx{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--sil) center/100% 100% no-repeat;mask:var(--sil) center/100% 100% no-repeat;overflow:hidden}
+#tscr .tshine{background:linear-gradient(104deg,transparent 38%,rgba(255,255,255,.62) 47%,rgba(255,255,255,.18) 52%,transparent 60%) no-repeat;background-size:260% 100%;background-position:170% 0;opacity:0}
+#tscr .tbtn.shine .tshine{animation:tShine .85s ease-out}
+@keyframes tShine{0%{opacity:1;background-position:170% 0}100%{opacity:1;background-position:-70% 0}}
+/* appui : le bouton s'enfonce (−6 %) dans son logement, puis rebondit au relâchement */
+#tscr .tbtn.press .tsock{opacity:.9;transition:opacity .04s}
+#tscr .tbtn.press .tface{transform:scale(.94) translateY(1.5%);transition:transform .1s ease-out;animation:none!important}
+#tscr .tbtn.rel .tface{animation:tBounce .38s cubic-bezier(.25,1.4,.5,1)}
+@keyframes tBounce{0%{transform:scale(.94) translateY(1.5%)}45%{transform:scale(1.055)}75%{transform:scale(.995)}100%{transform:none}}
+/* toucher : onde lumineuse + étincelles */
+#tscr .trip{position:absolute;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.85),rgba(255,255,255,.35) 45%,rgba(255,255,255,0) 70%);animation:tRip .5s ease-out forwards}
+@keyframes tRip{from{transform:scale(.4);opacity:1}to{transform:scale(14);opacity:0}}
+#tscr .tspk{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;pointer-events:none;z-index:3;background:#fff6b0;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:tSpk .55s ease-out forwards}
+@keyframes tSpk{from{transform:translate(0,0) scale(1) rotate(0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.3) rotate(140deg);opacity:0}}
+/* apparition : l'illustration arrive en douceur, puis les boutons « pop » l'un après l'autre */
+#tscr.enter .tbox{animation:tIn .6s cubic-bezier(.2,.8,.3,1) both}
+@keyframes tIn{from{opacity:0;transform:scale(1.05)}to{opacity:1;transform:none}}
+#tscr.enter #tNew .tface{animation:tPop .55s .42s cubic-bezier(.3,1.6,.5,1) both}
+#tscr.enter #tCont .tface{animation:tPop .55s .56s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes tPop{0%{transform:none}45%{transform:scale(1.07)}100%{transform:none}}
+/* mise en évidence du bouton conseillé (respiration douce, jamais sous sa taille réelle) */
+#tscr .tbtn.hint:not(.press):not(.rel) .tface{animation:tBreath 2.6s ease-in-out infinite}
+#tscr.enter .tbtn.hint .tface{animation:tPop .55s .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes tBreath{0%,100%{transform:none}50%{transform:scale(1.028)}}
+/* sortie : transition douce vers le jeu */
+#tscr.out{opacity:0;transition:opacity .42s ease-in}
+#tscr.out .tbox{transform:scale(1.035);transition:transform .45s ease-in}
+/* message élégant (ex. « Aucune sauvegarde trouvée ») au-dessus des boutons */
+#tscr .tmsg{position:absolute;left:50%;top:var(--my,60%);bottom:auto;transform:translate(-50%,-100%) translateY(8px) scale(.96);z-index:4;display:flex;align-items:center;gap:8px;width:max-content;max-width:min(88vw,420px);white-space:normal;text-align:center;
+ background:rgba(255,253,246,.97);color:#1d2550;font:700 15px/1.25 var(--rd,system-ui);padding:10px 16px;border-radius:16px;border:3px solid #1d2550;box-shadow:0 4px 0 #1d2550,0 10px 24px rgba(10,20,60,.25);opacity:0;pointer-events:none;transition:opacity .2s,transform .28s cubic-bezier(.3,1.5,.5,1)}
+#tscr .tmsg.on{opacity:1;transform:translate(-50%,-100%) scale(1)}
+#tscr .tmsg::before{content:"";flex:0 0 18px;height:18px;border-radius:50%;background:#2f8fe0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M9 4.5v6M9 13v.5' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% no-repeat}
+#tscr .tbtn.nope .tface{animation:tNope .42s ease-in-out}
+@keyframes tNope{0%,100%{transform:none}20%{transform:translateX(-2.2%)}40%{transform:translateX(2.2%)}60%{transform:translateX(-1.4%)}80%{transform:translateX(1%)}}
+@media (prefers-reduced-motion:reduce){#tscr .tbtn.hint .tface,#tscr.enter .tbox,#tscr.enter .tface{animation:none!important}}
+/* écran large : illustration coupée sous les pieds (personnage entier), ombre portée sur le décor flouté */
+#tscr.wide .tbox{overflow:hidden;border-radius:0 0 18px 18px;box-shadow:0 10px 40px rgba(10,30,80,.35)}
+#tscr.wide .tart{height:auto}
+#tscr.wide.out .tbox{transform:none}
+#tscr.wide .tbd{background-position:50% 22%;filter:blur(22px) saturate(1.2) brightness(1)}
+#gmenu .gcard.conf .gi,#gmenu .gcard.conf .gps{display:none!important}

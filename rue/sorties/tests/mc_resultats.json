@@ -4,7 +4,7 @@
   "ok": true,
   "info": {
    "opened": true,
-   "dims": 0.968878909366477,
+   "dims": 0.9735674087269691,
    "cover": {
     "full": true,
     "top": true,
@@ -18,14 +18,14 @@
   "n": "TEL 2 vraie vidéo lue (fichier MP4 H.264 + AAC) : le temps avance, images et son décodés, durée réelle de 2 min",
   "ok": true,
   "info": {
-   "t": 2.599921,
+   "t": 2.55394,
    "dur": 120,
    "rs": 4,
    "w": 640,
    "h": 360,
    "src": "films/petit-robot.mp4",
-   "audio": 46387,
-   "video": 22273,
+   "audio": 45649,
+   "video": 22242,
    "st": "play"
   }
  },
@@ -73,13 +73,13 @@
   "info": {
    "pa": {
     "p": true,
-    "t": 4.201916,
+    "t": 4.161488,
     "st": "pause"
    },
-   "pa2": 4.201916,
+   "pa2": 4.161488,
    "re": {
     "p": false,
-    "t": 5.416126
+    "t": 5.407412
    }
   }
  },
@@ -87,7 +87,7 @@
   "n": "TEL 7 progression du film affichée (barre et temps « 0:07 / 2:00 »)",
   "ok": true,
   "info": {
-   "w": "4.51%",
+   "w": "4.5%",
    "txt": "0:05 / 2:00"
   }
  },
@@ -149,10 +149,10 @@
    "ended": true,
    "endShot": {
     "fin": true,
-    "l": 0.6040981284086775
+    "l": 0.6087257212050274
    },
-   "dimA": 0.24958697840638372,
-   "dimB": 0.035175567212544584,
+   "dimA": 0.3188559496845997,
+   "dimB": 0.043140477129174445,
    "back": {
     "open": false,
     "place": "cine_s2",
@@ -194,7 +194,7 @@
     "st": "cine",
     "sawIso": false,
     "play": true,
-    "secs": "0.9"
+    "secs": "1.0"
    },
    "fin": {
     "place": "cine_couloir",
@@ -231,7 +231,7 @@
   "n": "PC 2 vraie vidéo lue (fichier MP4 H.264 + AAC) : le temps avance, images et son décodés, durée réelle de 2 min",
   "ok": true,
   "info": {
-   "t": 2.525062,
+   "t": 2.518264,
    "dur": 120,
    "rs": 4,
    "w": 640,
@@ -286,13 +286,13 @@
   "info": {
    "pa": {
     "p": true,
-    "t": 4.129333,
+    "t": 4.134859,
     "st": "pause"
    },
-   "pa2": 4.129333,
+   "pa2": 4.134859,
    "re": {
     "p": false,
-    "t": 5.356266
+    "t": 5.384871
    }
   }
  },
@@ -300,7 +300,7 @@
   "n": "PC 7 progression du film affichée (barre et temps « 0:07 / 2:00 »)",
   "ok": true,
   "info": {
-   "w": "4.46%",
+   "w": "4.48%",
    "txt": "0:05 / 2:00"
   }
  },
@@ -362,10 +362,10 @@
    "ended": true,
    "endShot": {
     "fin": true,
-    "l": 0.6163014089798093
+    "l": 0.6124963859225656
    },
-   "dimA": 0.29385764322863195,
-   "dimB": 0.03975826372215313,
+   "dimA": 0.28210333749940375,
+   "dimB": 0.03241780274301467,
    "back": {
     "open": false,
     "place": "cine_s2",
@@ -398,7 +398,7 @@
     "st": "cine",
     "sawIso": false,
     "play": true,
-    "secs": "0.9"
+    "secs": "1.0"
    },
    "fin": {
     "place": "cine_couloir",

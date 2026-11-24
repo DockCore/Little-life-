@@ -230,3 +230,10 @@ Object.assign(JEUSON.FX,{
  whEnd(t){[784,659,523,392].forEach((f,i)=>JEUSON.tone(f,t+i*.14,.16,.08,'square'));JEUSON.noise(t+.55,.4,.1,2000,'bandpass',null,1)},
  whRecord(t){[[523,659,784],[587,740,880],[659,830,988],[784,988,1175,1568]].forEach((c,i)=>c.forEach(f=>JEUSON.tone(f,t+i*.14,i==3?.6:.13,.05,'square',null,{vib:i==3?7:0})))},
  whClick(t){JEUSON.tone(1200,t,.04,.06,'square')}});
+// écran titre : validation « Nouvelle partie » (arpège montant lumineux), « Continuer » (carillon de chargement), aucun enregistrement (petit « bloup » doux)
+// léger écart de hauteur aléatoire à chaque fois pour ne jamais sonner répétitif
+Object.assign(JEUSON.FX,{
+ tiNew(t){const v=Math.pow(2,(Math.floor(Math.random()*3)-1)/24);[523,659,784,1047].forEach((f,i)=>{JEUSON.tone(f*v,t+i*.055,.2,.075,'square',null,{att:.003});JEUSON.tone(f*2*v,t+i*.055,.12,.02,'triangle')});JEUSON.tone(1568*v,t+.24,.38,.05,'triangle',null,{vib:6});JEUSON.noise(t,.08,.05,6000,'highpass')},
+ tiCont(t){const v=Math.pow(2,(Math.floor(Math.random()*3)-1)/24);JEUSON.tone(220*v,t,.07,.06,'square',null,{slide:1.9});[[659,988],[784,1175]].forEach((c,i)=>c.forEach(f=>JEUSON.tone(f*v,t+.07+i*.11,.3,.06,'sine',null,{att:.004})));JEUSON.tone(1319*v,t+.3,.32,.035,'triangle',null,{vib:5})},
+ tiNone(t){JEUSON.tone(392,t,.12,.06,'triangle',null,{slide:.75});JEUSON.tone(311,t+.11,.16,.05,'triangle',null,{slide:.8})}});
+
