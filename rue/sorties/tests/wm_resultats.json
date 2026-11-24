@@ -37,7 +37,7 @@
     "ph": "play",
     "score": 0,
     "combo": 0,
-    "time": 59.500000000000036
+    "time": 59.48340000000003
    }
   }
  },
@@ -48,12 +48,12 @@
    "dur": "60.8",
    "g": {
     "ph": "over",
-    "score": 2920,
-    "hits": 97,
-    "golds": 2,
+    "score": 3650,
+    "hits": 98,
+    "golds": 8,
     "misses": 0,
     "escaped": 0,
-    "best": 97,
+    "best": 98,
     "acc": 100,
     "rank": "LÉGENDE DU MARTEAU",
     "rec": true,
@@ -86,7 +86,7 @@
     "whEnd",
     "whRecord"
    ],
-   "golds": 2
+   "golds": 8
   }
  },
  {
@@ -125,17 +125,17 @@
   "info": [
    {
     "apparitions": 6,
-    "duree": 1.22,
+    "duree": 1.16,
     "maxUp": 1
    },
    {
-    "apparitions": 13,
-    "duree": 0.85,
+    "apparitions": 14,
+    "duree": 0.89,
     "maxUp": 2
    },
    {
-    "apparitions": 26,
-    "duree": 0.67,
+    "apparitions": 25,
+    "duree": 0.63,
     "maxUp": 3
    }
   ]
@@ -144,7 +144,7 @@
   "n": "TEL 8 meilleur score enregistré dans la sauvegarde",
   "ok": true,
   "info": {
-   "mem": 2920,
+   "mem": 3650,
    "ls": true
   }
  },
@@ -176,8 +176,8 @@
   "n": "TEL 10 record conservé après rechargement de la page",
   "ok": true,
   "info": {
-   "rel": 2920,
-   "avant": 2920
+   "rel": 3650,
+   "avant": 3650
   }
  },
  {

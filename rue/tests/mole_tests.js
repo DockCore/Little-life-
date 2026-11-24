@@ -1,7 +1,7 @@
 // Tests réels du Whack-a-Mole dans la borne (Playwright + Chrome). Usage : node rue/tests/mole_tests.js [tel|pc]
 // Une vraie partie complète de 60 s est jouée par un robot qui tape les taupes à l'écran (toucher sur téléphone, clavier sur PC).
 const path=require('path'),fs=require('fs');const PW='/home/claude/.npm-global/lib/node_modules/playwright';
-const JEU='file://'+path.resolve(__dirname,'../../index.html');const O=path.resolve(__dirname,'../sorties/tests');fs.mkdirSync(O,{recursive:true});
+const JEU='file://'+path.resolve(__dirname,'../../index.html')+'?orient=libre';const O=path.resolve(__dirname,'../sorties/tests');fs.mkdirSync(O,{recursive:true});
 const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!cond,info});console.log((cond?'OK   ':'ÉCHEC ')+n+(info!==undefined?'  '+JSON.stringify(info).slice(0,600):''))}
 const boot=async(p)=>{await p.goto(JEU);await p.waitForTimeout(2500);await p.evaluate(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}const b=document.getElementById('crOk2');if(b)b.click()});await p.waitForTimeout(700)};
 const fullCheck=async(E)=>E(()=>{arcDraw();const L=AX.L,F=L.full,g=AX.gameCv,r=AX.cv.getBoundingClientRect(),k=r.width/L.W,m=AX.x.getImageData(0,0,L.W,L.H).data,gd=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let diff=0;

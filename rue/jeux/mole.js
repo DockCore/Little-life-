@@ -13,8 +13,9 @@ const lerp=(a,b,t)=>a+(b-a)*Math.max(0,Math.min(1,t));
 const fmt=n=>String(Math.floor(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 function music(lv){try{if(typeof JEUSON=='undefined')return;JEUSON.music('mole');JEUSON.level(WM.son==0?lv:0);JEUSON.sfxLevel(WM.son==2?0:1)}catch(e){}}
 // ---------- mise en page ----------
-function layout(w,h){WM.W=w;WM.H=h;const hb=Math.max(30,Math.round(Math.min(h*.1,w*.13))),top=hb+Math.round(hb*.75),avail=h-top-8,cell=Math.floor(Math.min((w-12)/3,avail/3.05)),gx=Math.round((w-cell*3)/2),gy=top+Math.round((avail-cell*3)/2)+Math.round(cell*.08);
- const L={hb,top,cell,gx,gy,r:Math.round(cell*.36)};WM.holes=[...Array(9)].map((_,i)=>{const o=WM.holes[i]||{};return Object.assign(o,{cx:gx+cell*(i%3)+cell/2,cy:gy+cell*Math.floor(i/3)+cell*.68,r:L.r,ry:Math.max(4,Math.round(L.r*.36))})});
+function layout(w,h){WM.W=w;WM.H=h;const hb=Math.max(30,Math.round(Math.min(h*.1,w*.13))),top=hb+Math.round(hb*.75),avail=h-top-8,cell=Math.floor(Math.min((w-12)/3,avail/3.05)),cw=Math.floor(Math.min((w-12)/3,cell*1.7)),gx=Math.round((w-cw*3)/2),gy=top+Math.round((avail-cell*3)/2)+Math.round(cell*.08);
+ // écran large (paysage) : les trous s'écartent en largeur et grossissent un peu, sans déformation
+ const L={hb,top,cell,cw,gx,gy,r:Math.round(Math.min(cw*.36,cell*.46))};WM.holes=[...Array(9)].map((_,i)=>{const o=WM.holes[i]||{};return Object.assign(o,{cx:gx+cw*(i%3)+cw/2,cy:gy+cell*Math.floor(i/3)+cell*.68,r:L.r,ry:Math.max(4,Math.round(L.r*.36))})});
  const bs=Math.max(16,Math.round(hb*.62));L.quit={x:6,y:Math.round((hb-bs)/2),w:Math.max(bs*2.6,axTW('QUITTER')+12),h:bs};L.son={x:w-bs-6,y:L.quit.y,w:bs,h:bs};WM.L=L}
 // ---------- partie ----------
 function newGame(){WM.score=0;WM.combo=0;WM.bestCombo=0;WM.hits=0;WM.golds=0;WM.misses=0;WM.escaped=0;WM.taps=0;WM.time=DUR;WM.spawnT=.6;WM.parts=[];WM.pops=[];WM.holes.forEach(h=>h.m=null);WM.phase='count';WM.cd=3.2;WM.lastCd=4;WM.over=null;WM.msg=null;WM.lastHole=-1;fx('whClick');music(.85)}

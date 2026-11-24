@@ -13,6 +13,8 @@ bjs = open(os.path.join(D, 'bowling.js'), encoding='utf8').read()
 acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read() + open(os.path.join(D, 'cinema.css'), encoding='utf8').read()
 ajs = open(os.path.join(D, 'arcade.js'), encoding='utf8').read()
 cjs = open(os.path.join(D, 'films_data.js'), encoding='utf8').read() + open(os.path.join(D, 'cinema.js'), encoding='utf8').read()
+pjs = open(os.path.join(D, 'paysage.js'), encoding='utf8').read()
+pcss = open(os.path.join(D, 'paysage.css'), encoding='utf8').read()
 # mini-jeux de la borne : un fichier par jeu dans rue/jeux/, chargés après la borne
 import glob
 jeux = ''.join('\n' + open(f, encoding='utf8').read().rstrip() for f in sorted(glob.glob(os.path.join(D, 'jeux', '*.js'))))
@@ -50,6 +52,8 @@ cpan = ('<section class="view" id="v-cinema"><div class="opts seg"><button class
 s = put(s, '<section class="view" id="v-gym">', apan, after=False)
 s = put(s, '<section class="view" id="v-gym">', cpan, after=False)
 # 4) module JS juste avant le démarrage de la boucle
-s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + jeux + '\n' + cjs.rstrip() + '\n// ===RUE-END===', after=False)
+s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + jeux + '\n' + cjs.rstrip() + '\n' + pjs.rstrip() + '\n// ===RUE-END===', after=False)
+# 5) mode paysage : feuille de style en dernier pour primer sur les règles portrait
+s = put(s, '</head>', '<style id="paysage">' + pcss + '</style>\n', after=False)
 open(idx, 'w', encoding='utf8').write(s)
 print('ok', len(s))

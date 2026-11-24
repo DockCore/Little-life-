@@ -74,49 +74,49 @@
    "cine_hall": {
     "solid": 150,
     "bad": 0,
-    "steps": 6841,
+    "steps": 6441,
     "through": 0,
     "arrived": 40
    },
    "cine_couloir": {
     "solid": 63,
     "bad": 0,
-    "steps": 5527,
+    "steps": 5796,
     "through": 0,
     "arrived": 40
    },
    "cine_wc": {
     "solid": 36,
     "bad": 0,
-    "steps": 3859,
+    "steps": 3875,
     "through": 0,
     "arrived": 40
    },
    "cine_prive": {
     "solid": 48,
     "bad": 0,
-    "steps": 3539,
+    "steps": 3625,
     "through": 0,
     "arrived": 40
    },
    "cine_s1": {
     "solid": 39,
     "bad": 0,
-    "steps": 4730,
+    "steps": 4692,
     "through": 0,
     "arrived": 40
    },
    "cine_s2": {
     "solid": 57,
     "bad": 0,
-    "steps": 6957,
+    "steps": 6924,
     "through": 0,
     "arrived": 40
    },
    "cine_s3": {
     "solid": 75,
     "bad": 0,
-    "steps": 9689,
+    "steps": 8361,
     "through": 0,
     "arrived": 40
    }
@@ -203,14 +203,14 @@
   "ok": true,
   "info": {
    "mid": {
-    "dim": 0.9999949985183606,
-    "curt": 0.9998891467205678,
-    "t": 3.554749,
+    "dim": 0.9999960850512868,
+    "curt": 0.9999076623215785,
+    "t": 3.605382,
     "th": "cinefilm"
    },
    "fin": {
-    "h0": 36.99409999987629,
-    "h1": 67.96139999987624,
+    "h0": 32.41049999988025,
+    "h1": 63.37779999987994,
     "billet": null,
     "s": {
      "pop": 0,
@@ -223,8 +223,8 @@
     "msg": "FIN. Nori a adoré « LA VAGUE GÉANTE » ! Les lumières se rallument."
    },
    "after": {
-    "dim": 0.00014218621278628597,
-    "curt": 0.0013472932248829474
+    "dim": 0.00014218622034855715,
+    "curt": 0.0013472960492626066
    }
   }
  },
@@ -248,7 +248,7 @@
    "wc": {
     "wrong": "Ce sont les toilettes des femmes : celles des hommes sont à gauche.",
     "hidden": true,
-    "wc1": 99.99879999999999,
+    "wc1": 99.9994,
     "wash": true
    },
    "up": {
@@ -285,15 +285,15 @@
   "ok": true,
   "info": {
    "perf": {
-    "cine_hall": 2.52,
-    "cine_couloir": 0.03,
-    "cine_wc": 1.14,
-    "cine_prive": 0.52,
-    "cine_s1": 0.84,
-    "cine_s2": 1.25,
-    "cine_s3": 1.82
+    "cine_hall": 2.42,
+    "cine_couloir": 0.63,
+    "cine_wc": 1.37,
+    "cine_prive": 0.77,
+    "cine_s1": 1.18,
+    "cine_s2": 1.47,
+    "cine_s3": 1.74
    },
-   "gym": 1.23
+   "gym": 1.19
   }
  },
  {
@@ -416,49 +416,49 @@
    "cine_hall": {
     "solid": 150,
     "bad": 0,
-    "steps": 6707,
+    "steps": 5597,
     "through": 0,
     "arrived": 40
    },
    "cine_couloir": {
     "solid": 63,
     "bad": 0,
-    "steps": 5162,
+    "steps": 6075,
     "through": 0,
     "arrived": 40
    },
    "cine_wc": {
     "solid": 36,
     "bad": 0,
-    "steps": 4016,
+    "steps": 3377,
     "through": 0,
     "arrived": 40
    },
    "cine_prive": {
     "solid": 48,
     "bad": 0,
-    "steps": 3211,
+    "steps": 3521,
     "through": 0,
     "arrived": 40
    },
    "cine_s1": {
     "solid": 39,
     "bad": 0,
-    "steps": 4527,
+    "steps": 4466,
     "through": 0,
     "arrived": 40
    },
    "cine_s2": {
     "solid": 57,
     "bad": 0,
-    "steps": 7138,
+    "steps": 7790,
     "through": 0,
     "arrived": 40
    },
    "cine_s3": {
     "solid": 75,
     "bad": 0,
-    "steps": 9728,
+    "steps": 9128,
     "through": 0,
     "arrived": 40
    }
@@ -545,14 +545,14 @@
   "ok": true,
   "info": {
    "mid": {
-    "dim": 0.9999949985183606,
-    "curt": 0.9998891467205678,
-    "t": 3.562229,
+    "dim": 0.9999951985776262,
+    "curt": 0.9998924723189508,
+    "t": 3.536203,
     "th": "cinefilm"
    },
    "fin": {
-    "h0": 32.20769999987832,
-    "h1": 63.175299999878014,
+    "h0": 37.35019999987968,
+    "h1": 68.31689999987961,
     "billet": null,
     "s": {
      "pop": 0,
@@ -565,8 +565,8 @@
     "msg": "FIN. Nori a adoré « LA VAGUE GÉANTE » ! Les lumières se rallument."
    },
    "after": {
-    "dim": 0.00014811063330396885,
-    "curt": 0.0013889603429494708
+    "dim": 0.00014811064053571108,
+    "curt": 0.0013889628832448589
    }
   }
  },
@@ -590,7 +590,7 @@
    "wc": {
     "wrong": "Ce sont les toilettes des femmes : celles des hommes sont à gauche.",
     "hidden": true,
-    "wc1": 99.9994,
+    "wc1": 99.99879999999999,
     "wash": true
    },
    "up": {
@@ -627,15 +627,15 @@
   "ok": true,
   "info": {
    "perf": {
-    "cine_hall": 2.3,
-    "cine_couloir": 0.04,
-    "cine_wc": 1.24,
-    "cine_prive": 0.69,
-    "cine_s1": 0.82,
-    "cine_s2": 1.13,
-    "cine_s3": 1.94
+    "cine_hall": 2.78,
+    "cine_couloir": 0.03,
+    "cine_wc": 1.32,
+    "cine_prive": 0.56,
+    "cine_s1": 1.02,
+    "cine_s2": 2,
+    "cine_s3": 1.28
    },
-   "gym": 0.93
+   "gym": 1.44
   }
  },
  {

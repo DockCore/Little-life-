@@ -1,0 +1,249 @@
+[
+ {
+  "n": "1 orientation : en vertical sur mobile « Tourne ton téléphone » + jeu en pause ; à l’horizontale le jeu reprend aussitôt ; application installée en paysage",
+  "ok": true,
+  "info": {
+   "t1": {
+    "rot": "flex",
+    "txt": "Tourne ton téléphone / Little Life se joue à l’horizontale.",
+    "pause": true,
+    "land": false
+   },
+   "gel": [
+    0,
+    0
+   ],
+   "t2": {
+    "rot": "none",
+    "pause": false,
+    "land": true
+   },
+   "vit": [
+    42,
+    66
+   ],
+   "manifest": "landscape"
+  }
+ },
+ {
+  "n": "2 six formats (19,5:9, Pro Max, 16:9, 20:9, iPad 4:3, iPad Air) : scène pleine hauteur à gauche, colonne d’actions à droite, pièce entière et centrée, pixels non déformés, aucun défilement ni bande",
+  "ok": true,
+  "info": [
+   "iPhone 14 (19,5:9) KK2.58 pièce 448×322",
+   "iPhone Pro Max KK2.89 pièce 501×360",
+   "iPhone SE (16:9) KK1.47 pièce 382×275",
+   "Android 20:9 KK2.39 pièce 478×343",
+   "iPad (4:3) KK2.4 pièce 624×448",
+   "iPad Air KK2.84 pièce 740×532"
+  ]
+ },
+ {
+  "n": "3 joystick au pouce gauche : Nori va à droite, à gauche, en haut et en bas de l’écran comme poussé, s’arrête au relâchement ; toucher le sol fonctionne toujours",
+  "ok": true,
+  "info": {
+   "res": {
+    "droite": {
+     "dx": 77,
+     "dy": 0
+    },
+    "gauche": {
+     "dx": -79,
+     "dy": 0
+    },
+    "haut": {
+     "dx": 0,
+     "dy": -38
+    },
+    "bas": {
+     "dx": -27,
+     "dy": 33
+    }
+   },
+   "after": "idle",
+   "tap": {
+    "u": 12.8,
+    "v": 13.7
+   }
+  }
+ },
+ {
+  "n": "4 actions et menus dans la colonne de droite (Jouer, Objectifs, bureau, table, boutiques, garde-robe, café, canapé, inventaire, déco, épicerie, travail) : tout tient, rien n’est coupé",
+  "ok": true,
+  "info": {
+   "t4": [
+    "play",
+    {
+     "bad": [],
+     "over": 0
+    },
+    "home",
+    "goals",
+    {
+     "bad": [],
+     "over": 0
+    }
+   ],
+   "pv": {
+    "desk": {
+     "bad": [],
+     "over": 0
+    },
+    "table": {
+     "bad": [],
+     "over": 0
+    },
+    "shop": {
+     "bad": [],
+     "over": 0
+    },
+    "clothes": {
+     "bad": [],
+     "over": 0
+    },
+    "cafe": {
+     "bad": [],
+     "over": 0
+    },
+    "sofa": {
+     "bad": [],
+     "over": 0
+    },
+    "inv": {
+     "bad": [],
+     "over": 0
+    },
+    "deco": {
+     "bad": [],
+     "over": 0
+    },
+    "grocery": {
+     "bad": [],
+     "over": 0
+    },
+    "work": {
+     "bad": [],
+     "over": 0
+    }
+   }
+  }
+ },
+ {
+  "n": "5 création (Nori en grand à gauche, réglages à droite), cabine d’habillage (personnage entier) et menu du jeu (tient dans l’écran, défile si besoin)",
+  "ok": true,
+  "info": {
+   "cr": {
+    "col": [
+     557,
+     844
+    ],
+    "tous": true,
+    "n": 5,
+    "skin": 428,
+    "scene": 555
+   },
+   "dr": {
+    "dressing": true,
+    "KK": 5.85,
+    "LH": 200,
+    "pan": 557
+   },
+   "gm": {
+    "t": 8,
+    "b": 382,
+    "h": 390,
+    "scroll": true,
+    "el": "gmenu"
+   }
+  }
+ },
+ {
+  "n": "6 rue : flèches ◀ ▶ en bas à gauche (pouce gauche), la marche fonctionne au toucher, la rue occupe toute la scène",
+  "ok": true,
+  "info": {
+   "sp": {
+    "l": [
+     12,
+     378
+    ],
+    "r": [
+     82,
+     144
+    ],
+    "st": [
+     0,
+     557,
+     390
+    ],
+    "px": 119,
+    "dbg": {
+     "el": "stwR",
+     "t": {
+      "l": 0,
+      "r": 1
+     },
+     "on": true,
+     "v": "street",
+     "st": "street"
+    }
+   },
+   "px2": 247.80000000000058
+  }
+ },
+ {
+  "n": "7 borne d’arcade en paysage (plein écran) ; Whack-a-Mole occupe tout l’écran, trous élargis à l’horizontale, une taupe touchée au doigt rapporte des points",
+  "ok": true,
+  "info": {
+   "arc": {
+    "l": 0,
+    "t": 0,
+    "r": 844,
+    "b": 390
+   },
+   "fcov": {
+    "l": 0,
+    "t": 0,
+    "r": 844,
+    "b": 390
+   },
+   "hole": {
+    "i": 8,
+    "x": 594,
+    "y": 329.2452083333333,
+    "cell": 129,
+    "cellH": 76
+   },
+   "wm": {
+    "score": 10,
+    "hits": null
+   }
+  }
+ },
+ {
+  "n": "8 séance de cinéma en paysage : vue spectateur plein écran, film large, pas de demande de rotation",
+  "ok": true,
+  "info": {
+   "open": true,
+   "full": true,
+   "vid": [
+    562,
+    316
+   ],
+   "rot": true
+  }
+ },
+ {
+  "n": "9 ordinateur : disposition d’origine conservée (pas d’écran de rotation, pas de colonne)",
+  "ok": true,
+  "info": {
+   "land": false,
+   "block": false,
+   "cls": "ll2",
+   "w": 560
+  }
+ },
+ {
+  "n": "10 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

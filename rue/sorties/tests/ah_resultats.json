@@ -165,13 +165,13 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 56,
+    "saved": 57,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 60,
+    "saved": 58,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
@@ -265,14 +265,14 @@
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 2
+   "ms": 1
   }
  },
  {
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.57,
+   "msParImage": 4.39,
    "errs": []
   }
  },
@@ -427,11 +427,11 @@
    "e": {
     "sc": [
      1,
-     1
+     2
     ],
     "sc0": [
      1,
-     1
+     2
     ],
     "ph": "jeu"
    }
@@ -442,7 +442,7 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 53,
+    "saved": 55,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
@@ -454,7 +454,7 @@
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -542,14 +542,14 @@
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 2
+   "ms": 5
   }
  },
  {
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 3.67,
+   "msParImage": 6.66,
    "errs": []
   }
  }

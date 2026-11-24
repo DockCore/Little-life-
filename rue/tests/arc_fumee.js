@@ -1,4 +1,4 @@
-const path=require('path');const PW='/home/claude/.npm-global/lib/node_modules/playwright';const JEU='file://'+path.resolve(__dirname,'../../index.html');const O=path.resolve(__dirname,'../sorties');
+const path=require('path');const PW='/home/claude/.npm-global/lib/node_modules/playwright';const JEU='file://'+path.resolve(__dirname,'../../index.html')+'?orient=libre';const O=path.resolve(__dirname,'../sorties');
 const {chromium}=require(PW);
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
 for(const [t,vp,dpr] of [['tel',{width:390,height:844},3],['petit',{width:320,height:568},2],['pc',{width:1280,height:800},1],['fullhd',{width:1920,height:1080},1],['tablette',{width:820,height:1180},2]]){

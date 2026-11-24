@@ -1,0 +1,70 @@
+
+/* ===== MODE PAYSAGE (mobile à l'horizontale) : scène à gauche sur toute la hauteur, panneau d'actions à droite ===== */
+#rotx{display:none!important}
+html.needrot #rotx{display:flex!important}
+html.land{--sideW:clamp(250px,34vw,380px);--sl:env(safe-area-inset-left,0px);--sr:env(safe-area-inset-right,0px);--sb:env(safe-area-inset-bottom,0px)}
+html.land :root,html.land{padding:0!important}
+html.land body{background:#1d140f}
+html.land main{max-width:none!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:0!important;display:block!important;position:relative;border:0!important;border-radius:0!important;box-shadow:none!important}
+html.land main .frame.top{position:absolute!important;left:0;top:0;bottom:0;right:var(--sideW);width:auto!important;height:auto!important;flex:none!important;border:0!important;border-radius:0!important;margin:0!important}
+html.land main .frame.low,html.land.ll2 main:not(.dressing):not(.creating) .frame.low{position:absolute!important;top:0!important;bottom:0!important;right:0!important;left:auto!important;width:var(--sideW)!important;height:auto!important;max-height:none!important;
+ border:0!important;border-left:3px solid var(--ink,#3b2a24)!important;border-radius:0!important;box-shadow:-3px 0 0 rgba(59,42,36,.18)!important;
+ padding:calc(8px + env(safe-area-inset-top,0px)) calc(10px + var(--sr)) calc(8px + var(--sb)) 10px!important;display:flex!important;flex-direction:column;gap:6px;z-index:6}
+/* besoins dans la colonne de droite : la scène garde toute sa hauteur */
+html.land .lhud{position:static!important;inset:auto!important;display:block!important;pointer-events:auto;flex:0 0 auto;margin:0}
+html.land .lhud .needs{width:100%!important;margin:0!important;padding:5px 7px!important;gap:5px!important}
+html.land .hud{inset:calc(6px + env(safe-area-inset-top,0px)) 6px auto calc(6px + var(--sl))!important}
+html.land.ll2 .hud2{top:calc(6px + env(safe-area-inset-top,0px))!important;right:8px!important}
+html.land .frame.low .views{flex:1 1 auto;min-height:0}
+html.land .frame.low .view{overflow:auto;-webkit-overflow-scrolling:touch}
+/* message de Nori : en bas de la scène, centré */
+html.land.ll2 #topbox>#status{top:auto!important;bottom:calc(8px + var(--sb))!important;max-width:calc(100% - 200px)!important}
+/* calques plein cadre de la scène */
+html.land.ll2 main:not(.dressing):not(.creating) .street,html.land.ll2 main:not(.dressing):not(.creating) .bowl,html.land.ll2 main:not(.dressing):not(.creating) .petbox{bottom:0!important}
+/* rue : les deux flèches sous le pouce gauche */
+html.land .stpad{display:flex!important;left:calc(12px + var(--sl))!important;right:auto!important;bottom:calc(12px + var(--sb))!important;justify-content:flex-start}
+html.land .stpad button{min-width:62px;height:56px;font-size:22px}
+/* menus en tuiles : grille plus dense dans la colonne */
+html.land #v-home .menu{grid-template-columns:repeat(3,1fr)!important;gap:6px!important;align-content:start}
+html.land #v-home .tile{min-height:62px!important;padding:6px 0!important}
+html.land .menu{grid-template-columns:repeat(3,1fr)!important}
+/* joystick de déplacement (pièces) */
+.ljoy{position:absolute;z-index:4;left:calc(14px + var(--sl,0px));bottom:calc(14px + var(--sb,0px));width:112px;height:112px;border-radius:50%;
+ background:radial-gradient(circle,rgba(255,248,236,.18) 0 55%,rgba(255,248,236,.32) 56% 100%);border:3px solid rgba(59,42,36,.55);box-shadow:0 3px 0 rgba(59,42,36,.35);touch-action:none;display:none}
+.ljoy i{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#fff8ec;border:3px solid #3b2a24;box-shadow:0 3px 0 #3b2a24;pointer-events:none;transition:transform .08s}
+.ljoy.on i{transition:none}
+html.land .ljoy.ok{display:block}
+html.land .lhud .needs{max-width:none!important;flex:none!important;display:grid!important}
+html.land .lhud .needs span{font-size:9px!important}
+html.land .zm{left:auto!important;right:calc(10px);bottom:calc(10px + var(--sb));align-items:flex-end}
+@media (max-height:400px){html.land .ljoy{width:100px;height:100px}html.land .ljoy i{width:42px;height:42px;margin:-21px 0 0 -21px}}
+html.land .frame.low .opts,html.land .frame.low .row,html.land .frame.low .cg{flex-wrap:wrap}
+html.land .frame.low .row>button{flex:1 1 30%;min-width:0}
+html.land .cats{justify-content:flex-start;gap:6px}
+html.land .cat{display:block!important}
+html.land .cat h4{margin:0 0 4px!important}
+html.land .cg{grid-template-columns:repeat(2,1fr)!important;gap:6px}
+html.land .czr{display:grid!important;grid-template-columns:repeat(4,1fr);gap:5px}
+html.land .czr button{min-width:0;padding:0 2px!important;font-size:12px!important}
+html.land .opts.seg{flex-wrap:wrap}
+/* création du personnage : Nori en grand à gauche, réglages dans la colonne de droite */
+html.land main.creating .frame.low{display:none!important}
+html.land main.creating .st-bottom{position:fixed!important;left:auto!important;right:0!important;top:0!important;bottom:0!important;width:var(--sideW);border-radius:22px 0 0 22px!important;
+ padding:calc(10px + env(safe-area-inset-top,0px)) calc(12px + var(--sr)) calc(10px + var(--sb)) 12px!important;overflow:auto;z-index:7;justify-content:flex-start}
+html.land main.creating .st-opts{grid-template-columns:repeat(5,1fr)!important}
+html.land main.creating .st-act{margin-top:auto}
+.st-lform{display:flex;flex-direction:column;gap:6px}
+.st-lform .st-gen{display:flex;justify-content:center;gap:8px}
+.st-lform .st-name-in{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.st-lform .st-name-in input{flex:1;min-width:0}
+/* menu du jeu et fenêtres : jamais coupés en hauteur */
+html.land .gmenu{padding:8px calc(8px + var(--sr)) 8px calc(8px + var(--sl))}
+html.land .gcard{max-height:calc(100dvh - 16px);overflow:auto;overscroll-behavior:contain;width:min(520px,100%)!important;display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
+html.land .gcard>*{grid-column:1/-1}
+html.land .gcard>.gi{grid-column:auto}
+html.land .actg{grid-template-columns:1fr 1fr!important}
+html.land .actg button,html.land .actg .tile{height:auto!important;min-height:50px;padding:6px 4px!important;white-space:normal;line-height:1.15}
+html.land #v-sofa .czm{gap:6px}
+html.land #v-sofa .czm .tile{height:84px!important}
+html.land #v-sofa .czm .tile span{white-space:normal;font-size:10.5px}
+html.land main[data-v="bowling"] .hud2{display:none!important}
