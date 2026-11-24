@@ -1,0 +1,188 @@
+[
+ {
+  "n": "TEL 1 borne ouverte, Whack-a-Mole dans le catalogue, fiche puis JOUER : le jeu occupe tout l’écran (borne, rue et interface masquées)",
+  "ok": true,
+  "info": {
+   "cat": {
+    "i": 6,
+    "nom": "Whack-a-Mole",
+    "pret": true,
+    "state": "menu"
+   },
+   "info": "info",
+   "st1": {
+    "state": "game",
+    "cur": "mole",
+    "ph": "home"
+   },
+   "fc": {
+    "diff": 0,
+    "couvre": true,
+    "state": "game",
+    "dessus": true
+   }
+  }
+ },
+ {
+  "n": "TEL 2 écran d’accueil (titre, illustration, règles, record, JOUER) puis compte à rebours 3-2-1 et début de partie (60 s)",
+  "ok": true,
+  "info": {
+   "c1": {
+    "ph": "count",
+    "score": 0,
+    "combo": 0,
+    "time": 60
+   },
+   "c2": {
+    "ph": "play",
+    "score": 0,
+    "combo": 0,
+    "time": 59.500000000000036
+   }
+  }
+ },
+ {
+  "n": "TEL 3 partie complète de 60 s réellement jouée (le chrono s’arrête à 0, écran de fin : score, record, résultat)",
+  "ok": true,
+  "info": {
+   "dur": "60.8",
+   "g": {
+    "ph": "over",
+    "score": 2920,
+    "hits": 97,
+    "golds": 2,
+    "misses": 0,
+    "escaped": 0,
+    "best": 97,
+    "acc": 100,
+    "rank": "LÉGENDE DU MARTEAU",
+    "rec": true,
+    "fx": [
+     "whClick",
+     "whTick",
+     "whStart",
+     "whPop",
+     "whBonk",
+     "whCombo",
+     "whGold",
+     "whEnd",
+     "whRecord"
+    ]
+   }
+  }
+ },
+ {
+  "n": "TEL 4 effets sonores distincts : apparition, frappe, taupe dorée, combo, fin, record ; musique arcade",
+  "ok": true,
+  "info": {
+   "fx": [
+    "whClick",
+    "whTick",
+    "whStart",
+    "whPop",
+    "whBonk",
+    "whCombo",
+    "whGold",
+    "whEnd",
+    "whRecord"
+   ],
+   "golds": 2
+  }
+ },
+ {
+  "n": "TEL 5 scores : taupe normale +10, dorée +50, combo à partir de 5 frappes de suite (×1,5 puis ×2), coup dans le vide ou taupe échappée = fin du combo, frappe précise",
+  "ok": true,
+  "info": {
+   "normal": 10,
+   "gold": 50,
+   "cinq": 55,
+   "combo5": 5,
+   "sixieme": 15,
+   "onzieme": 20,
+   "vide": {
+    "combo": 0,
+    "score": 0
+   },
+   "echappee": 0,
+   "corps": "hit",
+   "herbe": {
+    "st": "up",
+    "misses": 1
+   }
+  }
+ },
+ {
+  "n": "TEL 6 animations : la taupe sort, reste, rentre et disparaît seule ; touchée, elle disparaît aussitôt (moins d’une demi-seconde)",
+  "ok": true,
+  "info": {
+   "tr": "rise:0.4 rise:0.8 up:1.0 sink:1.0 sink:0.6 sink:0.3 parti",
+   "frappee": 0.4
+  }
+ },
+ {
+  "n": "TEL 7 difficulté progressive : plus de taupes, plus souvent, qui restent moins longtemps",
+  "ok": true,
+  "info": [
+   {
+    "apparitions": 6,
+    "duree": 1.22,
+    "maxUp": 1
+   },
+   {
+    "apparitions": 13,
+    "duree": 0.85,
+    "maxUp": 2
+   },
+   {
+    "apparitions": 26,
+    "duree": 0.67,
+    "maxUp": 3
+   }
+  ]
+ },
+ {
+  "n": "TEL 8 meilleur score enregistré dans la sauvegarde",
+  "ok": true,
+  "info": {
+   "mem": 2920,
+   "ls": true
+  }
+ },
+ {
+  "n": "TEL 9 REJOUER relance tout de suite une partie ; QUITTER et RETOUR À LA BORNE ramènent au catalogue, sons et animations arrêtés",
+  "ok": true,
+  "info": {
+   "rej": {
+    "ph": "count",
+    "score": 0,
+    "combo": 0,
+    "time": 60
+   },
+   "quit": {
+    "state": "menu",
+    "cur": null,
+    "on": true,
+    "mus": null,
+    "sel": "mole"
+   },
+   "back": {
+    "state": "menu",
+    "cur": null,
+    "mus": null
+   }
+  }
+ },
+ {
+  "n": "TEL 10 record conservé après rechargement de la page",
+  "ok": true,
+  "info": {
+   "rel": 2920,
+   "avant": 2920
+  }
+ },
+ {
+  "n": "TEL 11 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

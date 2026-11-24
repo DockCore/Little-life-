@@ -250,11 +250,11 @@ function arcInit(){const root=document.createElement('div');root.id='arcx';root.
  const up=e=>{if(drag&&drag.id===e.pointerId){drag=null;arcRelease()}ARC.input.a=ARC.input.b=0;if(ARC.on&&ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M.pointer){const p=arcPt(e),S=arcGS();M.pointer('up',p.x-S.x,p.y-S.y,e.pointerId)}}};
  AX.cv.addEventListener('pointerup',up);AX.cv.addEventListener('pointercancel',up);AX.cv.addEventListener('contextmenu',e=>e.preventDefault());
  const KM={ArrowUp:'up',KeyW:'up',KeyZ:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',KeyQ:'left',ArrowRight:'right',KeyD:'right'};
- addEventListener('keydown',e=>{if(!ARC.on)return;const d=KM[e.code];
+ addEventListener('keydown',e=>{if(!ARC.on)return;if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M&&M.ownsKey&&M.ownsKey(e.code))return}const d=KM[e.code];
   if(d){e.preventDefault();ARC.input[d]=1;if(ARC.state!='game')arcMove(d);else{ARC.stick=d;(ARC.input.dirQ=ARC.input.dirQ||[]).push(d)}return}
   if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK'){e.preventDefault();ARC.input.a=1;if(!e.repeat)ARC.input.okN=(ARC.input.okN||0)+1;if(!e.repeat&&ARC.state!='game')arcOk();else arcPress('ok');return}
   if(e.code=='Escape'||e.code=='Backspace'||e.code=='KeyX'||e.code=='KeyL'){e.preventDefault();if(!e.repeat)arcBack();return}},true);
- addEventListener('keyup',e=>{if(!ARC.on)return;const d=KM[e.code];if(d){ARC.input[d]=0;if(ARC.stick==d&&!ARC.holdD)ARC.stick=''}if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK')ARC.input.a=0},true);
+ addEventListener('keyup',e=>{if(!ARC.on)return;if(ARC.state=='game'&&ARC.cur){const M=ARC.modules[ARC.cur.id];if(M&&M.ownsKey&&M.ownsKey(e.code))return}const d=KM[e.code];if(d){ARC.input[d]=0;if(ARC.stick==d&&!ARC.holdD)ARC.stick=''}if(e.code=='Enter'||e.code=='Space'||e.code=='KeyK')ARC.input.a=0},true);
  addEventListener('resize',()=>{if(ARC.on)arcLayout()});addEventListener('blur',arcRelease)}
 function arcDrag(p,drag){const J=AX.L.joy,dx=p.x-J.x,dy=p.y-(J.y-J.r*.9),L=Math.hypot(dx,dy);let d=null;if(L>J.r*.45)d=Math.abs(dx)>Math.abs(dy)?(dx>0?'right':'left'):(dy>0?'down':'up');
  if(d!==drag.d){drag.d=d;['up','down','left','right'].forEach(k=>ARC.input[k]=k==d?1:0);if(d){if(ARC.state=='game'){ARC.stick=d;ARC.holdD=d;(ARC.input.dirQ=ARC.input.dirQ||[]).push(d)}else arcHold(d)}else arcRelease()}}

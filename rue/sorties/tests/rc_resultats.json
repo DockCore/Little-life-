@@ -37,16 +37,16 @@
   "info": {
    "x0": 122,
    "x1": 64.5,
-   "x2": 211.56418349999998,
+   "x2": 211.52841399999988,
    "xl": 64.5,
    "bord": {
     "lo": 47,
     "hi": 247
    },
    "tl": {
-    "a": 211.56418349999998,
-    "bb": 175.56713149999985,
-    "c": 211.59992374999945,
+    "a": 211.52841399999988,
+    "bb": 176.10819959158042,
+    "c": 214.2462490500824,
     "d": 72,
     "cible": 72
    }
@@ -56,21 +56,21 @@
   "n": "TEL 3 haut accélère, bas freine",
   "ok": true,
   "info": {
-   "v0": 98.73092043101595,
-   "v1": 116.50787725194967,
-   "v2": 62.598531988168126
+   "v0": 98.69085515091892,
+   "v1": 116.46466185139111,
+   "v2": 62.61622179434139
   }
  },
  {
   "n": "TEL 4 nitro : activation (A/Entrée, bouton NITRO), vitesse +, jauge qui se vide, refus si jauge vide, son",
   "ok": true,
   "info": {
-   "n0": 93.36128090332518,
-   "n1": 164.37149113086008,
-   "g1": 0.5893440000000009,
+   "n0": 93.56667984258824,
+   "n1": 164.35739662585348,
+   "g1": 0.5893760000000017,
    "nEnd": {
     "on": false,
-    "g": 0.009
+    "g": 0.008599199999999982
    },
    "nVide": false,
    "tn": true
@@ -82,7 +82,7 @@
   "info": {
    "ds": 254,
    "coins": 1,
-   "nitro": 0.5017999999999999,
+   "nitro": 0.5018,
    "shield": 7.849999999999998,
    "items": 0,
    "fx": [
@@ -130,7 +130,7 @@
     "hit": true
    },
    "fx": true,
-   "parts": 126
+   "parts": 128
   }
  },
  {
@@ -158,7 +158,7 @@
    },
    "pe": {
     "ph": 3,
-    "n": 5
+    "n": 6
    }
   }
  },
@@ -168,9 +168,9 @@
   "info": {
    "pa": {
     "ph": "pause",
-    "d": 5163.698447307254
+    "d": 5162.958640818121
    },
-   "pa2": 5163.698447307254,
+   "pa2": 5162.958640818121,
    "son1": 1,
    "son0": {
     "son": 0,
@@ -185,7 +185,7 @@
   "info": {
    "ph": "over",
    "rec": true,
-   "best": 123457,
+   "best": 123458,
    "persiste": true
   }
  },
@@ -207,7 +207,7 @@
    "on": true,
    "mus": null,
    "eng": false,
-   "best": 123457
+   "best": 123458
   }
  },
  {
@@ -227,11 +227,241 @@
   "n": "TEL 14 record conservé après rechargement de la page",
   "ok": true,
   "info": {
-   "rel": 123457
+   "rel": 123458
   }
  },
  {
   "n": "TEL 15 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ },
+ {
+  "n": "PC 0 lancement depuis la case MINI RACING : écran de départ, plein écran, borne invisible",
+  "ok": true,
+  "info": {
+   "st0": {
+    "st": "game",
+    "cur": "racing",
+    "ph": "start",
+    "mus": "racing"
+   },
+   "fc": {
+    "diff": 0,
+    "couvre": true,
+    "state": "game"
+   }
+  }
+ },
+ {
+  "n": "PC 1 départ : compte à rebours 3-2-1-GO avec bips, 3 vies, musique synthwave",
+  "ok": true,
+  "info": {
+   "c1": {
+    "ph": "count",
+    "l": 3
+   },
+   "c2": {
+    "ph": "run",
+    "mus": "racing",
+    "fx": 5
+   }
+  }
+ },
+ {
+  "n": "PC 2 déplacements gauche/droite (clavier), la voiture reste sur la route",
+  "ok": true,
+  "info": {
+   "x0": 326,
+   "x1": 290,
+   "x2": 384.12001247999984,
+   "xl": 290,
+   "bord": {
+    "lo": 278,
+    "hi": 406
+   },
+   "tl": null
+  }
+ },
+ {
+  "n": "PC 3 haut accélère, bas freine",
+  "ok": true,
+  "info": {
+   "v0": 97.02107430741256,
+   "v1": 114.8902833173758,
+   "v2": 61.79492643049429
+  }
+ },
+ {
+  "n": "PC 4 nitro : activation (A/Entrée), vitesse +, jauge qui se vide, refus si jauge vide, son",
+  "ok": true,
+  "info": {
+   "n0": 92.33782104467181,
+   "n1": 162.19832951321393,
+   "g1": 0.5893760000000008,
+   "nEnd": {
+    "on": false,
+    "g": 0.008398800000000017
+   },
+   "nVide": false,
+   "tn": null
+  }
+ },
+ {
+  "n": "PC 5 bonus : pièce (+50), recharge nitro, bouclier 8 s, avec sons",
+  "ok": true,
+  "info": {
+   "ds": 254,
+   "coins": 1,
+   "nitro": 0.5018000000000001,
+   "shield": 7.85,
+   "items": 0,
+   "fx": [
+    true,
+    true,
+    true
+   ]
+  }
+ },
+ {
+  "n": "PC 6 collisions réelles : citadine, berline, sportive, camion (−1 vie, clignotement, débris, son) ; bouclier absorbe ; invincibilité après choc",
+  "ok": true,
+  "info": {
+   "bouclier": {
+    "vies": 3,
+    "shield": 0,
+    "hit": true
+   },
+   "citadine": {
+    "avant": 3,
+    "apres": 2,
+    "inv": true,
+    "hit": true
+   },
+   "berline": {
+    "avant": 2,
+    "apres": 1,
+    "inv": true,
+    "hit": true
+   },
+   "invincible": {
+    "avant": 1,
+    "apres": 1
+   },
+   "sportive": {
+    "avant": 3,
+    "apres": 2,
+    "inv": true,
+    "hit": true
+   },
+   "camion": {
+    "avant": 2,
+    "apres": 1,
+    "inv": true,
+    "hit": true
+   },
+   "fx": true,
+   "parts": 127
+  }
+ },
+ {
+  "n": "PC 7 dépassements : +10 points chacun, série sans collision = combo",
+  "ok": true,
+  "info": {
+   "pass": 6,
+   "combo": 6,
+   "ds": 101,
+   "vies": 3,
+   "fx": true
+  }
+ },
+ {
+  "n": "PC 8 phases Début → Intermédiaire → Avancé → Expert selon la distance",
+  "ok": true,
+  "info": {
+   "ph": {
+    "out": [
+     1,
+     2,
+     3
+    ],
+    "fx": true
+   },
+   "pe": {
+    "ph": 3,
+    "n": 5
+   }
+  }
+ },
+ {
+  "n": "PC 9 pause (P) gèle la course, réglage du son (tout / effets seuls / coupé, mémorisé), reprise",
+  "ok": true,
+  "info": {
+   "pa": {
+    "ph": "pause",
+    "d": 5161.308191096521
+   },
+   "pa2": 5161.308191096521,
+   "son1": 1,
+   "son0": {
+    "son": 0,
+    "saved": 0
+   },
+   "pr": "run"
+  }
+ },
+ {
+  "n": "PC 10 vies à 0 → GAME OVER, score, distance, nouveau record enregistré et sauvegardé",
+  "ok": true,
+  "info": {
+   "ph": "over",
+   "rec": true,
+   "best": 123463,
+   "persiste": true
+  }
+ },
+ {
+  "n": "PC 11 REJOUER relance une course (3 vies, score à 0)",
+  "ok": true,
+  "info": {
+   "ph": "count",
+   "l": 3,
+   "s": 0
+  }
+ },
+ {
+  "n": "PC 12 RETOUR À LA SALLE D’ARCADE : menu de sélection, musique et moteur coupés, record conservé (pas écrasé par 5)",
+  "ok": true,
+  "info": {
+   "st": "menu",
+   "cur": null,
+   "on": true,
+   "mus": null,
+   "eng": false,
+   "best": 123463
+  }
+ },
+ {
+  "n": "PC 13 quitter en pleine course : retour au menu, sons et animations nettoyés",
+  "ok": true,
+  "info": {
+   "mid": "count",
+   "clean": {
+    "st": "menu",
+    "mus": null,
+    "eng": false,
+    "tr": 0
+   }
+  }
+ },
+ {
+  "n": "PC 14 record conservé après rechargement de la page",
+  "ok": true,
+  "info": {
+   "rel": 123463
+  }
+ },
+ {
+  "n": "PC 15 aucune erreur JavaScript",
   "ok": true,
   "info": []
  }

@@ -75,7 +75,13 @@ const JEUSON=(()=>{
     if(s==0)ch.forEach(m=>tone(mf(m),t,SD*16,.026,'sine',musG,{att:.4}));if(s==0||s==8)tone(mf(ch[0]-12),t,SD*7,.1,'sine',musG,{att:.05});
     if([2,5,9,13,15].includes(s))tone(mf(ch[(s+bar)%4]+24),t,SD*3,.025,'triangle',musG,{att:.003});
     const _=null,M=[[_,_,_,_,16,_,_,_,14,_,_,_,11,_,_,_],[12,_,_,_,_,_,_,_,7,_,_,_,_,_,_,_],[_,_,_,_,12,_,_,_,14,_,_,_,16,_,_,_],[19,_,_,_,_,_,_,_,17,_,_,_,_,_,_,_]],mel=M[bar][s];
-    if(mel!=null)tone(mf(60+mel),t,SD*6,.04,'sine',musG,{vib:4,att:.1})}}
+    if(mel!=null)tone(mf(60+mel),t,SD*6,.04,'sine',musG,{vib:4,att:.1})}},
+  // Whack-a-Mole : fanfare de fête foraine rebondissante (orgue, basse sautillante, grosse caisse)
+  mole:{bpm:150,vol:.19,bars:[[60,64,67],[65,69,72],[67,71,74],[60,64,67],[60,64,67],[65,69,72],[67,71,74],[67,71,74]],
+   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.5,musG);if(s%4==2){noise(t,.06,.07,7000,'highpass',musG);tone(mf(ch[1]),t,SD*.6,.03,'square',musG);tone(mf(ch[2]),t,SD*.6,.03,'square',musG)}
+    if(s%4==0)tone(mf(ch[0]-12),t,SD*1.2,.13,'triangle',musG);if(s%8==4)noise(t,.1,.08,1800,'bandpass',musG,1);
+    const _=null,M=[[72,_,76,_,79,_,76,_,72,_,74,76,77,_,_,_],[77,_,81,_,84,_,81,_,77,_,79,81,82,_,_,_],[79,_,77,_,76,_,74,_,72,_,71,_,74,_,_,_],[72,_,_,79,_,_,76,_,72,_,_,_,_,_,_,_]][bar%4],m=M[s];
+    if(m!=null)tone(mf(m),t,SD*1.4,.05,'square',musG,{vib:5});if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.02,'triangle',musG)}}
  };
  function sched(){if(!ctx||!theme)return;const T=THEMES[theme],SD=60/T.bpm/4;if(next<ctx.currentTime)next=ctx.currentTime+.05;
   while(next<ctx.currentTime+.35){const s=step%16,bar=Math.floor(step/16)%T.bars.length;try{T.play(s,bar,next,SD,T.bars,step)}catch(e){}step++;next+=SD}}
@@ -211,3 +217,16 @@ Object.assign(JEUSON.FX,{
 Object.assign(JEUSON.FX,{
  wtTap(t){const T=JEUSON.tone;T(1900,t,.07,.05,'square',null,{slide:.7});T(2600,t+.03,.05,.03,'triangle');JEUSON.noise(t,.08,.12,3500,'bandpass',null,3)},
  wtScrub(t){JEUSON.noise(t,.12,.1,2600,'bandpass',null,1.2,{att:.03,sweep:1800});JEUSON.noise(t+.06,.08,.06,4200,'highpass',null,1)}});
+// ---------- Whack-a-Mole ----------
+Object.assign(JEUSON.FX,{
+ whPop(t,k){JEUSON.tone(300+k*200,t,.08,.06,'square',null,{slide:2.2});JEUSON.noise(t,.05,.05,1200,'bandpass',null,2)},
+ whBonk(t,k){const T=JEUSON.tone,N=JEUSON.noise;T(220,t,.12,.24,'square',null,{slide:.35});N(t,.08,.3,900,'bandpass',null,1.2);T(880+k*60,t+.03,.08,.08,'triangle',null,{slide:1.5})},
+ whGold(t){const T=JEUSON.tone;[1046,1318,1568,2093,2637].forEach((f,i)=>T(f,t+i*.05,.18,.07,'square'));JEUSON.noise(t+.1,.3,.06,8000,'highpass',null,1)},
+ whMiss(t){JEUSON.noise(t,.12,.12,600,'bandpass',null,1,{sweep:250});JEUSON.tone(140,t,.1,.08,'triangle',null,{slide:.6})},
+ whEscape(t){JEUSON.tone(500,t,.12,.05,'square',null,{slide:.5})},
+ whCombo(t,k){const b=523*Math.pow(2,Math.min(12,k)/12);[0,4,7,12].forEach((m,i)=>JEUSON.tone(b*Math.pow(2,m/12),t+i*.045,.1,.06,'square'))},
+ whTick(t,k){JEUSON.tone(k?1320:880,t,.07,.08,'square')},
+ whStart(t){[523,659,784,1046].forEach((f,i)=>JEUSON.tone(f,t+i*.1,i==3?.4:.1,.08,'square'))},
+ whEnd(t){[784,659,523,392].forEach((f,i)=>JEUSON.tone(f,t+i*.14,.16,.08,'square'));JEUSON.noise(t+.55,.4,.1,2000,'bandpass',null,1)},
+ whRecord(t){[[523,659,784],[587,740,880],[659,830,988],[784,988,1175,1568]].forEach((c,i)=>c.forEach(f=>JEUSON.tone(f,t+i*.14,i==3?.6:.13,.05,'square',null,{vib:i==3?7:0})))},
+ whClick(t){JEUSON.tone(1200,t,.04,.06,'square')}});

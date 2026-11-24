@@ -346,5 +346,351 @@
   "n": "TEL 15 aucune erreur JavaScript",
   "ok": true,
   "info": []
+ },
+ {
+  "n": "PC 1 quatre univers jouables (Dinosaur World, Alien Invasion, Future City, Space Galaxy), chacun avec sa musique et ses couleurs",
+  "ok": true,
+  "info": {
+   "sel": {
+    "ph": "select",
+    "cards": 4,
+    "mus": "pb_dino"
+   },
+   "univ": [
+    {
+     "id": "dino",
+     "nom": "DINOSAUR WORLD",
+     "ph": "jeu",
+     "mus": "pb_dino",
+     "pal": "#1d3a17,#2a4a1c,#3a2a12",
+     "wall": "#c9a66b"
+    },
+    {
+     "id": "alien",
+     "nom": "ALIEN INVASION",
+     "ph": "jeu",
+     "mus": "pb_alien",
+     "pal": "#06140c,#0a2216,#040c10",
+     "wall": "#39ff6a"
+    },
+    {
+     "id": "city",
+     "nom": "FUTURE CITY",
+     "ph": "jeu",
+     "mus": "pb_city",
+     "pal": "#0a0a2e,#1c0a40,#2e0a3a",
+     "wall": "#38e1ff"
+    },
+    {
+     "id": "space",
+     "nom": "SPACE GALAXY",
+     "ph": "jeu",
+     "mus": "pb_space",
+     "pal": "#0a0420,#160830,#05020f",
+     "wall": "#b48cff"
+    }
+   ]
+  }
+ },
+ {
+  "n": "PC 2 quatre plateaux physiques différents (bumpers, rampes, trous à bonus, cibles, passages, obstacles)",
+  "ok": true,
+  "info": [
+   {
+    "id": "dino",
+    "bumpers": 3,
+    "pos": "72,92 112,86 92,124",
+    "rampe": "25,142",
+    "trous": 1,
+    "cibles": 3,
+    "tombantes": 3,
+    "passages": 3,
+    "obstacles": 0
+   },
+   {
+    "id": "alien",
+    "bumpers": 4,
+    "pos": "96,82 70,108 122,108 96,134",
+    "rampe": "-",
+    "trous": 1,
+    "cibles": 3,
+    "tombantes": 5,
+    "passages": 4,
+    "obstacles": 0
+   },
+   {
+    "id": "city",
+    "bumpers": 3,
+    "pos": "60,96 96,80 74,132",
+    "rampe": "159,142",
+    "trous": 1,
+    "cibles": 3,
+    "tombantes": 3,
+    "passages": 3,
+    "obstacles": 5
+   },
+   {
+    "id": "space",
+    "bumpers": 5,
+    "pos": "96,90 132,116 118,159 74,159 60,116",
+    "rampe": "-",
+    "trous": 2,
+    "cibles": 3,
+    "tombantes": 3,
+    "passages": 2,
+    "obstacles": 0
+   }
+  ]
+ },
+ {
+  "n": "PC 3 physique de la boule sur les 4 tables : lancement, gravité, rebonds, bumpers, trous à bonus ; 2 400 lancers sans traverser ni sortir",
+  "ok": true,
+  "info": [
+   {
+    "id": "dino",
+    "out": 0,
+    "throws": 600,
+    "circFail": 0,
+    "lancer": true,
+    "gravite": true,
+    "bumper": true,
+    "trou": true
+   },
+   {
+    "id": "alien",
+    "out": 0,
+    "throws": 600,
+    "circFail": 0,
+    "lancer": true,
+    "gravite": true,
+    "bumper": true,
+    "trou": true
+   },
+   {
+    "id": "city",
+    "out": 0,
+    "throws": 600,
+    "circFail": 0,
+    "lancer": true,
+    "gravite": true,
+    "bumper": true,
+    "trou": true
+   },
+   {
+    "id": "space",
+    "out": 0,
+    "throws": 600,
+    "circFail": 0,
+    "lancer": true,
+    "gravite": true,
+    "bumper": true,
+    "trou": true
+   }
+  ]
+ },
+ {
+  "n": "PC 4 palettes gauche et droite : boutons ronds (un doigt, deux doigts), flèches du clavier, la palette frappe la boule",
+  "ok": true,
+  "info": {
+   "a0": [
+    "repos",
+    "repos"
+   ],
+   "g1": [
+    "haut",
+    "repos"
+   ],
+   "g2": [
+    "repos",
+    "repos"
+   ],
+   "d1": [
+    "repos",
+    "haut"
+   ],
+   "s1": [
+    "haut",
+    "haut"
+   ],
+   "k1": [
+    "haut",
+    "repos"
+   ],
+   "k2": [
+    "repos",
+    "haut"
+   ],
+   "hit": {
+    "vy": -764
+   }
+  }
+ },
+ {
+  "n": "PC 5 boutons GAUCHE/DROITE remontés d’environ 2 fois leur hauteur, symétriques, même taille ou un peu plus grands, sans cacher la table",
+  "ok": true,
+  "info": {
+   "ancienY": 304,
+   "nouveauY": 191,
+   "remontee": 113,
+   "hauteurBouton": 130,
+   "r": [
+    65,
+    68
+   ],
+   "flipY": 335,
+   "lanceur": {
+    "x": 538,
+    "y": 277,
+    "w": 44,
+    "h": 92
+   }
+  }
+ },
+ {
+  "n": "PC 6 bandeau de score réduit d’environ 45 à 50 % (portrait) et chiffres un peu plus petits",
+  "ok": true,
+  "info": {
+   "ratio": null
+  }
+ },
+ {
+  "n": "PC 7 le BEST de la table reste affiché en permanence (jeu, pause, boule perdue, nouveau record)",
+  "ok": true,
+  "info": {
+   "jeu": true,
+   "pause": true,
+   "record": true,
+   "perdue": true
+  }
+ },
+ {
+  "n": "PC 11 nouveau record : mise à jour immédiate du BEST, sauvegarde, animation NEW RECORD et son spécial",
+  "ok": true,
+  "info": {
+   "avant": 5000,
+   "apres": 7300,
+   "anim": true,
+   "son": true,
+   "sauve": true
+  }
+ },
+ {
+  "n": "PC 12 musique propre à chaque table + sons de bumper, trou à bonus et cibles propres à chaque univers (+ palettes, lanceur, perte de boule)",
+  "ok": true,
+  "info": {
+   "dino": {
+    "fx": [
+     "dnBump",
+     "dnSaucer",
+     "dnTarget"
+    ],
+    "mus": "pb_dino"
+   },
+   "alien": {
+    "fx": [
+     "alBump",
+     "alSaucer",
+     "alTarget"
+    ],
+    "mus": "pb_alien"
+   },
+   "city": {
+    "fx": [
+     "ctBump",
+     "pbCombo",
+     "ctSaucer",
+     "ctTarget"
+    ],
+    "mus": "pb_city"
+   },
+   "space": {
+    "fx": [
+     "spBump",
+     "pbCombo",
+     "spSaucer",
+     "spTarget"
+    ],
+    "mus": "pb_space"
+   }
+  }
+ },
+ {
+  "n": "PC 13 plein écran, sans borne, sans défilement",
+  "ok": true,
+  "info": {
+   "diff": 0,
+   "couvre": true,
+   "state": "game"
+  }
+ },
+ {
+  "n": "PC 10 records indépendants entre les 4 tables",
+  "ok": true,
+  "info": {
+   "dino": 7300,
+   "alien": 3333,
+   "alienAvant": 1111,
+   "city": 0,
+   "space": 2222
+  }
+ },
+ {
+  "n": "PC 14 fin de partie (score, best de la table, boules jouées, NEW RECORD) : CHANGER DE TABLE, REJOUER, RETOUR À LA SALLE D’ARCADE",
+  "ok": true,
+  "info": {
+   "fin": {
+    "ph": "over",
+    "rec": true,
+    "best": 8000,
+    "joue": 1
+   },
+   "chg": "select",
+   "ov2": "over",
+   "rej": {
+    "ph": "jeu",
+    "s": 0,
+    "b": 3,
+    "t": 2
+   },
+   "back": {
+    "st": "menu",
+    "cur": null,
+    "mus": null
+   }
+  }
+ },
+ {
+  "n": "PC 8 records conservés après fermeture du flipper (et affichés sur l’écran de choix)",
+  "ok": true,
+  "info": {
+   "ferm": {
+    "mem": {
+     "dino": 8000,
+     "alien": 3333,
+     "city": 20,
+     "space": 2222
+    },
+    "ls": true
+   },
+   "re": {
+    "ph": "select",
+    "sel": 2
+   }
+  }
+ },
+ {
+  "n": "PC 9 records conservés après rafraîchissement de la page",
+  "ok": true,
+  "info": {
+   "dino": 8000,
+   "alien": 3333,
+   "city": 20,
+   "space": 2222
+  }
+ },
+ {
+  "n": "PC 15 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
  }
 ]
