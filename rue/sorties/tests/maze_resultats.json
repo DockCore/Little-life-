@@ -1,0 +1,424 @@
+[
+ {
+  "n": "1 lancement depuis la borne : vignette « Maze Runner » prête, fiche, JOUER → écran de démarrage du jeu",
+  "ok": true,
+  "info": {
+   "cat": {
+    "i": 4,
+    "ready": true
+   },
+   "info": {
+    "st": "info",
+    "info": "maze"
+   },
+   "g1": {
+    "st": "game",
+    "cur": "maze",
+    "ph": "title"
+   }
+  }
+ },
+ {
+  "n": "2 plein écran : le jeu occupe toute la borne et tout l’écran, le catalogue n’est pas affiché",
+  "ok": true,
+  "info": {
+   "cv": [
+    0,
+    0,
+    390,
+    844
+   ],
+   "S": {
+    "x": 0,
+    "y": 0,
+    "w": 293,
+    "h": 633
+   },
+   "LW": 293,
+   "LH": 633,
+   "W": 390,
+   "H": 844
+  }
+ },
+ {
+  "n": "2b niveau 1 « Les Ruines Néon » : grille 25 × 17 identique à la référence (départ, 5 cristaux, 3 ennemis, sortie aux bonnes cases)",
+  "ok": true,
+  "info": {
+   "s3a": {
+    "ph": "intro",
+    "x": 1,
+    "y": 1,
+    "score": 0,
+    "lives": 3,
+    "got": 0,
+    "lv": 0,
+    "portal": 0
+   },
+   "S": {
+    "x": 1,
+    "y": 1
+   },
+   "E": {
+    "x": 19,
+    "y": 15
+   },
+   "crys": [
+    [
+     21,
+     5
+    ],
+    [
+     17,
+     8
+    ],
+    [
+     23,
+     12
+    ],
+    [
+     3,
+     15
+    ],
+    [
+     11,
+     15
+    ]
+   ],
+   "ens": [
+    [
+     7,
+     1,
+     "chasseur"
+    ],
+    [
+     4,
+     3,
+     "ruse"
+    ],
+    [
+     10,
+     3,
+     "spectre"
+    ]
+   ]
+  }
+ },
+ {
+  "n": "3 déplacements au joystick tactile dans les 4 directions : le coureur part du bon côté, s’arrête net au centre d’une case, regarde dans sa direction",
+  "ok": true,
+  "info": {
+   "cross": [
+    15,
+    11
+   ],
+   "mv": {
+    "right": [
+     2,
+     0,
+     true
+    ],
+    "left": [
+     -2,
+     0,
+     true
+    ],
+    "down": [
+     0,
+     2,
+     true
+    ],
+    "up": [
+     0,
+     -2,
+     true
+    ]
+   },
+   "face": "up"
+  }
+ },
+ {
+  "n": "4 collisions avec les murs : jamais traversés (petit choc animé + son contre la paroi) ; 20 s de commandes au hasard : jamais dans un mur, jamais en diagonale ni coincé dans un angle",
+  "ok": true,
+  "info": {
+   "w1": {
+    "x": 1,
+    "y": 1,
+    "bump": "right",
+    "face": "right",
+    "fx": 3
+   },
+   "rnd": {
+    "bad": 0,
+    "angle": 0,
+    "cases": 19,
+    "maxStill": 0
+   }
+  }
+ },
+ {
+  "n": "5 collecte des 5 cristaux : compteur 1/5 → 5/5, +100 points chacun, son et animation à chaque cristal",
+  "ok": true,
+  "info": {
+   "steps": [
+    [
+     3,
+     300,
+     0
+    ],
+    [
+     3,
+     300,
+     0
+    ],
+    [
+     3,
+     300,
+     0
+    ],
+    [
+     4,
+     400,
+     0
+    ],
+    [
+     5,
+     500,
+     1
+    ]
+   ],
+   "fx5": 5
+  }
+ },
+ {
+  "n": "9 portail : inactif (traversable sans effet) avant les 5 cristaux, puis activé avec animation et son au 5e",
+  "ok": true,
+  "info": {
+   "pe": {
+    "x": 19,
+    "y": 15,
+    "ph": "play"
+   },
+   "p9a": {
+    "ph": "play",
+    "x": 19,
+    "y": 15,
+    "score": 100,
+    "lives": 3,
+    "got": 1,
+    "lv": 0,
+    "portal": 0
+   },
+   "fxP": true
+  }
+ },
+ {
+  "n": "10 fin du niveau : portail atteint → LEVEL COMPLETED (cristaux, bonus temps, bonus niveau, +1 vie), niveau 2 débloqué et sauvegardé ; ENTER → « Le Labyrinthe Oublié »",
+  "ok": true,
+  "info": {
+   "dn": {
+    "ph": "done",
+    "t": {
+     "crys": 500,
+     "time": 465,
+     "lvl": 500,
+     "base": 500,
+     "life": true,
+     "bestT": 28.5
+    },
+    "score": 1465,
+    "lvl": 2,
+    "lives": 4
+   },
+   "n2": {
+    "ph": "intro",
+    "lv": 1,
+    "W": 27,
+    "H": 19,
+    "got": 0,
+    "score": 1465
+   }
+  }
+ },
+ {
+  "n": "6 trois gardiens différents (chasseur rouge, rusé violet qui coupe la route, spectre qui voit loin) : patrouillent tout le labyrinthe sans tourner en rond ni traverser les murs, détectent le coureur et le poursuivent par le plus court chemin",
+  "ok": true,
+  "info": {
+   "tiles": [
+    29,
+    27,
+    26
+   ],
+   "wall": 0,
+   "d0": 4,
+   "ds": [
+    4,
+    4,
+    4,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2
+   ],
+   "modeC": "chase",
+   "modeS": "chase",
+   "types": [
+    "chasseur",
+    "ruse",
+    "spectre"
+   ],
+   "vit": [
+    2.35,
+    2.23,
+    2.02
+   ],
+   "det": [
+    5,
+    5,
+    4
+   ]
+  }
+ },
+ {
+  "n": "7 collision avec un gardien : −1 vie, animation (clignotement, éclats, secousse) et son, réapparition au départ protégée un instant, cristaux déjà ramassés conservés",
+  "ok": true,
+  "info": {
+   "got": 1,
+   "l0": 3,
+   "l1": 2,
+   "ph": "hit",
+   "after": "play",
+   "pos": [
+    1,
+    1
+   ],
+   "gotAfter": 1,
+   "inv": true,
+   "fx": true,
+   "homes": true
+  }
+ },
+ {
+  "n": "8 vies : 3 au départ, perdues une à une, +1 vie en fin de niveau (vu au test 10) ; à 0 → GAME OVER ; ENTER rejoue le niveau avec 3 vies et score à zéro",
+  "ok": true,
+  "info": {
+   "go": {
+    "ph": "over",
+    "lives": 0,
+    "best": 4321
+   },
+   "re": {
+    "ph": "intro",
+    "x": 1,
+    "y": 1,
+    "score": 0,
+    "lives": 3,
+    "got": 0,
+    "lv": 0,
+    "portal": 0
+   }
+  }
+ },
+ {
+  "n": "11 portrait ⇄ paysage en pleine partie : dimensions, échelle et caméra recalculées (paysage : labyrinthe entier ; portrait : vue rapprochée + carte), aucun blocage, doigt relâché proprement",
+  "ok": true,
+  "info": {
+   "l1": {
+    "land": true,
+    "T": 15,
+    "w": 633,
+    "h": 293,
+    "dir": null,
+    "ph": "play",
+    "full": {
+     "x": 0,
+     "y": 0,
+     "w": 633,
+     "h": 293
+    }
+   },
+   "l2": {
+    "land": false,
+    "T": 16,
+    "w": 293,
+    "h": 633,
+    "mm": true
+   },
+   "stuck": null
+  }
+ },
+ {
+  "n": "12 joystick tactile fonctionnel après chaque rotation (droite en paysage, gauche en portrait, bas après rotation doigt posé)",
+  "ok": true,
+  "info": {
+   "a": [
+    15,
+    17
+   ],
+   "b": [
+    17,
+    15
+   ],
+   "c": [
+    11,
+    13
+   ]
+  }
+ },
+ {
+  "n": "13 EXIT (bouton rouge) : retour direct au catalogue de la borne, jeu arrêté (plus de mise à jour, plus de toucher capté) ; les autres jeux s’ouvrent normalement",
+  "ok": true,
+  "info": {
+   "ex": {
+    "st": "menu",
+    "cur": null,
+    "api": null,
+    "on": true,
+    "mus": null
+   },
+   "t0": 99.3458000000092,
+   "t1": 99.3458000000092,
+   "autres": {
+    "mole": true,
+    "racing": true,
+    "pinball": true,
+    "hockey": true
+   }
+  }
+ },
+ {
+  "n": "14 meilleur score enregistré dans la sauvegarde de Little Life (et niveau débloqué), retrouvé après rechargement",
+  "ok": true,
+  "info": {
+   "sv": {
+    "best": 4321,
+    "disque": true
+   },
+   "rl": {
+    "best": 4321,
+    "level": 2
+   }
+  }
+ },
+ {
+  "n": "16 les 5 niveaux sont terminables avec les gardiens et les pièges actifs (joueur automatique, 4 parties par niveau) ; difficulté croissante",
+  "ok": true,
+  "info": {
+   "reussites_sur_4": [
+    4,
+    4,
+    2,
+    4,
+    2
+   ],
+   "detail": "N1:gagné 50s 0 touché(s) · N1:gagné 150s 1 touché(s) · N1:gagné 58s 0 touché(s) · N1:gagné 40s 0 touché(s) · N2:gagné 53s 1 touché(s) · N2:gagné 68s 0 touché(s) · N2:gagné 60s 2 touché(s) · N2:gagné 70s 2 touché(s) · N3:gagné 111s 1 touché(s) · N3:gagné 89s 1 touché(s) · N3:perdu 98s 3 touché(s) · N3:perdu 101s 3 touché(s) · N4:gagné 102s 2 touché(s) · N4:gagné 58s 0 touché(s) · N4:gagné 79s 1 touché(s) · N4:gagné 54s 1 touché(s) · N5:gagné 45s 0 touché(s) · N5:perdu 181s 3 touché(s) · N5:perdu 97s 3 touché(s) · N5:gagné 77s 1 touché(s)"
+  }
+ },
+ {
+  "n": "15 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

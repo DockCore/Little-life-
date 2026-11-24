@@ -18,6 +18,7 @@ const JEUSON=(()=>{
   const a=o.att||.002;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(f);f.connect(g);g.connect(dest||sfxG);s.start(t,Math.random()*.5);s.stop(t+d+.03)}
  function kick(t,v,dest){const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(40,t+.13);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+.22);o.connect(g);g.connect(dest);o.start(t);o.stop(t+.25)}
  // ---------- musiques (séquenceur pas à pas, 16 doubles-croches par mesure) ----------
+ const _m=null;
  const THEMES={
   // bowling : groove disco-funk détendu, comme dans une salle de bowling un samedi soir
   bowling:{bpm:112,vol:.24,bars:[[45,52,57,60],[43,50,55,59],[41,48,53,57],[40,47,52,56]],
@@ -77,6 +78,13 @@ const JEUSON=(()=>{
     const _=null,M=[[_,_,_,_,16,_,_,_,14,_,_,_,11,_,_,_],[12,_,_,_,_,_,_,_,7,_,_,_,_,_,_,_],[_,_,_,_,12,_,_,_,14,_,_,_,16,_,_,_],[19,_,_,_,_,_,_,_,17,_,_,_,_,_,_,_]],mel=M[bar][s];
     if(mel!=null)tone(mf(60+mel),t,SD*6,.04,'sine',musG,{vib:4,att:.1})}},
   // Whack-a-Mole : fanfare de fête foraine rebondissante (orgue, basse sautillante, grosse caisse)
+  // maze : synthé arcade mystérieux et pulsé (ruines néon) — basse en croches, arpège mineur, nappes
+  maze:{bpm:132,vol:.18,bars:[[57,60,64],[57,60,64],[53,57,60],[55,59,62],[57,60,64],[57,60,64],[50,53,57],[52,56,59]],
+   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.45,musG);if(s==4||s==12)noise(t,.12,.09,2600,'bandpass',musG,.9);if(s%2==1)noise(t,.03,.035,9000,'highpass',musG);
+    tone(mf(ch[0]-24+(s%4==2?12:0)),t,SD*.8,.11,'square',musG,{att:.004});
+    const ar=[0,1,2,1,2,0,1,2][s%8];if(s%2==0)tone(mf(ch[ar]+12),t,SD*.9,.035,'triangle',musG);
+    if(s==0)tone(mf(ch[2]+12),t,SD*14,.018,'sawtooth',musG,{att:.3});
+    const M=[[76,_m,_m,79,_m,_m,81,_m,79,_m,76,_m,74,_m,_m,_m],[72,_m,_m,76,_m,_m,77,_m,76,_m,72,_m,71,_m,_m,_m]][(bar>>1)%2],m=M[s];if(Math.floor(k/64)%2&&m!=null)tone(mf(m),t,SD*1.6,.04,'square',musG,{vib:4})}},
   mole:{bpm:150,vol:.19,bars:[[60,64,67],[65,69,72],[67,71,74],[60,64,67],[60,64,67],[65,69,72],[67,71,74],[67,71,74]],
    play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.5,musG);if(s%4==2){noise(t,.06,.07,7000,'highpass',musG);tone(mf(ch[1]),t,SD*.6,.03,'square',musG);tone(mf(ch[2]),t,SD*.6,.03,'square',musG)}
     if(s%4==0)tone(mf(ch[0]-12),t,SD*1.2,.13,'triangle',musG);if(s%8==4)noise(t,.1,.08,1800,'bandpass',musG,1);
@@ -236,4 +244,19 @@ Object.assign(JEUSON.FX,{
  tiNew(t){const v=Math.pow(2,(Math.floor(Math.random()*3)-1)/24);[523,659,784,1047].forEach((f,i)=>{JEUSON.tone(f*v,t+i*.055,.2,.075,'square',null,{att:.003});JEUSON.tone(f*2*v,t+i*.055,.12,.02,'triangle')});JEUSON.tone(1568*v,t+.24,.38,.05,'triangle',null,{vib:6});JEUSON.noise(t,.08,.05,6000,'highpass')},
  tiCont(t){const v=Math.pow(2,(Math.floor(Math.random()*3)-1)/24);JEUSON.tone(220*v,t,.07,.06,'square',null,{slide:1.9});[[659,988],[784,1175]].forEach((c,i)=>c.forEach(f=>JEUSON.tone(f*v,t+.07+i*.11,.3,.06,'sine',null,{att:.004})));JEUSON.tone(1319*v,t+.3,.32,.035,'triangle',null,{vib:5})},
  tiNone(t){JEUSON.tone(392,t,.12,.06,'triangle',null,{slide:.75});JEUSON.tone(311,t+.11,.16,.05,'triangle',null,{slide:.8})}});
+// Maze Runner : pas feutrés, cristal, choc contre un mur, alerte d'un gardien, touché, réapparition, portail, niveau, victoire, game over, menus
+Object.assign(JEUSON.FX,{
+ mzStep(t){JEUSON.noise(t,.025,.025,2200+Math.random()*600,'bandpass')},
+ mzBump(t){JEUSON.tone(140,t,.07,.07,'square',null,{slide:.6});JEUSON.noise(t,.05,.05,900,'lowpass')},
+ mzCrystal(t){const v=1+Math.random()*.04;[1319,1760,2093,2637].forEach((f,i)=>JEUSON.tone(f*v,t+i*.045,.16,.05,'square',null,{att:.002}));JEUSON.tone(3520*v,t+.18,.25,.03,'triangle',null,{vib:7})},
+ mzAlert(t){JEUSON.tone(880,t,.06,.04,'square');JEUSON.tone(1175,t+.07,.08,.04,'square')},
+ mzHit(t){JEUSON.tone(520,t,.45,.09,'sawtooth',null,{slide:.15});JEUSON.noise(t,.3,.12,700,'lowpass');JEUSON.tone(90,t+.05,.3,.12,'square',null,{slide:.5})},
+ mzRespawn(t){[392,523,659].forEach((f,i)=>JEUSON.tone(f,t+i*.06,.12,.04,'triangle'))},
+ mzPortal(t){for(let i=0;i<8;i++)JEUSON.tone(330*Math.pow(2,i/4),t+i*.05,.25,.04,'square',null,{att:.003});JEUSON.tone(1320,t+.42,.6,.05,'triangle',null,{vib:6});JEUSON.noise(t,.5,.05,3000,'bandpass')},
+ mzLevel(t){[523,659,784,1047,784,1047,1319].forEach((f,i)=>JEUSON.tone(f,t+i*.09,.2,.06,'square',null,{att:.003}))},
+ mzWin(t){[523,659,784,1047,1319,1568,2093].forEach((f,i)=>{JEUSON.tone(f,t+i*.1,.3,.06,'square');JEUSON.tone(f/2,t+i*.1,.3,.04,'triangle')});JEUSON.tone(2093,t+.75,.9,.05,'triangle',null,{vib:6})},
+ mzOver(t){[392,330,262,196].forEach((f,i)=>JEUSON.tone(f,t+i*.2,.3,.07,'square',null,{slide:.97}));JEUSON.tone(98,t+.8,.8,.08,'triangle',null,{slide:.7})},
+ mzStart(t){[262,392,523,784].forEach((f,i)=>JEUSON.tone(f,t+i*.07,.15,.05,'square'))},
+ mzSelect(t){JEUSON.tone(988,t,.06,.05,'square');JEUSON.tone(1319,t+.06,.1,.05,'square')},
+ mzTick(t){JEUSON.tone(1568,t,.03,.03,'square')}});
 

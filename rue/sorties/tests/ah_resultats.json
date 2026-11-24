@@ -165,19 +165,19 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 51,
+    "saved": 50,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 58,
+    "saved": 59,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 60,
+    "saved": 58,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -259,7 +259,7 @@
   }
  },
  {
-  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing et Whack-a-Mole prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
+  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole et Maze Runner prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
@@ -272,7 +272,7 @@
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 3.82,
+   "msParImage": 3.59,
    "errs": []
   }
  },
@@ -442,13 +442,13 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 58,
+    "saved": 53,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
@@ -536,20 +536,20 @@
   }
  },
  {
-  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing et Whack-a-Mole prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
+  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole et Maze Runner prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 3
+   "ms": 1
   }
  },
  {
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.25,
+   "msParImage": 5.08,
    "errs": []
   }
  }
