@@ -89,7 +89,14 @@ const JEUSON=(()=>{
    play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.5,musG);if(s%4==2){noise(t,.06,.07,7000,'highpass',musG);tone(mf(ch[1]),t,SD*.6,.03,'square',musG);tone(mf(ch[2]),t,SD*.6,.03,'square',musG)}
     if(s%4==0)tone(mf(ch[0]-12),t,SD*1.2,.13,'triangle',musG);if(s%8==4)noise(t,.1,.08,1800,'bandpass',musG,1);
     const _=null,M=[[72,_,76,_,79,_,76,_,72,_,74,76,77,_,_,_],[77,_,81,_,84,_,81,_,77,_,79,81,82,_,_,_],[79,_,77,_,76,_,74,_,72,_,71,_,74,_,_,_],[72,_,_,79,_,_,76,_,72,_,_,_,_,_,_,_]][bar%4],m=M[s];
-    if(m!=null)tone(mf(m),t,SD*1.4,.05,'square',musG,{vib:5});if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.02,'triangle',musG)}}
+    if(m!=null)tone(mf(m),t,SD*1.4,.05,'square',musG,{vib:5});if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.02,'triangle',musG)}},
+  // Lucky Claw : boîte à musique de fête foraine, mignonne et sautillante (glockenspiel, basse rebondissante, claps)
+  claw:{bpm:124,vol:.18,bars:[[60,64,67],[57,60,64],[65,69,72],[67,71,74],[60,64,67],[57,60,64],[62,65,69],[67,71,74]],
+   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%8==0)kick(t,.4,musG);if(s==4||s==12)noise(t,.07,.07,2400,'bandpass',musG,1.4);if(s%2==1)noise(t,.02,.025,9500,'highpass',musG);
+    if([0,3,6,8,11,14].includes(s))tone(mf(ch[0]-12+(s==6||s==14?7:0)),t,SD*1.1,.11,'triangle',musG,{att:.004});
+    if(s%4==2){tone(mf(ch[1]),t,SD*.7,.025,'square',musG,{att:.003});tone(mf(ch[2]),t,SD*.7,.025,'square',musG,{att:.003})}
+    const M=[[84,_m,79,_m,76,_m,79,_m,81,_m,79,_m,76,_m,_m,_m],[81,_m,76,_m,72,_m,76,_m,79,_m,_m,77,76,_m,_m,_m],[77,_m,81,_m,84,_m,81,_m,77,_m,79,_m,81,_m,_m,_m],[79,_m,83,_m,86,_m,83,_m,79,_m,_m,_m,74,_m,_m,_m]][bar%4],m=M[s];
+    if(m!=null)tone(mf(m),t,SD*2.2,.045,'triangle',musG,{att:.002});if(m!=null&&Math.floor(k/128)%2)tone(mf(m+12),t,SD*.8,.012,'sine',musG,{att:.002})}}
  };
  function sched(){if(!ctx||!theme)return;const T=THEMES[theme],SD=60/T.bpm/4;if(next<ctx.currentTime)next=ctx.currentTime+.05;
   while(next<ctx.currentTime+.35){const s=step%16,bar=Math.floor(step/16)%T.bars.length;try{T.play(s,bar,next,SD,T.bars,step)}catch(e){}step++;next+=SD}}
@@ -259,4 +266,18 @@ Object.assign(JEUSON.FX,{
  mzStart(t){[262,392,523,784].forEach((f,i)=>JEUSON.tone(f,t+i*.07,.15,.05,'square'))},
  mzSelect(t){JEUSON.tone(988,t,.06,.05,'square');JEUSON.tone(1319,t+.06,.1,.05,'square')},
  mzTick(t){JEUSON.tone(1568,t,.03,.03,'square')}});
-
+// Lucky Claw : pièce, moteur du chariot (via engine), descente, arrêt, fermeture, montée, à-coup, ouverture, lot qui tombe, victoire, raté, fin
+Object.assign(JEUSON.FX,{
+ clCoin(t){JEUSON.tone(1319,t,.07,.06,'square');JEUSON.tone(1976,t+.07,.22,.06,'square',null,{vib:6});JEUSON.noise(t,.05,.04,6000,'highpass')},
+ clSelect(t){JEUSON.tone(880,t,.05,.05,'triangle');JEUSON.tone(1175,t+.05,.08,.05,'triangle')},
+ clDrop(t){JEUSON.tone(660,t,.6,.05,'triangle',null,{slide:.4});JEUSON.noise(t,.5,.03,1200,'bandpass',null,2,{sweep:500})},
+ clStop(t){JEUSON.noise(t,.06,.08,700,'lowpass');JEUSON.tone(180,t,.06,.06,'square',null,{slide:.6})},
+ clClose(t){JEUSON.tone(300,t,.12,.06,'sawtooth',null,{slide:.6});JEUSON.noise(t+.1,.05,.1,2600,'bandpass',null,2);JEUSON.tone(1400,t+.12,.04,.04,'square')},
+ clRise(t){JEUSON.tone(220,t,.7,.04,'triangle',null,{slide:2.4})},
+ clJolt(t){JEUSON.noise(t,.08,.12,500,'lowpass');JEUSON.tone(110,t,.1,.08,'square',null,{slide:.5})},
+ clRelease(t){JEUSON.tone(500,t,.1,.05,'square',null,{slide:1.6});JEUSON.noise(t,.08,.05,3000,'bandpass',null,2)},
+ clThud(t){JEUSON.noise(t,.18,.18,350,'lowpass');JEUSON.tone(120,t,.18,.1,'sine',null,{slide:.6});JEUSON.noise(t+.12,.1,.06,900,'bandpass')},
+ clWin(t,k){[523,659,784,1047].forEach((f,i)=>JEUSON.tone(f*k,t+i*.08,.2,.06,'square'));JEUSON.tone(1568*k,t+.34,.5,.05,'triangle',null,{vib:6});JEUSON.noise(t+.3,.6,.04,5000,'highpass',null,1,{att:.1})},
+ clWinNew(t,k){[523,659,784,1047,1319,1568].forEach((f,i)=>{JEUSON.tone(f*k,t+i*.08,.22,.06,'square');JEUSON.tone(f*k/2,t+i*.08,.2,.04,'triangle')});JEUSON.tone(2093*k,t+.5,.8,.05,'triangle',null,{vib:7});JEUSON.noise(t+.45,.8,.05,6000,'highpass',null,1,{att:.15})},
+ clMiss(t){JEUSON.tone(392,t,.16,.07,'triangle',null,{slide:.85});JEUSON.tone(311,t+.15,.3,.07,'triangle',null,{slide:.8})},
+ clOver(t){[523,440,349,262].forEach((f,i)=>JEUSON.tone(f,t+i*.16,.24,.06,'square',null,{slide:.97}))}});

@@ -35,14 +35,14 @@
  },
  {
   "n": "[tel] 2-4 la table occupe 100 % de l’écran, sans Little Life derrière ni personnage",
-  "ok": false,
+  "ok": true,
   "info": {
    "ch": 2,
    "lv": {
     "lv": "difficile",
     "ph": "compte"
    },
-   "go": "but",
+   "go": "jeu",
    "fill": {
     "S": [
      293,
@@ -259,20 +259,20 @@
   }
  },
  {
-  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole et Maze Runner prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
+  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole, Maze Runner et Lucky Claw prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 2
+   "ms": 3
   }
  },
  {
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.14,
+   "msParImage": 4.78,
    "errs": []
   }
  },
@@ -442,19 +442,19 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 46,
+    "saved": 53,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 58,
+    "saved": 60,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 58,
+    "saved": 60,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -536,20 +536,20 @@
   }
  },
  {
-  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole et Maze Runner prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
+  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole, Maze Runner et Lucky Claw prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 1
+   "ms": 4
   }
  },
  {
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 4.71,
+   "msParImage": 5.48,
    "errs": []
   }
  }

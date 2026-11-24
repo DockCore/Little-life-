@@ -1,0 +1,415 @@
+[
+ {
+  "n": "1 Lucky Claw dans la liste de la borne (une seule fois, même borne), fiche, JOUER → écran titre du jeu",
+  "ok": true,
+  "info": {
+   "cat": {
+    "i": 9,
+    "n": 14,
+    "dup": 1,
+    "ready": true,
+    "bornes": 1
+   },
+   "info": {
+    "st": "info",
+    "info": "claw"
+   },
+   "g1": {
+    "st": "game",
+    "cur": "claw",
+    "ph": "title",
+    "lots": 30,
+    "score": 0
+   }
+  }
+ },
+ {
+  "n": "2 plein écran : le jeu occupe tout l’écran, sans débordement",
+  "ok": true,
+  "info": {
+   "cv": [
+    0,
+    0,
+    390,
+    844
+   ],
+   "S": {
+    "x": 0,
+    "y": 0,
+    "w": 293,
+    "h": 633
+   },
+   "LW": 293,
+   "LH": 633,
+   "W": 390,
+   "H": 844,
+   "sx": 390,
+   "sy": 844
+  }
+ },
+ {
+  "n": "3 JOUER puis INSERER : 8 crédits offerts, une tentative consomme 1 crédit, chrono de visée",
+  "ok": true,
+  "info": {
+   "s3": {
+    "ph": "ready",
+    "gx": 15,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 8,
+    "score": 0,
+    "n": 30
+   },
+   "s3b": {
+    "ph": "aim",
+    "gx": 15,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   }
+  }
+ },
+ {
+  "n": "4 croix tactile : DROITE, GAUCHE, AVANT (vers le fond), ARRIÈRE, diagonale déplacent bien le chariot",
+  "ok": true,
+  "info": {
+   "a0": {
+    "ph": "aim",
+    "gx": 15,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "a1": {
+    "ph": "aim",
+    "gx": 37.50300000000001,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "a2": {
+    "ph": "aim",
+    "gx": 25.505999999999975,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "a3": {
+    "ph": "aim",
+    "gx": 25.505999999999975,
+    "gz": 34.49700000000002,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "a4": {
+    "ph": "aim",
+    "gx": 25.505999999999975,
+    "gz": 23.997000000000018,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "a5": {
+    "ph": "aim",
+    "gx": 35.05194154601838,
+    "gz": 33.542941546018426,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   }
+  }
+ },
+ {
+  "n": "5 butées : le chariot s’arrête aux bords, les doigts ouverts restent dans la vitrine",
+  "ok": true,
+  "info": {
+   "lim": {
+    "ph": "aim",
+    "gx": 85,
+    "gz": 49,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "Wd": {
+    "WX": 100,
+    "WD": 64,
+    "TOPY": 92,
+    "CHX": 30,
+    "CHZ": 28,
+    "CHH": 14,
+    "REACH": 15,
+    "HOME": {
+     "x": 15,
+     "z": 15
+    }
+   }
+  }
+ },
+ {
+  "n": "6 DESCENDRE : descente → arrêt au premier contact (tas ou sol) → fermeture → montée → retour au-dessus de la goulotte → ouverture",
+  "ok": true,
+  "info": {
+   "tgt": {
+    "x": 80.3120258168536,
+    "z": 47.67536436707376,
+    "y": 6.400011882130321,
+    "id": "licorne"
+   },
+   "aimed": {
+    "gx": 80.75735931288078,
+    "gz": 49
+   },
+   "stopY": 25.2666666666681,
+   "minY": 17.700742294451995,
+   "seq": [
+    "open",
+    "drop",
+    "grab",
+    "close",
+    "rise",
+    "home",
+    "release",
+    "settle",
+    "ready"
+   ],
+   "after": {
+    "ph": "ready",
+    "gx": 15,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   }
+  }
+ },
+ {
+  "n": "7 collisions : aucun lot ni doigt ne traverse la vitrine ou le sol (contrôle à chaque image)",
+  "ok": true,
+  "info": {
+   "v": {
+    "n": 0,
+    "max": 0,
+    "f": 0,
+    "frames": 4125
+   },
+   "res": {
+    "tries": 4,
+    "wins": 2,
+    "lifted": 2,
+    "score": 210,
+    "col": "{\"oeuf\":1,\"licorne\":1}"
+   }
+  }
+ },
+ {
+  "n": "8 victoire : OEUF DORÉ (légendaire) tombé dans la goulotte → animation, +150 points, collection mise à jour",
+  "ok": true,
+  "info": {
+   "before": {
+    "score": 210,
+    "col": {
+     "oeuf": 1,
+     "licorne": 1
+    }
+   },
+   "wph": {
+    "ph": "win",
+    "gx": 15,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 3,
+    "score": 360,
+    "n": 28
+   },
+   "won": {
+    "score": 360,
+    "col": {
+     "oeuf": 2,
+     "licorne": 1
+    },
+    "sav": true
+   }
+  }
+ },
+ {
+  "n": "9 collection : ouverture depuis la barre du haut, 12 lots (découverts / silhouettes), FERMER",
+  "ok": true,
+  "info": {
+   "c1": "col",
+   "c2": "ready"
+  }
+ },
+ {
+  "n": "10 crédits : +5 crédits contre 10 pièces, refus sans assez de pièces, TERMINER → fin de partie de la borne (score enregistré)",
+  "ok": true,
+  "info": {
+   "k1": {
+    "ph": "ready",
+    "cr": 5,
+    "coins": 15
+   },
+   "k2": {
+    "ph": "nocredit",
+    "cr": 0,
+    "coins": 3
+   },
+   "k3": {
+    "st": "over",
+    "over": {
+     "id": "claw",
+     "score": 360,
+     "rec": true
+    },
+    "best": 360,
+    "plays": 1
+   },
+   "sc": 360
+  }
+ },
+ {
+  "n": "11 REJOUER relance une partie neuve (8 crédits) ; RETOUR revient au catalogue de la borne, collection conservée",
+  "ok": true,
+  "info": {
+   "r1": {
+    "st": "game",
+    "ph": "title",
+    "cr": 8,
+    "sc": 0
+   },
+   "r2": {
+    "st": "menu",
+    "cur": null,
+    "on": true,
+    "col": 2
+   }
+  }
+ },
+ {
+  "n": "12 portrait et paysage, téléphone et tablette : vitrine, croix et bouton DESCENDRE entièrement visibles, sans chevauchement ni débordement ; jeu toujours jouable après rotation",
+  "ok": true,
+  "info": [
+   [
+    "390x844",
+    "portrait",
+    2.45,
+    63,
+    true
+   ],
+   [
+    "844x390",
+    "paysage",
+    1.82,
+    75,
+    true
+   ],
+   [
+    "320x568",
+    "portrait",
+    1.75,
+    51,
+    true
+   ],
+   [
+    "568x320",
+    "paysage",
+    1.46,
+    64,
+    true
+   ],
+   [
+    "768x1024",
+    "portrait",
+    1.59,
+    80,
+    true
+   ],
+   [
+    "1024x768",
+    "paysage",
+    2.43,
+    74,
+    true
+   ],
+   [
+    "1280x800",
+    "paysage",
+    2.54,
+    74,
+    true
+   ],
+   [
+    "1920x1080",
+    "paysage",
+    2.27,
+    90,
+    true
+   ]
+  ]
+ },
+ {
+  "n": "13 clavier : flèches = déplacement, Entrée = DESCENDRE",
+  "ok": true,
+  "info": {
+   "kb0": {
+    "ph": "aim",
+    "gx": 15,
+    "gz": 15,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "kb1": {
+    "ph": "aim",
+    "gx": 27.002999999999737,
+    "gz": 24.50100000000035,
+    "y": 92,
+    "open": 0.55,
+    "cr": 7,
+    "score": 0,
+    "n": 30
+   },
+   "kb2": "open"
+  }
+ },
+ {
+  "n": "14 aucune erreur JavaScript, invariants de vitrine respectés jusqu’au bout",
+  "ok": true,
+  "info": {
+   "errs": [],
+   "v2": {
+    "n": 0,
+    "max": 0,
+    "f": 0,
+    "frames": 4805
+   }
+  }
+ }
+]
