@@ -5,7 +5,7 @@
 /* fond de remplissage (uniquement là où l'illustration ne couvre pas l'écran, ex. paysage) : copie floutée, l'illustration reste intacte */
 #tscr .tbd{position:absolute;inset:-60px;background-position:center;background-size:cover;filter:blur(22px) saturate(1.15) brightness(.92);transform:scale(1.08)}
 #tscr .tbox{position:absolute;left:var(--tx,0);top:var(--ty,0);width:var(--tw,100vw);height:var(--th,100dvh);aspect-ratio:auto;max-width:none;transform-origin:50% 45%}
-#tscr .tart{display:block;width:100%;height:100%;image-rendering:auto;pointer-events:none;-webkit-user-drag:none;filter:none;opacity:1}
+#tscr .tart{display:block;position:absolute;left:0;top:0;width:100%;height:100%;image-rendering:auto;pointer-events:none;-webkit-user-drag:none;filter:none;opacity:1}
 #tscr .tbtn{all:unset;position:absolute;display:block;box-sizing:border-box;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;outline:none;z-index:2}
 #tscr .tbtn:focus-visible .tface{filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 3px #2b6cff)}
 #tscr .tsock{position:absolute;inset:0;background:radial-gradient(120% 140% at 50% 30%,#2a3160,#0f1430 70%);-webkit-mask:var(--sil) center/100% 100% no-repeat;mask:var(--sil) center/100% 100% no-repeat;opacity:0;transition:opacity .12s}
@@ -46,9 +46,18 @@
 #tscr .tbtn.nope .tface{animation:tNope .42s ease-in-out}
 @keyframes tNope{0%,100%{transform:none}20%{transform:translateX(-2.2%)}40%{transform:translateX(2.2%)}60%{transform:translateX(-1.4%)}80%{transform:translateX(1%)}}
 @media (prefers-reduced-motion:reduce){#tscr .tbtn.hint .tface,#tscr.enter .tbox,#tscr.enter .tface{animation:none!important}}
-/* écran large : illustration coupée sous les pieds (personnage entier), ombre portée sur le décor flouté */
-#tscr.wide .tbox{overflow:hidden;border-radius:0 0 18px 18px;box-shadow:0 10px 40px rgba(10,30,80,.35)}
-#tscr.wide .tart{height:auto}
-#tscr.wide.out .tbox{transform:none}
-#tscr.wide .tbd{background-position:50% 22%;filter:blur(22px) saturate(1.2) brightness(1)}
 #gmenu .gcard.conf .gi,#gmenu .gcard.conf .gps{display:none!important}
+
+/* deux compositions : verticale (tp) et horizontale (tl), chacune avec ses propres boutons découpés */
+#tscr .tbtn{--sil:var(--silP)}
+#tscr.land .tbtn{--sil:var(--silL)}
+#tscr .tl,#tscr.land .tp{display:none!important}
+#tscr.land .tl{display:block!important}
+/* prolongement du décor par effet miroir là où l'écran est plus large (ou plus haut) que l'illustration : pas de bande */
+#tscr .tmir{position:absolute;display:none;background-size:100% 100%;background-repeat:no-repeat;pointer-events:none}
+#tscr .tmir.on{display:block}
+/* « Continuer » sans sauvegarde : bouton désactivé (grisé dans son logement), le toucher explique pourquoi */
+#tscr .tbtn.off .tsock{opacity:1;background:linear-gradient(#d9e0ec,#b8c3d6)}
+#tscr .tbtn.off .tface img{filter:grayscale(1) brightness(1.12) contrast(.85);opacity:.55}
+#tscr .tbtn.off .tshine{display:none}
+#tscr .tbtn.off.press .tface{transform:scale(.985)}

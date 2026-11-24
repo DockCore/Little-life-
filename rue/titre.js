@@ -1,32 +1,31 @@
 // ===== ÉCRAN TITRE : illustration officielle, boutons « Nouvelle partie » / « Continuer » reliés au vrai jeu =====
 const TITRE=(()=>{
  const G={geo:null};
- const T=document.getElementById('tscr'),box=T.querySelector('.tbox'),art=T.querySelector('.tart'),bd=T.querySelector('.tbd'),msg=document.getElementById('tMsg');
+ const T=document.getElementById('tscr'),box=T.querySelector('.tbox'),bd=T.querySelector('.tbd'),msg=document.getElementById('tMsg'),mL=T.querySelector('.tmirL'),mR=T.querySelector('.tmirR');
  const bNew=document.getElementById('tNew'),bCont=document.getElementById('tCont');
- const IW=941,IH=1672,CRIT={x0:86,x1:855,y0:14,y1:1594};   // zone à garder toujours visible : logo, personnage entier, deux boutons
- bd.style.backgroundImage='url("'+art.src+'")';
- const BT=[[bNew,762,184],[bCont,751,189]].map(([b,w,h])=>({b,w,h,css:b.getAttribute('style')}));
+ // deux compositions de l'illustration officielle ; pour chacune : taille, zone à garder toujours visible (logo + personnage + boutons), position des boutons (px de l'image)
+ const COMP={
+  p:{art:T.querySelector('.tart.tp'),IW:941,IH:1672,crit:{x0:86,x1:855,y0:14,y1:1594},btn:{tNew:[90,1205,762,184],tCont:[95,1394,751,189]},msgY:1192},
+  l:{art:T.querySelector('.tart.tl'),IW:1672,IH:941,crit:{x0:455,x1:1215,y0:8,y1:900},btn:{tNew:[486,605,696,154],tCont:[496,760,677,136]},msgY:596}};
  // zones sûres (encoche, barre d'accueil) mesurées par une sonde CSS
  const pr=document.createElement('div');pr.style.cssText='position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)';document.body.appendChild(pr);
- function layout(){const W=T.clientWidth||innerWidth,H=T.clientHeight||innerHeight;if(!W||!H)return;const cs=getComputedStyle(pr),sa={t:parseFloat(cs.paddingTop)||0,r:parseFloat(cs.paddingRight)||0,b:parseFloat(cs.paddingBottom)||0,l:parseFloat(cs.paddingLeft)||0};
+ // mise en page recalculée à partir des dimensions RÉELLES du moment (aucune valeur gardée de l'orientation précédente)
+ function layout(){const W=innerWidth,H=innerHeight;if(!W||!H)return;const cs=getComputedStyle(pr),sa={t:parseFloat(cs.paddingTop)||0,r:parseFloat(cs.paddingRight)||0,b:parseFloat(cs.paddingBottom)||0,l:parseFloat(cs.paddingLeft)||0};
+  const land=W>H,C=land?COMP.l:COMP.p,K=C.crit;T.classList.toggle('land',land);
   const aw=W-sa.l-sa.r,ah=H-sa.t-sa.b;
-  // plein écran (cover) tant que la zone essentielle reste visible ; sinon on réduit juste ce qu'il faut (le reste de l'écran montre le décor flouté)
-  const s=Math.min(Math.max(W/IW,H/IH),aw/(CRIT.x1-CRIT.x0),ah/(CRIT.y1-CRIT.y0));
-  const tw=Math.round(IW*s),th=Math.round(IH*s);
+  // remplir l'écran (cover) tant que logo, personnage et boutons restent entiers ; sinon réduire juste ce qu'il faut
+  const s=Math.min(Math.max(W/C.IW,H/C.IH),aw/(K.x1-K.x0),ah/(K.y1-K.y0));
+  const tw=Math.round(C.IW*s),th=Math.round(C.IH*s);
   const cl=(v,a,b)=>Math.min(Math.max(v,Math.min(a,b)),Math.max(a,b));
-  const tx=Math.round(cl((W-tw)/2,sa.l-CRIT.x0*s,W-sa.r-CRIT.x1*s)),ty=Math.round(cl((H-th)/2,sa.t-CRIT.y0*s,H-sa.b-CRIT.y1*s));
-  const st=T.style,wide=tw<W*.62;T.classList.toggle('wide',wide);
-  if(!wide){BT.forEach(o=>{if(o.b.parentNode!==box)box.appendChild(o.b);o.b.setAttribute('style',o.css)});art.style.cssText='';
-   st.setProperty('--tx',tx+'px');st.setProperty('--ty',ty+'px');st.setProperty('--tw',tw+'px');st.setProperty('--th',th+'px');st.setProperty('--my',Math.round(ty+1192*s)+'px');
-   bd.style.display=(tx>0||ty>0||tx+tw<W||ty+th<H)?'':'none';G.geo={wide,s,tx,ty,tw,th,W,H,sa};return}
-  // écran large (paysage, tablette couchée, ordinateur) : l'illustration (logo + personnage entier) à gauche sur toute la hauteur,
-  // les deux boutons — les mêmes, découpés de l'illustration — en grand à droite, sous les pouces
-  const CUT=1198,sA=Math.min(ah/CUT,aw*.5/IW),aW=Math.round(IW*sA),aH=Math.round(CUT*sA),aX=Math.round(sa.l+Math.max(0,(aw*.5-aW)/2)),aY=Math.round(sa.t+(ah-aH)/2);
-  st.setProperty('--tx',aX+'px');st.setProperty('--ty',aY+'px');st.setProperty('--tw',aW+'px');st.setProperty('--th',aH+'px');art.style.cssText=`width:${aW}px;height:${Math.round(IH*sA)}px`;
-  const zX=sa.l+aw*.5,zW=aw*.5,gap=30,sB=Math.min(zW*.88/762,ah*.66/(184+189+gap)),bH=(184+189+gap)*sB,y0=sa.t+(ah-bH)/2;
-  BT.forEach((o,i)=>{if(o.b.parentNode!==T)T.insertBefore(o.b,msg);const w=Math.round(o.w*sB),h=Math.round(o.h*sB),y=Math.round(i?y0+(184+gap)*sB:y0);o.b.setAttribute('style',o.css.replace(/left:[^;]*;top:[^;]*;width:[^;]*;height:[^;]*/,`left:${Math.round(zX+(zW-w)/2)}px;top:${y}px;width:${w}px;height:${h}px`))});
-  st.setProperty('--my',Math.round(y0-12)+'px');bd.style.display='';G.geo={wide,s:sA,sB,tx:aX,ty:aY,tw:aW,th:aH,W,H,sa}}
- addEventListener('resize',layout);if(window.visualViewport)visualViewport.addEventListener('resize',layout);
+  const tx=Math.round(cl((W-tw)/2,sa.l-K.x0*s,W-sa.r-K.x1*s)),ty=Math.round(cl((H-th)/2,sa.t-K.y0*s,H-sa.b-K.y1*s));
+  const st=T.style;st.setProperty('--tx',tx+'px');st.setProperty('--ty',ty+'px');st.setProperty('--tw',tw+'px');st.setProperty('--th',th+'px');st.setProperty('--my',Math.round(ty+C.msgY*s)+'px');
+  // boutons replacés exactement sur leur dessin, en pixels de l'image courante
+  for(const b of [bNew,bCont]){const[x,y,w,h]=C.btn[b.id];b.style.left=Math.round(x*s)+'px';b.style.top=Math.round(y*s)+'px';b.style.width=Math.round(w*s)+'px';b.style.height=Math.round(h*s)+'px'}
+  // côtés plus larges que l'image : le décor se prolonge en miroir (pas de bande) ; haut/bas : décor flouté
+  const url='url("'+C.art.src+'")',gapX=tx>0||tx+tw<W;[[mL,tx-tw],[mR,tx+tw]].forEach(([m,x])=>{m.classList.toggle('on',gapX);if(gapX){m.style.cssText=`left:${x}px;top:${ty}px;width:${tw}px;height:${th}px;background-image:${url};transform:scaleX(-1)`}});
+  bd.style.backgroundImage=url;bd.style.display=(ty>0||ty+th<H)?'':'none';
+  G.geo={land,s,tx,ty,tw,th,W,H,sa}}
+ addEventListener('resize',layout);if(window.visualViewport)visualViewport.addEventListener('resize',layout);addEventListener('orientationchange',()=>{layout();[60,200,500].forEach(t=>setTimeout(layout,t))});
  const hasSave=()=>!!((typeof N!='undefined'&&N.created)||(typeof CLS!='undefined'&&CLS));
  // ---- sons (moteur audio existant, seulement après un geste du joueur) ----
  const snd=n=>{try{startAudio()}catch(e){}try{JEUSON.fx(n,1,.05)}catch(e){}};
@@ -59,9 +58,11 @@ const TITRE=(()=>{
  // ---- apparition + mise en évidence du bon bouton + reflets réguliers ----
  let shT=0;
  function shine(b){b.classList.remove('shine');void b.offsetWidth;b.classList.add('shine');setTimeout(()=>b.classList.remove('shine'),900)}
- function onShow(){layout();busy=false;msg.classList.remove('on');T.classList.remove('out');T.classList.add('enter');const h=hasSave()?bCont:bNew;bNew.classList.toggle('hint',h===bNew);bCont.classList.toggle('hint',h===bCont);
+ // « Continuer » n'est actif que s'il existe une sauvegarde (locale ou copie en ligne retrouvée)
+ function contState(){const on=hasSave();bCont.classList.toggle('off',!on);bCont.setAttribute('aria-disabled',on?'false':'true');bCont.setAttribute('aria-label',on?'Continuer':'Continuer (aucune sauvegarde)')}
+ function onShow(){layout();contState();busy=false;msg.classList.remove('on');T.classList.remove('out');T.classList.add('enter');const h=hasSave()?bCont:bNew;bNew.classList.toggle('hint',h===bNew);bCont.classList.toggle('hint',h===bCont);
   setTimeout(()=>shine(bNew),620);setTimeout(()=>shine(bCont),780);setTimeout(()=>T.classList.remove('enter'),1300);
-  clearInterval(shT);shT=setInterval(()=>{if(T.hidden){clearInterval(shT);return}shine(hasSave()?bCont:bNew)},4200)}
+  clearInterval(shT);let k=0;shT=setInterval(()=>{if(T.hidden){clearInterval(shT);return}contState();if(++k%8==0)shine(hasSave()?bCont:bNew)},525)}
  new MutationObserver(()=>{if(!T.hidden)onShow();else clearInterval(shT)}).observe(T,{attributes:true,attributeFilter:['hidden']});
  if(!T.hidden)onShow();
  G.layout=layout;G.onShow=onShow;G.hasSave=hasSave;return G;

@@ -79,3 +79,6 @@ html.land .gmenu{padding-top:calc(8px + env(safe-area-inset-top,0px))!important}
 .gor .row button{flex:1;height:38px;font-size:13.5px!important;white-space:nowrap;padding:0 4px!important;letter-spacing:0!important;position:relative}
 .gor .row button.on{background:var(--ok,#ffd27a)}
 #rotAuto{margin-top:14px;padding:10px 18px;border-radius:12px;border:2px solid #3b2a24;background:#ffd27a;color:#3b2a24;font:700 15px var(--rd,system-ui);box-shadow:0 3px 0 #3b2a24;pointer-events:auto}
+/* hauteur de l'écran mesurée en direct (iOS garde parfois un 100dvh périmé après rotation) */
+html.ll2{height:var(--appH,100dvh)}
+html.ll2:not(.land) main{height:var(--appH,100dvh)!important}

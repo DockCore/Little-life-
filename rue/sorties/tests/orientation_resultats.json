@@ -1,0 +1,294 @@
+[
+ {
+  "n": "1 démarrage en portrait : disposition verticale propre, Nori marche là où on touche, les menus répondent, aucun calque n’intercepte les touches",
+  "ok": true,
+  "info": {
+   "e1": {
+    "W": 390,
+    "H": 844,
+    "land": false,
+    "cls": false,
+    "pos": "relative",
+    "main": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "low": [
+     0,
+     360,
+     390,
+     484
+    ],
+    "tb": [
+     390,
+     844
+    ],
+    "needsIn": "hud",
+    "joy": "none",
+    "appH": 844,
+    "rot": "none",
+    "pause": false,
+    "rcOK": true,
+    "rcIn": true,
+    "marque": "même session",
+    "coins": 2468,
+    "scroll": 0
+   },
+   "m1": true,
+   "pn1": true,
+   "t1": []
+  }
+ },
+ {
+  "n": "2 passage en paysage : disposition horizontale complète, toucher le sol, joystick et panneau fonctionnent, aucun calque gênant",
+  "ok": true,
+  "info": {
+   "e2": {
+    "W": 844,
+    "H": 390,
+    "land": true,
+    "cls": true,
+    "pos": "fixed",
+    "main": [
+     0,
+     0,
+     844,
+     390
+    ],
+    "low": [
+     557,
+     0,
+     287,
+     390
+    ],
+    "tb": [
+     557,
+     390
+    ],
+    "needsIn": "hud lhud",
+    "joy": "block",
+    "appH": 390,
+    "rot": "none",
+    "pause": false,
+    "rcOK": true,
+    "rcIn": true,
+    "marque": "même session",
+    "coins": 2468,
+    "scroll": 0
+   },
+   "m2": true,
+   "pn2": true,
+   "j2": true,
+   "t2": []
+  }
+ },
+ {
+  "n": "3 retour en portrait sans rechargement : anciennes dimensions effacées (plus de colonne, de position fixe, de joystick ni de jauges déplacées), toile recalculée, touches et déplacements OK, même partie",
+  "ok": true,
+  "info": {
+   "e3": {
+    "W": 390,
+    "H": 844,
+    "land": false,
+    "cls": false,
+    "pos": "relative",
+    "main": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "low": [
+     0,
+     360,
+     390,
+     484
+    ],
+    "tb": [
+     390,
+     844
+    ],
+    "needsIn": "hud",
+    "joy": "none",
+    "appH": 844,
+    "rot": "none",
+    "pause": false,
+    "rcOK": true,
+    "rcIn": true,
+    "marque": "même session",
+    "coins": 2468,
+    "scroll": 0
+   },
+   "m3": true,
+   "pn3": true,
+   "t3": []
+  }
+ },
+ {
+  "n": "4 tous les boutons répondent : panneau, en-tête et menu ☰ complet, en portrait comme en paysage",
+  "ok": true,
+  "info": {
+   "g4p": {
+    "open": true,
+    "n": 28,
+    "bad": []
+   },
+   "g4l": {
+    "open": true,
+    "n": 28,
+    "bad": []
+   },
+   "t4": []
+  }
+ },
+ {
+  "n": "5 six allers-retours portrait ⇄ paysage, dont trois où l’événement de redimensionnement est perdu (comportement iOS) : la mise en page se corrige seule à chaque fois, aucune touche bloquée",
+  "ok": true,
+  "info": {
+   "cyc": [
+    {
+     "i": 0,
+     "av": false,
+     "L": true,
+     "P": true,
+     "ta": 0,
+     "tc": 0
+    },
+    {
+     "i": 1,
+     "av": true,
+     "L": true,
+     "P": true,
+     "ta": 0,
+     "tc": 0
+    },
+    {
+     "i": 2,
+     "av": false,
+     "L": true,
+     "P": true,
+     "ta": 0,
+     "tc": 0
+    },
+    {
+     "i": 3,
+     "av": true,
+     "L": true,
+     "P": true,
+     "ta": 0,
+     "tc": 0
+    },
+    {
+     "i": 4,
+     "av": false,
+     "L": true,
+     "P": true,
+     "ta": 0,
+     "tc": 0
+    },
+    {
+     "i": 5,
+     "av": true,
+     "L": true,
+     "P": true,
+     "ta": 0,
+     "tc": 0
+    }
+   ],
+   "avales": 6,
+   "m5": true,
+   "pn5": true
+  }
+ },
+ {
+  "n": "6 déplacements : toucher le sol et joystick après de multiples rotations ; dans la rue, une rotation doigt posé ne laisse rien « coincé » et la marche reprend au toucher",
+  "ok": true,
+  "info": {
+   "m6p": true,
+   "m6l": true,
+   "j6": true,
+   "st1": 119,
+   "st2": {
+    "px": 160.40000000000015,
+    "touch": {
+     "l": 0,
+     "r": 0
+    }
+   },
+   "st3": 160.40000000000015,
+   "st4": 275.4000000000007,
+   "t6": []
+  }
+ },
+ {
+  "n": "7 sauvegarde (Menu › Enregistrer), menus, écran titre (réorganisé en paysage puis en portrait) et « Continuer » fonctionnent après les rotations, sans perte",
+  "ok": true,
+  "info": {
+   "sv": true,
+   "ti1": {
+    "vis": true,
+    "cont": true
+   },
+   "tiL": {
+    "land": true,
+    "n": true,
+    "c": true,
+    "inV": true
+   },
+   "ti2": {
+    "vis": false,
+    "coins": 1357,
+    "marque": "même session"
+   },
+   "v7": "goals"
+  }
+ },
+ {
+  "n": "8 orientation choisie « Paysage » mais téléphone tenu en vertical : aucun écran bloquant, pas de pause, le jeu reste entièrement jouable",
+  "ok": true,
+  "info": {
+   "e8": {
+    "W": 390,
+    "H": 844,
+    "land": false,
+    "cls": false,
+    "pos": "relative",
+    "main": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "low": [
+     0,
+     360,
+     390,
+     484
+    ],
+    "tb": [
+     390,
+     844
+    ],
+    "needsIn": "hud",
+    "joy": "none",
+    "appH": 844,
+    "rot": "none",
+    "pause": false,
+    "rcOK": true,
+    "rcIn": true,
+    "marque": "même session",
+    "coins": 1357,
+    "scroll": 0
+   },
+   "m8": true,
+   "t8": []
+  }
+ },
+ {
+  "n": "9 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

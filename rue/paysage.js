@@ -21,14 +21,30 @@ const LS={land:false,block:false,mode:(()=>{if(/[?&]orient=libre/.test(location.
  // zone sûre du haut (barre d'état iOS/iPad dessinée par-dessus l'app) : la pièce démarre en dessous
  const probe=document.createElement('div');probe.style.cssText='position:fixed;left:0;top:0;width:0;visibility:hidden;pointer-events:none;height:env(safe-area-inset-top,0px)';document.body.appendChild(probe);
  // après une rotation, Safari peut laisser la page décalée : on la remet en haut
- const unscroll=()=>{if(LS.land&&(scrollX||scrollY||document.documentElement.scrollTop||document.body.scrollTop)){scrollTo(0,0);document.documentElement.scrollTop=document.body.scrollTop=0}};
+ const unscroll=()=>{if((scrollX||scrollY||document.documentElement.scrollTop||document.body.scrollTop)){scrollTo(0,0);document.documentElement.scrollTop=document.body.scrollTop=0}};
  function decide(){unscroll();const w=innerWidth,h=innerHeight,t=touch();LSRES.top=10+(probe.offsetHeight||0);
-  const block=t&&((LS.mode=='paysage'&&h>w)||(LS.mode=='portrait'&&w>h)),land=w>h&&(t||h<=560),ch=block!=LS.block||land!=LS.land;
-  LS.block=block;LS.land=land;if(block)rotTxt();HT.classList.toggle('needrot',block);HT.classList.toggle('land',land);place();
+  // aucune orientation ne bloque l'autre : la mise en page suit toujours l'écran réel (le choix Portrait/Paysage verrouille via le système quand il le permet)
+  const block=false,land=w>h&&(t||h<=560),ch=block!=LS.block||land!=LS.land;
+  HT.style.setProperty('--appH',h+'px');HT.style.setProperty('--appW',w+'px');
+  LS.block=block;LS.land=land;HT.classList.toggle('needrot',false);HT.classList.toggle('land',land);place();
+  if(ch)resetEtat();
   try{if(typeof AC!='undefined'&&AC)(document.hidden||block)?AC.suspend():AC.resume()}catch(e){}
   if(ch&&!busy){busy=true;try{dispatchEvent(new Event('resize'))}finally{busy=false}}}
- addEventListener('resize',()=>{if(!busy)decide()});
- try{screen.orientation&&screen.orientation.addEventListener('change',()=>setTimeout(decide,60))}catch(e){}
+ // remise à zéro des états liés à l'ancienne disposition : doigt resté sur le joystick, boutons enfoncés, saisie ouverte, défilement
+ function resetEtat(){try{if(LS.joy&&LS.joy.on){LS.joy.on=false;LS.joy.id=null;LS.joy.x=LS.joy.y=0;const j=document.querySelector('.ljoy');if(j){j.classList.remove('on');j.firstChild.style.transform=''}}}catch(e){}
+  try{document.querySelectorAll('.press').forEach(e=>e.classList.remove('press'))}catch(e){}
+  try{const a=document.activeElement;if(a&&a!==document.body&&/INPUT|TEXTAREA/.test(a.tagName))a.blur()}catch(e){}
+  try{if(typeof STV!='undefined'&&STV.touch){STV.touch.l=0;STV.touch.r=0}}catch(e){}
+  unscroll()}
+ // dimensions réelles surveillées en continu : iOS envoie parfois « resize » AVANT d'avoir mis à jour la taille après une rotation ;
+ // si la taille change sans événement, on relance nous-mêmes toute la mise en page (scène, panneaux, rue, arcade, cinéma, titre)
+ const VS={w:innerWidth,h:innerHeight};
+ function veille(){const w=innerWidth,h=innerHeight;if(w==VS.w&&h==VS.h)return;VS.w=w;VS.h=h;decide();if(!busy){busy=true;try{dispatchEvent(new Event('resize'))}finally{busy=false}}}
+ addEventListener('resize',()=>{if(!busy){VS.w=innerWidth;VS.h=innerHeight;decide()}});
+ const rafale=()=>{veille();[40,120,250,500,900,1500].forEach(t=>setTimeout(veille,t))};
+ addEventListener('orientationchange',rafale);try{matchMedia('(orientation: portrait)').addEventListener('change',rafale)}catch(e){}
+ setInterval(veille,400);LS.veille=veille;
+ try{screen.orientation&&screen.orientation.addEventListener('change',rafale)}catch(e){}
  if(window.visualViewport){visualViewport.addEventListener('resize',()=>{if(!busy)decide()});visualViewport.addEventListener('scroll',unscroll)}
  addEventListener('scroll',unscroll,{passive:true});document.addEventListener('fullscreenchange',()=>setTimeout(()=>{decide();dispatchEvent(new Event('resize'))},80));
  // caméra : en paysage la pièce est calée sur la hauteur de la scène (pixels nets, sans déformation)
@@ -41,11 +57,11 @@ const LS={land:false,block:false,mode:(()=>{if(/[?&]orient=libre/.test(location.
  const fit0=fit;fit=function(){fit0();if(!LS.land||!(dressing||creating))return;const r=topbox.getBoundingClientRect(),d=devicePixelRatio||1;if(!r.width)return;if(creating){const hd=document.getElementById('stHead');KK=Math.max(1,Math.floor((r.height-(hd?hd.offsetHeight:60))*d/140))}else KK=Math.max(1,Math.min(r.width*d/200,r.height*d/LSRES.dressH));LW=Math.floor(r.width*d/KK);LH=Math.floor(r.height*d/KK);RC.width=LW;RC.height=LH;RC.style.width=LW*KK/d+'px';RC.style.height=LH*KK/d+'px';rx.imageSmoothingEnabled=false};
  // plein écran + verrouillage horizontal au premier contact (Android ; iOS ne l'autorise pas aux pages)
  // verrouillage système quand il existe (Android, plein écran) ; sinon (iOS) l'écran de rotation guide le joueur
- const lockNow=()=>{try{if(!screen.orientation)return;if(LS.mode=='auto'){screen.orientation.unlock&&screen.orientation.unlock();return}screen.orientation.lock(LS.mode=='portrait'?'portrait':'landscape').catch(()=>{})}catch(e){}};
+ const lockNow=()=>{try{if(!screen.orientation)return;if(LS.mode=='auto'){screen.orientation.unlock&&screen.orientation.unlock();return}screen.orientation.lock(LS.mode=='portrait'?'portrait':'landscape').then(()=>{LS.locked=true},()=>{LS.locked=false;if(LS.asked){LS.asked=false;try{say('Ton appareil ne permet pas de verrouiller l’écran : tourne-le simplement, l’affichage s’adapte.')}catch(e){}}})}catch(e){}};
  const immersif=()=>{try{const st=matchMedia('(display-mode: standalone)').matches;if(!st&&document.fullscreenEnabled&&!document.fullscreenElement&&HT.requestFullscreen)return HT.requestFullscreen({navigationUI:'hide'}).then(lockNow).catch(lockNow);lockNow()}catch(e){}};
  let tried=false;addEventListener('pointerdown',()=>{if(tried||!touch()||/[?&]orient=libre/.test(location.search))return;tried=true;immersif()},true);
- function setMode(m){if(!['auto','portrait','paysage'].includes(m))return;LS.mode=m;try{localStorage.setItem('ll_orient',m)}catch(e){}if(touch())immersif();decide();dispatchEvent(new Event('resize'));gorDraw();
-  try{say(m=='auto'?'Orientation automatique : l’écran suit ton appareil.':m=='portrait'?'Affichage vertical choisi.':'Affichage horizontal choisi.')}catch(e){}}
+ function setMode(m){if(!['auto','portrait','paysage'].includes(m))return;LS.mode=m;LS.asked=m!='auto';try{localStorage.setItem('ll_orient',m)}catch(e){}if(touch())immersif();decide();dispatchEvent(new Event('resize'));gorDraw();
+  try{say(m=='auto'?'Orientation automatique : l’écran suit ton appareil.':m=='portrait'?'Affichage vertical choisi : tourne ton téléphone à la verticale.':'Affichage horizontal choisi : tourne ton téléphone à l’horizontale.')}catch(e){}}
  LS.setMode=setMode;
  // réglage « Orientation de l'écran » dans le menu du jeu (sous Police)
  const gor=document.createElement('div');gor.className='gi gsh gor';gor.innerHTML='<span>Orientation de l’écran</span><div class="row"><button type="button" data-or="auto">Auto</button><button type="button" data-or="portrait">Portrait</button><button type="button" data-or="paysage">Paysage</button></div>';

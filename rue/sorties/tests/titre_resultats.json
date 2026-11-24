@@ -18,7 +18,7 @@
    "ancienne": false,
    "scroll": 0,
    "geo": {
-    "wide": false,
+    "land": false,
     "s": 0.5047846889952153,
     "tx": -42,
     "ty": 0,
@@ -35,6 +35,7 @@
    },
    "fx": 0,
    "ecart": 0,
+   "ecartL": 0,
    "crit": {
     "l": 1.4114832535885213,
     "t": 7.0669856459330145,
@@ -74,9 +75,10 @@
   }
  },
  {
-  "n": "5 « Continuer » sans sauvegarde : « Aucune sauvegarde trouvée » s’affiche joliment au-dessus des boutons, l’écran titre reste, aucune partie n’est lancée",
+  "n": "5 « Continuer » sans sauvegarde : bouton désactivé (grisé) ; au toucher « Aucune sauvegarde trouvée » s’affiche joliment au-dessus des boutons, l’écran titre reste, aucune partie n’est lancée",
   "ok": true,
   "info": {
+   "off": true,
    "txt": "Aucune sauvegarde trouvée",
    "on": true,
    "op": 1,
@@ -96,7 +98,7 @@
   "info": {
    "mid": {
     "out": true,
-    "op": 0.97626
+    "op": 0.976244
    },
    "nw": {
     "titre": false,
@@ -125,6 +127,7 @@
   "ok": true,
   "info": {
    "t4": {
+    "actif": true,
     "titre": true,
     "hint": true
    },
@@ -181,26 +184,26 @@
   "n": "7 effets sonores : trois sons distincts (Nouvelle partie = arpège montant, Continuer = carillon, aucune sauvegarde = « bloup » doux), légère variation de hauteur d’une fois à l’autre, joués par le moteur audio existant après un geste",
   "ok": true,
   "info": {
-   "n": "523,1046,659,1318,784,1568,1047,2094,1568",
-   "c": "220,659,988,784,1175,1319",
+   "n": "538,1077,678,1357,807,1614,1078,2155,1614",
+   "c": "214,640,960,762,1142,1281",
    "no": "392,311",
    "varN": 3,
-   "varC": 2,
+   "varC": 3,
    "ctx": "running"
   }
  },
  {
-  "n": "8 portrait et paysage (iPhone SE, 14, Pro Max, iPad, téléphones couchés, iPad couché) : vertical = illustration plein écran ; horizontal = illustration entière à gauche + grands boutons à droite ; tout visible, zones tactiles ≥ 44 px, sans déformation ni défilement, boutons actifs",
+  "n": "8 portrait et paysage (iPhone SE, 14, Pro Max, iPad, téléphones couchés, iPad couché) : vertical = illustration verticale ; horizontal = illustration 16:9 de référence, décor prolongé sans bande ; tout visible, zones tactiles ≥ 44 px, sans déformation ni défilement, boutons actifs",
   "ok": true,
   "info": [
    "portrait 390x844 btn 385×93",
    "portrait 375x667 btn 304×73",
-   "portrait 430x932 btn 425×102",
-   "tablette 820x1180 btn 570×138",
-   "paysage 844x390 btn 371×90",
-   "paysage 667x375 btn 293×71",
-   "paysage 932x430 btn 410×99",
-   "tablette paysage 1024x768 btn 451×109"
+   "portrait 430x932 btn 425×103",
+   "tablette 820x1180 btn 569×137",
+   "paysage 844x390 btn 304×67",
+   "paysage 667x375 btn 278×61",
+   "paysage 932x430 btn 336×74",
+   "tablette paysage 1024x768 btn 568×126"
   ]
  },
  {

@@ -4,7 +4,7 @@
   "ok": true,
   "info": {
    "opened": true,
-   "dims": 0.9735674087269691,
+   "dims": 0.968878909366477,
    "cover": {
     "full": true,
     "top": true,
@@ -18,13 +18,13 @@
   "n": "TEL 2 vraie vidéo lue (fichier MP4 H.264 + AAC) : le temps avance, images et son décodés, durée réelle de 2 min",
   "ok": true,
   "info": {
-   "t": 2.55394,
+   "t": 2.569127,
    "dur": 120,
    "rs": 4,
    "w": 640,
    "h": 360,
    "src": "films/petit-robot.mp4",
-   "audio": 45649,
+   "audio": 46013,
    "video": 22242,
    "st": "play"
   }
@@ -73,13 +73,13 @@
   "info": {
    "pa": {
     "p": true,
-    "t": 4.161488,
+    "t": 4.152133,
     "st": "pause"
    },
-   "pa2": 4.161488,
+   "pa2": 4.152133,
    "re": {
     "p": false,
-    "t": 5.407412
+    "t": 5.361222
    }
   }
  },
@@ -87,7 +87,7 @@
   "n": "TEL 7 progression du film affichée (barre et temps « 0:07 / 2:00 »)",
   "ok": true,
   "info": {
-   "w": "4.5%",
+   "w": "4.47%",
    "txt": "0:05 / 2:00"
   }
  },
@@ -149,10 +149,10 @@
    "ended": true,
    "endShot": {
     "fin": true,
-    "l": 0.6087257212050274
+    "l": 0.6083497005484193
    },
-   "dimA": 0.3188559496845997,
-   "dimB": 0.043140477129174445,
+   "dimA": 0.3061017116939603,
+   "dimB": 0.041414858043567,
    "back": {
     "open": false,
     "place": "cine_s2",
@@ -194,7 +194,7 @@
     "st": "cine",
     "sawIso": false,
     "play": true,
-    "secs": "1.0"
+    "secs": "1.1"
    },
    "fin": {
     "place": "cine_couloir",
@@ -231,7 +231,7 @@
   "n": "PC 2 vraie vidéo lue (fichier MP4 H.264 + AAC) : le temps avance, images et son décodés, durée réelle de 2 min",
   "ok": true,
   "info": {
-   "t": 2.518264,
+   "t": 2.523753,
    "dur": 120,
    "rs": 4,
    "w": 640,
@@ -286,13 +286,13 @@
   "info": {
    "pa": {
     "p": true,
-    "t": 4.134859,
+    "t": 4.133734,
     "st": "pause"
    },
-   "pa2": 4.134859,
+   "pa2": 4.133734,
    "re": {
     "p": false,
-    "t": 5.384871
+    "t": 5.365426
    }
   }
  },
@@ -300,7 +300,7 @@
   "n": "PC 7 progression du film affichée (barre et temps « 0:07 / 2:00 »)",
   "ok": true,
   "info": {
-   "w": "4.48%",
+   "w": "4.47%",
    "txt": "0:05 / 2:00"
   }
  },
@@ -362,10 +362,10 @@
    "ended": true,
    "endShot": {
     "fin": true,
-    "l": 0.6124963859225656
+    "l": 0.6205646359184677
    },
-   "dimA": 0.28210333749940375,
-   "dimB": 0.03241780274301467,
+   "dimA": 0.2821033374989344,
+   "dimB": 0.039758263722075256,
    "back": {
     "open": false,
     "place": "cine_s2",

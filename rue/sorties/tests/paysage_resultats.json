@@ -1,6 +1,6 @@
 [
  {
-  "n": "1 orientation au choix (menu ☰ › Orientation de l’écran) : Auto suit l’appareil dans les deux sens ; Portrait et Paysage verrouillent l’affichage (écran « Tourne ton téléphone » + pause si on tient l’appareil autrement) ; changement sans redémarrage ni perte, préférence gardée, bouton « Auto » de secours",
+  "n": "1 orientation au choix (menu ☰ › Orientation de l’écran) : Auto / Portrait / Paysage ; verrouillage système quand l’appareil le permet, sinon l’affichage suit l’appareil — aucune orientation ne bloque jamais l’autre (pas d’écran bloquant, jeu jamais en pause) ; sans redémarrage ni perte, préférence gardée",
   "ok": true,
   "info": {
    "opt": {
@@ -57,8 +57,8 @@
    "paysP": {
     "mode": "paysage",
     "land": false,
-    "rot": "flex",
-    "txt": "Tu as choisi l’affichage horizontal.",
+    "rot": "none",
+    "txt": "Little Life se vit en mode portrait.",
     "m": [
      0,
      0,
@@ -76,12 +76,12 @@
     "marque": "même partie",
     "coins": 4321
    },
-   "paysPrun": false,
+   "paysPrun": true,
    "paysL": {
     "mode": "paysage",
     "land": true,
     "rot": "none",
-    "txt": "Tu as choisi l’affichage horizontal.",
+    "txt": "Little Life se vit en mode portrait.",
     "m": [
      0,
      0,
@@ -103,8 +103,8 @@
    "portL": {
     "mode": "portrait",
     "land": true,
-    "rot": "flex",
-    "txt": "Tu as choisi l’affichage vertical.",
+    "rot": "none",
+    "txt": "Little Life se vit en mode portrait.",
     "m": [
      0,
      0,
@@ -122,12 +122,12 @@
     "marque": "même partie",
     "coins": 4321
    },
-   "portLrun": false,
+   "portLrun": true,
    "portP": {
     "mode": "portrait",
     "land": false,
     "rot": "none",
-    "txt": "Tu as choisi l’affichage vertical.",
+    "txt": "Little Life se vit en mode portrait.",
     "m": [
      0,
      0,
@@ -151,7 +151,7 @@
     "mode": "auto",
     "land": true,
     "rot": "none",
-    "txt": "Tu as choisi l’affichage vertical.",
+    "txt": "Little Life se vit en mode portrait.",
     "m": [
      0,
      0,
@@ -168,7 +168,7 @@
     ],
     "coins": 4321
    },
-   "bloque": "flex"
+   "bloque": "none"
   }
  },
  {
@@ -189,7 +189,7 @@
   "info": {
    "res": {
     "droite": {
-     "dx": 77,
+     "dx": 83,
      "dy": 0
     },
     "gauche": {
@@ -198,10 +198,10 @@
     },
     "haut": {
      "dx": 0,
-     "dy": -38
+     "dy": -39
     },
     "bas": {
-     "dx": -26,
+     "dx": -29,
      "dy": 34
     }
    },
@@ -352,9 +352,9 @@
     "b": 390
    },
    "hole": {
-    "i": 8,
-    "x": 594,
-    "y": 329.2452083333333,
+    "i": 1,
+    "x": 422,
+    "y": 126.57854166666667,
     "cell": 129,
     "cellH": 76
    },

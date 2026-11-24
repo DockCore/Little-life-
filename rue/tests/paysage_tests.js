@@ -42,14 +42,14 @@ const PANOK=()=>{const lo=document.querySelector('.frame.low'),r=lo.getBoundingC
   await p.setViewportSize({width:390,height:844});await W(600);R1.portP=await st();R1.portPrun=await run();await p.screenshot({path:`${O}/ls_01_portrait.png`});
   // préférence gardée après rechargement ; bouton de secours « Auto » sur l'écran de rotation
   await p.reload();await W(2500);await E(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}});await W(300);R1.reload=await E(()=>LS.mode);
-  await p.setViewportSize({width:844,height:390});await W(600);const bl=await st();const bt=await E(()=>{const q=document.getElementById('rotAuto').getBoundingClientRect();return{x:q.left+q.width/2,y:q.top+q.height/2}});await p.touchscreen.tap(bt.x,bt.y);await W(600);R1.secours=await st();
+  await p.setViewportSize({width:844,height:390});await W(600);const bl=await st();await pick('auto');R1.secours=await st();
   const full=(x,w,h)=>x.m[0]==0&&x.m[1]==0&&x.m[2]==w&&x.m[3]==h;
   const good=opt.vis&&opt.on=='auto'&&/Orientation de l’écran/.test(opt.lab)&&
    !R1.autoP.land&&R1.autoP.rot=='none'&&R1.autoPrun&&full(R1.autoP,390,844)&&R1.autoL.land&&R1.autoL.rot=='none'&&R1.autoLrun&&full(R1.autoL,844,390)&&R1.autoL.t[0]==0&&
-   R1.paysP.rot=='flex'&&!R1.paysPrun&&/horizontal/.test(R1.paysP.txt)&&R1.paysL.rot=='none'&&R1.paysL.land&&R1.paysLrun&&full(R1.paysL,844,390)&&R1.paysL.t[0]==0&&
-   R1.portL.rot=='flex'&&!R1.portLrun&&/vertical/.test(R1.portL.txt)&&R1.portP.rot=='none'&&!R1.portP.land&&R1.portPrun&&full(R1.portP,390,844)&&
-   [R1.autoL,R1.paysL,R1.portP].every(x=>x.marque=='même partie'&&x.coins==4321)&&R1.reload=='portrait'&&bl.rot=='flex'&&R1.secours.mode=='auto'&&R1.secours.rot=='none'&&R1.secours.land;
-  ok('1 orientation au choix (menu ☰ › Orientation de l’écran) : Auto suit l’appareil dans les deux sens ; Portrait et Paysage verrouillent l’affichage (écran « Tourne ton téléphone » + pause si on tient l’appareil autrement) ; changement sans redémarrage ni perte, préférence gardée, bouton « Auto » de secours',good,{opt,...R1,bloque:bl.rot});
+   R1.paysP.rot=='none'&&R1.paysPrun&&!R1.paysP.land&&full(R1.paysP,390,844)&&R1.paysL.rot=='none'&&R1.paysL.land&&R1.paysLrun&&full(R1.paysL,844,390)&&R1.paysL.t[0]==0&&
+   R1.portL.rot=='none'&&R1.portLrun&&R1.portL.land&&R1.portP.rot=='none'&&!R1.portP.land&&R1.portPrun&&full(R1.portP,390,844)&&
+   [R1.autoL,R1.paysL,R1.portP].every(x=>x.marque=='même partie'&&x.coins==4321)&&R1.reload=='portrait'&&bl.rot=='none'&&bl.land&&R1.secours.mode=='auto'&&R1.secours.rot=='none'&&R1.secours.land;
+  ok('1 orientation au choix (menu ☰ › Orientation de l’écran) : Auto / Portrait / Paysage ; verrouillage système quand l’appareil le permet, sinon l’affichage suit l’appareil — aucune orientation ne bloque jamais l’autre (pas d’écran bloquant, jeu jamais en pause) ; sans redémarrage ni perte, préférence gardée',good,{opt,...R1,bloque:bl.rot});
   await ctx.close()}
  // ---- 2. chaque format : scène à gauche sur toute la hauteur, panneau à droite, pièce entière visible, sans déformation ni bande ----
  const fm=[];for(const [nom,w,h,dpr] of FORMATS){const ctx=await b.newContext({viewport:{width:w,height:h},deviceScaleFactor:dpr,hasTouch:true,isMobile:true});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(nom+': '+e.message));await boot(p);
