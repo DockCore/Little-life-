@@ -41,7 +41,7 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  const tr=await E(()=>new Promise(res=>{const sm=[];const t0=performance.now();streetEnter();const iv=setInterval(()=>{const s=LLSON.state();sm.push([Math.round(performance.now()-t0),s.cur,s.phase,+s.fade.toFixed(3)]);if(performance.now()-t0>4200){clearInterval(iv);res(sm)}},60)}));
  const outS=tr.filter(x=>x[1]=='maison'),inS=tr.filter(x=>x[1]=='rue'),firstIn=inS[0],lastOut=outS[outS.length-1];const fo=outS.filter(x=>x[2]=='out'),mono=fo.length>5&&fo.every((x,i)=>i==0||x[3]<=fo[i-1][3]+1e-6);
  ok('3 changement réel de lieu (maison → rue) : la musique quittée descend jusqu’au silence (~1,2 s), puis la nouvelle monte (~1,8 s) ; jamais deux morceaux ensemble',
-  outS.length>8&&mono&&lastOut[3]<.05&&firstIn&&firstIn[3]<.1&&inS[inS.length-1][3]>.5&&firstIn[0]-outS[0][0]>=900,{debutFondu:outS[0],finFondu:lastOut,entree:firstIn,fin:inS[inS.length-1]});
+  outS.length>8&&mono&&lastOut[3]<.08*outS[0][3]&&firstIn&&firstIn[3]<.1&&inS[inS.length-1][3]>.5&&firstIn[0]-outS[0][0]>=900,{debutFondu:outS[0],finFondu:lastOut,entree:firstIn,fin:inS[inS.length-1]});
  // fondus réglables
  const cf=await E(()=>{const P=LLSON.prefs();P.fo=.4;P.fi=.5;return true});await settle('rue');await E(()=>{arrive('home')});await settle('maison');const lg=(await E(()=>LLSON.log())).filter(e=>e.ev=='fondu-sortant'||e.ev=='début').slice(-2);
  await E(()=>{const P=LLSON.prefs();P.fo=1.2;P.fi=1.8});
@@ -103,8 +103,8 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  // ---- 15. mixage et structure de toutes les musiques (rendu hors ligne) ----
  const mx=await E(async()=>{const o={},ids=LLSON.themes().filter(i=>LLSON.theme(i));for(const id of ids){const T=LLSON.theme(id),bars=T.form.reduce((a,f)=>a+f[1],0),sec=bars*16*60/T.bpm/4;const x=await LLSON.render(id,6,{fromBar:12});o[id]={rms:+x.rms.toFixed(3),peak:+x.peak.toFixed(2),cycle:Math.round(sec),bars}}return o});
  const rv=Object.values(mx),db=v=>20*Math.log10(v),lo=Math.min(...rv.map(v=>v.rms)),hi=Math.max(...rv.map(v=>v.rms));
- ok('15 mixage homogène de '+rv.length+' musiques (écart de niveau ≤ 6 dB, aucune saturation) ; chaque morceau : au moins 40 mesures et 1 min 15 avant de reboucler, mélodies renouvelées à chaque passage',
-  rv.length>=35&&db(hi)-db(lo)<=6&&rv.every(v=>v.peak<.95&&v.bars>=40&&v.cycle>=75),{ecartDb:+(db(hi)-db(lo)).toFixed(1),min:lo,max:hi,exemples:Object.fromEntries(Object.entries(mx).slice(0,6))});
+ ok('15 mixage homogène de '+rv.length+' musiques (écart de niveau ≤ 6 dB, aucune saturation) ; chaque morceau : au moins 100 mesures et 3 min avant de reboucler',
+  rv.length>=35&&db(hi)-db(lo)<=6&&rv.every(v=>v.peak<.95&&v.bars>=100&&v.cycle>=180&&v.cycle<=330),{ecartDb:+(db(hi)-db(lo)).toFixed(1),min:lo,max:hi,exemples:Object.fromEntries(Object.entries(mx).slice(0,6))});
  // ---- 16. identité : aucun lieu ne partage sa musique avec un autre ----
  const ids=await E(()=>{const z=['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','cine_hall','cine_couloir','cine_salle','cine_wc','cine_prive','arcade','bowling'];
   const sig=z.map(id=>{const T=LLSON.theme(id);return[T.bpm,T.key,T.mode,JSON.stringify(T.prog.A)].join('|')});return{n:z.length,uniq:new Set(sig).size}});
@@ -113,5 +113,15 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  await p.addInitScript(()=>{});const ld=await E(()=>new Promise(r=>{LLSON.want('arcade');setTimeout(()=>{let n=0;const B=BaseAudioContext.prototype,keep={};for(const k of['createOscillator','createGain','createBiquadFilter','createBufferSource']){keep[k]=B[k];B[k]=function(){if(this instanceof AudioContext)n++;return keep[k].apply(this,arguments)}}
   setTimeout(()=>{for(const k in keep)B[k]=keep[k];r(Math.round(n/8))},8000)},6000)}));
  ok('17 charge audio légère : moins de 80 nœuds créés par seconde sur le morceau le plus chargé (notes mises en cache, batterie précalculée)',ld<80,{noeudsParSeconde:ld});
- ok('18 aucune erreur JavaScript',errs.length==0,errs);
+ // ---- 18. composition : vraies formes, aucune note longue, aucune boucle évidente (partition complète de chaque lieu) ----
+ const cp=await E(()=>{const o={};for(const id of['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','cine_hall','cine_couloir','cine_salle','cine_prive','cine_wc','arcade','bowling']){
+  const sc=LLSON.score(id),B=sc.bar,bars=[];for(let i=0;i<sc.bars;i++)bars.push([]);for(const n of sc.notes){const bi=Math.floor(n[3]/B+1e-6);if(bars[bi])bars[bi].push(n[0]+n[1]+n[2]+'@'+Math.round((n[3]-bi*B)/B*16))}
+  const sig=bars.map(x=>x.sort().join('|'));let run=0,maxRun=0;for(let i=4;i<sig.length;i++){run=sig[i]==sig[i-4]?run+1:0;maxRun=Math.max(maxRun,run)}
+  const mel=sc.notes.filter(n=>n[0]=='mel'),ph=new Set();for(let q=0;q<sc.bars/4;q++){const s=mel.filter(n=>n[3]>=q*4*B-1e-6&&n[3]<(q+1)*4*B-1e-6).map(n=>n[2]+'@'+Math.round((n[3]-q*4*B)/B*16)).join(',');if(s)ph.add(s)}
+  const longest=Math.max(...sc.notes.filter(n=>n[0]!='pd').map(n=>n[4])),pd=sc.notes.filter(n=>n[0]=='pd');
+  o[id]={sec:Math.round(sc.sec),parts:sc.form.length,uniq:new Set(sig).size/sc.bars,maxRun4:maxRun,phrases:ph.size,pitches:new Set(mel.map(n=>n[2])).size,longest,pdBars:new Set(pd.map(n=>Math.floor(n[3]/B))).size,pdMax:Math.max(0,...pd.map(n=>n[4]))}}return o});
+ const cv=Object.values(cp);
+ ok('18 composition : 17 morceaux de 3 à 5 min en 9 parties (intro, couplets, montée, refrains, pause, pont, final), mélodie de 9 notes ou plus en au moins 15 phrases différentes, au moins 70 % de mesures toutes différentes, jamais plus de 4 mesures copiées d’affilée ; aucune note de plus de 0,5 s (nappes ≤ 1,4 s et seulement dans l’intro et la pause)',
+  cv.every(v=>v.sec>=180&&v.sec<=330&&v.parts>=9&&v.pitches>=9&&v.phrases>=15&&v.uniq>=.7&&v.maxRun4<=4&&v.longest<=.5&&v.pdMax<=1.4&&v.pdBars<=12),cp);
+ ok('19 aucune erreur JavaScript',errs.length==0,errs);
  await b.close();const n=R.filter(r=>r.ok).length;console.log(n+'/'+R.length+' tests réussis');fs.writeFileSync(`${O}/musique_resultats.json`,JSON.stringify(R,null,1));process.exit(n==R.length?0:1)})();
