@@ -664,6 +664,18 @@ html.land .gmenu{padding-top:calc(8px + env(safe-area-inset-top,0px))!important}
 /* hauteur de l'écran mesurée en direct (iOS garde parfois un 100dvh périmé après rotation) */
 html.ll2{height:var(--appH,100dvh)}
 html.ll2:not(.land) main{height:var(--appH,100dvh)!important}
+/* menus (paramètres, vente) : la carte défile quand elle dépasse la hauteur réelle de l'écran, sans rien compresser */
+.gmenu{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))!important;padding-left:calc(20px + env(safe-area-inset-left,0px));padding-right:calc(20px + env(safe-area-inset-right,0px))}
+.gcard{max-height:calc(100vh - 40px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));max-height:calc(100dvh - 40px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;scroll-padding-top:58px}
+.gcard>*{flex-shrink:0}
+.gcard input[type=range]{touch-action:pan-y pinch-zoom}
+#gmenu .ghead{position:sticky;top:-12px;z-index:2;margin:-12px -12px 0;padding:12px 14px 6px;background:var(--paper);border-radius:11px 11px 0 0}
+html.land .gmenu{padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))!important}
+html.land .gcard{max-height:calc(100vh - 16px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));max-height:calc(100dvh - 16px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+html.land #gmenu .ghead{margin:0;padding:2px 2px 6px;top:0;border-radius:0;box-shadow:0 -14px 0 var(--paper)}
+html.land .gcard>*{min-width:0}
+html.land #gmenu .gcard>.gson{grid-column:1/-1}
+#gmenu .gcard>.gson{height:auto!important;padding:10px 14px}
 
 /* ===== ÉCRAN TITRE (illustration officielle + deux vrais boutons animés) ===== */
 #tscr.tscr{position:fixed;inset:0;z-index:50;display:block;overflow:hidden;background:#69b8ec;touch-action:none;overscroll-behavior:none;-webkit-user-select:none;user-select:none}
