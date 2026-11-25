@@ -1,0 +1,434 @@
+[
+ {
+  "n": "1 Bubble Pop dans la liste de la borne (une fois, avec sa vignette), fiche, JOUER → plein écran",
+  "ok": true,
+  "info": {
+   "cat": {
+    "i": 5,
+    "n": 1,
+    "art": true,
+    "mod": true
+   },
+   "fsx": {
+    "st": "game",
+    "cur": "bubble",
+    "cv": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "W": 390,
+    "H": 844,
+    "full": true,
+    "ph": "title"
+   }
+  }
+ },
+ {
+  "n": "2 JOUER → carte du niveau 1 (objectif), puis partie",
+  "ok": true,
+  "info": {
+   "s2": {
+    "ph": "intro",
+    "lvl": 0,
+    "score": 0,
+    "shots": 0,
+    "n": 43,
+    "cur": 4,
+    "next": 0,
+    "paused": false,
+    "mute": false,
+    "aim": -1.5707963267948966,
+    "shot": false
+   },
+   "s2b": {
+    "ph": "play",
+    "lvl": 0,
+    "score": 0,
+    "shots": 0,
+    "n": 43,
+    "cur": 4,
+    "next": 0,
+    "paused": false,
+    "mute": false,
+    "aim": -1.5707963267948966,
+    "shot": false
+   }
+  }
+ },
+ {
+  "n": "3 visée : gauche, haut, droite suivent le doigt ; vers le bas la visée reste bloquée au-dessus de l’horizontale ; chaque lâcher tire",
+  "ok": true,
+  "info": {
+   "aims": [
+    -2.001,
+    -1.571,
+    -1.141,
+    -2.942,
+    -0.2,
+    -2.942
+   ],
+   "tirs": 6,
+   "dbg": [
+    [
+     1,
+     "play",
+     44,
+     false
+    ],
+    [
+     2,
+     "play",
+     45,
+     false
+    ],
+    [
+     3,
+     "play",
+     42,
+     false
+    ],
+    [
+     4,
+     "play",
+     43,
+     false
+    ],
+    [
+     5,
+     "play",
+     41,
+     false
+    ],
+    [
+     6,
+     "play",
+     42,
+     false
+    ]
+   ]
+  }
+ },
+ {
+  "n": "4 lâcher le doigt tire : bulle en vol, sons de tir et d’accroche, bulle suivante chargée",
+  "ok": true,
+  "info": {
+   "fired": true,
+   "land": {
+    "shots": 1,
+    "fx": [
+     "bpShoot",
+     "bpBounce",
+     "bpBounce",
+     "bpBounce",
+     "bpBounce",
+     "bpStick",
+     "bpShoot",
+     "bpStick"
+    ]
+   }
+  }
+ },
+ {
+  "n": "5 trajectoire de visée = trajectoire réelle : la bulle s’accroche dans la case annoncée (40 tirs aléatoires, avec rebonds sur les murs)",
+  "ok": true,
+  "info": {
+   "okN": 40,
+   "tot": 40,
+   "bounced": 18,
+   "skip": 20
+  }
+ },
+ {
+  "n": "6 groupes : 2 bulles ne s’éclatent pas, 3 oui ; les bulles détachées du plafond tombent (bonus de chute)",
+  "ok": true,
+  "info": {
+   "two": {
+    "popped": 0,
+    "fell": 0,
+    "starsFreed": 0
+   },
+   "n2": 2,
+   "three": {
+    "popped": 3,
+    "fell": 0,
+    "starsFreed": 0
+   },
+   "drop": {
+    "popped": 3,
+    "fell": 3,
+    "starsFreed": 0
+   },
+   "left": 0
+  }
+ },
+ {
+  "n": "7 score : groupe de 6 (bonus gros groupe) + 3 bulles tombées (bonus chute) + combo affiché",
+  "ok": true,
+  "info": {
+   "score": 275,
+   "combo": 2,
+   "texts": [
+    "+275",
+    "COMBO X1,5",
+    "SUPER !"
+   ],
+   "falls": 3,
+   "pops": 6
+  }
+ },
+ {
+  "n": "8 toucher la bulle suivante l’échange avec la bulle chargée (animation), sans tirer",
+  "ok": true,
+  "info": {
+   "sw0": [
+    3,
+    5
+   ],
+   "sw1": [
+    5,
+    3
+   ]
+  }
+ },
+ {
+  "n": "9 pause : le jeu se fige (pas de tir possible), SON coupé/rétabli (aucun effet sonore joué quand coupé, choix sauvegardé), REPRENDRE",
+  "ok": true,
+  "info": {
+   "p1": true,
+   "p2": 0,
+   "p3": true,
+   "p4": 1,
+   "fxPendantCoupe": 0,
+   "p5": false
+  }
+ },
+ {
+  "n": "10 victoire : animation, score affiché, niveau 2 débloqué et sauvegardé, NIVEAU SUIVANT charge le niveau 2",
+  "ok": true,
+  "info": {
+   "v": {
+    "ph": "won",
+    "lvl": 0,
+    "score": 805,
+    "shots": 1,
+    "n": 0,
+    "cur": 2,
+    "next": 0,
+    "paused": false,
+    "mute": false,
+    "aim": -1.832466043891828,
+    "shot": false
+   },
+   "lvSaved": 2,
+   "v2": {
+    "ph": "intro",
+    "lvl": 1,
+    "score": 805,
+    "shots": 0,
+    "n": 51,
+    "cur": 5,
+    "next": 3,
+    "paused": false,
+    "mute": false,
+    "aim": -1.5707963267948966,
+    "shot": false
+   }
+  }
+ },
+ {
+  "n": "11 défaite (bulles sous la ligne rouge) : écran adapté, RECOMMENCER relance le même niveau avec le score de départ",
+  "ok": true,
+  "info": {
+   "d": {
+    "ph": "lost",
+    "lvl": 1,
+    "score": 805,
+    "shots": 1,
+    "n": 52,
+    "cur": 3,
+    "next": 3,
+    "paused": false,
+    "mute": false,
+    "aim": -1.5707963267948966,
+    "shot": false
+   },
+   "d2": {
+    "ph": "intro",
+    "lvl": 1,
+    "score": 805,
+    "shots": 0,
+    "n": 51,
+    "cur": 5,
+    "next": 5,
+    "paused": false,
+    "mute": false,
+    "aim": -1.5707963267948966,
+    "shot": false
+   }
+  }
+ },
+ {
+  "n": "12 12 niveaux : objectifs ÉCLATER TOUT / LIBÉRER LES ÉTOILES / SCORE EN N TIRS, de 3 à 6 couleurs, plafond qui descend",
+  "ok": true,
+  "info": [
+   {
+    "obj": "clear",
+    "drop": 0,
+    "c": 3
+   },
+   {
+    "obj": "clear",
+    "drop": 0,
+    "c": 3
+   },
+   {
+    "obj": "stars",
+    "drop": 0,
+    "c": 4
+   },
+   {
+    "obj": "clear",
+    "drop": 9,
+    "c": 4
+   },
+   {
+    "obj": "score",
+    "drop": 0,
+    "c": 4
+   },
+   {
+    "obj": "clear",
+    "drop": 8,
+    "c": 5
+   },
+   {
+    "obj": "stars",
+    "drop": 8,
+    "c": 5
+   },
+   {
+    "obj": "clear",
+    "drop": 9,
+    "c": 5
+   },
+   {
+    "obj": "clear",
+    "drop": 12,
+    "c": 6
+   },
+   {
+    "obj": "stars",
+    "drop": 7,
+    "c": 6
+   },
+   {
+    "obj": "clear",
+    "drop": 10,
+    "c": 6
+   },
+   {
+    "obj": "clear",
+    "drop": 9,
+    "c": 6
+   }
+  ]
+ },
+ {
+  "n": "13 portrait et paysage (téléphones, tablettes, écran) : plateau entier visible, boutons ≥ 40 px et à distance des bords, rotation pendant un tir sans bloquer le toucher",
+  "ok": true,
+  "info": [
+   [
+    "390x844",
+    15.39,
+    40,
+    true,
+    1,
+    "play"
+   ],
+   [
+    "844x390",
+    8.24,
+    40,
+    true,
+    1,
+    "play"
+   ],
+   [
+    "320x568",
+    12.44,
+    40,
+    true,
+    1,
+    "play"
+   ],
+   [
+    "568x320",
+    6.24,
+    40,
+    true,
+    1,
+    "play"
+   ],
+   [
+    "768x1024",
+    12.74,
+    48,
+    true,
+    1,
+    "play"
+   ],
+   [
+    "1024x768",
+    12.7,
+    40,
+    true,
+    1,
+    "play"
+   ],
+   [
+    "1920x1080",
+    12.1,
+    54,
+    true,
+    1,
+    "play"
+   ]
+  ]
+ },
+ {
+  "n": "14 collisions : sur toute la session, aucune superposition de bulles et aucun tir à l’intérieur d’une bulle",
+  "ok": true,
+  "info": {
+   "ov": 0,
+   "tr": 0,
+   "n": 3307
+  }
+ },
+ {
+  "n": "15 QUITTER revient au catalogue de la borne ; tout est arrêté et nettoyé (aucune animation ne continue) ; Échap ferme aussi le jeu",
+  "ok": true,
+  "info": {
+   "qph": "play",
+   "q": {
+    "st": "menu",
+    "cur": null,
+    "parts": 0,
+    "falls": 0,
+    "api": null,
+    "t": 50.598966666666044
+   },
+   "q2": 50.598966666666044,
+   "q3": {
+    "st": "menu",
+    "cur": null
+   }
+  }
+ },
+ {
+  "n": "16 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

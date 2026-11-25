@@ -96,7 +96,14 @@ const JEUSON=(()=>{
     if([0,3,6,8,11,14].includes(s))tone(mf(ch[0]-12+(s==6||s==14?7:0)),t,SD*1.1,.11,'triangle',musG,{att:.004});
     if(s%4==2){tone(mf(ch[1]),t,SD*.7,.025,'square',musG,{att:.003});tone(mf(ch[2]),t,SD*.7,.025,'square',musG,{att:.003})}
     const M=[[84,_m,79,_m,76,_m,79,_m,81,_m,79,_m,76,_m,_m,_m],[81,_m,76,_m,72,_m,76,_m,79,_m,_m,77,76,_m,_m,_m],[77,_m,81,_m,84,_m,81,_m,77,_m,79,_m,81,_m,_m,_m],[79,_m,83,_m,86,_m,83,_m,79,_m,_m,_m,74,_m,_m,_m]][bar%4],m=M[s];
-    if(m!=null)tone(mf(m),t,SD*2.2,.045,'triangle',musG,{att:.002});if(m!=null&&Math.floor(k/128)%2)tone(mf(m+12),t,SD*.8,.012,'sine',musG,{att:.002})}}
+    if(m!=null)tone(mf(m),t,SD*2.2,.045,'triangle',musG,{att:.002});if(m!=null&&Math.floor(k/128)%2)tone(mf(m+12),t,SD*.8,.012,'sine',musG,{att:.002})}},
+  // Bubble Pop : pop sucré et rebondissant (marimba, basse ronde, claquements de doigts)
+  bubble:{bpm:118,vol:.17,bars:[[65,69,72],[62,65,69],[58,62,65],[60,64,67]],
+   play(s,bar,t,SD,B,k){const ch=B[bar];if(s==0||s==8||s==11)kick(t,.35,musG);if(s==4||s==12)noise(t,.05,.05,3200,'bandpass',musG,2);if(s%4==2)noise(t,.015,.02,9000,'highpass',musG);
+    if(s%4==0)tone(mf(ch[0]-24),t,SD*2.6,.12,'sine',musG,{att:.006});if(s%4==3)tone(mf(ch[0]-12),t,SD*.8,.06,'triangle',musG,{att:.004});
+    const M=[[77,_m,81,84,_m,81,_m,77,_m,79,81,_m,77,_m,_m,_m],[74,_m,77,81,_m,77,_m,74,_m,76,77,_m,72,_m,_m,_m],[70,_m,74,77,_m,74,_m,72,_m,74,_m,70,69,_m,_m,_m],[72,_m,76,79,_m,84,_m,79,_m,76,_m,72,74,_m,76,_m]][bar],m=M[s];
+    if(m!=null){tone(mf(m),t,SD*1.4,.05,'triangle',musG,{att:.002});tone(mf(m+12),t,SD*.5,.014,'sine',musG,{att:.002})}
+    if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.018,'square',musG,{att:.002})}}
  };
  function sched(){if(!ctx||!theme)return;const T=THEMES[theme],SD=60/T.bpm/4;if(next<ctx.currentTime)next=ctx.currentTime+.05;
   while(next<ctx.currentTime+.35){const s=step%16,bar=Math.floor(step/16)%T.bars.length;try{T.play(s,bar,next,SD,T.bars,step)}catch(e){}step++;next+=SD}}
@@ -281,3 +288,17 @@ Object.assign(JEUSON.FX,{
  clWinNew(t,k){[523,659,784,1047,1319,1568].forEach((f,i)=>{JEUSON.tone(f*k,t+i*.08,.22,.06,'square');JEUSON.tone(f*k/2,t+i*.08,.2,.04,'triangle')});JEUSON.tone(2093*k,t+.5,.8,.05,'triangle',null,{vib:7});JEUSON.noise(t+.45,.8,.05,6000,'highpass',null,1,{att:.15})},
  clMiss(t){JEUSON.tone(392,t,.16,.07,'triangle',null,{slide:.85});JEUSON.tone(311,t+.15,.3,.07,'triangle',null,{slide:.8})},
  clOver(t){[523,440,349,262].forEach((f,i)=>JEUSON.tone(f,t+i*.16,.24,.06,'square',null,{slide:.97}))}});
+// Bubble Pop : tir, rebond, accroche, éclatement, chute, combo, étoile, plafond, échange, victoire, défaite
+Object.assign(JEUSON.FX,{
+ bpShoot(t){JEUSON.tone(520,t,.12,.06,'sine',null,{slide:1.8});JEUSON.noise(t,.06,.04,2400,'bandpass',null,2)},
+ bpBounce(t){JEUSON.tone(900,t,.05,.04,'triangle')},
+ bpStick(t){JEUSON.tone(300,t,.06,.05,'sine',null,{slide:.7});JEUSON.noise(t,.03,.03,1500,'bandpass')},
+ bpPop(t,k){for(let i=0;i<3;i++){JEUSON.tone((700+i*260)*k,t+i*.035,.07,.05,'sine',null,{slide:1.6});JEUSON.noise(t+i*.035,.03,.04,4000,'bandpass',null,3)}},
+ bpDrop(t){[880,740,620,520].forEach((f,i)=>JEUSON.tone(f,t+i*.06,.1,.04,'triangle',null,{slide:.8}))},
+ bpCombo(t,k){[784,988,1175,1568].forEach((f,i)=>JEUSON.tone(f*k,t+i*.05,.12,.05,'square'))},
+ bpStar(t){[1319,1568,2093].forEach((f,i)=>JEUSON.tone(f,t+i*.06,.18,.05,'triangle',null,{vib:6}))},
+ bpCeil(t){JEUSON.noise(t,.2,.12,300,'lowpass');JEUSON.tone(110,t,.25,.08,'square',null,{slide:.6})},
+ bpSwap(t){JEUSON.tone(660,t,.05,.04,'triangle');JEUSON.tone(990,t+.05,.06,.04,'triangle')},
+ bpSelect(t){JEUSON.tone(880,t,.05,.05,'triangle');JEUSON.tone(1320,t+.05,.07,.05,'triangle')},
+ bpWin(t){[523,659,784,1047,784,1047,1319].forEach((f,i)=>JEUSON.tone(f,t+i*.09,.2,.06,'square'));JEUSON.tone(1568,t+.65,.7,.05,'triangle',null,{vib:6});JEUSON.noise(t+.6,.8,.04,6000,'highpass',null,1,{att:.1})},
+ bpLose(t){[440,392,349,294,220].forEach((f,i)=>JEUSON.tone(f,t+i*.16,.26,.06,'triangle',null,{slide:.96}))}});
