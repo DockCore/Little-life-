@@ -16,18 +16,18 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
  const tap=async(sx,sy,id=1)=>{await touch('pointerdown',sx,sy,id);await touch('pointerup',sx,sy,id)};
  // ---- 1. écran de choix et 4 univers ----
  const sel=await E(()=>{const P=ARC.modules.pinball._state;arcDraw();return{ph:P.phase,cards:P.selL&&P.selL.cards.length,mus:JEUSON.playing()}});await p.screenshot({path:`${O}/pb_${mode}_01_choix.png`});
- const univ=[];for(let i=0;i<4;i++){const S=await E(()=>ARC.modules.pinball._state.selL);const c=S.cards[i];
+ const univ=[];for(let i=0;i<5;i++){const S=await E(()=>ARC.modules.pinball._state.selL);const c=S.cards[i];
   if(tel){await tap(c.x+c.w/2,c.y+c.h/2);await W(120);await tap(c.x+c.w/2,c.y+c.h/2)}else{await E(i=>{ARC.modules.pinball._state.sel=i},i);await p.keyboard.press('Enter')}
   await W(500);await E(()=>{ARC.modules.pinball._state.mute=false});await p.screenshot({path:`${O}/pb_${mode}_0${2+i}_table${i}.png`});
   univ.push(await E(()=>{const M=ARC.modules.pinball,P=M._state,td=M._tables[P.tsel];return{id:td.id,nom:td.nom,ph:P.phase,mus:JEUSON.playing(),pal:td.pal.pf.join(),wall:td.pal.wall}}));
   await E(()=>{const P=ARC.modules.pinball._state;P.phase='select'})}
- ok(T('1 quatre univers jouables (Dinosaur World, Alien Invasion, Future City, Space Galaxy), chacun avec sa musique et ses couleurs'),sel.ph=='select'&&sel.cards==4&&univ.map(u=>u.id).join()=='dino,alien,city,space'&&univ.every(u=>u.ph=='jeu')&&new Set(univ.map(u=>u.mus)).size==4&&new Set(univ.map(u=>u.pal)).size==4&&new Set(univ.map(u=>u.wall)).size==4,{sel,univ});
+ ok(T('1 cinq univers jouables (Dinosaur World, Alien Invasion, Future City, Space Galaxy, Far West), chacun avec sa musique, ses couleurs et son décor illustré'),sel.ph=='select'&&sel.cards==5&&univ.map(u=>u.id).join()=='dino,alien,city,space,west'&&univ.every(u=>u.ph=='jeu')&&new Set(univ.map(u=>u.mus)).size==5&&new Set(univ.map(u=>u.pal)).size==5&&new Set(univ.map(u=>u.wall)).size==5,{sel,univ});
  // ---- 2. plateaux physiquement différents ----
  const lay=await E(()=>ARC.modules.pinball._tables.map(t=>{const tb=t.tb,bm=tb.C.filter(c=>c.type=='bumper');return{id:t.id,bumpers:bm.length,pos:bm.map(c=>c.x+','+c.y).join(' '),rampe:tb.ramp?tb.ramp.path[0].join():'-',trous:tb.sau.length,cibles:tb.nStand,tombantes:tb.nDrop,passages:tb.lanes.length,obstacles:tb.S.filter(s=>s.type=='block').length,sig:JSON.stringify(tb.S.map(s=>s.a.concat(s.b)))}}));
- ok(T('2 quatre plateaux physiques différents (bumpers, rampes, trous à bonus, cibles, passages, obstacles)'),new Set(lay.map(l=>l.pos)).size==4&&new Set(lay.map(l=>l.sig)).size==4&&new Set(lay.map(l=>[l.bumpers,l.rampe,l.trous,l.tombantes,l.passages].join('|'))).size==4,lay.map(({sig,...r})=>r));
+ ok(T('2 cinq plateaux physiques différents (bumpers, rampes, trous à bonus, cibles, passages, obstacles)'),new Set(lay.map(l=>l.pos)).size==5&&new Set(lay.map(l=>l.sig)).size==5&&new Set(lay.map(l=>[l.bumpers,l.rampe,l.trous,l.tombantes,l.passages].join('|'))).size==5,lay.map(({sig,...r})=>r));
  // ---- 3. physique de la boule sur les 4 tables ----
- const phys=await E(()=>{const M=ARC.modules.pinball,P=M._state,out=[];P.mute=true;
-  for(let ti=0;ti<4;ti++){M._use(ti);P.phase='jeu';P.balls=3;P.paused=false;const TB=M._table,res={id:M._tables[ti].id,out:0,throws:0,circFail:0};
+ const phys=await E(()=>{const M=ARC.modules.pinball,P=M._state,out=[];P.mute=true;const D0=JSON.stringify(ARC.data('pinball').tables);
+  for(let ti=0;ti<M._tables.length;ti++){M._use(ti);P.phase='jeu';P.balls=3;P.paused=false;const TB=M._table,res={id:M._tables[ti].id,out:0,throws:0,circFail:0};
    P.ball={x:184,y:390,vx:0,vy:0,st:'plunger'};P.pl=0;P.charging=true;P.pl=1;M.update(1/60,{okN:P.okN});const vy0=P.ball.vy;let up=0;for(let i=0;i<20;i++){M.update(1/60,{okN:P.okN});up=Math.min(up,P.ball.y)}res.lancer=vy0<-600;
    P.ball={x:100,y:200,vx:0,vy:0,st:'play'};for(let i=0;i<10;i++)M.update(1/60,{okN:P.okN});res.gravite=P.ball.vy>30||P.ball.st!='play';
    for(const c of TB.C){if(c.type=='saucer')continue;for(let k=0;k<8;k++){const an=k/8*Math.PI*2,sx=c.x+Math.cos(an)*(c.r+14),sy=c.y+Math.sin(an)*(c.r+14);if(sx<9||sx>191||sy<14)continue;P.phase='jeu';P.ball={x:sx,y:sy,vx:-Math.cos(an)*850,vy:-Math.sin(an)*850,st:'play'};
@@ -36,8 +36,8 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
     for(let i=0;i<90;i++){M.update(1/60,{okN:P.okN,left:i%20<5?1:0,right:i%17<4?1:0});const b=P.ball;if(P.phase!='jeu'||!b)break;if(b.st=='play'&&(b.x<8+5.5-1||b.x>192-5.5+1||(b.y<100&&Math.hypot(b.x-100,b.y-100)>92-5.5+1)))res.out++}}
    const bm=TB.C.find(c=>c.type=='bumper');P.phase='jeu';P.mult=1;const s0=P.score;P.ball={x:bm.x,y:bm.y-bm.r-12,vx:0,vy:60,st:'play'};for(let i=0;i<8;i++)M.update(1/60,{okN:P.okN});res.bumper=P.score-s0>=100&&Math.hypot(P.ball.vx,P.ball.vy)>200;
    const sc=TB.sau[0];P.ball={x:sc.x,y:sc.y-3,vx:0,vy:40,st:'play'};P.sauCd=P.sauCd.map(()=>0);M.update(1/60,{okN:P.okN});const held=P.ball.st=='hold';for(let i=0;i<120;i++)M.update(1/60,{okN:P.okN});res.trou=held&&P.ball.st!='hold';
-   out.push(res)}M._use(0);P.phase='select';P.mute=false;return out});
- ok(T('3 physique de la boule sur les 4 tables : lancement, gravité, rebonds, bumpers, trous à bonus ; 2 400 lancers sans traverser ni sortir'),phys.every(r=>r.lancer&&r.gravite&&r.out==0&&r.circFail==0&&r.bumper&&r.trou),phys);
+   out.push(res)}M._use(0);P.phase='select';P.mute=false;P.score=0;P.mult=1;Object.assign(ARC.data('pinball').tables,JSON.parse(D0));return out});
+ ok(T('3 physique de la boule sur les 5 tables : lancement, gravité, rebonds, bumpers, trous à bonus ; 3 000 lancers sans traverser ni sortir'),phys.every(r=>r.lancer&&r.gravite&&r.out==0&&r.circFail==0&&r.bumper&&r.trou),phys);
  // relancer une partie sur Dinosaur World
  await E(()=>{ARC.modules.pinball._state.sel=0});await p.keyboard.press('Enter');await W(300);
  // ---- 4. palettes gauche et droite (boutons ronds, clavier) ----
@@ -69,18 +69,18 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
  await W(150);await p.screenshot({path:`${O}/pb_${mode}_06_record.png`});
  ok(T('11 nouveau record : mise à jour immédiate du BEST, sauvegarde, animation NEW RECORD et son spécial'),rec.avant==5000&&rec.apres==7300&&rec.anim&&rec.son&&rec.sauve,rec);
  // ---- 12. musique et effets sonores propres à chaque table ----
- const son=await E(async()=>{const M=ARC.modules.pinball,P=M._state,out={};P.mute=false;for(let i=0;i<4;i++){M._use(i);P.phase='jeu';P.score=0;P.best0=1e9;window.__fx=[];const TB=M._table,bm=TB.C.find(c=>c.type=='bumper');
+ const son=await E(async()=>{const M=ARC.modules.pinball,P=M._state,out={};P.mute=false;const D0=JSON.stringify(ARC.data('pinball').tables),sc0=P.score;for(let i=0;i<M._tables.length;i++){M._use(i);P.phase='jeu';P.score=0;P.best0=1e9;window.__fx=[];const TB=M._table,bm=TB.C.find(c=>c.type=='bumper');
    P.ball={x:bm.x,y:bm.y-bm.r-12,vx:0,vy:60,st:'play'};for(let j=0;j<8;j++)M.update(1/60,{okN:P.okN});const sc=TB.sau[0];P.sauCd=P.sauCd.map(()=>0);P.ball={x:sc.x,y:sc.y-3,vx:0,vy:40,st:'play'};M.update(1/60,{okN:P.okN});
    const st=TB.S.find(s=>s.type=='stand');P.ball={x:(st.a[0]+st.b[0])/2+(st.a[0]<100?16:-16),y:(st.a[1]+st.b[1])/2,vx:st.a[0]<100?-500:500,vy:0,st:'play'};for(let j=0;j<3;j++)M.update(1/60,{okN:P.okN});
-   out[M._tables[i].id]={fx:[...new Set(window.__fx)],mus:JEUSON.playing()};await new Promise(r=>setTimeout(r,60))}M._use(0);P.phase='jeu';return out});
- const pref={dino:'dn',alien:'al',city:'ct',space:'sp'};
+   out[M._tables[i].id]={fx:[...new Set(window.__fx)],mus:JEUSON.playing()};await new Promise(r=>setTimeout(r,60))}M._use(0);P.score=sc0;P.mult=1;Object.assign(ARC.data('pinball').tables,JSON.parse(D0));P.phase='jeu';return out});
+ const pref={dino:'dn',alien:'al',city:'ct',space:'sp',west:'ww'};
  ok(T('12 musique propre à chaque table + sons de bumper, trou à bonus et cibles propres à chaque univers (+ palettes, lanceur, perte de boule)'),Object.entries(son).every(([id,v])=>v.mus=='pb_'+id&&v.fx.filter(f=>f.startsWith(pref[id])).length>=3),son);
  // ---- 13. plein écran ----
  const fc=await fullCheck(E);ok(T('13 plein écran, sans borne, sans défilement'),fc.diff==0&&fc.couvre&&fc.state=='game'&&(await E(()=>document.scrollingElement.scrollTop==0)),fc);
  // ---- 10. records indépendants ----
  const ind=await E(()=>{const M=ARC.modules.pinball,P=M._state,d=ARC.data('pinball');d.tables.alien.best=1111;d.tables.city.best=0;d.tables.space.best=2222;M._use(1);P.phase='jeu';P.ball={x:184,y:390,vx:0,vy:0,st:'plunger'};P.pl=0;P.charging=false;P.best0=1111;P.score=900;P.newRec=false;M.update(1/60,{okN:P.okN});const a=d.tables.alien.best;P.score=3333;M.update(1/60,{okN:P.okN});
   return{dino:d.tables.dino.best,alien:d.tables.alien.best,alienAvant:a,city:d.tables.city.best,space:d.tables.space.best}});
- ok(T('10 records indépendants entre les 4 tables'),ind.dino==7300&&ind.alienAvant==1111&&ind.alien==3333&&ind.city==0&&ind.space==2222,ind);
+ ok(T('10 records indépendants entre les tables'),ind.dino==7300&&ind.alienAvant==1111&&ind.alien==3333&&ind.city==0&&ind.space==2222,ind);
  // ---- 14. fin de partie et retours ----
  const fin=await E(async()=>{const M=ARC.modules.pinball,P=M._state;M._use(0);P.phase='jeu';P.best0=7300;P.newRec=true;P.score=8000;P.balls=1;P.ball={x:100,y:430,vx:0,vy:200,st:'play'};for(let i=0;i<5;i++)M.update(1/60,{okN:P.okN});
   await new Promise(r=>setTimeout(r,2700));return{ph:P.phase,rec:P.over&&P.over.rec,best:P.over&&P.over.best,joue:P.played}});

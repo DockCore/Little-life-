@@ -288,4 +288,11 @@ Object.assign(JEUSON.FX,{
   spBonus(t){[72,76,79,84,88].forEach((n,i)=>met(440*Math.pow(2,(n-69)/12),t+i*.07,.4,.035));N(t,.8,.04,7000,'highpass',null,1,{att:.2})},
   spDrain(t){T(700,t,1.1,.09,'sine',null,{slide:.15,att:.02});N(t,1.1,.06,3000,'bandpass',null,1,{sweep:150,att:.2})},
   spSaucer(t){T(80,t,1.2,.18,'sine',null,{slide:.5,att:.05});N(t,1.2,.1,4000,'bandpass',null,1.5,{sweep:120,att:.1})},
-  spBall(t){met(1046,t,.3,.04);met(1568,t+.08,.3,.035)}})})();
+  spBall(t){met(1046,t,.3,.04);met(1568,t+.08,.3,.035)},
+  // Far West : tonneaux, boîtes de conserve, coup de fouet, sifflet, coup de feu au loin, éperons
+  wwBump(t){thump(95,t,.28);N(t,.07,.16,450,'bandpass',null,2.2);met(2600,t+.02,.12,.025)},
+  wwTarget(t){met(1250,t,.14,.06);N(t,.02,.08,4000,'bandpass',null,3)},
+  wwBonus(t){N(t,.03,.35,3000,'highpass',null,.7);N(t+.02,.12,.12,1500,'bandpass',null,1.5,{sweep:5000});[64,68,71,76].forEach((n,i)=>T(440*Math.pow(2,(n-69)/12),t+.15+i*.07,.3,.04,'sawtooth',null,{vib:6}))},
+  wwDrain(t){T(1200,t,.9,.06,'sine',null,{slide:.45,vib:6,att:.03});N(t+.2,.8,.05,1800,'bandpass',null,2,{sweep:400})},
+  wwSaucer(t){N(t,.05,.45,1200,'lowpass',null,.6);thump(70,t,.3);N(t+.06,1.1,.08,900,'bandpass',null,1,{sweep:300,att:.02})},
+  wwBall(t){met(3200,t,.12,.03);met(3600,t+.06,.12,.025);met(3400,t+.12,.14,.02)}})})();
