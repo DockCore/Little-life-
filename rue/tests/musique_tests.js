@@ -51,7 +51,7 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  ok('5 passage éclair dans un autre lieu (0,2 s) : aucune transition déclenchée',flick==0,{flick});
  // ---- 6. rue ↔ maison, bâtiments, magasins ----
  const rue=await room(()=>{streetEnter()},'rue');const amb1=await S();
- const places={};for(const pl of['office','store','clothes','grocery','pets','cafe','gym']){const s=await room(pl=>{arrive(pl)},pl,pl);places[pl]=[s.cur,s.amb]}
+ const places={};for(const pl of['office','store','clothes','grocery','pets','cafe','gym','resto']){const s=await room(pl=>{arrive(pl)},pl,pl);places[pl]=[s.cur,s.amb]}
  const home=await room(()=>{arrive('home');C.st='idle'},'maison'),rue2=await room(()=>{streetEnter()},'rue');
  ok('6 rue (indie électronique) ↔ maison ; bureau, boutique déco, vêtements, épicerie, animalerie, café, salle de sport : chacun sa musique et son ambiance',
   rue.cur=='rue'&&amb1.amb=='rue'&&Object.entries(places).every(([k,v])=>v[0]==k&&v[1]==k)&&home.cur=='maison'&&rue2.cur=='rue',{places,amb:amb1.amb});
@@ -106,7 +106,7 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  ok('15 mixage homogène de '+rv.length+' musiques (écart de niveau ≤ 6 dB, aucune saturation) ; chaque morceau : au moins 100 mesures et 3 min avant de reboucler',
   rv.length>=35&&db(hi)-db(lo)<=6&&rv.every(v=>v.peak<.95&&v.bars>=100&&v.cycle>=180&&v.cycle<=330),{ecartDb:+(db(hi)-db(lo)).toFixed(1),min:lo,max:hi,exemples:Object.fromEntries(Object.entries(mx).slice(0,6))});
  // ---- 16. identité : aucun lieu ne partage sa musique avec un autre ----
- const ids=await E(()=>{const z=['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','cine_hall','cine_couloir','cine_salle','cine_wc','cine_prive','arcade','bowling'];
+ const ids=await E(()=>{const z=['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','resto','cine_hall','cine_couloir','cine_salle','cine_wc','cine_prive','arcade','bowling'];
   const sig=z.map(id=>{const T=LLSON.theme(id);return[T.bpm,T.key,T.mode,JSON.stringify(T.prog.A)].join('|')});return{n:z.length,uniq:new Set(sig).size}});
  ok('16 '+ids.n+' lieux, '+ids.n+' compositions différentes (tempo, tonalité, harmonie) : aucune pièce ne reprend la musique d’une autre',ids.n==ids.uniq,ids);
  // ---- 17. charge : nombre de nœuds audio créés par seconde (léger pour un téléphone) ----
@@ -114,14 +114,14 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
   setTimeout(()=>{for(const k in keep)B[k]=keep[k];r(Math.round(n/8))},8000)},6000)}));
  ok('17 charge audio légère : moins de 80 nœuds créés par seconde sur le morceau le plus chargé (notes mises en cache, batterie précalculée)',ld<80,{noeudsParSeconde:ld});
  // ---- 18. composition : vraies formes, aucune note longue, aucune boucle évidente (partition complète de chaque lieu) ----
- const cp=await E(()=>{const o={};for(const id of['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','cine_hall','cine_couloir','cine_salle','cine_prive','cine_wc','arcade','bowling']){
+ const cp=await E(()=>{const o={};for(const id of['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','resto','cine_hall','cine_couloir','cine_salle','cine_prive','cine_wc','arcade','bowling']){
   const sc=LLSON.score(id),B=sc.bar,bars=[];for(let i=0;i<sc.bars;i++)bars.push([]);for(const n of sc.notes){const bi=Math.floor(n[3]/B+1e-6);if(bars[bi])bars[bi].push(n[0]+n[1]+n[2]+'@'+Math.round((n[3]-bi*B)/B*16))}
   const sig=bars.map(x=>x.sort().join('|'));let run=0,maxRun=0;for(let i=4;i<sig.length;i++){run=sig[i]==sig[i-4]?run+1:0;maxRun=Math.max(maxRun,run)}
   const mel=sc.notes.filter(n=>n[0]=='mel'),ph=new Set();for(let q=0;q<sc.bars/4;q++){const s=mel.filter(n=>n[3]>=q*4*B-1e-6&&n[3]<(q+1)*4*B-1e-6).map(n=>n[2]+'@'+Math.round((n[3]-q*4*B)/B*16)).join(',');if(s)ph.add(s)}
   const longest=Math.max(...sc.notes.filter(n=>n[0]!='pd').map(n=>n[4])),pd=sc.notes.filter(n=>n[0]=='pd');
   o[id]={sec:Math.round(sc.sec),parts:sc.form.length,uniq:new Set(sig).size/sc.bars,maxRun4:maxRun,phrases:ph.size,pitches:new Set(mel.map(n=>n[2])).size,longest,pdBars:new Set(pd.map(n=>Math.floor(n[3]/B))).size,pdMax:Math.max(0,...pd.map(n=>n[4]))}}return o});
  const cv=Object.values(cp);
- ok('18 composition : 17 morceaux de 3 à 5 min en 9 parties (intro, couplets, montée, refrains, pause, pont, final), mélodie de 9 notes ou plus en au moins 15 phrases différentes, au moins 70 % de mesures toutes différentes, jamais plus de 4 mesures copiées d’affilée ; aucune note de plus de 0,5 s (nappes ≤ 1,4 s et seulement dans l’intro et la pause)',
+ ok('18 composition : 18 morceaux de 3 à 5 min en 9 parties (intro, couplets, montée, refrains, pause, pont, final), mélodie de 9 notes ou plus en au moins 15 phrases différentes, au moins 70 % de mesures toutes différentes, jamais plus de 4 mesures copiées d’affilée ; aucune note de plus de 0,5 s (nappes ≤ 1,4 s et seulement dans l’intro et la pause)',
   cv.every(v=>v.sec>=180&&v.sec<=330&&v.parts>=9&&v.pitches>=9&&v.phrases>=15&&v.uniq>=.7&&v.maxRun4<=4&&v.longest<=.5&&v.pdMax<=1.4&&v.pdBars<=12),cp);
  ok('19 aucune erreur JavaScript',errs.length==0,errs);
  await b.close();const n=R.filter(r=>r.ok).length;console.log(n+'/'+R.length+' tests réussis');fs.writeFileSync(`${O}/musique_resultats.json`,JSON.stringify(R,null,1));process.exit(n==R.length?0:1)})();

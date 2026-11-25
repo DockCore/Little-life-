@@ -10,9 +10,9 @@ css = open(os.path.join(D, 'street.css'), encoding='utf8').read()
 js = open(os.path.join(D, 'audio.js'), encoding='utf8').read().rstrip() + '\n' + open(os.path.join(D, 'musique.js'), encoding='utf8').read().rstrip() + '\n' + open(os.path.join(D, 'street.js'), encoding='utf8').read()
 bcss = open(os.path.join(D, 'bowling.css'), encoding='utf8').read()
 bjs = open(os.path.join(D, 'bowling.js'), encoding='utf8').read()
-acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read() + open(os.path.join(D, 'cinema.css'), encoding='utf8').read()
+acss = open(os.path.join(D, 'arcade.css'), encoding='utf8').read() + open(os.path.join(D, 'cinema.css'), encoding='utf8').read() + open(os.path.join(D, 'resto.css'), encoding='utf8').read()
 ajs = open(os.path.join(D, 'arcade.js'), encoding='utf8').read()
-cjs = open(os.path.join(D, 'films_data.js'), encoding='utf8').read() + open(os.path.join(D, 'cinema.js'), encoding='utf8').read()
+cjs = open(os.path.join(D, 'films_data.js'), encoding='utf8').read() + open(os.path.join(D, 'cinema.js'), encoding='utf8').read() + '\n' + open(os.path.join(D, 'resto.js'), encoding='utf8').read()
 pjs = open(os.path.join(D, 'paysage.js'), encoding='utf8').read() + open(os.path.join(D, 'titre.js'), encoding='utf8').read()
 pcss = open(os.path.join(D, 'paysage.css'), encoding='utf8').read() + open(os.path.join(D, 'titre.css'), encoding='utf8').read()
 # mini-jeux de la borne : un fichier par jeu dans rue/jeux/, chargés après la borne
@@ -51,6 +51,10 @@ cpan = ('<section class="view" id="v-cinema"><div class="opts seg"><button class
         '<p class="ciInfo" id="ciInfo"></p><div class="actg" id="ciG"></div></section>')
 s = put(s, '<section class="view" id="v-gym">', apan, after=False)
 s = put(s, '<section class="view" id="v-gym">', cpan, after=False)
+rpan = ('<section class="view" id="v-resto"><div class="opts seg"><button class="on" disabled id="rsWhere">Restaurant</button>'
+        '<button class="home" id="rsLeave"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h8"/><path d="M11 12h10M17 8l4 4-4 4"/></svg>Partir</button></div>'
+        '<p class="rsInfo" id="rsInfo"></p><div class="actg" id="rsG"></div></section>')
+s = put(s, '<section class="view" id="v-gym">', rpan, after=False)
 # 4) module JS juste avant le démarrage de la boucle
 s = put(s, '\nrequestAnimationFrame(loop);', '\n' + js.rstrip() + '\n' + bjs.rstrip() + '\n' + ajs.rstrip() + jeux + '\n' + cjs.rstrip() + '\n' + pjs.rstrip() + '\n// ===RUE-END===', after=False)
 # 5) mode paysage : feuille de style en dernier pour primer sur les règles portrait

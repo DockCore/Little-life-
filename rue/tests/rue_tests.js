@@ -74,10 +74,10 @@ await p.waitForFunction(()=>place=='clothes'&&curV=='clothes',null,{timeout:2000
 await p.click('#clHome');await p.waitForFunction(()=>STV.on&&curV=='street',null,{timeout:30000});w=await where();
 ok('11 boutique de vêtements : entrée et retour devant la boutique',w.place=='street'&&Math.abs(w.px-dC)<1,{px:w.px,dC});
 
-// 12. Bâtiments pas encore aménagés : message « bientôt », on reste dans la rue
-const soon=[];for(const id of ['resto']){await tele(await door(id));await p.keyboard.press('KeyE');await W(120);
- soon.push(await E(()=>({t:document.getElementById('stMT').textContent,a:document.getElementById('stMA').textContent,vis:!document.getElementById('stModal').hidden,place})));await p.keyboard.press('Escape');await W(80)}
-ok('12 restaurant : message « bientôt », pas de sortie de la rue',soon.every(s=>s.vis&&/bientôt/.test(s.a)&&!/Le la/.test(s.a)&&s.place=='street'),soon);
+// 12. Restaurant (désormais ouvert) : porte animée, entrée, puis retour exact devant sa porte
+const dR=await door('resto');await tele(dR);await p.keyboard.press('KeyE');await W(250);const anim=await E(()=>({door:!!STV.door,modal:!document.getElementById('stModal').hidden}));
+await p.waitForFunction(()=>place=='resto'&&C.st=='idle',null,{timeout:20000});await E(()=>RESTO.leave());await p.waitForFunction(()=>STV.on&&curV=='street',null,{timeout:30000});w=await where();
+ok('12 restaurant : porte animée, entrée puis retour devant le restaurant',anim.door&&!anim.modal&&Math.abs(w.px-dR)<1,{anim,px:w.px,dR});
 
 // 13. Tactile/souris : boutons ◀ ▶ (maintenus) et clic sur un bâtiment = marche jusqu’à sa porte
 let tactile=null;

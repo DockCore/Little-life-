@@ -310,3 +310,21 @@ Object.assign(JEUSON.FX,{
   mmClick(t){T(1320,t,.035,.03,'sine');N(t,.015,.025,6000,'highpass',null,1)},
   mmStart(t){N(t,.35,.04,400,'bandpass',null,1,{sweep:5000,att:.1});pl(79,t+.25,.2,.04);pl(86,t+.32,.3,.04)}})})();
 
+// ---------- Restaurant : porte à clochette, commande, service, couverts, paiement ----------
+(function(){const T=(...a)=>JEUSON.tone(...a),N=(...a)=>JEUSON.noise(...a),nf=n=>440*Math.pow(2,(n-69)/12);
+ const bell=(f,t,v)=>{T(f,t,1.1,v,'sine',null,{att:.002});T(f*2.76,t,.5,v*.35,'sine',null,{att:.002});T(f*5.4,t,.25,v*.12,'sine',null,{att:.002})};
+ Object.assign(JEUSON.FX,{
+  rsDoor(t,k){N(t,.25,.05*k,700,'bandpass',null,3,{sweep:420});T(140,t,.18,.05*k,'triangle',null,{slide:.7});bell(nf(88),t+.05,.035*k);bell(nf(91),t+.13,.03*k)},
+  rsBell(t,k){bell(nf(93),t,.05*k)},
+  rsWrite(t){for(let i=0;i<5;i++)N(t+i*.09,.05,.025,3500,'bandpass',null,2,{sweep:2600})},
+  rsStamp(t){N(t,.08,.12,900,'lowpass',null,.8);T(110,t,.12,.08,'sine',null,{slide:.6});[76,81,88].forEach((n,i)=>T(nf(n),t+.12+i*.06,.25,.04,'triangle'))},
+  rsServe(t,k){T(1900,t,.12,.02*k,'sine');T(2600,t+.01,.18,.012*k,'sine');N(t,.04,.05*k,1800,'bandpass',null,1.5)},
+  rsClear(t){[0,.08,.15].forEach((d,i)=>{T(2100+i*350,t+d,.1,.015,'sine');N(t+d,.03,.03,2500,'bandpass',null,2)})},
+  rsChair(t,k){N(t,.22,.05*k,380,'bandpass',null,4,{sweep:260});N(t+.02,.18,.02*k,1400,'bandpass',null,6,{sweep:900})},
+  rsBite(t,k){N(t,.06,.05*k,2200,'bandpass',null,1.2);N(t+.08,.05,.03*k,1600,'bandpass',null,1.2)},
+  rsCrunch(t,k){for(let i=0;i<3;i++)N(t+i*.05,.04,.06*k,2800-i*500,'bandpass',null,1.4)},
+  rsSip(t,k){N(t,.3,.03*k,900,'bandpass',null,5,{sweep:1500});T(320,t+.05,.2,.015*k,'sine',null,{slide:1.4})},
+  rsSizzle(t,k){N(t,.9,.025*k,5000,'highpass',null,.7,{att:.1})},
+  rsPay(t,k){[[84,0],[91,.07],[88,.13],[96,.2]].forEach(([n,d])=>{T(nf(n),t+d,.3,.035*k,'triangle');T(nf(n)*2.2,t+d,.12,.01*k,'sine')});N(t,.05,.04*k,6000,'highpass',null,1)},
+  rsPage(t){N(t,.12,.04,2400,'bandpass',null,.9,{sweep:4200})},
+  rsTick(t){T(1500,t,.04,.025,'sine');T(2200,t+.03,.05,.02,'sine')}})})();

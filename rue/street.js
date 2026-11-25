@@ -12,7 +12,7 @@ const STREETS={
    {id:'arcade',le:'La salle d’arcade',name:'Salle d’arcade',type:'leisure',facade:'arcade',w:164,h:168,door:{x:118,w:36},game:'arcade',available:true},
    {id:'cinema',le:'Le cinéma',name:'Cinéma',type:'leisure',facade:'cinema',w:204,h:190,door:{x:102,w:46},go:{place:'cine_hall'},available:true},
    {id:'sport',name:'Salle de sport',type:'sport',facade:'gym',w:204,h:160,door:{x:160,w:40},go:{place:'gym'},available:true},
-   {id:'resto',le:'Le restaurant',name:'Restaurant',type:'food',facade:'restaurant',w:176,h:150,door:{x:136,w:34},scene:'RestaurantScene',available:false},
+   {id:'resto',le:'Le restaurant',name:'Restaurant',type:'food',facade:'restaurant',w:176,h:150,door:{x:136,w:34},go:{place:'resto'},doorAnim:1,available:true},
    {id:'mode',name:'Boutique de vêtements',type:'shop',facade:'boutique',w:176,h:166,door:{x:132,w:36},go:{place:'clothes'},available:true}
   ]}
 };
@@ -167,9 +167,9 @@ function streetEnter(x){stLayout(STC);STV.on=true;N.street=N.street||{};const ho
  STV.px=Math.max(STC.minX,Math.min(STC.maxX,typeof x=='number'?x:stDoorX(home)));N.street.on=1;
  place='street';setRN(20);C.st='street';C.d=N.street.d||1;C.alpha=null;C.path=null;tripOn=false;doorT=0;doorA=0;
  const tp=document.getElementById('trip');tp.classList.remove('on');const so=document.getElementById('street');so.hidden=false;void so.offsetWidth;so.classList.add('on');
- stFit();STV.cam=Math.max(0,Math.min(STC.len-STV.W,STV.px-STV.W*.42));STV.auto=null;show('street');stPanel(true);
+ stFit();STV.cam=Math.max(0,Math.min(STC.len-STV.W,STV.px-STV.W*.42));STV.auto=null;STV.door=null;{const bd=STC.buildings.find(b=>b.doorAnim&&Math.abs(STV.px-stDoorX(b))<1);STV.doorOut=bd?{b:bd,t:0}:null;if(bd)try{JEUSON.fx('rsDoor',.7)}catch(e){}}show('street');stPanel(true);
  say(NAME()+' se promène dans '+STC.nom+'.');save()}
-function streetLeave(){STV.on=false;STV.keys={};STV.touch={l:0,r:0};STV.auto=null;N.street={x:Math.round(STV.px),d:C.d,on:0};const so=document.getElementById('street');so.classList.remove('on');setTimeout(()=>{if(!STV.on)so.hidden=true},380);stModal(null);save()}
+function streetLeave(){STV.on=false;STV.door=null;STV.doorOut=null;STV.keys={};STV.touch={l:0,r:0};STV.auto=null;N.street={x:Math.round(STV.px),d:C.d,on:0};const so=document.getElementById('street');so.classList.remove('on');setTimeout(()=>{if(!STV.on)so.hidden=true},380);stModal(null);save()}
 function stDoorX(b){return b.x+b.door.x}
 function stNearB(){const p=STV.px;return STC.buildings.find(b=>Math.abs(p-stDoorX(b))<=b.door.w/2+10)||null}
 function stNearWork(){return STV.px>=STC.workX-46}
@@ -177,9 +177,12 @@ function stEnterB(b){if(!b)return;
  // mini-jeu autonome : lancement immédiat, sans déplacement ni animation d'entrée ; retour exactement au même endroit
  if(b.game&&b.available&&window.GAMES&&GAMES[b.game]){const x=STV.px,d=C.d;streetLeave();C.viaStreet=null;GAMES[b.game].open({x,d});return}
 if(!b.available){stModal(b.name,(b.le||b.name)+' ouvrira bientôt ses portes.','Son intérieur est en préparation. Reviens bientôt !');return}
- const pl=b.go&&b.go.place;if(!pl)return;STV.px=stDoorX(b);C.d=1;say(NAME()+' entre : '+b.name+'.');streetLeave();C.viaStreet=pl=='home'?null:b.id;
+ const pl=b.go&&b.go.place;if(!pl)return;
+ // porte animée : elle s’ouvre sur la salle éclairée, le personnage entre, puis fondu vers l’intérieur
+ if(b.doorAnim&&!(STV.door&&STV.door.go)){STV.px=stDoorX(b);C.d=1;STV.auto=null;STV.keys={};STV.touch={l:0,r:0};STV.door={b,t:0,go:0};STV.doorOut=null;try{JEUSON.fx('rsDoor')}catch(e){}stPanel(true);return}
+ STV.px=stDoorX(b);C.d=1;say(NAME()+' entre : '+b.name+'.');streetLeave();C.viaStreet=pl=='home'?null:b.id;
  setTimeout(()=>{arrive(pl)},360)}
-function stInteract(){if(STV.modal){stModal(null);return}if(stNearWork()){stWorkSign();return}const b=stNearB();if(b)stEnterB(b)}
+function stInteract(){if(STV.door)return;if(STV.modal){stModal(null);return}if(stNearWork()){stWorkSign();return}const b=stNearB();if(b)stEnterB(b)}
 function stWorkSign(){stModal('QUARTIER EN CONSTRUCTION 🚧','De nouveaux commerces et lieux de loisirs sont en préparation.','Reviens bientôt découvrir la suite de la ville !')}
 function stModal(t,a,b2){const m=document.getElementById('stModal');if(!m)return;if(!t){m.hidden=true;STV.modal=false;return}
  document.getElementById('stMT').textContent=t;document.getElementById('stMA').textContent=a||'';document.getElementById('stMB').textContent=b2||'';m.hidden=false;STV.modal=true;STV.keys={};STV.touch={l:0,r:0};STV.auto=null}
@@ -190,7 +193,8 @@ function stPanel(force){const b=stNearB(),w=stNearWork(),k=(b?b.id:'')+(w?'w':''
  else{wh.textContent='La rue commerçante';en.hidden=true}
  const ib=document.getElementById('stAct');if(ib){ib.hidden=!(b||w);ib.textContent=b?(b.available?(b.id=='maison'?'Rentrer':'Entrer'):'Bientôt'):'Lire'}}
 // --- logique ---
-function stTick(){if(!STV.on)return;const K=STV.keys,left=K.ArrowLeft||K.KeyA||K.KeyQ||STV.touch.l,right=K.ArrowRight||K.KeyD||STV.touch.r;let dir=0;
+function stTick(){if(!STV.on)return;
+ if(STV.door){STV.mv=false;if(++STV.door.t>=34&&!STV.door.go){STV.door.go=1;stEnterB(STV.door.b)}return}if(STV.doorOut&&++STV.doorOut.t>40)STV.doorOut=null;const K=STV.keys,left=K.ArrowLeft||K.KeyA||K.KeyQ||STV.touch.l,right=K.ArrowRight||K.KeyD||STV.touch.r;let dir=0;
  if(left&&!right)dir=-1;else if(right&&!left)dir=1;if(dir)STV.auto=null;
  if(!dir&&STV.auto!=null){const d=STV.auto.x-STV.px;if(Math.abs(d)<=1.2){STV.px=STV.auto.x;const f=STV.auto.then;STV.auto=null;if(f)f()}else dir=d>0?1:-1}
  if(STV.modal)dir=0;STV.mv=!!dir;
@@ -285,21 +289,32 @@ function streetDraw(){if(!STV.on||!STV.cv)return;const x=STV.x,W=STV.W,n=night,d
  // trottoir, bordure, route
  x.fillStyle=dk('#c9c4bc');x.fillRect(0,ST_BASE,W,ST_ROAD-ST_BASE);x.fillStyle=dk('#b3ada4');for(let i=-((STV.cam|0)%24);i<W;i+=24)x.fillRect(i,ST_BASE,1,ST_ROAD-ST_BASE);x.fillRect(0,ST_BASE+16,W,1);x.fillStyle=dk('#a59f96');x.fillRect(0,ST_BASE,W,3);
  x.fillStyle=dk('#8d877e');x.fillRect(0,ST_ROAD-4,W,4);x.fillStyle=dk('#4a4f5a');x.fillRect(0,ST_ROAD,W,ST_H-ST_ROAD);x.fillStyle=dk('#f3d27a');for(let i=-((STV.cam|0)%40);i<W;i+=40)x.fillRect(i,ST_ROAD+14,20,2);
+ // porte animée (restaurant) : ouverture à l’entrée, fermeture au retour
+ stDoorAnim(x);
  // décor urbain (derrière le personnage)
  STC.props.forEach(p=>{const X=p.x-STV.cam;if(X>-60&&X<W+60)stProp(x,p,false)});stWork(x,false);
  // voitures
 
  // personnage du jeu (sprite + vêtements, mêmes proportions)
  const PX=Math.round(STV.px-STV.cam);x.fillStyle='rgba(20,14,28,.28)';x.fillRect(PX-12,ST_WALK-2,24,3);x.fillRect(PX-9,ST_WALK-3,18,1);
- if(typeof sc2!='undefined'&&sc2){x.save();if(SP.fl){x.translate(PX,0);x.scale(-1,1);x.drawImage(sc2,0,0,CW,CH,-40,ST_WALK-127,CW,CH)}else x.drawImage(sc2,0,0,CW,CH,PX-40,ST_WALK-127,CW,CH);x.restore()}
+ const dA=STV.door?Math.max(0,1-Math.max(0,STV.door.t-14)/16):STV.doorOut?Math.min(1,STV.doorOut.t/14):1;x.globalAlpha=dA;
+ if(typeof sc2!='undefined'&&sc2){x.save();if(SP.fl){x.translate(PX,0);x.scale(-1,1);x.drawImage(sc2,0,0,CW,CH,-40,ST_WALK-127,CW,CH)}else x.drawImage(sc2,0,0,CW,CH,PX-40,ST_WALK-127,CW,CH);x.restore()}x.globalAlpha=1;
  // circulation (devant le trottoir et le personnage)
  stCars(x,n);
  // lumières
  if(n>.3){STC.props.forEach(p=>{const X=p.x-STV.cam;if(X>-60&&X<W+60)stProp(x,p,true)})}stWork(x,true);
  if(n>.3){x.fillStyle=`rgba(10,14,40,${n*.12})`;x.fillRect(0,-STV.oy,W,STV.H)}
  // indication d’interaction
- const b=stNearB();if(b&&!STV.modal)stTag(x,stDoorX(b)-STV.cam,ST_BASE-b.h+(b.h>170?20:6)<ST_WALK-120?ST_WALK-112:ST_WALK-112,(b.available?(b.id=='maison'?'Rentrer':b.game?'Jouer':'Entrer'):'Bientôt')+' : '+b.name);
+ const b=stNearB();if(b&&!STV.modal&&!STV.door)stTag(x,stDoorX(b)-STV.cam,ST_BASE-b.h+(b.h>170?20:6)<ST_WALK-120?ST_WALK-112:ST_WALK-112,(b.available?(b.id=='maison'?'Rentrer':b.game?'Jouer':'Entrer'):'Bientôt')+' : '+b.name);
  if(STV.fade>0){x.fillStyle=`rgba(0,0,0,${STV.fade})`;x.fillRect(0,-STV.oy,W,STV.H)}x.setTransform(1,0,0,1,0,0)}
+// porte qui pivote : l’intérieur chaud apparaît, la lumière se répand sur le trottoir
+function stDoorAnim(x){const D=STV.door||STV.doorOut;if(!D)return;const b=D.b,k=STV.door?Math.min(1,D.t/12):Math.max(0,1-Math.max(0,D.t-18)/14);if(k<=0)return;
+ const X=Math.round(b.x-STV.cam+b.door.x-17),Y=ST_BASE-86,w=34,h=86;if(X>STV.W||X+w<0)return;
+ const g=x.createLinearGradient(0,Y,0,Y+h);g.addColorStop(0,'#ffd98a');g.addColorStop(1,'#e8924a');x.fillStyle=g;x.fillRect(X,Y,w,h);
+ x.fillStyle='rgba(120,60,30,.55)';x.fillRect(X+4,Y+34,10,30);x.fillRect(X+20,Y+46,12,4);x.fillStyle='#8e2a36';x.fillRect(X+22,Y+50,3,16);x.fillRect(X+29,Y+50,3,16);x.fillStyle='#fff6d6';x.fillRect(X+3,Y+8,28,3);
+ x.globalAlpha=.35*k;x.fillStyle='#ffd27a';x.beginPath();x.moveTo(X,ST_BASE);x.lineTo(X+w,ST_BASE);x.lineTo(X+w+24*k,ST_BASE+16);x.lineTo(X-24*k,ST_BASE+16);x.closePath();x.fill();x.globalAlpha=1;
+ const pw=Math.max(3,Math.round(w*(1-.82*k)));x.fillStyle=ST_OL;x.fillRect(X-1,Y,pw+2,h);x.fillStyle='#6b3e26';x.fillRect(X,Y,pw,h);x.fillStyle='#7a4a2c';x.fillRect(X+1,Y+4,Math.max(1,pw-3),h-8);
+ if(pw>10){x.fillStyle='#ffcf7a';x.fillRect(X+Math.round(pw*.25),Y+10,Math.round(pw*.5),16)}x.fillStyle='#d4af37';x.fillRect(X+pw-4,Y+44,2,6)}
 // --- intégration au jeu ---
 PLACES.street={nom:'la rue commerçante',wall:'#d7dde5',door:'#6b7a8f',floor:'tile',fa:'#d9d9d9',fb:'#cfcfcf',furn:[]};
 VT.street='La rue';

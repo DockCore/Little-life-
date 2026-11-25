@@ -339,6 +339,8 @@ def('grocery',{sty:'trop',bpm:106,key:55,mode:'maj',prog:{I:[1,5,1,5],A:[1,5,4,5
 def('pets',{sty:'trop',bpm:100,key:60,mode:'maj',prog:{I:[1,4,1,5],A:[1,6,4,5],B:[4,5,3,6],C:[2,5,1,1]},mel:{i:'flute',v:'kalimba',k:'marimba'},ch:{i:'marimba'},ar:{i:'pluck',br:1800}});
 def('cafe',{sty:'funk',bpm:100,key:51,mode:'maj',ext:9,prog:{I:[2,5,1,1],A:[2,5,1,6],B:[4,3,2,5],C:[4,4,3,6]},mel:{i:'vox',v:'keys',k:'kalimba'},ch:{i:'keys',br:1500},ar:{i:'kalimba'}});
 def('gym',{sty:'synth',bpm:126,key:57,mode:'min',prog:{I:[1,1,6,6],A:[1,6,7,5],B:[6,7,1,1],C:[4,4,6,7]},mel:{i:'lead',v:'pluck',k:'pluck',br:2600},ch:{i:'stab',br:2600},ar:{i:'pluck',br:3000}});
+// —— restaurant : lounge feutré (piano électrique, flûte, voix douce), groove souple, jamais relancé pendant la visite
+def('resto',{sty:'chill',bpm:88,key:56,mode:'maj',ext:9,prog:{I:[2,5,1,6],A:[2,5,1,6],B:[4,3,6,2],C:[4,5,3,6]},mel:{i:'keys',v:'flute',k:'vox',c:'kalimba',br:1300},ch:{i:'keys',br:1350},ar:{i:'kalimba',br:1500}});
 // —— cinéma : chaque espace a son morceau
 def('cine_hall',{sty:'cine',bpm:96,key:50,mode:'min',prog:{I:[1,6,1,6],A:[1,6,3,7],B:[6,4,1,5],C:[4,5,6,6]},mel:{i:'lead',v:'flute',k:'kalimba',br:1400},ch:{i:'spic'},ar:{i:'spic',br:2600},pd:{i:'strings'}});
 def('cine_couloir',{sty:'amb',bpm:84,key:57,mode:'min',prog:{I:[1,1,6,6],A:[1,6,4,5],B:[6,4,1,5],C:[4,4,1,1]},mel:{i:'flute',v:'kalimba',k:'kalimba'},ch:{i:'keys',br:1300},ar:{i:'kalimba'},pd:{i:'strings'}});
@@ -372,7 +374,7 @@ def('pb_alien',{sty:'synth',bpm:130,key:50,mode:'min',prog:{I:[1,1,6,6],A:[1,6,3
 def('pb_city',{sty:'house',bpm:126,key:57,mode:'dor',prog:{I:[1,1,6,6],A:[1,6,3,7],B:[6,7,1,5],C:[4,4,5,5]},mel:{i:'vox',v:'lead'},ch:{i:'stab'},ar:{i:'pluck'}});
 def('pb_space',{sty:'amb',bpm:122,key:52,mode:'lyd',prog:{I:[1,1,6,6],A:[1,6,3,7],B:[6,7,1,5],C:[4,4,5,5]},mel:{i:'lead',v:'kalimba',br:2000},ch:{i:'keys'},ar:{i:'pluck'}});
 // ---------- niveaux : chaque morceau est ramené au même volume perçu (mesuré par les tests, voir rue/tests/musique_tests.js) ----------
-const GAIN={"menu":1.303,"maison":1.432,"rue":1.57,"office":1.624,"store":1.545,"clothes":1.578,"grocery":1.215,"pets":1.881,"cafe":1.318,"gym":1.568,"cine_hall":1.306,"cine_couloir":2.065,"cine_salle":1.289,"cine_prive":1.338,"cine_wc":1.626,"arcade":1.561,"bowling":1.705,"pinball":1.565,"racing":1.492,"mole":1.657,"hockey":1.58,"maze":1.866,"claw":1.615,"bubble":1.774,"boxes":1.314,"stNeon":1.824,"stSunset":1.353,"stOcean":2.009,"stSpace":1.58,"stCrystal":1.653,"stCyber":1.554,"pb_dino":1.565,"pb_alien":1.565,"pb_city":1.565,"pb_west":1.6,"memory":1.5,"pb_space":1.565};
+const GAIN={"menu":1.303,"maison":1.432,"rue":1.57,"office":1.624,"store":1.545,"clothes":1.578,"grocery":1.215,"pets":1.881,"cafe":1.318,"resto":1.299,"gym":1.568,"cine_hall":1.306,"cine_couloir":2.065,"cine_salle":1.289,"cine_prive":1.338,"cine_wc":1.626,"arcade":1.561,"bowling":1.705,"pinball":1.565,"racing":1.492,"mole":1.657,"hockey":1.58,"maze":1.866,"claw":1.615,"bubble":1.774,"boxes":1.314,"stNeon":1.824,"stSunset":1.353,"stOcean":2.009,"stSpace":1.58,"stCrystal":1.653,"stCyber":1.554,"pb_dino":1.565,"pb_alien":1.565,"pb_city":1.565,"pb_west":1.6,"memory":1.5,"pb_space":1.565};
 // ---------- ambiances environnementales (bus séparé) ----------
 const AMB={
  rue:{bed:[['lowpass',500,.05]],ev:[['car',.08],['bird',.3,'day'],['cricket',.4,'night']]},
@@ -383,6 +385,7 @@ const AMB={
  grocery:{bed:[['lowpass',300,.01]],mur:.02,ev:[['beep',.12]]},
  pets:{bed:[['lowpass',300,.008]],ev:[['bird',.4],['bubble',.25]]},
  cafe:{bed:[['lowpass',400,.012]],mur:.03,ev:[['clink',.35]]},
+ resto:{bed:[['lowpass',380,.011]],mur:.032,ev:[['clink',.4],['plate',.14],['sizzle',.07],['clank',.04]]},
  gym:{bed:[['lowpass',500,.02]],ev:[['clank',.18]]},
  cine_hall:{bed:[['lowpass',300,.01]],mur:.022},cine_couloir:{bed:[['lowpass',150,.012]],hum:.004},cine_salle:{bed:[['lowpass',200,.008]],mur:.012},cine_wc:{bed:[['bandpass',800,.005]],ev:[['drip',.25]]},
  arcade:{bed:[['lowpass',220,.012]],hum:.008,ev:[]}};
@@ -393,6 +396,8 @@ function ambEvent(g,n,t){const c=g.c,P=(node,pan)=>{let x=node;if(c.createStereo
  else if(n=='drip'){blip(1400+R()*600,500,.06,.018,R()*1.2-.6)}
  else if(n=='tick'){blip(3000,2500,.008,.004,.3)}
  else if(n=='clink'){const f=2400+R()*1200;blip(f,f,.25,.01,R()*1.4-.7);blip(f*2.7,f*2.7,.15,.004,R()*1.4-.7)}
+ else if(n=='plate'){blip(900+R()*300,700,.06,.012,R()*1.2-.6,'triangle');blip(2600+R()*500,2400,.12,.004,R()*1.2-.6)}
+ else if(n=='sizzle'){const s=c.createBufferSource(),f=c.createBiquadFilter(),e=c.createGain();s.buffer=g.nz;f.type='highpass';f.frequency.value=4500;e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(.006,t+.2);e.gain.linearRampToValueAtTime(0,t+1.4);s.connect(f);f.connect(e);P(e,-.5);s.start(t,R());s.stop(t+1.5)}
  else if(n=='beep'){blip(1320,1320,.12,.008,R()-.5)}
  else if(n=='bubble'){blip(300,900,.08,.012,R()-.5)}
  else if(n=='chime'){const f=mf([72,74,76,79,81][Math.floor(R()*5)]);blip(f,f,.5,.006,R()*1.6-.8);blip(f*2.76,f*2.76,.2,.002,R()-.5)}
@@ -440,7 +445,7 @@ function zone(){try{
  const p=typeof place!='undefined'?place:'home';
  if(typeof p=='string'&&p.startsWith('cine_')){// même pendant la séance : la musique ne dépend que du lieu
   if(p=='cine_hall')return'cine_hall';if(p=='cine_couloir')return'cine_couloir';if(p=='cine_wc')return'cine_wc';if(p=='cine_prive')return'cine_prive';return'cine_salle'}
- if(p=='street')return'rue';if(['office','store','clothes','grocery','pets','cafe','gym'].includes(p))return p;
+ if(p=='street')return'rue';if(['office','store','clothes','grocery','pets','cafe','gym','resto'].includes(p))return p;
  if(p=='home')return'maison';
  return null}catch(e){return null}}
 function tick(){if(!ctx||!G)return;const now=ctx.currentTime;
