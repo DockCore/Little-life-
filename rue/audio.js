@@ -235,3 +235,57 @@ Object.assign(JEUSON.FX,{
  stDeny(t){JEUSON.tone(220,t,.1,.05,'triangle');JEUSON.tone(196,t+.1,.16,.05,'triangle')},
  stLevel(t){JEUSON.tone(784,t,.18,.04,'sine');JEUSON.tone(1175,t+.1,.3,.04,'sine')},
  stPop(t){JEUSON.noise(t,.12,.08,3000,'bandpass',null,1.5);JEUSON.tone(500,t,.1,.04,'sine',null,{slide:2})}});
+// ---------- flipper modernisé : sons métalliques, impacts nets, montées pour le jackpot (aucun son « 8 bits ») ----------
+(function(){const T=(...a)=>JEUSON.tone(...a),N=(...a)=>JEUSON.noise(...a);
+ // tintement métallique : partiels inharmoniques courts (bille d'acier sur métal)
+ const met=(f,t,d,v)=>{T(f,t,d,v,'sine');T(f*2.76,t,d*.6,v*.45,'sine');T(f*5.4,t,d*.35,v*.2,'sine')};
+ const thump=(f,t,v)=>{T(f,t,.14,v,'sine',null,{slide:.35});N(t,.03,v*.6,3500,'highpass',null,.7)};
+ const chord=(ns,t,d,v,ty)=>ns.forEach((n,i)=>T(440*Math.pow(2,(n-69)/12),t+i*.012,d,v,ty||'triangle'));
+ Object.assign(JEUSON.FX,{
+  pbFlip(t){thump(120,t,.16);N(t,.04,.12,1800,'bandpass',null,1.4)},
+  pbWall(t,k){met(1500+Math.random()*500,t,.09,.03+.05*k)},
+  pbSling(t){thump(180,t,.16);met(2100,t,.07,.05);N(t,.05,.1,5000,'highpass',null,.8)},
+  pbDrop(t){N(t,.05,.16,900,'bandpass',null,1.6);T(240,t,.08,.08,'triangle',null,{slide:.6})},
+  pbLane(t){T(1318,t,.08,.05,'sine');T(1976,t+.04,.1,.04,'sine')},
+  pbRamp(t,k){N(t,.45,.12,600,'bandpass',null,1,{sweep:5200,att:.05});chord([72,76,79].map(n=>n+Math.min(5,Math.round(k)-1)*2),t+.32,.28,.05)},
+  pbLaunch(t,k){thump(90,t,.22);N(t,.35,.08+.1*k,800,'bandpass',null,.9,{sweep:4500})},
+  pbCharge(t,k){T(300+k*500,t,.04,.025,'sine')},
+  pbStart(t){N(t,.5,.06,400,'bandpass',null,.9,{sweep:6000,att:.15});chord([60,64,67,71],t+.38,.6,.045);T(65.4,t+.38,.5,.12,'sine')},
+  pbOver(t){chord([67,63,60],t,.5,.05);chord([62,58,55],t+.4,.8,.045);N(t+.1,1,.05,3000,'lowpass',null,.7,{sweep:300})},
+  pbNewRec(t){[72,76,79,84,88,91].forEach((n,i)=>T(440*Math.pow(2,(n-69)/12),t+i*.08,.35,.05,'triangle'));N(t+.4,.8,.04,8000,'highpass',null,1,{att:.1})},
+  pbCombo(t,k){const n=72+Math.min(12,k)*2;T(440*Math.pow(2,(n-69)/12),t,.16,.05,'triangle');T(440*Math.pow(2,(n+7-69)/12),t+.05,.18,.04,'triangle')},
+  pbHit(t,k){const sc=[0,2,4,7,9,12,14,16,19],n=76+sc[Math.min(8,Math.round(k))];T(440*Math.pow(2,(n-69)/12),t,.14,.05,'triangle');met(440*Math.pow(2,(n+12-69)/12),t+.02,.08,.02)},
+  pbJack(t,k){[0,1,2,3].slice(0,Math.max(1,Math.round(k))).forEach((i)=>T(523*Math.pow(2,i*4/12),t+i*.06,.18,.05,'triangle'))},
+  pbJackReady(t){N(t,1.2,.1,300,'bandpass',null,1.1,{sweep:7000,att:.9});T(110,t,1.2,.08,'sawtooth',null,{slide:4,att:.8});chord([69,73,76,81],t+1.15,.5,.05)},
+  pbJackpot(t){T(55,t,.7,.3,'sine',null,{slide:.6});N(t,.08,.25,1200,'bandpass',null,.8);chord([60,64,67,72,76],t,.9,.06);chord([65,69,72,77,81],t+.32,.9,.055);chord([67,71,74,79,83],t+.64,1.2,.06);N(t+.2,1.4,.05,9000,'highpass',null,1,{att:.3})},
+  pbSkill(t){chord([79],t,.12,.06);chord([83],t+.07,.12,.06);chord([88],t+.14,.3,.06);met(2637,t+.14,.25,.03)},
+  pbSave(t){T(659,t,.16,.06,'triangle');T(988,t+.1,.3,.06,'triangle')},
+  pbSel(t){T(1046,t,.05,.04,'sine');N(t,.02,.04,6000,'highpass',null,1)},
+  // Dinosaur World : bois, peaux, grondements
+  dnBump(t){thump(85,t,.3);N(t,.06,.18,700,'bandpass',null,1.5);T(170,t,.07,.06,'triangle')},
+  dnTarget(t){T(392,t,.1,.08,'triangle');T(588,t+.05,.12,.06,'triangle');N(t,.03,.1,2200,'bandpass',null,3)},
+  dnBonus(t){N(t,.8,.18,200,'bandpass',null,1,{sweep:1200,att:.2});chord([55,62,67,71],t+.5,.6,.05)},
+  dnDrain(t){N(t,1,.18,500,'lowpass',null,.7,{sweep:90,att:.05});T(98,t,1,.12,'sine',null,{slide:.5})},
+  dnSaucer(t){N(t,.9,.25,160,'lowpass',null,.8,{att:.1});thump(70,t+.1,.25)},
+  dnBall(t){chord([62,69],t,.25,.05)},
+  // Alien Invasion : synthés spatiaux, ondes
+  alBump(t){thump(140,t,.22);T(900,t,.12,.06,'sine',null,{slide:.35});met(1800,t,.06,.03)},
+  alTarget(t){T(880,t,.08,.06,'sine');T(1320,t+.05,.1,.05,'sine')},
+  alBonus(t){T(300,t,.8,.07,'sine',null,{slide:3,att:.1});chord([64,68,71,76],t+.5,.6,.045)},
+  alDrain(t){T(700,t,1,.08,'sine',null,{slide:.2,vib:7,att:.03});N(t,1,.05,2000,'bandpass',null,2,{sweep:200})},
+  alSaucer(t){T(200,t,.9,.08,'sine',null,{slide:3,vib:10,att:.1});N(t,.9,.06,1500,'bandpass',null,3,{sweep:6000,att:.2})},
+  alBall(t){chord([64,71],t,.25,.05,'sine')},
+  // Future City : électro urbaine, impacts nets
+  ctBump(t){thump(110,t,.26);T(220,t,.1,.06,'sawtooth',null,{slide:2.2});N(t,.04,.12,7000,'highpass',null,1)},
+  ctTarget(t){T(1046,t,.07,.05,'triangle');T(1568,t+.04,.1,.05,'triangle')},
+  ctBonus(t){[69,73,76,81,85].forEach((n,i)=>T(440*Math.pow(2,(n-69)/12),t+i*.06,.2,.045,'triangle'))},
+  ctDrain(t){T(440,t,.8,.08,'sawtooth',null,{slide:.25});N(t,.8,.06,3000,'lowpass',null,1,{sweep:200})},
+  ctSaucer(t){N(t,.5,.1,500,'bandpass',null,1,{sweep:4000,att:.1});chord([69,76],t+.4,.4,.05)},
+  ctBall(t){chord([69,76],t,.2,.05)},
+  // Space Galaxy : cristal, souffles
+  spBump(t){thump(120,t,.2);met(1400,t,.25,.05)},
+  spTarget(t){met(2093,t,.2,.04);T(1568,t,.15,.04,'sine')},
+  spBonus(t){[72,76,79,84,88].forEach((n,i)=>met(440*Math.pow(2,(n-69)/12),t+i*.07,.4,.035));N(t,.8,.04,7000,'highpass',null,1,{att:.2})},
+  spDrain(t){T(700,t,1.1,.09,'sine',null,{slide:.15,att:.02});N(t,1.1,.06,3000,'bandpass',null,1,{sweep:150,att:.2})},
+  spSaucer(t){T(80,t,1.2,.18,'sine',null,{slide:.5,att:.05});N(t,1.2,.1,4000,'bandpass',null,1.5,{sweep:120,att:.1})},
+  spBall(t){met(1046,t,.3,.04);met(1568,t+.08,.3,.035)}})})();

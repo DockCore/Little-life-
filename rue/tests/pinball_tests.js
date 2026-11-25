@@ -3,7 +3,7 @@ const path=require('path'),fs=require('fs');const PW='/home/claude/.npm-global/l
 const JEU='file://'+path.resolve(__dirname,'../../index.html')+'?orient=libre';const O=path.resolve(__dirname,'../sorties/tests');fs.mkdirSync(O,{recursive:true});
 const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!cond,info});console.log((cond?'OK   ':'ÉCHEC ')+n+(info!==undefined?'  '+JSON.stringify(info).slice(0,600):''))}
 const boot=async(p)=>{await p.goto(JEU);await p.waitForTimeout(2500);await p.evaluate(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}const b=document.getElementById('crOk2');if(b)b.click()});await p.waitForTimeout(700)};
-const fullCheck=async(E)=>E(()=>{arcDraw();const L=AX.L,F=L.full,g=AX.gameCv,r=AX.cv.getBoundingClientRect(),k=r.width/L.W,m=AX.x.getImageData(0,0,L.W,L.H).data,gd=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let diff=0;
+const fullCheck=async(E)=>E(()=>{arcDraw();const H=AX.hi;if(H&&!H.hidden){const r=H.getBoundingClientRect(),d=H.getContext('2d').getImageData(0,0,H.width,H.height).data;let vide=0;for(let i=0;i<400;i++){const j=Math.floor(Math.random()*H.width*H.height)*4;if(d[j+3]<250)vide++}return{diff:vide,couvre:r.left<=.6&&r.top<=.6&&r.right>=innerWidth-.6&&r.bottom>=innerHeight-.6,state:ARC.state,hautResolution:H.width+'x'+H.height}}const L=AX.L,F=L.full,g=AX.gameCv,r=AX.cv.getBoundingClientRect(),k=r.width/L.W,m=AX.x.getImageData(0,0,L.W,L.H).data,gd=g.getContext('2d').getImageData(0,0,g.width,g.height).data;let diff=0;
  for(let i=0;i<400;i++){const X=Math.floor(Math.random()*F.w),Y=Math.floor(Math.random()*F.h),a=((F.y+Y)*L.W+F.x+X)*4,b=(Y*g.width+X)*4;if(m[a]!=gd[b]||m[a+1]!=gd[b+1]||m[a+2]!=gd[b+2])diff++}
  const vis={l:r.left+F.x*k,t:r.top+F.y*k,r:r.left+(F.x+F.w)*k,b:r.top+(F.y+F.h)*k};return{diff,couvre:vis.l<=.6&&vis.t<=.6&&vis.r>=innerWidth-.6&&vis.b>=innerHeight-.6,state:ARC.state}});
 const ouvrir=async(p)=>{await p.evaluate(()=>{if(typeof streetEnter=='function'&&!ARC.on){streetEnter();const a=STC.buildings.find(q=>q.id=='arcade');STV.px=a.x+a.door.x;stInteract()}});await p.waitForTimeout(500);
@@ -49,15 +49,18 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
  await touch('pointerdown',L.bl.x,L.bl.y,5);await touch('pointerdown',L.br.x,L.br.y,6);await W(90);const s1=await ang();await touch('pointerup',L.bl.x,L.bl.y,5);await touch('pointerup',L.br.x,L.br.y,6);await W(90);
  await p.keyboard.down('ArrowLeft');await W(90);const k1=await ang();await p.keyboard.up('ArrowLeft');await p.keyboard.down('ArrowRight');await W(90);const k2=await ang();await p.keyboard.up('ArrowRight');await W(90);
  const hit=await E(()=>{const M=ARC.modules.pinball,P=M._state,F=M._flip[0];P.ball={x:F.px+22,y:F.py+Math.sin(F.rest)*22-9,vx:0,vy:0,st:'play'};P.fl[0].a=F.rest;for(let i=0;i<20;i++)M.update(1/60,{okN:P.okN});for(let i=0;i<6;i++)M.update(1/60,{okN:P.okN,left:1});return{vy:Math.round(P.ball.vy)}});
- ok(T('4 palettes gauche et droite : boutons ronds (un doigt, deux doigts), flèches du clavier, la palette frappe la boule'),a0.join()=='repos,repos'&&g1.join()=='haut,repos'&&g2.join()=='repos,repos'&&d1.join()=='repos,haut'&&s1.join()=='haut,haut'&&k1[0]=='haut'&&k2[1]=='haut'&&hit.vy<-300,{a0,g1,g2,d1,s1,k1,k2,hit});
- // ---- 5. nouvelle position des boutons ----
- const lev=L.oldBtnY-L.bl.y,sym=Math.abs(L.bl.x-(await E(()=>innerWidth&&ARC.modules.pinball._state.W))+L.br.x);
- const flipY=L.ty+350*L.k;
- ok(T('5 boutons GAUCHE/DROITE remontés d’environ 2 fois leur hauteur, symétriques, même taille ou un peu plus grands, sans cacher la table'),(tel?lev>=3.5*L.r0:lev>=0)&&L.bl.y==L.br.y&&sym<=2&&L.bl.r>=L.r0&&L.bl.x+L.bl.r<=L.tx+L.k*10&&L.br.x-L.br.r>=L.tx+L.tw-L.k*10&&L.bl.y+L.bl.r+14<=(await E(()=>ARC.modules.pinball._state.H)),{ancienY:L.oldBtnY,nouveauY:L.bl.y,remontee:lev,hauteurBouton:2*L.r0,r:[L.r0,L.bl.r],flipY:Math.round(flipY),lanceur:L.pl});
- // ---- 6. bandeau de score réduit ----
- ok(T('6 bandeau de score réduit d’environ 45 à 50 % (portrait) et chiffres un peu plus petits'),tel?(L.hud.h/L.oldHud>=.45&&L.hud.h/L.oldHud<=.56):true,{ancien:L.oldHud,nouveau:L.hud&&L.hud.h,ratio:L.hud&&L.oldHud?+(L.hud.h/L.oldHud).toFixed(2):null});
+ ok(T('4 palettes gauche et droite : zones tactiles (un doigt, deux doigts), flèches du clavier, la palette frappe la boule'),a0.join()=='repos,repos'&&g1.join()=='haut,repos'&&g2.join()=='repos,repos'&&d1.join()=='repos,haut'&&s1.join()=='haut,haut'&&k1[0]=='haut'&&k2[1]=='haut'&&hit.vy<-300,{a0,g1,g2,d1,s1,k1,k2,hit});
+ // ---- 5. commandes tactiles : chaque moitié de l'écran = une palette ; lanceur bien visible ----
+ const z=await E(()=>{const P=ARC.modules.pinball._state,L=P.L,W=P.W,H=P.H,r=AX.cv.getBoundingClientRect(),css=r.width/AX.L.W;P.touches.clear();
+  const zones=[[.12,.55],[.3,.8],[.45,.35],[.55,.35],[.7,.8],[.9,.55],[.2,.97],[.8,.97]].map(([u,v])=>{const ball=P.ball;P.ball={x:100,y:200,vx:0,vy:0,st:'play'};const zz=ARC.modules.pinball.pointer('down',W*u,H*v,99)||P.touches.get(99);P.touches.delete(99);P.ball=ball;return zz});
+  P.ball={x:184,y:390,vx:0,vy:0,st:'plunger'};ARC.modules.pinball.pointer('down',L.launch.x,L.launch.y,98);const lz=P.touches.get(98);P.touches.delete(98);
+  return{zones,lanceur:lz,diamCss:Math.round(2*L.launch.r*css),dansEcran:L.launch.x+L.launch.r<=W&&L.launch.y+L.launch.r<=H&&L.bl.y+L.bl.r<=H,hud:L.land?null:L.hud.h,H}});
+ ok(T('5 commandes : moitié gauche = palette gauche, moitié droite = palette droite, partout sous le bandeau ; bouton LANCER visible et assez grand (≥ 44 px)'),z.zones.join()=='L,L,L,R,R,R,L,R'&&z.lanceur=='P'&&z.diamCss>=44&&z.dansEcran,z);
+ // ---- 6. la table prend tout l'écran disponible ----
+ const lay6=await E(()=>{const P=ARC.modules.pinball._state,L=P.L;return{land:L.land,hud:L.land?0:L.hud.h,H:P.H,W:P.W,tw:Math.round(L.tw),th:Math.round(L.th)}});
+ ok(T('6 interface minimaliste : bandeau ≤ 10 % de la hauteur, table qui occupe presque tout l’écran'),lay6.land?lay6.th>=lay6.H*.97:(lay6.hud<=lay6.H*.1&&(lay6.tw>=lay6.W*.95||lay6.th>=(lay6.H-lay6.hud)*.95)),lay6);
  // ---- 7. BEST toujours affiché ----
- const vu=await E(()=>{const P=ARC.modules.pinball._state,res={};const spy=(ph)=>{const o=window.axCText,o2=window.axText;let seen=false;window.axCText=function(x,t,...a){if(/BEST|NEW RECORD/.test(t))seen=true;return o.call(this,x,t,...a)};window.axText=function(x,t,...a){if(/BEST|NEW RECORD/.test(t))seen=true;return o2.call(this,x,t,...a)};try{arcDraw()}finally{window.axCText=o;window.axText=o2}res[ph]=seen};
+ const vu=await E(()=>{const P=ARC.modules.pinball._state,res={};const spy=(ph)=>{arcDraw();res[ph]=(P.drawn||[]).some(t=>/BEST|RECORD/.test(t))};
   spy('jeu');P.paused=true;spy('pause');P.paused=false;P.recT=2;spy('record');P.recT=0;const ph=P.phase;P.phase='perdue';P.lostT=5;spy('perdue');P.phase=ph;return res});
  ok(T('7 le BEST de la table reste affiché en permanence (jeu, pause, boule perdue, nouveau record)'),Object.values(vu).every(Boolean),vu);
  // ---- 11. mise à jour automatique en cas de nouveau record (record précédent > 0) ----
@@ -98,6 +101,40 @@ async function session(b,mode){const tel=mode=='tel';const ctx=await b.newContex
  // ---- 9. après rafraîchissement de la page ----
  await p.reload();await W(2500);const rel=await E(()=>{for(const id of ['intro','title','tscr']){const e=document.getElementById(id);if(e)e.remove()}const t=N.arcade&&N.arcade.pinball&&N.arcade.pinball.tables;return t?Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v.best])):null});
  ok(T('9 records conservés après rafraîchissement de la page'),rel&&rel.dino==8000&&rel.alien==3333&&rel.space==2222&&rel.city==20,rel);
+ // ---- 16. récompenses : combo, série de bumpers, tir d'adresse, jackpot, boule sauvée ----
+ await ouvrir(p);await E(()=>{ARC.modules.pinball._state.sel=0});await p.keyboard.press('Enter');await W(300);
+ const rw=await E(()=>{const M=ARC.modules.pinball,P=M._state,TB=M._table,u=()=>M.update(1/60,{okN:P.okN});window.__fx=[];if(!JEUSON.fx.__spy){const o=JEUSON.fx.bind(JEUSON);JEUSON.fx=(n,k,g)=>{window.__fx.push(n);return o(n,k,g)};JEUSON.fx.__spy=1}P.mute=false;const r={};
+  // combo : trois cibles touchées coup sur coup
+  P.comboT=0;P.combo=0;const st=TB.S.filter(s=>s.type=='stand');let s0=P.score;for(const t of st){P.ball={x:(t.a[0]+t.b[0])/2+(t.a[0]<100?14:-14),y:(t.a[1]+t.b[1])/2,vx:t.a[0]<100?-520:520,vy:0,st:'play'};for(let i=0;i<4;i++)u()}r.combo=P.combo;r.comboPts=P.score-s0;
+  // série de bumpers
+  P.chain=0;P.chainT=0;const bm=TB.C.find(c=>c.type=='bumper');for(let k=0;k<5;k++){P.ball={x:bm.x,y:bm.y-bm.r-8,vx:0,vy:300,st:'play'};for(let i=0;i<3;i++)u()}r.serie=P.chain;
+  // tir d'adresse : le passage clignotant pris juste après le lancement
+  P.phase='jeu';P.paused=false;P.balls=3;P.jack=0;P.jackReady=false;P.skill=1;P.skillT=3;P.lastLaneIn=-1;s0=P.score;P.ball={x:TB.lanes[1],y:52,vx:0,vy:-200,st:'play'};for(let i=0;i<6;i++)u();r.skill=P.score-s0>=5000&&window.__fx.includes('pbSkill');
+  // jackpot : jauge pleine puis rampe
+  P.phase='jeu';P.paused=false;P.balls=3;P.jack=3;P.jackReady=false;P.msg=null;M._state.mult=1;const j0=P.jackN;s0=P.score;
+  P.lit.lane=P.lit.lane.map(()=>1);P.lit.lane[0]=0;P.lastLaneIn=-1;P.skillT=0;P.ball={x:TB.lanes[0],y:52,vx:0,vy:-200,st:'play'};for(let i=0;i<6;i++)u();r.pret=P.jackReady&&window.__fx.includes('pbJackReady');
+  P.phase='jeu';P.paused=false;P.balls=3;P.ball={x:20,y:146,vx:0,vy:-420,st:'play'};for(let i=0;i<240&&P.jackN==j0;i++)u();r.jackpot=P.jackN==j0+1&&P.score-s0>=20000&&!!P.big&&window.__fx.includes('pbJackpot')&&P.level==1;
+  // boule sauvée : perdue dans les secondes qui suivent le lancement
+  P.phase='jeu';const b0=P.balls;P.ballSave=3;P.ball={x:100,y:430,vx:0,vy:300,st:'play'};u();r.sauvee=P.balls==b0&&P.ball.st=='plunger'&&P.msg&&P.msg.t=='BALL SAVE'&&window.__fx.includes('pbSave');
+  P.phase='jeu';P.ball={x:184,y:390,vx:0,vy:0,st:'plunger'};return r});
+ ok(T('16 récompenses : combo de cibles, série de bumpers, tir d’adresse, jauge et JACKPOT (avec montée sonore), boule sauvée'),rw.combo>=3&&rw.comboPts>0&&rw.serie>=5&&rw.skill&&rw.pret&&rw.jackpot&&rw.sauvee,rw);
+ // ---- 17. palettes : la boule ne les traverse jamais, même très vite ----
+ const pf=await E(()=>{const M=ARC.modules.pinball,P=M._state,F=M._flip;let n=0,trav=0;P.mute=true;
+  for(let i=0;i<2;i++)for(const up of[false,true])for(let k=0;k<120;k++){const f=F[i],u=.15+.8*Math.random(),a=up?f.up:f.rest;P.fl[i].a=a;P.fl[1-i].a=F[1-i].rest;const px=f.px+Math.cos(a)*f.len*u,py=f.py+Math.sin(a)*f.len*u;
+   P.phase='jeu';P.balls=3;P.ball={x:px,y:py-16,vx:(Math.random()-.5)*200,vy:600+Math.random()*300,st:'play'};n++;
+   for(let s=0;s<12;s++){M.update(1/120,{okN:P.okN,left:up&&i==0?1:0,right:up&&i==1?1:0});const b=P.ball;const g=a,ex=Math.cos(g),ey=Math.sin(g),rx=b.x-f.px,ry=b.y-f.py,along=rx*ex+ry*ey,side=-rx*ey+ry*ex;if(along>2&&along<f.len-2&&side<(i?-1:1)*0&&Math.abs(side)<3){trav++;break}}}
+  P.mute=false;P.phase='jeu';P.ball={x:184,y:390,vx:0,vy:0,st:'plunger'};return{lancers:n,traversees:trav}});
+ ok(T('17 précision : 480 boules lancées vite sur les palettes (levées ou au repos), aucune ne passe au travers'),pf.lancers==480&&pf.traversees==0,pf);
+ // ---- 18. rendu moderne haute résolution (plus de pixel art) ----
+ const vis=await E(()=>{const P=ARC.modules.pinball._state;P.ball={x:100,y:200,vx:500,vy:-500,st:'play'};P.trail=[[90,210],[94,206],[97,203],[99,201]];arcDraw();const H=AX.hi;return{hautRes:!!H&&!H.hidden,densite:H?+(H.width/AX.hi.getBoundingClientRect().width).toFixed(2):0,trainee:P.trail.length,texte:(P.drawn||[]).length}});
+ ok(T('18 rendu vectoriel haute résolution (toile à la densité de l’écran, jusqu’à 2×), traînée lumineuse de la boule'),vis.hautRes&&vis.densite>=(tel?1.9:1)&&vis.trainee>=3&&vis.texte>0,vis);
+ // ---- 19. fluidité en pleine partie ----
+ await E(()=>{const P=ARC.modules.pinball._state;P.ball={x:100,y:150,vx:300,vy:200,st:'play'}});
+ const fps=await E(()=>new Promise(r=>{let n=0,worst=0,last=performance.now();const t0=last;const f=()=>{const now=performance.now();worst=Math.max(worst,now-last);last=now;n++;if(now-t0<3000)requestAnimationFrame(f);else r({fps:Math.round(n/3),pireImage:Math.round(worst)})};requestAnimationFrame(f)}));
+ ok(T('19 fluidité : au moins 50 images/s en pleine partie'),fps.fps>=50,fps);
+ // ---- 20. aucune palette bloquée : perte de focus ou changement d'orientation ----
+ const rel2=await E(()=>{const P=ARC.modules.pinball._state;ARC.modules.pinball.pointer('down',P.W*.2,P.H*.6,77);const avant=P.touches.size;dispatchEvent(new Event('orientationchange'));const apres=P.touches.size;ARC.modules.pinball.pointer('down',P.W*.8,P.H*.6,78);dispatchEvent(new Event('blur'));return{avant,apres,blur:P.touches.size}});
+ ok(T('20 changement d’orientation ou perte de focus : toutes les palettes sont relâchées'),rel2.avant==1&&rel2.apres==0&&rel2.blur==0,rel2);
  ok(T('15 aucune erreur JavaScript'),errs.length==0,errs);await ctx.close()}
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--autoplay-policy=no-user-gesture-required']});
  const modes=process.argv[2]?[process.argv[2]]:['tel','pc'];for(const m of modes)await session(b,m);await b.close();

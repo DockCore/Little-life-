@@ -48,7 +48,7 @@ if(QUI=='pinball'||QUI=='tout'){
   const st=TB.S.find(s=>s.type=='stand');P.ball={x:st.a[0]+16,y:(st.a[1]+st.b[1])/2,vx:-500,vy:0,st:'play'};for(let i=0;i<3;i++)M.update(1/60,{okN:P.okN});
   P.ball={x:25,y:160,vx:0,vy:-450,st:'play'};for(let i=0;i<130;i++)M.update(1/60,{okN:P.okN})});await W(300);
  const f=await fx();ok('P2 sons du flipper : lancement, palettes, bumper, cible, rampe (signal audio réel mesuré)',f.pbLaunch>=1&&f.pbFlip>=1&&f.dnBump>=1&&f.dnTarget>=1&&f.pbRamp>=1&&peak>.02,{f,peak:+peak.toFixed(3)});
- await reset();const lost=await E(async()=>{const M=ARC.modules.pinball,P=M._state;P.phase='jeu';P.balls=1;P.ball={x:92,y:395,vx:0,vy:300,st:'play'};for(let i=0;i<130;i++)M.update(1/60,{okN:P.okN});await new Promise(z=>setTimeout(z,300));return{ph:P.phase,lvl:JEUSON._state().mus}});
+ await reset();const lost=await E(async()=>{const M=ARC.modules.pinball,P=M._state;P.phase='jeu';P.balls=1;P.ballSave=0;P.ball={x:92,y:395,vx:0,vy:300,st:'play'};for(let i=0;i<130;i++)M.update(1/60,{okN:P.okN});await new Promise(z=>setTimeout(z,300));return{ph:P.phase,lvl:JEUSON._state().mus}});
  const f2=await fx();ok('P3 boule perdue et GAME OVER sonores, musique baissée en fin de partie',f2.dnDrain>=1&&f2.pbOver>=1&&lost.ph=='over',{f2,lost});
  // pause : musique baissée ; sortie : musique coupée
  await E(()=>{const M=ARC.modules.pinball,P=M._state;if(P.phase=='select'||P.phase=='over'){if(P.over){P.over.t=1;P.osel=0}P.okN=P.okN||0;M.update(1/60,{okN:P.okN+1})}});await W(200);await E(()=>{const P=ARC.modules.pinball._state;P.paused=true});await W(500);const pz=await E(()=>JEUSON._state().mus);
