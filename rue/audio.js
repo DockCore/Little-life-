@@ -296,3 +296,17 @@ Object.assign(JEUSON.FX,{
   wwDrain(t){T(1200,t,.9,.06,'sine',null,{slide:.45,vib:6,att:.03});N(t+.2,.8,.05,1800,'bandpass',null,2,{sweep:400})},
   wwSaucer(t){N(t,.05,.45,1200,'lowpass',null,.6);thump(70,t,.3);N(t+.06,1.1,.08,900,'bandpass',null,1,{sweep:300,att:.02})},
   wwBall(t){met(3200,t,.12,.03);met(3600,t+.06,.12,.025);met(3400,t+.12,.14,.02)}})})();
+// ---------- Memory : sons courts et lumineux (carte, paires, combos, victoire) ----------
+(function(){const T=(...a)=>JEUSON.tone(...a),N=(...a)=>JEUSON.noise(...a),nf=n=>440*Math.pow(2,(n-69)/12);
+ const pl=(n,t,d,v,ty)=>{T(nf(n),t,d,v,ty||'triangle');T(nf(n+12),t,d*.6,v*.25,'sine')};
+ Object.assign(JEUSON.FX,{
+  mmFlip(t,k){N(t,.07,.07,2200+k*900,'bandpass',null,1.2,{sweep:5200});T(900+k*200,t+.01,.03,.02,'sine')},
+  mmMatch(t){pl(84,t,.16,.06);pl(91,t+.07,.24,.06)},
+  mmMiss(t){T(nf(67),t,.14,.045,'sine',null,{slide:.85});T(nf(63),t+.09,.18,.04,'sine',null,{slide:.85})},
+  mmCombo(t,k){const b=79+Math.min(5,Math.round(k)-2)*2;[0,4,7,12].forEach((d,i)=>pl(b+d,t+i*.05,.18,.05));N(t+.12,.25,.025,8000,'highpass',null,1)},
+  mmLast(t){[72,76,79,84,88].forEach((n,i)=>pl(n,t+i*.06,.3,.05));N(t+.25,.5,.03,9000,'highpass',null,1,{att:.05})},
+  mmWin(t){[[60,64,67,72],[65,69,72,77],[67,71,74,79],[72,76,79,84]].forEach((c,j)=>c.forEach((n,i)=>T(nf(n),t+j*.18+i*.012,j==3?.8:.22,.04,'triangle')));T(nf(48),t+.54,.6,.08,'sine');N(t+.54,.9,.03,9000,'highpass',null,1,{att:.1})},
+  mmRecord(t){[72,79,84,88,91,96].forEach((n,i)=>pl(n,t+i*.07,.35,.045));[[60,64,67,72],[65,69,72,77],[67,71,74,79],[72,76,79,84]].forEach((c,j)=>c.forEach((n)=>T(nf(n),t+.45+j*.16,j==3?.8:.2,.035,'triangle')))},
+  mmClick(t){T(1320,t,.035,.03,'sine');N(t,.015,.025,6000,'highpass',null,1)},
+  mmStart(t){N(t,.35,.04,400,'bandpass',null,1,{sweep:5000,att:.1});pl(79,t+.25,.2,.04);pl(86,t+.32,.3,.04)}})})();
+

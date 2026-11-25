@@ -363,6 +363,8 @@ def('stOcean',{sty:'amb',bpm:86,key:62,mode:'lyd',ext:9,prog:{I:[1,2,1,2],A:[1,2
 def('stSpace',{sty:'amb',bpm:90,key:45,mode:'min',ext:9,prog:{I:[1,6,1,6],A:[1,6,4,5],B:[6,4,1,7],C:[4,4,6,6]},mel:{i:'lead',v:'flute',br:1600},ch:{i:'keys'},ar:{i:'pluck',br:1600},pd:{i:'strings'}});
 def('stCrystal',{sty:'pop',bpm:102,key:60,mode:'lyd',ext:9,prog:{I:[1,2,1,2],A:[1,2,3,2],B:[4,5,1,2],C:[6,5,2,2]},mel:{i:'kalimba',v:'pluck'},ch:{i:'keys'},ar:{i:'marimba'}});
 def('stCyber',{sty:'synth',bpm:122,key:52,mode:'min',prog:{I:[1,1,6,7],A:[1,6,7,5],B:[6,7,1,1],C:[4,4,7,7]},mel:{i:'lead',v:'stab',br:2600},ch:{i:'stab'},ar:{i:'pluck',br:3200}});
+// Memory : électro chill lumineuse (clavier doux, kalimba, voix synthétique), groove léger
+def('memory',{sty:'chill',bpm:104,key:58,mode:'maj',ext:9,prog:{I:[4,4,1,1],A:[1,5,6,4],B:[4,5,3,6],C:[2,5,1,1]},mel:{i:'vox',v:'kalimba',k:'kalimba',c:'pluck',br:1300},ch:{i:'keys',br:1700},ar:{i:'kalimba'}});
 // les tables du flipper : même énergie, couleurs différentes
 def('pb_west',{sty:'funk',bpm:112,key:52,mode:'mix',prog:{I:[1,7,1,7],A:[1,4,7,1],B:[4,1,5,1],C:[6,4,5,5]},mel:{i:'flute',v:'pluck',k:'pluck',br:2200},ch:{i:'pluck',br:2600},ar:{i:'pluck',br:2400}});
 def('pb_dino',{sty:'trop',bpm:124,key:55,mode:'dor',prog:{I:[1,1,6,6],A:[1,6,3,7],B:[6,7,1,5],C:[4,4,5,5]},mel:{i:'marimba',v:'pluck'},ch:{i:'marimba'},ar:{i:'kalimba'}});
@@ -370,7 +372,7 @@ def('pb_alien',{sty:'synth',bpm:130,key:50,mode:'min',prog:{I:[1,1,6,6],A:[1,6,3
 def('pb_city',{sty:'house',bpm:126,key:57,mode:'dor',prog:{I:[1,1,6,6],A:[1,6,3,7],B:[6,7,1,5],C:[4,4,5,5]},mel:{i:'vox',v:'lead'},ch:{i:'stab'},ar:{i:'pluck'}});
 def('pb_space',{sty:'amb',bpm:122,key:52,mode:'lyd',prog:{I:[1,1,6,6],A:[1,6,3,7],B:[6,7,1,5],C:[4,4,5,5]},mel:{i:'lead',v:'kalimba',br:2000},ch:{i:'keys'},ar:{i:'pluck'}});
 // ---------- niveaux : chaque morceau est ramené au même volume perçu (mesuré par les tests, voir rue/tests/musique_tests.js) ----------
-const GAIN={"menu":1.303,"maison":1.432,"rue":1.57,"office":1.624,"store":1.545,"clothes":1.578,"grocery":1.215,"pets":1.881,"cafe":1.318,"gym":1.568,"cine_hall":1.306,"cine_couloir":2.065,"cine_salle":1.289,"cine_prive":1.338,"cine_wc":1.626,"arcade":1.561,"bowling":1.705,"pinball":1.565,"racing":1.492,"mole":1.657,"hockey":1.58,"maze":1.866,"claw":1.615,"bubble":1.774,"boxes":1.314,"stNeon":1.824,"stSunset":1.353,"stOcean":2.009,"stSpace":1.58,"stCrystal":1.653,"stCyber":1.554,"pb_dino":1.565,"pb_alien":1.565,"pb_city":1.565,"pb_west":1.6,"pb_space":1.565};
+const GAIN={"menu":1.303,"maison":1.432,"rue":1.57,"office":1.624,"store":1.545,"clothes":1.578,"grocery":1.215,"pets":1.881,"cafe":1.318,"gym":1.568,"cine_hall":1.306,"cine_couloir":2.065,"cine_salle":1.289,"cine_prive":1.338,"cine_wc":1.626,"arcade":1.561,"bowling":1.705,"pinball":1.565,"racing":1.492,"mole":1.657,"hockey":1.58,"maze":1.866,"claw":1.615,"bubble":1.774,"boxes":1.314,"stNeon":1.824,"stSunset":1.353,"stOcean":2.009,"stSpace":1.58,"stCrystal":1.653,"stCyber":1.554,"pb_dino":1.565,"pb_alien":1.565,"pb_city":1.565,"pb_west":1.6,"memory":1.5,"pb_space":1.565};
 // ---------- ambiances environnementales (bus séparé) ----------
 const AMB={
  rue:{bed:[['lowpass',500,.05]],ev:[['car',.08],['bird',.3,'day'],['cricket',.4,'night']]},

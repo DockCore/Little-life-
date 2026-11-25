@@ -31,9 +31,9 @@ await p.mouse.move(jc.x,jc.y);await p.mouse.down();await p.mouse.move(jd.x,jd.y,
 await E(()=>{ARC.sel=0});await p.mouse.move(jc.x,jc.y);await p.mouse.down();await p.mouse.move(jd.x,jd.y,{steps:3});const held=[];for(let i=0;i<8;i++){await W(100);held.push(await E(()=>ARC.sel))}await p.mouse.up();
 const btn=async id=>{const B=await E(id=>AX.L.btn.find(b=>b.id==id),id);const c=await toCss(p,B.x,B.y);await p.mouse.click(c.x,c.y)};
 // case d'un jeu encore « en développement » (Perfect Stack) : la fiche s'ouvre, OK affiche le message sans lancer
-await E(()=>{ARC.sel=ARC.games.findIndex(g=>g.id=='memory')});await btn('ok');await W(60);const pr=await E(()=>!!ARC.press.ok);const st1=await E(()=>({st:ARC.state,info:ARC.info}));await W(500);await p.screenshot({path:`${O}/arc2_info_tel.png`});
+await E(()=>{ARC.sel=ARC.games.findIndex(g=>g.id=='basket')});await btn('ok');await W(60);const pr=await E(()=>!!ARC.press.ok);const st1=await E(()=>({st:ARC.state,info:ARC.info}));await W(500);await p.screenshot({path:`${O}/arc2_info_tel.png`});
 await btn('ok');const fl=await E(()=>({st:ARC.state,flash:ARC.flash>0}));await btn('back');const st2=await E(()=>ARC.state);
-const ARC_STACK=await E(()=>ARC.games.findIndex(g=>g.id=='memory'));
+const ARC_STACK=await E(()=>ARC.games.findIndex(g=>g.id=='basket'));
 ok('5 joystick (pousser le manche, maintien régulier) et boutons physiques OK / RETOUR',tilt=='right'&&s1==1&&s2==4&&held[0]==3&&held.at(-1)==12&&new Set(held).size>=3&&held.every((v,i)=>i==0||v-held[i-1]<=3)&&pr&&st1.st=='info'&&st1.info==ARC_STACK&&fl.st=='info'&&fl.flash&&st2=='menu',{tilt,s1,s2,held,pr,st1,fl,st2});
 // clavier + écran tactile
 await E(()=>{ARC.sel=0});for(const k of['ArrowRight','ArrowDown','KeyD','ArrowLeft','ArrowUp'])await p.keyboard.press(k);const kb=await E(()=>ARC.sel);
