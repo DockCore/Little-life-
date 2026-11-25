@@ -4561,16 +4561,22 @@ const I={
  lead(g,n,t,d,v,o){const f=mf(n),end=t+d+.5,lp=g.c.createBiquadFilter();lp.type='lowpass';lp.Q.value=2;lp.frequency.setValueAtTime((o&&o.br)||2400,t);lp.frequency.exponentialRampToValueAtTime(((o&&o.br)||2400)*.45,t+d);
   const e=g.c.createGain();e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+.02);e.gain.setTargetAtTime(v*.7,t+.05,.2);e.gain.setTargetAtTime(.0001,t+d,.08);const vib=osc(g,'sine',5.2,t,end),vg=g.c.createGain();vg.gain.setValueAtTime(0,t);vg.gain.linearRampToValueAtTime(f*.008,t+.3);vib.connect(vg);
   for(const dt of[-6,6]){const x=osc(g,'sawtooth',f,t,end);x.detune.value=dt;vg.connect(x.frequency);x.connect(lp)}lp.connect(e);out(g,{node:e,pan:(o&&o.pan)||0,rev:.35})},
+ // clavier doux (synthé chaud) : deux triangles légèrement désaccordés + sinus grave, filtre fermé, note courte (≤ 1 s) qui ne traîne pas
+ keys(g,n,t,d,v,o){const f=mf(n),dd=Math.min(Math.max(d,.15),1),end=t+dd+.5,lp=g.c.createBiquadFilter();lp.type='lowpass';lp.Q.value=.3;lp.frequency.setValueAtTime((o&&o.br)||1500,t);lp.frequency.exponentialRampToValueAtTime(((o&&o.br)||1500)*.6,t+dd);
+  const e=g.c.createGain();e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+.018);e.gain.setTargetAtTime(v*.5,t+.03,.25);e.gain.setTargetAtTime(.0001,t+dd,.12);
+  for(const[ty,k,a,dt]of[['triangle',1,.7,-5],['triangle',1,.7,5],['sine',.5,.35,0]]){const x=osc(g,ty,f*k,t,end);x.detune.value=dt;const gg=g.c.createGain();gg.gain.value=a;x.connect(gg);gg.connect(lp)}lp.connect(e);out(g,{node:e,pan:(o&&o.pan)||0,rev:.3})},
  // flûte douce : sinus + souffle
  flute(g,n,t,d,v,o){const f=mf(n),end=t+d+.4,e=g.c.createGain();e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+.06);e.gain.setTargetAtTime(.0001,t+d,.1);const a=osc(g,'sine',f,t,end),vib=osc(g,'sine',4.8,t,end),vg=g.c.createGain();vg.gain.value=f*.006;vib.connect(vg);vg.connect(a.frequency);a.connect(e);
   const s=g.c.createBufferSource();s.buffer=g.nz;const bp=g.c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f*2;bp.Q.value=4;const bg=g.c.createGain();bg.gain.value=.25;s.connect(bp);bp.connect(bg);bg.connect(e);s.start(t,Math.random());s.stop(end);out(g,{node:e,pan:(o&&o.pan)||0,rev:.45})}};
 // ---------- notes mises en cache : un instrument qui s'éteint seul est calculé une fois par hauteur, puis relu ----------
-const CACHEABLE={ep:[1.7,.35],piano:[2.1,.4],pluck:[1.1,.3],kalimba:[.95,.4],marimba:[.6,.25],bell:[2.1,.6]},NC=new Map(),NQ=[];let NQbusy=false;
+const CACHEABLE={keys:[1.5,.3],pluck:[1.1,.3],kalimba:[.95,.4],marimba:[.6,.25]},NC=new Map(),NQ=[];let NQbusy=false;
 function noteKey(i,n,o){return i+'|'+n+'|'+(o&&o.br||'')+'|'+(o&&o.bright||'')}
 async function renderNote(){if(NQbusy||!NQ.length)return;NQbusy=true;const[key,i,n,o]=NQ.shift();try{const len=CACHEABLE[i][0],off=new OfflineAudioContext(1,Math.round(22050*len),22050),og={c:off,nz:null,bs:{}};
   og.musIn=off.createGain();og.musIn.connect(off.destination);og.revIn=off.createGain();og.nz=noiseBuf(off);I[i](og,n,0,len-.5,1,Object.assign({},o,{pan:0}));NC.set(key,await off.startRendering());if(NC.size>140)NC.delete(NC.keys().next().value)}catch(e){}NQbusy=false;if(NQ.length)setTimeout(renderNote,15)}
-const TRIM={bass:.38,sub:.36,ep:2.1,piano:2,pluck:2.2,kalimba:2,marimba:2,bell:2,lead:2.1,flute:2.2,pad:1.9,strings:1.9};
-function play(g,i,n,t,d,v,o){v*=TRIM[i]||1;const C=CACHEABLE[i];if(C&&g.live){const key=noteKey(i,n,o),b=NC.get(key);
+const TRIM={bass:.38,sub:.36,keys:2.2,pluck:1.8,kalimba:1.7,marimba:1.8,lead:1.6,flute:2.2,pad:1.9,strings:1.9};
+// anciens timbres retirés (piano électrique, piano, cloches) : remplacés par des sons doux et courts
+const ALIAS={ep:'keys',piano:'keys',bell:'kalimba'};
+function play(g,i,n,t,d,v,o){i=ALIAS[i]||i;v*=TRIM[i]||1;const C=CACHEABLE[i];if(C&&g.live){const key=noteKey(i,n,o),b=NC.get(key);
   if(b){NC.delete(key);NC.set(key,b);const s=g.c.createBufferSource();s.buffer=b;const e=g.c.createGain();e.gain.setValueAtTime(v,t);if(d+.3<C[0])e.gain.setTargetAtTime(0,t+d+.15,.08);s.connect(e);e.connect(bus(g,o&&o.pan,C[1]));s.start(t);s.stop(t+C[0]);return}
   if(!NQ.some(q=>q[0]===key)){NQ.push([key,i,n,o?{br:o.br,bright:o.bright}:{}]);setTimeout(renderNote,0)}}
  I[i](g,n,t,d,v,o)}
@@ -4651,35 +4657,28 @@ function step(g,T,S,k,t){const SD=60/T.bpm/4,s=k%16,bar=Math.floor(k/16);if(s==0
   for(const[st,du,p]of half)if(st==s){if(ph==7&&st>=8)continue;let n=melodyNote(T,S,p+tr+(S.sec=='B'&&T.mel.up?2:0),st);if(ph==7&&st==0)n=melodyNote(T,S,0,0)+12*(T.mel.oct||1);
    if(T.mel.dens<1&&S.mr()>T.mel.dens)continue;play(g,inst,n,tt,SD*du,(V.mel||.05)*(S.sec=='C'?.8:1),{pan:.2,br:T.mel.br})}}
  // contre-chant de cloches / texture
- if(T.bl&&on('bl')&&s==T.bl.at&&S.mr&&S.mr()<(T.bl.p||.5))play(g,T.bl.i||'bell',S.chord[Math.floor(S.mr()*S.chord.length)]+24,tt,2,V.bl||.025,{pan:(S.mr()-.5)*1.4})}
+ if(T.bl&&on('bl')&&s==T.bl.at&&S.mr&&S.mr()<(T.bl.p||.5))play(g,T.bl.i||'pad',S.chord[Math.floor(S.mr()*S.chord.length)]+12,tt,2,(V.bl||.025)*.8,{pan:(S.mr()-.5)*1.4,br:1100,att:.8})}
 // ---------- les morceaux (un par lieu, un par mini-jeu) ----------
 // Batteries types (16 doubles-croches par mesure ; x = coup, o = coup léger)
-const LOFI={k:'x......x..x.....',s:'....x.......x...',h:'x.x.x.x.x.x.x.xo',kick:{f0:110,f1:42,len:.34},fill:'rim'};
+const SOFT={k:'x.......x.x.....',rim:'....x.......x...',sh:'..x...x...x...x.',kick:{f0:105,f1:46,len:.32},fill:'rim'};
 const HOUSE={k:'x...x...x...x...',c:'....x.......x...',h:'o.o.o.o.o.o.o.o.',oh:'..x...x...x...x.',kick:{f0:150,f1:45,len:.3},fill:'snare'};
 const POP={k:'x.......x.x.....',s:'....x.......x...',sh:'xxxxxxxxxxxxxxxx',kick:{f0:130,f1:46,len:.36},fill:'snare'};
 const FORM=[['I',4],['A',8],['B',8],['A',8],['C',8],['B',8]];
-const FULL={I:{dr:0,bs:0,mel:0,ar:0},A:{ar:0},B:{},C:{dr:2,bs:0}};
+const FULL={I:{dr:0,bs:0,mel:0,ar:0},A:{mel:0},B:{},C:{dr:2,bs:0}};
 const T={};const def=(id,o)=>{T[id]=Object.assign({id,form:FORM,secs:FULL,swing:0,ext:7,lo:53,hi:72},o)};
-// —— menu principal : signature de Little Life (lo-fi électronique : piano électrique, batterie légère, basse chaude, nappes, texture vinyle)
-def('menu',{bpm:84,swing:.12,key:53,mode:'maj',ext:9,prog:{I:[4,4,1,1],A:[2,5,1,6],B:[4,5,3,6],C:[4,4,1,1]},dr:LOFI,bs:{p:'R......5..R.....',d:5},ch:{i:'ep',p:'x.....o.......o.',d:3,dl:12},pd:{i:'pad',br:900},
- mel:{i:'ep',i2:'bell',rh:'pop',oct:1},bl:{at:10,p:.35},vinyl:1,v:{k:.42,s:.2,h:.05,b:.2,ch:.05,pd:.022,mel:.055,bl:.02}});
-// —— maison
-def('salon',{bpm:96,swing:.06,key:55,mode:'maj',ext:7,prog:{I:[1,1,4,4],A:[1,5,6,4],B:[4,1,5,6],C:[6,4,1,5]},dr:POP,bs:{p:'R.....5.R.....5.',d:3},ch:{i:'pluck',p:'x..x..x...x.x...',d:3,strum:.018,br:2600},pd:{br:800},
- mel:{i:'flute',i2:'kalimba',rh:'pop',oct:1},v:{k:.4,s:.2,sh:.035,b:.2,ch:.045,pd:.018,mel:.05}});
-def('chambre',{bpm:70,swing:.14,key:52,mode:'maj',ext:9,prog:{I:[1,1,4,4],A:[1,3,4,4],B:[6,5,4,1],C:[4,4,1,1]},dr:{k:'x.........x.....',s:'....x.......x...',sn:'rim',h:'x...x...x...x...',kick:{f0:95,f1:40,len:.3},fill:'rim'},
- bs:{p:'R.........5.....',d:8},ch:{i:'ep',p:'x.......o.......',d:6,dl:14,bright:1},pd:{br:700,att:2},mel:{i:'ep',rh:'slow',oct:1,dens:.75},vinyl:1,secs:{I:{dr:0,bs:0,mel:0},A:{},B:{},C:{dr:0}},v:{k:.3,s:.12,h:.03,b:.16,ch:.05,pd:.022,mel:.045}});
-def('cuisine',{bpm:112,key:60,mode:'maj',ext:3,prog:{I:[1,4,1,4],A:[1,4,6,5],B:[4,5,1,6],C:[6,5,4,4]},dr:{k:'x.......x.......',s:'....x.......x...',sh:'x.x.x.x.x.x.x.x.',kick:{f0:130,f1:48,len:.3},fill:'snare'},
- bs:{p:'R.R.....R.R.5...',d:1.6},ch:{i:'piano',p:'..x...x...x...x.',d:1.5,top:3},ar:{i:'marimba',p:'x.x.x.x.x.x.x.x.',seq:[0,1,2,1],d:2},mel:{i:'kalimba',i2:'bell',rh:'pop',oct:1},secs:{I:{dr:0,mel:0,bs:0},A:{},B:{},C:{dr:2,ar:0}},v:{k:.42,s:.2,sh:.04,b:.2,ch:.04,ar:.035,mel:.055}});
-def('bain',{bpm:66,key:62,mode:'lyd',ext:9,prog:{I:[1,2,1,2],A:[1,2,1,5],B:[4,2,1,5],C:[2,2,1,1]},bs:{i:'sub',p:'R...............',d:14},pd:{br:1300,att:2.2},bl:{at:6,p:.6,i:'bell'},mel:{i:'flute',rh:'sparse',oct:1,dens:.6},
- secs:{I:{mel:0},A:{},B:{},C:{mel:0}},v:{b:.16,pd:.03,bl:.03,mel:.04}});
-def('bureau',{bpm:82,swing:.08,key:50,mode:'dor',ext:7,prog:{I:[1,1,4,4],A:[1,4,1,5],B:[6,7,1,1],C:[4,4,1,1]},dr:{k:'x.......x.......',rim:'....x.......x...',h:'x.x.x.x.x.x.x.x.',kick:{f0:100,f1:42,len:.3},fill:'rim'},
- bs:{p:'R...............',d:12},ar:{i:'piano',p:'x.x.x.x.x.x.x.x.',seq:[0,2,1,3,2,1],d:3,oct:1},pd:{br:800},mel:{i:'piano',rh:'sparse',oct:2,dens:.8},secs:{I:{dr:0,mel:0},A:{mel:0},B:{},C:{dr:0}},v:{k:.3,rim:.08,h:.035,b:.18,ar:.035,pd:.018,mel:.045}});
+// —— menu principal : signature de Little Life (électronique moderne et chaleureuse : nappes, clavier doux, basse ronde, rythmique feutrée)
+def('menu',{bpm:92,key:53,mode:'maj',ext:9,prog:{I:[4,4,1,1],A:[2,5,1,6],B:[4,5,3,6],C:[4,4,1,1]},dr:SOFT,bs:{p:'R.......R..5....',d:4,br:650},pd:{i:'pad',br:1300,att:1.5},
+ ch:{i:'keys',p:'..x.....x.....x.',d:.8,br:1600},ar:{i:'pluck',p:'x..x..x...x..x..',seq:[0,2,1,3],d:1,oct:1,br:1500},mel:{i:'flute',rh:'slow',oct:1,dens:.7},v:{k:.3,rim:.07,sh:.03,b:.2,ch:.04,pd:.03,ar:.03,mel:.045}});
+// —— maison : UN morceau pour toute la maison (électronique chaleureuse et cosy), quelles que soient les actions
+def('maison',{bpm:88,key:55,mode:'maj',ext:9,prog:{I:[1,1,4,4],A:[1,3,4,4],B:[6,5,4,1],C:[2,5,1,1]},dr:{k:'x.......x.......',rim:'....x.......x...',sh:'..x...x...x.x.x.',kick:{f0:100,f1:46,len:.3},fill:'rim'},
+ bs:{p:'R.......R...5...',d:5,br:600},pd:{i:'pad',br:1200,att:1.8},ch:{i:'keys',p:'x.....x.........',d:.9,br:1400},ar:{i:'pluck',p:'..x...x...x...x.',seq:[0,1,2,3,2,1],d:1,oct:1,br:1300},
+ mel:{i:'flute',rh:'slow',oct:1,dens:.65},secs:{I:{dr:0,bs:0,mel:0,ar:0},A:{mel:0},B:{ar:0},C:{dr:2,mel:0}},v:{k:.28,rim:.06,sh:.03,b:.2,ch:.04,pd:.034,ar:.03,mel:.045}});
 // —— extérieur et bâtiments
 def('rue',{bpm:116,key:57,mode:'min',ext:7,prog:{I:[1,6,3,7],A:[1,6,3,7],B:[6,7,1,1],C:[4,4,6,6]},dr:HOUSE,bs:{i:'sub',p:'..R...R...R...R.',d:2},ch:{i:'ep',p:'..x.....x.x.....',d:1.5},pd:{br:1200,pump:1},
  ar:{i:'pluck',p:'x.xxx.xxx.xxx.x.',seq:[0,1,2,3],rate:1,d:1,oct:1,br:2600},mel:{i:'lead',rh:'pop',oct:1,dens:.85,br:2200},riser:1,secs:{I:{dr:2,bs:0,mel:0,ar:0},A:{ar:0},B:{},C:{dr:0,bs:0,ar:0}},v:{k:.5,c:.22,h:.05,oh:.04,b:.26,ch:.04,pd:.02,ar:.025,mel:.04}});
 def('office',{bpm:100,key:62,mode:'maj',ext:7,prog:{I:[1,4,1,4],A:[1,3,4,5],B:[6,4,1,5],C:[4,4,2,2]},dr:{k:'x.....x.x.......',rim:'....x.......x...',h:'x.x.x.x.x.x.x.x.',kick:{f0:110,f1:44,len:.28},fill:'rim'},
  bs:{p:'R.......R...5...',d:4},ar:{i:'pluck',p:'x.x.x.x.x.x.x.x.',seq:[0,1,2,3,2,1],d:2,oct:1,br:2000},pd:{br:900},mel:{i:'bell',rh:'sparse',oct:1,dens:.8},secs:{I:{dr:0,mel:0},A:{},B:{},C:{dr:2}},v:{k:.34,rim:.07,h:.03,b:.18,ar:.03,pd:.018,mel:.03}});
-def('store',{bpm:104,swing:.05,key:53,mode:'maj',ext:9,prog:{I:[1,1,2,2],A:[1,2,3,2],B:[4,5,3,6],C:[2,5,1,1]},dr:{k:'x.....x.x.....x.',rim:'x..x..x...x..x..',sh:'xxxxxxxxxxxxxxxx',kick:{f0:105,f1:44,len:.28},fill:'rim'},
+def('store',{bpm:104,key:53,mode:'maj',ext:9,prog:{I:[1,1,2,2],A:[1,2,3,2],B:[4,5,3,6],C:[2,5,1,1]},dr:{k:'x.....x.x.....x.',rim:'x..x..x...x..x..',sh:'xxxxxxxxxxxxxxxx',kick:{f0:105,f1:44,len:.28},fill:'rim'},
  bs:{p:'R.....5.R.....5.',d:3},ch:{i:'ep',p:'x..x..x...x..x..',d:2},mel:{i:'flute',rh:'slow',oct:1,dens:.85},pd:{br:800},v:{k:.34,rim:.08,sh:.03,b:.2,ch:.04,pd:.015,mel:.045}});
 def('clothes',{bpm:120,key:50,mode:'dor',ext:9,prog:{I:[1,1,4,4],A:[1,4,1,4],B:[6,7,1,4],C:[4,4,5,5]},dr:Object.assign({},HOUSE,{h:'xoxoxoxoxoxoxoxo'}),bs:{i:'sub',p:'..R..R....R..R.5',d:1.5},ch:{i:'ep',p:'..x..x.....x....',d:1.2},
  pd:{br:1000,pump:1},mel:{i:'lead',rh:'sparse',oct:1,br:1800},riser:1,secs:{I:{bs:0,mel:0},A:{},B:{},C:{dr:2,bs:0}},v:{k:.5,c:.2,h:.045,oh:.035,b:.26,ch:.04,pd:.018,mel:.035}});
@@ -4687,8 +4686,8 @@ def('grocery',{bpm:110,key:55,mode:'maj',ext:3,prog:{I:[1,5,1,5],A:[1,5,4,5],B:[
  bs:{p:'R...5...R...5...',d:3},ch:{i:'pluck',p:'x.x.x.xxx.x.x.xx',d:1,top:3,oct:1,br:3200},mel:{i:'kalimba',i2:'flute',rh:'pop',oct:1},v:{k:.4,c:.2,sh:.035,b:.2,ch:.03,mel:.055}});
 def('pets',{bpm:100,key:60,mode:'maj',ext:3,prog:{I:[1,4,1,5],A:[1,6,4,5],B:[4,5,3,6],C:[2,5,1,1]},dr:{k:'x.......x.......',c:'............x...',sh:'..x...x...x...x.',kick:{f0:120,f1:50,len:.25},fill:'rim'},
  bs:{p:'R...R...5...R...',d:1.5},ch:{i:'pluck',p:'x...x...x...x...',d:.8,top:3,br:1800},ar:{i:'marimba',p:'..x...x.x...x.x.',seq:[2,1,0,1,2,3],d:1.5,oct:1},mel:{i:'kalimba',rh:'busy',oct:1,dens:.8},v:{k:.36,c:.18,sh:.04,b:.2,ch:.035,ar:.04,mel:.05}});
-def('cafe',{bpm:86,swing:.18,key:51,mode:'maj',ext:9,prog:{I:[2,5,1,1],A:[2,5,1,6],B:[4,3,2,5],C:[4,4,3,6]},dr:{k:'x.........x.....',s:'....x.......x...',sn:'rim',br:'x...x...x...x...',kick:{f0:95,f1:42,len:.3},fill:'rim'},
- bs:{p:'w...w...w...w...',d:3.6},ch:{i:'ep',p:'..x....x..x.....',d:2.5,bright:1.2},mel:{i:'ep',i2:'flute',rh:'pop',oct:1,dens:.9},pd:{br:700},vinyl:1,v:{k:.3,s:.12,br:.07,b:.22,ch:.05,pd:.014,mel:.05}});
+def('cafe',{bpm:86,key:51,mode:'maj',ext:9,prog:{I:[2,5,1,1],A:[2,5,1,6],B:[4,3,2,5],C:[4,4,3,6]},dr:{k:'x.........x.....',s:'....x.......x...',sn:'rim',br:'x...x...x...x...',kick:{f0:95,f1:42,len:.3},fill:'rim'},
+ bs:{p:'w...w...w...w...',d:3.6},ch:{i:'ep',p:'..x....x..x.....',d:2.5,bright:1.2},mel:{i:'ep',i2:'flute',rh:'pop',oct:1,dens:.9},pd:{br:700},v:{k:.3,s:.12,br:.07,b:.22,ch:.05,pd:.014,mel:.05}});
 def('gym',{bpm:124,key:57,mode:'min',ext:7,prog:{I:[1,1,6,6],A:[1,6,7,5],B:[6,7,1,1],C:[4,4,6,7]},dr:Object.assign({},HOUSE,{h:'xxxxxxxxxxxxxxxx'}),bs:{i:'sub',p:'..R.8.R...R.8.R.',d:1.2},
  ar:{i:'pluck',p:'x.x.x.x.x.x.x.x.',seq:[0,2,1,3],d:1.2,oct:1,br:3000},pd:{br:1400,pump:1},mel:{i:'lead',rh:'busy',oct:1,dens:.9,br:2600},riser:2,secs:{I:{bs:0,mel:0,ar:0},A:{mel:0},B:{},C:{dr:2,bs:0}},v:{k:.38,c:.26,h:.06,oh:.05,b:.2,ar:.05,pd:.026,mel:.055}});
 // —— cinéma : chaque espace a son morceau
@@ -4697,7 +4696,7 @@ def('cine_hall',{bpm:72,key:50,mode:'min',ext:9,prog:{I:[1,6,1,6],A:[1,6,3,7],B:
 def('cine_couloir',{bpm:60,key:45,mode:'min',ext:7,prog:{I:[1,1,6,6],A:[1,6,4,5],B:[1,6,4,5],C:[4,4,1,1]},bs:{i:'sub',p:'R...............',d:15},pd:{i:'strings',br:900,att:2.5,oct:-1},bl:{at:8,p:.4},secs:{I:{},A:{},B:{},C:{}},v:{b:.15,pd:.028,bl:.025}});
 def('cine_salle',{bpm:76,key:55,mode:'maj',ext:9,prog:{I:[1,4,1,4],A:[1,5,6,4],B:[4,5,3,6],C:[6,4,5,5]},pd:{i:'strings',br:1800,att:1.4},ar:{i:'piano',p:'x.x.x.x.x.x.x.x.',seq:[0,1,2,3,2,1],d:4,oct:1},
  mel:{i:'piano',rh:'slow',oct:2},bs:{p:'R.......R.......',d:7},secs:{I:{mel:0,bs:0},A:{},B:{},C:{ar:0}},v:{pd:.022,ar:.03,mel:.05,b:.16}});
-def('cine_prive',{bpm:90,swing:.16,key:56,mode:'maj',ext:9,prog:{I:[2,5,1,1],A:[2,5,3,6],B:[4,5,1,6],C:[4,3,2,5]},dr:{k:'x.........x.....',br:'x.x.x.x.x.x.x.x.',s:'....x.......x...',sn:'rim',kick:{f0:95,f1:42,len:.3}},
+def('cine_prive',{bpm:90,key:56,mode:'maj',ext:9,prog:{I:[2,5,1,1],A:[2,5,3,6],B:[4,5,1,6],C:[4,3,2,5]},dr:{k:'x.........x.....',br:'x.x.x.x.x.x.x.x.',s:'....x.......x...',sn:'rim',kick:{f0:95,f1:42,len:.3}},
  bs:{p:'w...w...w...w...',d:3.6},ch:{i:'ep',p:'x.....x...x.....',d:3},pd:{i:'strings',br:1400},mel:{i:'flute',rh:'pop',oct:1,dens:.85},v:{k:.28,s:.1,br:.05,b:.2,ch:.045,pd:.018,mel:.045}});
 def('cine_wc',{bpm:70,key:61,mode:'lyd',ext:9,prog:{I:[1,2,1,2],A:[1,5,2,2],B:[4,5,1,1],C:[2,1,2,1]},pd:{br:1100,att:2},bl:{at:4,p:.5,i:'kalimba'},bs:{i:'sub',p:'R...............',d:14},secs:{I:{},A:{},B:{},C:{}},v:{pd:.026,bl:.03,b:.14}});
 // —— salle d'arcade et bowling
@@ -4723,7 +4722,7 @@ def('boxes',{bpm:96,key:57,mode:'maj',ext:9,prog:{I:[1,4,1,4],A:[1,6,2,5],B:[4,5
  bs:{p:'R.........5.....',d:5},ar:{i:'pluck',p:'x..x..x...x..x..',seq:[0,1,2,3],d:2,oct:1,br:1800},mel:{i:'bell',rh:'slow',oct:1},pd:{br:800},v:{k:.34,rim:.07,sh:.025,b:.18,ar:.03,mel:.03,pd:.016}});
 // Perfect Stack (construction : ambiance chill et satisfaisante), un morceau par univers
 def('stNeon',{bpm:118,key:57,mode:'min',ext:9,prog:{I:[1,6,1,6],A:[1,6,3,7],B:[6,7,3,1],C:[4,4,6,6]},dr:HOUSE,bs:{i:'sub',p:'..R...R...R...R.',d:2},ch:{i:'ep',p:'..x.....x.x.....',d:1.6},pd:{br:1300,pump:1},mel:{i:'pluck',rh:'pop',oct:2,br:2600},v:{k:.46,c:.2,h:.04,oh:.035,b:.24,ch:.04,pd:.018,mel:.04}});
-def('stSunset',{bpm:84,swing:.12,key:53,mode:'maj',ext:9,prog:{I:[1,3,4,4],A:[1,3,4,5],B:[6,5,4,4],C:[2,5,1,1]},dr:LOFI,bs:{p:'R......5..R.....',d:5},ch:{i:'ep',p:'x.....o.......o.',d:3,dl:12},mel:{i:'flute',rh:'slow',oct:1},vinyl:1,v:{k:.4,s:.18,h:.045,b:.2,ch:.05,mel:.045}});
+def('stSunset',{bpm:84,key:53,mode:'maj',ext:9,prog:{I:[1,3,4,4],A:[1,3,4,5],B:[6,5,4,4],C:[2,5,1,1]},dr:SOFT,bs:{p:'R......5..R.....',d:5},ch:{i:'ep',p:'x.....o.......o.',d:3,dl:12},mel:{i:'flute',rh:'slow',oct:1},v:{k:.4,s:.18,h:.045,b:.2,ch:.05,mel:.045}});
 def('stOcean',{bpm:76,key:62,mode:'lyd',ext:9,prog:{I:[1,2,1,2],A:[1,2,6,5],B:[4,2,1,5],C:[2,2,1,1]},dr:{k:'x.........x.....',sh:'..x...x...x...x.',kick:{f0:90,f1:40,len:.4}},bs:{i:'sub',p:'R.......R.......',d:7},pd:{br:1200,att:2},bl:{at:6,p:.5,i:'kalimba'},mel:{i:'flute',rh:'sparse',oct:1},v:{k:.3,sh:.025,b:.16,pd:.026,bl:.03,mel:.04}});
 def('stSpace',{bpm:70,key:45,mode:'min',ext:9,prog:{I:[1,6,1,6],A:[1,6,4,5],B:[6,4,1,7],C:[4,4,6,6]},pd:{i:'strings',br:1300,att:2},bs:{i:'sub',p:'R...............',d:15},ar:{i:'bell',p:'x.......x.......',seq:[0,2,1,3],d:6,oct:1},mel:{i:'lead',rh:'sparse',oct:1,br:1600},secs:{I:{mel:0},A:{},B:{},C:{ar:0}},v:{pd:.026,b:.15,ar:.02,mel:.035}});
 def('stCrystal',{bpm:96,key:60,mode:'lyd',ext:9,prog:{I:[1,2,1,2],A:[1,2,3,2],B:[4,5,1,2],C:[6,5,2,2]},dr:{k:'x.......x.......',rim:'....x.......x...',sh:'x.x.x.x.x.x.x.x.',kick:{f0:110,f1:44,len:.28},fill:'rim'},bs:{p:'R.......5.......',d:6},ar:{i:'bell',p:'x..x..x.x..x..x.',seq:[0,1,2,3],d:2,oct:1},mel:{i:'kalimba',rh:'pop',oct:1},v:{k:.34,rim:.07,sh:.025,b:.18,ar:.02,mel:.05}});
@@ -4734,18 +4733,13 @@ T.pb_dino=like('pinball',{id:'pb_dino',key:55,mode:'dor',bpm:124,dr:{k:'x.....x.
 T.pb_alien=like('pinball',{id:'pb_alien',key:50,mode:'min',bpm:130,mel:{i:'lead',rh:'pop',oct:1,br:1800},pd:{i:'strings',br:900}});
 T.pb_city=like('pinball',{id:'pb_city',key:57,mode:'dor',bpm:126,dr:Object.assign({},HOUSE,{h:'xxxxxxxxxxxxxxxx'}),bs:{i:'sub',p:'..R.8.R...R.8.R.',d:1.2}});
 T.pb_space=like('pinball',{id:'pb_space',key:52,mode:'lyd',bpm:122,ar:{i:'bell',p:'x..x..x.x..x..x.',seq:[0,1,2,3],d:2,oct:1},pd:{i:'pad',br:1400,pump:1},mel:{i:'lead',rh:'sparse',oct:1,br:2000}});
-// pendant la projection d'un film : silence (seul le son du film joue)
-T.cinefilm=null;
+
 // ---------- niveaux : chaque morceau est ramené au même volume perçu (mesuré par les tests, voir rue/tests/musique_tests.js) ----------
-const GAIN={"menu":1.233,"salon":1.102,"chambre":1.616,"cuisine":1.272,"bain":1.409,"bureau":1.824,"rue":1.076,"office":1.767,"store":1.145,"clothes":1.083,"grocery":1.392,"pets":1.979,"cafe":1.241,"gym":1.255,"cine_hall":1.601,"cine_couloir":1.512,"cine_salle":1.494,"cine_prive":1.138,"cine_wc":1.768,"arcade":1.22,"bowling":1.091,"pinball":1.259,"racing":1.108,"mole":1.515,"hockey":1.242,"maze":1.373,"claw":1.249,"bubble":1.86,"boxes":2.087,"stNeon":1.123,"stSunset":1.295,"stOcean":1.406,"stSpace":1.373,"stCrystal":2.381,"stCyber":1.34,"pb_dino":1.259,"pb_alien":1.259,"pb_city":1.259,"pb_space":1.259};
+const GAIN={"menu":1.252,"maison":1.255,"rue":1.082,"office":1.791,"store":1.111,"clothes":1.072,"grocery":1.521,"pets":2.1,"cafe":1.143,"gym":1.319,"cine_hall":1.435,"cine_couloir":1.523,"cine_salle":1.401,"cine_prive":1.117,"cine_wc":1.73,"arcade":1.301,"bowling":1.183,"pinball":1.333,"racing":1.163,"mole":1.53,"hockey":1.384,"maze":1.404,"claw":1.457,"bubble":1.911,"boxes":2.059,"stNeon":1.114,"stSunset":1.36,"stOcean":1.572,"stSpace":1.395,"stCrystal":2.482,"stCyber":1.431,"pb_dino":1.333,"pb_alien":1.333,"pb_city":1.333,"pb_space":1.333};
 // ---------- ambiances environnementales (bus séparé) ----------
 const AMB={
  rue:{bed:[['lowpass',500,.05]],ev:[['car',.08],['bird',.3,'day'],['cricket',.4,'night']]},
- salon:{bed:[['lowpass',260,.012]],ev:[['bird',.06,'day'],['tick',.5]]},
- chambre:{bed:[['lowpass',200,.008]],ev:[['cricket',.12,'night']]},
- cuisine:{bed:[['lowpass',180,.01]],hum:.006,ev:[['clink',.08]]},
- bain:{bed:[['bandpass',900,.006]],ev:[['drip',.35]]},
- bureau:{bed:[['lowpass',260,.01]],ev:[['keys',.12]]},
+ maison:{bed:[['lowpass',240,.01]],ev:[['bird',.06,'day'],['cricket',.1,'night'],['tick',.4]]},
  office:{bed:[['lowpass',300,.012]],mur:.022,ev:[['keys',.3],['beep',.02]]},
  store:{bed:[['lowpass',300,.01]],mur:.016,ev:[['clink',.03]]},
  clothes:{bed:[['lowpass',300,.01]],mur:.016},
@@ -4784,7 +4778,7 @@ function applyPrefs(fast){if(!G)return;const P=prefs(),t=ctx.currentTime,tc=fast
  try{musOn=!P.mute}catch(e){}}
 // ---------- état du lecteur ----------
 const ST={cur:null,target:null,phase:'idle',outEnd:0,k:0,next:0,S:{},game:null,gameLvl:1,zone:null,zoneT:0,zoneCand:null,amb:null,ambTarget:null,ambPhase:'idle',ambEnd:0,log:[],started:false,fast:false};
-const volOf=id=>{const n=(typeof night!='undefined'&&['salon','chambre','cuisine','bain','bureau','rue'].includes(id))?1-.3*night:1;return(GAIN[id]||1)*n};
+const volOf=id=>GAIN[id]||1;
 function logEv(e){ST.log.push(Object.assign({t:ctx?+ctx.currentTime.toFixed(3):0},e));if(ST.log.length>200)ST.log.shift()}
 function want(id){if(id===undefined)return;if(id===ST.target&&ST.phase!=='idle')return;ST.target=id;const now=ctx.currentTime,P=prefs(),fo=ST.fast?Math.min(.5,P.fo):P.fo;
  if(ST.cur&&!T[ST.cur]&&ST.cur!==id){switchTo(id,now);return}
@@ -4807,10 +4801,10 @@ function zone(){try{
  if(typeof tscr!='undefined'&&!tscr.hidden&&tscr.isConnected)return'menu';if(typeof creating!='undefined'&&creating)return'menu';
  if(typeof ARC!='undefined'&&ARC.on)return ARC.state=='game'&&ARC.cur&&T[ARC.cur.id]?ARC.cur.id:'arcade';if(typeof BW!='undefined'&&BW.on)return'bowling';
  const p=typeof place!='undefined'?place:'home';
- if(typeof p=='string'&&p.startsWith('cine_')){// pendant la séance, cinema.js fait renvoyer « cinefilm » à themeNow()
-  try{if(typeof themeNow=='function'&&themeNow()==='cinefilm')return'cinefilm'}catch(e){}if(p=='cine_hall')return'cine_hall';if(p=='cine_couloir')return'cine_couloir';if(p=='cine_wc')return'cine_wc';if(p=='cine_prive')return'cine_prive';return'cine_salle'}
+ if(typeof p=='string'&&p.startsWith('cine_')){// même pendant la séance : la musique ne dépend que du lieu
+  if(p=='cine_hall')return'cine_hall';if(p=='cine_couloir')return'cine_couloir';if(p=='cine_wc')return'cine_wc';if(p=='cine_prive')return'cine_prive';return'cine_salle'}
  if(p=='street')return'rue';if(['office','store','clothes','grocery','pets','cafe','gym'].includes(p))return p;
- if(p=='home'){const st=C.st,v=typeof curV!='undefined'?curV:'home';if(st=='sleep')return'chambre';if(st=='shower'||st=='wc'||v=='wash')return'bain';if(st=='dine'||st=='eat'||v=='table')return'cuisine';if(st=='desk'||st=='work'||v=='desk'||v=='work')return'bureau';return'salon'}
+ if(p=='home')return'maison';
  return null}catch(e){return null}}
 function tick(){if(!ctx||!G)return;const now=ctx.currentTime;
  // une zone doit être stable un court instant (évite les changements quand on traverse rapidement)

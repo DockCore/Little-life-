@@ -14,49 +14,54 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  const S=()=>E(()=>LLSON.state());
  // attend que la musique voulue soit en place (fondu terminé)
  const settle=async(id,max)=>{for(let i=0;i<(max||40);i++){const s=await S();if(s.cur===id&&(s.phase=='play'||s.phase=='in'||(s.phase=='idle'&&!LLSON_has(id))))return s;await W(150)}return S()};
- const LLSON_has=id=>id!=='cinefilm';
+ const LLSON_has=id=>true;
  // ---- 1. menu : musique signature après la première interaction (règle des navigateurs) ----
  const pre=await S();await p.touchscreen.tap(200,420);await W(400);const m1=await settle('menu');
- ok('1 aucun son avant la première interaction ; menu principal : musique signature (lo-fi électronique) dès le premier toucher',pre.ctx==null&&m1.cur=='menu'&&m1.ctx=='running',{pre,m1});
+ ok('1 aucun son avant la première interaction ; menu principal : musique signature (électronique chaleureuse) dès le premier toucher',pre.ctx==null&&m1.cur=='menu'&&m1.ctx=='running',{pre,m1});
  await E(()=>{const i=document.getElementById('intro');if(i)i.remove();tscr.hidden=true;document.getElementById('crOk2').click()});
- // ---- 2. maison : une musique par pièce (activité), fondus, pas de redémarrage dans la même pièce ----
+ // ---- 2. maison : UNE musique pour toute la maison ; aucune action ne la change ni ne la relance ----
  const room=async(set,id,arg)=>{await E(set,arg);return settle(id)};
- const sal=await settle('salon');
- const log0=(await E(()=>LLSON.log())).length;for(let i=0;i<6;i++){await E(i=>{C.tx=40+i*12;C.ty=110;goto(40+i*12,110)},i);await W(250)}await E(()=>show('deco'));await W(600);await E(()=>show('home'));await W(600);
- const moves=(await E(()=>LLSON.log())).slice(log0).filter(e=>e.ev=='début'||e.ev=='fondu-sortant');
- const dort=async()=>{await E(()=>{N.energy=0;if(C.st!='sleep')toggleSleep()});for(let i=0;i<120&&(await E(()=>C.st))!='sleep';i++)await W(150)};const reveil=async()=>{await E(()=>{if(C.st=='sleep')toggleSleep()})};
- await dort();const ch=await settle('chambre',80);await reveil();const cu0=0;const cu=await room(()=>{C.st='idle';show('table')},'cuisine'),ba=await room(()=>{show('home');C.st='shower'},'bain'),
-  ba2=await room(()=>{C.st='wc'},'bain'),bu=await room(()=>{C.st='idle';show('desk')},'bureau'),sa=await room(()=>{show('home');C.st='idle'},'salon');
- ok('2 maison : salon, chambre (sommeil), cuisine (repas), salle de bain (douche, toilettes), bureau ; se déplacer ou décorer dans la pièce ne relance rien',
-  sal.cur=='salon'&&ch.cur=='chambre'&&cu.cur=='cuisine'&&ba.cur=='bain'&&ba2.cur=='bain'&&bu.cur=='bureau'&&sa.cur=='salon'&&moves.length==0,{moves,z:[sal.cur,ch.cur,cu.cur,ba.cur,bu.cur,sa.cur]});
+ const sal=await settle('maison');for(let i=0;i<40&&(await S()).phase!='play';i++)await W(150);
+ // espion : relevé continu du morceau, de la phase et du niveau pendant toute la série d'actions
+ await E(()=>{window.__mu=[];window.__muI=setInterval(()=>{const s=LLSON.state();window.__mu.push([s.cur,s.phase,+s.fade.toFixed(3)])},100)});
+ const log0=(await E(()=>LLSON.log())).length;
+ const acts=[];const act=async(nom,f,ms)=>{await E(f);await W(ms||900);acts.push([nom,(await S()).cur])};
+ for(let i=0;i<4;i++)await act('marcher',i=>{goto(40+i*14,110)},400);
+ await act('manger (à table)',()=>{C.st='idle';show('table')},1500);await act('quitter la table',()=>show('home'));
+ await act('dormir',()=>{N.energy=0;if(C.st!='sleep')toggleSleep()},2500);await act('se réveiller',()=>{if(C.st=='sleep')toggleSleep()},1200);
+ await act('douche',()=>{C.st='shower'});await act('toilettes',()=>{C.st='wc'});await act('laver',()=>{C.st='idle';show('wash')});
+ await act('bureau',()=>show('desk'));await act('travailler',()=>show('work'));await act('décorer',()=>show('deco'));await act('habiller',()=>show('dress'));
+ await act('canapé',()=>show('sofa'));await act('ouvrir le menu',()=>document.getElementById('bMenu').click());await act('fermer le menu',()=>document.getElementById('bMenu').click());
+ await act('retour',()=>{show('home');C.st='idle'},1200);
+ const muH=await E(()=>{clearInterval(window.__muI);return window.__mu});const ev=(await E(()=>LLSON.log())).slice(log0).filter(e=>e.ev=='début'||e.ev=='fondu-sortant'||e.ev=='zone');
+ const curs=[...new Set(muH.map(x=>x[0]))],phases=[...new Set(muH.map(x=>x[1]))],fz=muH.map(x=>x[2]),fmin=Math.min(...fz),fmax=Math.max(...fz);
+ ok('2 maison : une seule musique du début à la fin de '+acts.length+' actions (marcher, manger, dormir, douche, toilettes, bureau, travail, déco, habits, canapé, menu) : ni changement, ni relance, ni variation de volume',
+  sal.cur=='maison'&&curs.join()=='maison'&&phases.join()=='play'&&ev.length==0&&fmax-fmin<.02&&acts.every(a=>a[1]=='maison'),{curs,phases,ev,fmin,fmax,n:muH.length});
  // ---- 3. transition : fondu sortant complet, puis fondu entrant ; jamais deux morceaux ensemble ----
- await dort();await settle('chambre');await reveil();await settle('salon');
- for(let i=0;i<40&&(await S()).phase!='play';i++)await W(150);
- // attendre que le niveau soit stable (le volume nocturne glisse doucement après le réveil)
- for(let i=0,f0=-1;i<60;i++){const f=(await S()).fade;if(Math.abs(f-f0)<.002)break;f0=f;await W(200)}
- const tr=await E(()=>new Promise(res=>{const sm=[];const t0=performance.now();show('desk');const iv=setInterval(()=>{const s=LLSON.state();sm.push([Math.round(performance.now()-t0),s.cur,s.phase,+s.fade.toFixed(3)]);if(performance.now()-t0>4200){clearInterval(iv);res(sm)}},60)}));
- const outS=tr.filter(x=>x[1]=='salon'),inS=tr.filter(x=>x[1]=='bureau'),firstIn=inS[0],lastOut=outS[outS.length-1];const fo=outS.filter(x=>x[2]=='out'),mono=fo.length>5&&fo.every((x,i)=>i==0||x[3]<=fo[i-1][3]+1e-6);
- ok('3 transition fluide : la musique de la pièce quittée descend progressivement jusqu’au silence (~1,2 s), puis la nouvelle monte (~1,8 s) ; un seul morceau à la fois',
+ const tr=await E(()=>new Promise(res=>{const sm=[];const t0=performance.now();streetEnter();const iv=setInterval(()=>{const s=LLSON.state();sm.push([Math.round(performance.now()-t0),s.cur,s.phase,+s.fade.toFixed(3)]);if(performance.now()-t0>4200){clearInterval(iv);res(sm)}},60)}));
+ const outS=tr.filter(x=>x[1]=='maison'),inS=tr.filter(x=>x[1]=='rue'),firstIn=inS[0],lastOut=outS[outS.length-1];const fo=outS.filter(x=>x[2]=='out'),mono=fo.length>5&&fo.every((x,i)=>i==0||x[3]<=fo[i-1][3]+1e-6);
+ ok('3 changement réel de lieu (maison → rue) : la musique quittée descend jusqu’au silence (~1,2 s), puis la nouvelle monte (~1,8 s) ; jamais deux morceaux ensemble',
   outS.length>8&&mono&&lastOut[3]<.05&&firstIn&&firstIn[3]<.1&&inS[inS.length-1][3]>.5&&firstIn[0]-outS[0][0]>=900,{debutFondu:outS[0],finFondu:lastOut,entree:firstIn,fin:inS[inS.length-1]});
  // fondus réglables
- const cf=await E(()=>{const P=LLSON.prefs();P.fo=.4;P.fi=.5;return true});await settle('bureau');await E(()=>{show('home')});await settle('salon');const lg=(await E(()=>LLSON.log())).filter(e=>e.ev=='fondu-sortant'||e.ev=='début').slice(-2);
+ const cf=await E(()=>{const P=LLSON.prefs();P.fo=.4;P.fi=.5;return true});await settle('rue');await E(()=>{arrive('home')});await settle('maison');const lg=(await E(()=>LLSON.log())).filter(e=>e.ev=='fondu-sortant'||e.ev=='début').slice(-2);
  await E(()=>{const P=LLSON.prefs();P.fo=1.2;P.fi=1.8});
  ok('4 durées de fondu réglables (sortant / entrant)',lg[0]&&lg[0].d==.4&&lg[1].d==.5,lg);
  // allers-retours rapides : pas de changement si l'on ne reste pas (stabilité de zone)
- const flick=await E(()=>new Promise(res=>{const n0=LLSON.log().length;show('table');setTimeout(()=>{show('home');setTimeout(()=>res(LLSON.log().slice(n0).filter(e=>e.ev=='fondu-sortant').length),1200)},200)}));
- ok('5 passage éclair dans une autre zone (0,2 s) : aucune transition déclenchée',flick==0,{flick});
+ const flick=await E(()=>new Promise(res=>{const n0=LLSON.log().length;streetEnter();setTimeout(()=>{arrive('home');setTimeout(()=>res(LLSON.log().slice(n0).filter(e=>e.ev=='fondu-sortant').length),1200)},200)}));
+ ok('5 passage éclair dans un autre lieu (0,2 s) : aucune transition déclenchée',flick==0,{flick});
  // ---- 6. rue ↔ maison, bâtiments, magasins ----
  const rue=await room(()=>{streetEnter()},'rue');const amb1=await S();
  const places={};for(const pl of['office','store','clothes','grocery','pets','cafe','gym']){const s=await room(pl=>{arrive(pl)},pl,pl);places[pl]=[s.cur,s.amb]}
- const home=await room(()=>{arrive('home');C.st='idle'},'salon'),rue2=await room(()=>{streetEnter()},'rue');
+ const home=await room(()=>{arrive('home');C.st='idle'},'maison'),rue2=await room(()=>{streetEnter()},'rue');
  ok('6 rue (indie électronique) ↔ maison ; bureau, boutique déco, vêtements, épicerie, animalerie, café, salle de sport : chacun sa musique et son ambiance',
-  rue.cur=='rue'&&amb1.amb=='rue'&&Object.entries(places).every(([k,v])=>v[0]==k&&v[1]==k)&&home.cur=='salon'&&rue2.cur=='rue',{places,amb:amb1.amb});
+  rue.cur=='rue'&&amb1.amb=='rue'&&Object.entries(places).every(([k,v])=>v[0]==k&&v[1]==k)&&home.cur=='maison'&&rue2.cur=='rue',{places,amb:amb1.amb});
  // ---- 7. cinéma : entrée, couloir, salle, film (silence), toilettes, salle privée, sortie ----
  const ci={};for(const pl of['cine_hall','cine_couloir','cine_s1','cine_wc','cine_prive']){const id=pl=='cine_s1'?'cine_salle':pl;const s=await room(pl=>{arrive(pl)},id,pl);ci[pl]=s.cur}
- const film=await E(()=>new Promise(r=>{arrive('cine_s1');const tn=themeNow;window.__tn=tn;themeNow=()=>String(place).startsWith('cine_')?'cinefilm':tn();setTimeout(()=>r(LLSON.state()),3500)}));
+ await room(()=>{arrive('cine_s1')},'cine_salle');for(let i=0;i<40&&(await S()).phase!='play';i++)await W(150);
+ const film=await E(()=>new Promise(r=>{const n0=LLSON.log().length;const tn=themeNow;window.__tn=tn;themeNow=()=>String(place).startsWith('cine_')?'cinefilm':tn();setTimeout(()=>r(Object.assign(LLSON.state(),{ev:LLSON.log().slice(n0).filter(e=>e.ev=='fondu-sortant').length})),3500)}));
  const after=await E(()=>new Promise(r=>{themeNow=window.__tn;setTimeout(()=>r(LLSON.state()),3500)}));const out=await room(()=>{streetEnter()},'rue');
- ok('7 cinéma : hall, couloir, salle, toilettes et salle privée ont chacun leur musique ; pendant le film, silence total ; à la sortie, retour à la rue',
-  ci.cine_hall=='cine_hall'&&ci.cine_couloir=='cine_couloir'&&ci.cine_s1=='cine_salle'&&ci.cine_wc=='cine_wc'&&ci.cine_prive=='cine_prive'&&film.cur=='cinefilm'&&film.fade<.01&&after.cur=='cine_salle'&&out.cur=='rue',{ci,film,after:after.cur});
+ ok('7 cinéma : hall, couloir, salle, toilettes et salle privée ont chacun leur musique ; regarder le film ne change pas la musique de la salle ; à la sortie, retour à la rue',
+  ci.cine_hall=='cine_hall'&&ci.cine_couloir=='cine_couloir'&&ci.cine_s1=='cine_salle'&&ci.cine_wc=='cine_wc'&&ci.cine_prive=='cine_prive'&&film.cur=='cine_salle'&&film.ev==0&&after.cur=='cine_salle'&&out.cur=='rue',{ci,film,after:after.cur});
  // ---- 8. arcade et chaque mini-jeu : sa propre musique, et retour à la borne / à la rue ----
  await E(()=>{const a=STC.buildings.find(q=>q.id=='arcade');STV.px=a.x+a.door.x;stInteract()});const ar=await settle('arcade');
  const games={};for(const[id,expect]of[['pinball',/^pb_/],['racing',/^racing$/],['mole',/^mole$/],['maze',/^maze$/],['claw',/^claw$/],['hockey',/^hockey$/],['bubble',/^bubble$/],['boxes',/^boxes$/],['stack',/^st[A-Z]/]]){
@@ -99,9 +104,9 @@ const {chromium}=require(PW);const R=[];function ok(n,cond,info){R.push({n,ok:!!
  const mx=await E(async()=>{const o={},ids=LLSON.themes().filter(i=>LLSON.theme(i));for(const id of ids){const T=LLSON.theme(id),bars=T.form.reduce((a,f)=>a+f[1],0),sec=bars*16*60/T.bpm/4;const x=await LLSON.render(id,6,{fromBar:12});o[id]={rms:+x.rms.toFixed(3),peak:+x.peak.toFixed(2),cycle:Math.round(sec),bars}}return o});
  const rv=Object.values(mx),db=v=>20*Math.log10(v),lo=Math.min(...rv.map(v=>v.rms)),hi=Math.max(...rv.map(v=>v.rms));
  ok('15 mixage homogène de '+rv.length+' musiques (écart de niveau ≤ 6 dB, aucune saturation) ; chaque morceau : au moins 40 mesures et 1 min 15 avant de reboucler, mélodies renouvelées à chaque passage',
-  rv.length>=39&&db(hi)-db(lo)<=6&&rv.every(v=>v.peak<.95&&v.bars>=40&&v.cycle>=75),{ecartDb:+(db(hi)-db(lo)).toFixed(1),min:lo,max:hi,exemples:Object.fromEntries(Object.entries(mx).slice(0,6))});
+  rv.length>=35&&db(hi)-db(lo)<=6&&rv.every(v=>v.peak<.95&&v.bars>=40&&v.cycle>=75),{ecartDb:+(db(hi)-db(lo)).toFixed(1),min:lo,max:hi,exemples:Object.fromEntries(Object.entries(mx).slice(0,6))});
  // ---- 16. identité : aucun lieu ne partage sa musique avec un autre ----
- const ids=await E(()=>{const z=['menu','salon','chambre','cuisine','bain','bureau','rue','office','store','clothes','grocery','pets','cafe','gym','cine_hall','cine_couloir','cine_salle','cine_wc','cine_prive','arcade','bowling'];
+ const ids=await E(()=>{const z=['menu','maison','rue','office','store','clothes','grocery','pets','cafe','gym','cine_hall','cine_couloir','cine_salle','cine_wc','cine_prive','arcade','bowling'];
   const sig=z.map(id=>{const T=LLSON.theme(id);return[T.bpm,T.key,T.mode,JSON.stringify(T.prog.A)].join('|')});return{n:z.length,uniq:new Set(sig).size}});
  ok('16 '+ids.n+' lieux, '+ids.n+' compositions différentes (tempo, tonalité, harmonie) : aucune pièce ne reprend la musique d’une autre',ids.n==ids.uniq,ids);
  // ---- 17. charge : nombre de nœuds audio créés par seconde (léger pour un téléphone) ----
