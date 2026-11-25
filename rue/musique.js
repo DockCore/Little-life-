@@ -16,7 +16,7 @@ function graph(c,dest,live){const g={c,nz:noiseBuf(c),cr:crackleBuf(c),live:!!li
  g.master=c.createGain();const comp=c.createDynamicsCompressor();comp.threshold.value=-12;comp.knee.value=8;comp.ratio.value=3;comp.attack.value=.01;comp.release.value=.25;const lim=c.createDynamicsCompressor();lim.threshold.value=-4;lim.knee.value=1;lim.ratio.value=20;lim.attack.value=.002;lim.release.value=.12;g.master.connect(comp);comp.connect(lim);const trim=c.createGain();trim.gain.value=.8;lim.connect(trim);trim.connect(dest);
  g.musBus=c.createGain();g.musLvl=c.createGain();g.musFade=c.createGain();g.musFade.gain.value=0;g.musIn=c.createGain();g.musIn.gain.value=.9;
  g.musFade.connect(g.musLvl);g.musLvl.connect(g.musBus);g.musBus.connect(g.master);
- g.hp=c.createBiquadFilter();g.hp.type='highpass';g.hp.frequency.value=38;g.hp.Q.value=.7;g.musIn.connect(g.hp);g.hp.connect(g.musFade);g.rev=c.createConvolver();g.rev.buffer=irBuf(c,2.6,2.8);g.revIn=c.createGain();g.revIn.gain.value=.32;g.revIn.connect(g.rev);g.rev.connect(g.musFade);
+ g.hp=c.createBiquadFilter();g.hp.type='highpass';g.hp.frequency.value=38;g.hp.Q.value=.7;g.musIn.connect(g.hp);g.hp.connect(g.musFade);g.rev=c.createConvolver();g.rev.buffer=irBuf(c,1.4,3.2);g.revIn=c.createGain();g.revIn.gain.value=.18;g.revIn.connect(g.rev);g.rev.connect(g.musFade);
  g.drumIn=c.createBiquadFilter();g.drumIn.type='lowpass';g.drumIn.frequency.value=9000;g.drumIn.Q.value=.3;g.drumG=c.createGain();g.drumIn.connect(g.drumG);g.drumG.connect(g.musIn);
  g.sfxBus=c.createGain();g.sfxIn=c.createBiquadFilter();g.sfxIn.type='lowpass';g.sfxIn.frequency.value=9500;g.sfxIn.connect(g.sfxBus);g.sfxBus.connect(g.master);
  g.ambBus=c.createGain();g.ambFade=c.createGain();g.ambFade.gain.value=0;g.ambIn=c.createGain();g.ambIn.connect(g.ambFade);g.ambFade.connect(g.ambBus);g.ambBus.connect(g.master);
@@ -40,11 +40,11 @@ const I={
   const lp=g.c.createBiquadFilter();lp.type='lowpass';lp.frequency.setValueAtTime(5200,t);lp.frequency.exponentialRampToValueAtTime(1400,t+1);e.connect(lp);out(g,{node:lp,pan:(o&&o.pan)||0,rev:.4})},
  // nappe : deux scies désaccordées filtrées, attaque lente
  pad(g,n,t,d,v,o){const f=mf(n),end=t+d+2,lp=g.c.createBiquadFilter();lp.type='lowpass';lp.Q.value=.4;const br=(o&&o.br)||1100;lp.frequency.setValueAtTime(br*.5,t);lp.frequency.linearRampToValueAtTime(br,t+(o&&o.att||1));
-  const e=g.c.createGain(),a=(o&&o.att)||1;e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+a);e.gain.setValueAtTime(v,t+Math.max(a,d));e.gain.linearRampToValueAtTime(0,t+d+1.6);
+  const e=g.c.createGain(),a=(o&&o.att)||1;e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+a);e.gain.setValueAtTime(v,t+Math.max(a,d));e.gain.linearRampToValueAtTime(0,t+d+.5);
   for(const dt of[-7,7]){const x=osc(g,'sawtooth',f,t,end);x.detune.value=dt;x.connect(lp)}lp.connect(e);out(g,{node:e,pan:(o&&o.pan)||0,rev:.55})},
  // cordes : comme la nappe, plus lente, avec vibrato
  strings(g,n,t,d,v,o){const f=mf(n),end=t+d+2.5,lp=g.c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=(o&&o.br)||1600;lp.Q.value=.5;const e=g.c.createGain(),a=(o&&o.att)||1.4;
-  e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+a);e.gain.setValueAtTime(v,t+Math.max(a,d));e.gain.linearRampToValueAtTime(0,t+d+2);const vib=osc(g,'sine',5,t,end),vg=g.c.createGain();vg.gain.value=f*.004;vib.connect(vg);
+  e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+a);e.gain.setValueAtTime(v,t+Math.max(a,d));e.gain.linearRampToValueAtTime(0,t+d+.6);const vib=osc(g,'sine',5,t,end),vg=g.c.createGain();vg.gain.value=f*.004;vib.connect(vg);
   for(const dt of[-9,0,9]){const x=osc(g,'sawtooth',f,t,end);x.detune.value=dt;vg.connect(x.frequency);x.connect(lp)}lp.connect(e);out(g,{node:e,pan:(o&&o.pan)||0,rev:.6})},
  // basse ronde : sinus + triangle à l'octave, filtrée
  bass(g,n,t,d,v,o){const f=mf(n),end=t+d+.3,lp=g.c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=(o&&o.br)||950;const e=g.c.createGain();e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+.01);
@@ -70,14 +70,16 @@ const I={
  flute(g,n,t,d,v,o){const f=mf(n),end=t+d+.4,e=g.c.createGain();e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(v,t+.06);e.gain.setTargetAtTime(.0001,t+d,.1);const a=osc(g,'sine',f,t,end),vib=osc(g,'sine',4.8,t,end),vg=g.c.createGain();vg.gain.value=f*.006;vib.connect(vg);vg.connect(a.frequency);a.connect(e);
   const s=g.c.createBufferSource();s.buffer=g.nz;const bp=g.c.createBiquadFilter();bp.type='bandpass';bp.frequency.value=f*2;bp.Q.value=4;const bg=g.c.createGain();bg.gain.value=.25;s.connect(bp);bp.connect(bg);bg.connect(e);s.start(t,Math.random());s.stop(end);out(g,{node:e,pan:(o&&o.pan)||0,rev:.45})}};
 // ---------- notes mises en cache : un instrument qui s'éteint seul est calculé une fois par hauteur, puis relu ----------
-const CACHEABLE={keys:[1.5,.3],pluck:[1.1,.3],kalimba:[.95,.4],marimba:[.6,.25]},NC=new Map(),NQ=[];let NQbusy=false;
+const CACHEABLE={keys:[1.1,.25],pluck:[1.1,.3],kalimba:[.95,.4],marimba:[.6,.25]},NC=new Map(),NQ=[];let NQbusy=false;
 function noteKey(i,n,o){return i+'|'+n+'|'+(o&&o.br||'')+'|'+(o&&o.bright||'')}
 async function renderNote(){if(NQbusy||!NQ.length)return;NQbusy=true;const[key,i,n,o]=NQ.shift();try{const len=CACHEABLE[i][0],off=new OfflineAudioContext(1,Math.round(22050*len),22050),og={c:off,nz:null,bs:{}};
   og.musIn=off.createGain();og.musIn.connect(off.destination);og.revIn=off.createGain();og.nz=noiseBuf(off);I[i](og,n,0,len-.5,1,Object.assign({},o,{pan:0}));NC.set(key,await off.startRendering());if(NC.size>140)NC.delete(NC.keys().next().value)}catch(e){}NQbusy=false;if(NQ.length)setTimeout(renderNote,15)}
 const TRIM={bass:.38,sub:.36,keys:2.2,pluck:1.8,kalimba:1.7,marimba:1.8,lead:1.6,flute:2.2,pad:1.9,strings:1.9};
 // anciens timbres retirés (piano électrique, piano, cloches) : remplacés par des sons doux et courts
 const ALIAS={ep:'keys',piano:'keys',bell:'kalimba'};
-function play(g,i,n,t,d,v,o){i=ALIAS[i]||i;v*=TRIM[i]||1;const C=CACHEABLE[i];if(C&&g.live){const key=noteKey(i,n,o),b=NC.get(key);
+// durée maximale d'une note par instrument (en secondes) : la musique respire, aucune note ne s'étire
+const MAXD={keys:.55,flute:.4,lead:.35,pluck:.45,bass:.45,sub:.4,pad:1.4,strings:1.6};
+function play(g,i,n,t,d,v,o){i=ALIAS[i]||i;if(MAXD[i]&&d>MAXD[i])d=MAXD[i];if((i=='pad'||i=='strings')&&o&&o.att>.45)o=Object.assign({},o,{att:.45});v*=TRIM[i]||1;const C=CACHEABLE[i];if(C&&g.live){const key=noteKey(i,n,o),b=NC.get(key);
   if(b){NC.delete(key);NC.set(key,b);const s=g.c.createBufferSource();s.buffer=b;const e=g.c.createGain();e.gain.setValueAtTime(v,t);if(d+.3<C[0])e.gain.setTargetAtTime(0,t+d+.15,.08);s.connect(e);e.connect(bus(g,o&&o.pan,C[1]));s.start(t);s.stop(t+C[0]);return}
   if(!NQ.some(q=>q[0]===key)){NQ.push([key,i,n,o?{br:o.br,bright:o.bright}:{}]);setTimeout(renderNote,0)}}
  I[i](g,n,t,d,v,o)}
@@ -158,7 +160,7 @@ function step(g,T,S,k,t){const SD=60/T.bpm/4,s=k%16,bar=Math.floor(k/16);if(s==0
   for(const[st,du,p]of half)if(st==s){if(ph==7&&st>=8)continue;let n=melodyNote(T,S,p+tr+(S.sec=='B'&&T.mel.up?2:0),st);if(ph==7&&st==0)n=melodyNote(T,S,0,0)+12*(T.mel.oct||1);
    if(T.mel.dens<1&&S.mr()>T.mel.dens)continue;play(g,inst,n,tt,SD*du,(V.mel||.05)*(S.sec=='C'?.8:1),{pan:.2,br:T.mel.br})}}
  // contre-chant de cloches / texture
- if(T.bl&&on('bl')&&s==T.bl.at&&S.mr&&S.mr()<(T.bl.p||.5))play(g,T.bl.i||'pad',S.chord[Math.floor(S.mr()*S.chord.length)]+12,tt,2,(V.bl||.025)*.8,{pan:(S.mr()-.5)*1.4,br:1100,att:.8})}
+ if(false&&T.bl&&on('bl')&&s==T.bl.at&&S.mr&&S.mr()<(T.bl.p||.5))play(g,T.bl.i||'pad',S.chord[Math.floor(S.mr()*S.chord.length)]+12,tt,2,(V.bl||.025)*.8,{pan:(S.mr()-.5)*1.4,br:1100,att:.8})}
 // ---------- les morceaux (un par lieu, un par mini-jeu) ----------
 // Batteries types (16 doubles-croches par mesure ; x = coup, o = coup léger)
 const SOFT={k:'x.......x.x.....',rim:'....x.......x...',sh:'..x...x...x...x.',kick:{f0:105,f1:46,len:.32},fill:'rim'};
@@ -236,7 +238,7 @@ T.pb_city=like('pinball',{id:'pb_city',key:57,mode:'dor',bpm:126,dr:Object.assig
 T.pb_space=like('pinball',{id:'pb_space',key:52,mode:'lyd',bpm:122,ar:{i:'bell',p:'x..x..x.x..x..x.',seq:[0,1,2,3],d:2,oct:1},pd:{i:'pad',br:1400,pump:1},mel:{i:'lead',rh:'sparse',oct:1,br:2000}});
 
 // ---------- niveaux : chaque morceau est ramené au même volume perçu (mesuré par les tests, voir rue/tests/musique_tests.js) ----------
-const GAIN={"menu":1.252,"maison":1.255,"rue":1.082,"office":1.791,"store":1.111,"clothes":1.072,"grocery":1.521,"pets":2.1,"cafe":1.143,"gym":1.319,"cine_hall":1.435,"cine_couloir":1.523,"cine_salle":1.401,"cine_prive":1.117,"cine_wc":1.73,"arcade":1.301,"bowling":1.183,"pinball":1.333,"racing":1.163,"mole":1.53,"hockey":1.384,"maze":1.404,"claw":1.457,"bubble":1.911,"boxes":2.059,"stNeon":1.114,"stSunset":1.36,"stOcean":1.572,"stSpace":1.395,"stCrystal":2.482,"stCyber":1.431,"pb_dino":1.333,"pb_alien":1.333,"pb_city":1.333,"pb_space":1.333};
+const GAIN={"menu":1.347,"maison":1.371,"rue":1.118,"office":2.021,"store":1.136,"clothes":1.106,"grocery":1.531,"pets":2.108,"cafe":1.197,"gym":1.424,"cine_hall":1.843,"cine_couloir":2.383,"cine_salle":1.707,"cine_prive":1.217,"cine_wc":2.927,"arcade":1.412,"bowling":1.219,"pinball":1.338,"racing":1.185,"mole":1.531,"hockey":1.385,"maze":1.9,"claw":1.558,"bubble":1.908,"boxes":2.515,"stNeon":1.155,"stSunset":1.438,"stOcean":2.221,"stSpace":2.224,"stCrystal":2.881,"stCyber":1.435,"pb_dino":1.338,"pb_alien":1.338,"pb_city":1.338,"pb_space":1.338};
 // ---------- ambiances environnementales (bus séparé) ----------
 const AMB={
  rue:{bed:[['lowpass',500,.05]],ev:[['car',.08],['bird',.3,'day'],['cricket',.4,'night']]},
@@ -290,7 +292,7 @@ function want(id){if(id===undefined)return;if(id===ST.target&&ST.phase!=='idle')
 function switchTo(id,now){const P=prefs(),fi=ST.fast?Math.min(.6,P.fi):P.fi;if(G.vinyl){try{G.vinyl.stop(now)}catch(e){}G.vinyl=null}
  ST.cur=id;ST.k=0;ST.S={};ST.next=now+.06;const Th=T[id];G.musFade.gain.cancelScheduledValues(now);G.musFade.gain.setValueAtTime(0,now);
  if(!Th){ST.phase='idle';logEv({ev:'silence',id});return}
- G.drumIn.frequency.setValueAtTime(Th.vinyl?4200:9000,now);G.revIn.gain.setValueAtTime(Th.rev!=null?Th.rev:.32,now);
+ G.drumIn.frequency.setValueAtTime(Th.vinyl?4200:9000,now);G.revIn.gain.setValueAtTime(Th.rev!=null?Th.rev:.18,now);
  if(Th.vinyl){const s=ctx.createBufferSource();s.buffer=G.cr;s.loop=true;const e=ctx.createGain();e.gain.value=.5;s.connect(e);e.connect(G.musIn);s.start(now);G.vinyl=s}
  ST.phase='in';ST.inEnd=now+fi;G.musFade.gain.linearRampToValueAtTime(volOf(id),now+fi);logEv({ev:'début',id,d:fi})}
 function sched(){if(!ctx||!G)return;const now=ctx.currentTime;
