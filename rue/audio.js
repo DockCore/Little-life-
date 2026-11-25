@@ -1,13 +1,13 @@
-// ===== SONS ET MUSIQUES DES MINI-JEUX (module partagé) =====
-// Un seul contexte audio pour les mini-jeux (bowling, borne d'arcade…). Pendant qu'une musique de mini-jeu joue,
-// la musique de Little Life est baissée à zéro, puis rétablie à la sortie. La musique suit le réglage « musique » du jeu
-// (bouton ♪) ; les effets sonores restent actifs.
+// ===== SONS DES MINI-JEUX (module partagé) =====
+// Effets sonores des mini-jeux (bowling, borne d'arcade…) et accès à leur musique. Tout passe par le gestionnaire audio
+// central de Little Life (LLSON, rue/musique.js) : même contexte audio, effets sur le bus « effets » (volume réglable),
+// musiques composées par le gestionnaire (chaque mini-jeu a la sienne ; à la fermeture, l'ambiance du lieu revient).
 const JEUSON=(()=>{
  let ctx=null,master=null,musG=null,sfxG=null,nzBuf=null,timer=null,theme=null,step=0,next=0,ducked=false,musLevel=1,last={};
- function ensure(){try{if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A();master=ctx.createGain();master.gain.value=.9;
-   const comp=ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;master.connect(comp);comp.connect(ctx.destination);
+ function ensure(){try{if(!ctx){const L=typeof LLSON!='undefined'?LLSON:null;ctx=L?L.ctx():null;if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A()}
+   master=ctx.createGain();master.gain.value=.9;const out=L&&L.sfxIn();if(out)master.connect(out);else{const comp=ctx.createDynamicsCompressor();comp.threshold.value=-14;comp.ratio.value=4;master.connect(comp);comp.connect(ctx.destination)}
    musG=ctx.createGain();musG.gain.value=0;musG.connect(master);sfxG=ctx.createGain();sfxG.gain.value=.55;sfxG.connect(master)}
-  if(ctx.state=='suspended')ctx.resume()}catch(e){return null}return ctx}
+  if(ctx.state=='suspended'&&!document.hidden)ctx.resume()}catch(e){return null}return ctx}
  const mf=m=>440*Math.pow(2,(m-69)/12);
  function noiseBuf(){if(!nzBuf){nzBuf=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);const d=nzBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}return nzBuf}
  // briques sonores (dest = musique ou effets)
@@ -17,135 +17,14 @@ const JEUSON=(()=>{
  function noise(t,d,v,freq,type='bandpass',dest,q=1,o={}){const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuf();f.type=type;f.frequency.setValueAtTime(freq,t);if(o.sweep)f.frequency.exponentialRampToValueAtTime(o.sweep,t+d);f.Q.value=q;
   const a=o.att||.002;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+d);s.connect(f);f.connect(g);g.connect(dest||sfxG);s.start(t,Math.random()*.5);s.stop(t+d+.03)}
  function kick(t,v,dest){const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(40,t+.13);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+.22);o.connect(g);g.connect(dest);o.start(t);o.stop(t+.25)}
- // ---------- musiques (séquenceur pas à pas, 16 doubles-croches par mesure) ----------
- const _m=null;
- // Perfect Stack : morceaux d'ambiance modernes (nappes, piano électrique, basse ronde, batterie légère), un par univers
- function stTheme(o){return{bpm:o.bpm,vol:o.vol,bars:o.bars,play(s,bar,t,SD,B,k){const ch=B[bar],sec=Math.floor(k/128)%2;
-   if(s==0)ch.forEach((m,i)=>{tone(mf(m+12),t,SD*16.5,o.pad,'sine',musG,{att:.45});tone(mf(m+12)*1.004,t,SD*16.5,o.pad*.5,'triangle',musG,{att:.6})});
-   if(o.kick.includes(s))kick(t,o.kv,musG);if(o.snare.includes(s)){noise(t,.16,o.sv,1700,'bandpass',musG,.7);noise(t,.05,o.sv*.5,6000,'highpass',musG)}
-   if(o.hat&&s%o.hat==(o.hoff||0))noise(t,.035,o.hv*(s%4==2?1:.6),9500,'highpass',musG);
-   const bi=o.bass.indexOf(s);if(bi>=0)tone(mf(ch[0]-12+(o.bassN?o.bassN[bi]:0)),t,SD*(o.bl||2.2),o.bv,'sine',musG,{att:.01});
-   if(o.ep.includes(s))ch.forEach((m,i)=>{tone(mf(m+(i?12:24)),t,SD*3.2,o.ev,'sine',musG,{att:.006});tone(mf(m+(i?24:36)),t,SD*1.4,o.ev*.25,'sine',musG,{att:.004})});
-   const ml=(sec?o.ml2:o.ml)||[];for(const[st,ci,oc]of ml)if(st==s){const n=ch[ci%ch.length]+24+(oc||0);tone(mf(n),t,SD*(o.mlen||3),o.mv,'sine',musG,{att:.012,vib:4.5});tone(mf(n+12),t,SD*1.2,o.mv*.18,'sine',musG,{att:.006})}}}}
- const THEMES={
-  stNeon:stTheme({bpm:118,vol:.2,bars:[[57,60,64,67],[53,57,60,64],[55,59,62,65],[52,55,59,62],[57,60,64,67],[50,53,57,60],[53,57,60,64],[52,56,59,62]],pad:.022,kick:[0,4,8,12],kv:.32,snare:[4,12],sv:.03,hat:2,hoff:1,hv:.03,
-   bass:[0,3,6,10,14],bassN:[0,0,12,0,7],bv:.1,ep:[2,7,11],ev:.016,ml:[[0,2],[3,3],[6,1],[10,2],[14,0]],ml2:[[2,3,12],[6,2],[8,1],[12,3]],mv:.03}),
-  stSunset:stTheme({bpm:84,vol:.22,bars:[[53,57,60,64],[50,53,57,60],[46,50,53,57],[48,52,55,58],[53,57,60,64],[52,55,59,62],[50,53,57,60],[48,52,55,58]],pad:.024,kick:[0,7,10],kv:.3,snare:[4,12],sv:.035,hat:2,hv:.02,
-   bass:[0,7,10],bv:.11,bl:3,ep:[0,6,11],ev:.02,ml:[[2,2],[5,3],[8,1],[13,2]],ml2:[[0,3],[4,2],[9,0],[12,1]],mv:.032,mlen:4}),
-  stOcean:stTheme({bpm:76,vol:.22,bars:[[50,57,62,64],[47,54,59,62],[43,50,55,59],[45,52,57,61],[50,57,62,66],[47,54,59,62],[43,50,55,59],[45,52,57,64]],pad:.03,kick:[0],kv:.18,snare:[],sv:0,hat:4,hoff:2,hv:.012,
-   bass:[0,10],bv:.09,bl:5,ep:[4,12],ev:.014,ml:[[0,3],[3,2],[6,1],[9,2],[12,3]],ml2:[[2,1],[8,3],[14,2]],mv:.026,mlen:5}),
-  stSpace:stTheme({bpm:70,vol:.22,bars:[[45,52,57,60],[41,48,53,57],[43,50,55,59],[40,47,52,55],[45,52,57,64],[41,48,53,60],[38,45,50,57],[40,47,52,59]],pad:.034,kick:[],kv:0,snare:[],sv:0,hat:0,hv:0,
-   bass:[0],bv:.1,bl:14,ep:[8],ev:.012,ml:[[0,3],[6,2],[12,1]],ml2:[[4,2,12],[10,3]],mv:.024,mlen:7}),
-  stCrystal:stTheme({bpm:96,vol:.2,bars:[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,67],[60,64,67,72],[57,60,64,69],[53,57,60,65],[55,59,62,65]],pad:.02,kick:[0,10],kv:.22,snare:[8],sv:.02,hat:2,hoff:1,hv:.014,
-   bass:[0,10],bv:.08,ep:[0,3,6,9,12,15],ev:.011,ml:[[1,1],[4,2],[7,3],[10,2],[13,1]],ml2:[[0,3,12],[5,2],[11,1]],mv:.024}),
-  stCyber:stTheme({bpm:122,vol:.2,bars:[[45,52,57,60],[45,52,57,60],[41,48,53,57],[43,50,55,59],[45,52,57,60],[48,55,60,64],[41,48,53,57],[43,50,55,62]],pad:.018,kick:[0,4,8,12],kv:.36,snare:[4,12],sv:.045,hat:2,hoff:1,hv:.03,
-   bass:[0,2,4,6,8,10,12,14],bassN:[0,12,0,12,0,12,0,12],bv:.08,bl:1.4,ep:[3,11],ev:.015,ml:[[0,2],[2,3],[4,1],[8,2],[11,3],[14,1]],ml2:[[0,3,12],[6,2,12],[12,1]],mv:.028,mlen:2}),
-  // bowling : groove disco-funk détendu, comme dans une salle de bowling un samedi soir
-  bowling:{bpm:112,vol:.24,bars:[[45,52,57,60],[43,50,55,59],[41,48,53,57],[40,47,52,56]],
-   play(s,bar,t,SD,B){const ch=B[bar];if(s%4==0)kick(t,.5,musG);if(s==4||s==12){noise(t,.14,.13,1800,'bandpass',musG,.8);noise(t,.06,.08,5000,'highpass',musG)}
-    if(s%2==1)noise(t,.03,.05,9000,'highpass',musG);if(s==14)noise(t,.12,.04,9000,'highpass',musG);
-    const bl=[0,null,12,null,7,null,0,10,null,0,12,null,7,null,5,7][s];if(bl!=null)tone(mf(ch[0]-12+bl),t,SD*1.6,.13,'triangle',musG);
-    if(s==2||s==6||s==10||s==15)ch.slice(1).forEach(m=>tone(mf(m+12),t,SD*.9,.025,'square',musG,{att:.003}));
-    const _=null,mel=[[12,_,10,_,7,_,10,_,_,12,_,15,_,12,_,_],[10,_,7,_,5,_,7,_,_,10,_,12,10,_,7,_],[8,_,7,_,3,_,7,_,8,_,10,_,12,_,10,_],[7,_,_,11,14,_,11,_,7,_,11,_,14,_,11,_]][bar][s];
-    if(mel!=null)tone(mf(57+mel),t,SD*1.8,.05,'sine',musG,{vib:5.5})}},
-  // flipper : chiptune d'arcade énergique (arpèges, basse qui galope, mélodie carrée)
-  pinball:{bpm:146,vol:.2,bars:[[57,60,64],[53,57,60],[55,59,62],[52,56,59],[57,60,64],[53,57,60],[50,53,57],[52,56,59]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.55,musG);if(s==4||s==12)noise(t,.1,.12,2500,'bandpass',musG,1);noise(t,.025,s%2?.03:.05,10000,'highpass',musG);
-    tone(mf(ch[0]-24+(s%2?12:0)),t,SD*.9,.09,'square',musG,{att:.002});
-    tone(mf(ch[s%3]+12+(Math.floor(s/3)%2?12:0)),t,SD*.7,.022,'square',musG,{att:.002});
-    const _=null,M=[[12,_,7,_,12,15,_,12,19,_,17,_,15,_,12,_],[17,_,12,_,8,_,12,_,17,_,15,_,12,_,8,_],[14,_,10,_,7,_,10,_,14,_,17,_,15,_,14,_],[11,_,14,_,19,_,14,_,11,_,_,_,7,_,_,_],
-     [19,_,15,_,12,_,15,_,19,_,24,_,19,_,15,_],[20,_,17,_,12,_,17,_,20,_,19,_,17,_,15,_],[17,_,12,_,8,_,12,_,17,_,20,_,17,_,12,_],[11,_,14,_,19,_,23,_,19,_,14,_,11,_,_,_]],mel=M[bar][s];
-    if(mel!=null)tone(mf(57+mel),t,SD*1.6,.05,'square',musG,{vib:6,att:.003})}},
-  // course : synthwave rétro (basse pulsée, nappes en scie hachées, arpège, batterie électro)
-  racing:{bpm:124,vol:.2,bars:[[57,60,64],[53,57,60],[48,52,55],[55,59,62],[57,60,64],[53,57,60],[50,53,57],[52,56,59]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];kick(t,s%4==0?.6:0,musG);if(s==4||s==12){noise(t,.22,.16,1800,'bandpass',musG,.7);noise(t+.02,.3,.05,4000,'highpass',musG)}
-    if(s%2==0)noise(t,.03,s%4==2?.06:.03,10000,'highpass',musG);
-    tone(mf(ch[0]-24),t,SD*.8,.13,'sawtooth',musG,{att:.003});if(s%2==1)tone(mf(ch[0]-12),t,SD*.6,.06,'square',musG);
-    if(s%2==0)ch.forEach(m=>tone(mf(m),t,SD*1.1,.018,'sawtooth',musG,{att:.004}));
-    tone(mf([ch[0],ch[1],ch[2],ch[1]+12][s%4]+12),t,SD*.7,.022,'square',musG,{att:.002});
-    const _=null,M=[[12,_,_,15,_,_,19,_,17,_,15,_,12,_,10,_],[12,_,_,8,_,_,12,_,15,_,_,_,17,_,15,_],[7,_,_,10,_,_,12,_,15,_,12,_,10,_,7,_],[14,_,_,10,_,_,7,_,10,_,14,_,17,_,_,_],
-     [24,_,_,22,_,_,19,_,22,_,24,_,27,_,24,_],[20,_,_,19,_,_,17,_,15,_,17,_,20,_,_,_],[17,_,_,15,_,_,12,_,14,_,15,_,17,_,20,_],[23,_,_,_,19,_,_,_,14,_,_,_,11,_,_,_]],mel=Math.floor(k/128)%2?M[bar][s]:(s<8?M[bar][s]:null);
-    if(mel!=null)tone(mf(57+mel),t,SD*2.2,.045,'sawtooth',musG,{vib:5.5,att:.01})}},
-  // ---- flipper : une ambiance par univers ----
-  // Dinosaur World : aventure dans la jungle (tambours tribaux, marimba, flûte)
-  pb_dino:{bpm:118,vol:.22,bars:[[45,52,57],[43,50,55],[41,48,53],[43,50,55],[45,52,57],[48,55,60],[41,48,53],[40,47,52]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if([0,3,6,8,10,13].includes(s))tone(mf(ch[0]-12),t,.2,s==0||s==8?.22:.13,'sine',musG,{slide:.55});if(s==4||s==12)noise(t,.09,.1,700,'bandpass',musG,1.5);
-    if(s%2==0)noise(t,.04,s%4?.03:.05,7000,'highpass',musG);if(s==0||s==10)tone(mf(ch[0]-12),t,SD*5,.08,'triangle',musG);
-    const ar=[0,2,1,2,0,2,1,3][s%8],mm=[ch[0],ch[1],ch[2],ch[0]+12][ar]+12;if(s%2==0||s==7||s==15)tone(mf(mm),t,SD*.9,.05,'triangle',musG,{att:.002});
-    const _=null,M=[[12,_,_,15,_,17,_,_,19,_,17,_,15,_,12,_],[10,_,_,12,_,14,_,_,15,_,_,_,14,_,12,_],[8,_,_,12,_,15,_,_,17,_,15,_,12,_,_,_],[14,_,12,_,10,_,_,_,7,_,_,_,_,_,_,_],
-     [19,_,_,17,_,15,_,_,12,_,15,_,17,_,19,_],[24,_,_,22,_,19,_,_,17,_,_,_,19,_,_,_],[20,_,_,19,_,17,_,_,15,_,12,_,15,_,17,_],[16,_,_,_,14,_,12,_,11,_,_,_,_,_,_,_]],mel=M[bar][s];
-    if(mel!=null&&Math.floor(k/128)%2)tone(mf(57+mel),t,SD*2.4,.045,'triangle',musG,{vib:6,att:.02})}},
-  // Alien Invasion : science-fiction inquiétante (thérémine, basse pulsée, bips)
-  pb_alien:{bpm:104,vol:.21,bars:[[50,53,56],[49,52,55],[48,51,54],[49,53,56]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s==0||s==6||s==10)kick(t,.45,musG);if(s==4||s==12){noise(t,.12,.1,3200,'bandpass',musG,2);noise(t,.2,.04,6000,'highpass',musG)}
-    if(s%2==0)tone(mf(ch[0]-12),t,SD*.7,.08,'square',musG,{att:.002});if(s%4==3)noise(t,.03,.04,10000,'highpass',musG);
-    const bl=(k*7+s*3)%11;if(s%3==1)tone(mf(ch[bl%3]+24+(bl>6?12:0)),t,SD*.4,.02,'square',musG);
-    const _=null,M=[[12,_,_,_,_,_,14,_,_,_,16,_,_,_,_,_],[11,_,_,_,_,_,13,_,_,_,9,_,_,_,_,_],[12,_,_,_,15,_,_,_,18,_,_,_,17,_,_,_],[13,_,_,_,_,_,_,_,11,_,_,_,_,_,_,_]],mel=M[bar][s];
-    if(mel!=null)tone(mf(62+mel),t,SD*(s==0?7:4),.05,'sine',musG,{vib:7,att:.08});if(s==0&&bar==3)noise(t,1.2,.05,300,'bandpass',musG,2,{sweep:3000,att:.4})}},
-  // Future City : electro-house nocturne (kick régulier, accords hachés, basse)
-  pb_city:{bpm:126,vol:.19,bars:[[57,60,64,67],[53,57,60,64],[50,53,57,60],[52,55,59,62]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.6,musG);if(s%4==2)noise(t,.09,.07,8000,'highpass',musG);if(s==4||s==12)noise(t,.14,.12,1500,'bandpass',musG,.8);
-    if(s%4==2)tone(mf(ch[0]-24),t,SD*1.5,.12,'sawtooth',musG,{att:.003});if(s%4==3)tone(mf(ch[0]-12),t,SD*.6,.06,'sawtooth',musG);
-    if([3,6,10,14].includes(s))ch.forEach(m=>tone(mf(m),t,SD*.6,.02,'sawtooth',musG,{att:.003}));
-    if(Math.floor(k/64)%2)tone(mf(ch[(s*3)%4]+24),t,SD*.5,.02,'square',musG,{att:.002});
-    const _=null,M=[[_,_,19,_,_,_,16,_,_,_,19,_,21,_,_,_],[_,_,17,_,_,_,16,_,_,_,12,_,14,_,_,_],[_,_,14,_,_,_,17,_,_,_,21,_,19,_,_,_],[_,_,19,_,_,_,22,_,_,_,21,_,19,_,_,_]],mel=M[bar][s];
-    if(mel!=null&&Math.floor(k/128)%2)tone(mf(57+mel),t,SD*2,.04,'square',musG,{vib:5,att:.005})}},
-  // Space Galaxy : ambiance spatiale planante (nappes, scintillements, basse ronde)
-  pb_space:{bpm:90,vol:.24,bars:[[48,55,62,64],[45,52,59,60],[41,48,55,57],[43,50,57,59]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s==0)kick(t,.35,musG);if(s==10)kick(t,.2,musG);if(s==8)noise(t,.3,.05,2500,'bandpass',musG,.7,{att:.05});
-    if(s==0)ch.forEach(m=>tone(mf(m),t,SD*16,.026,'sine',musG,{att:.4}));if(s==0||s==8)tone(mf(ch[0]-12),t,SD*7,.1,'sine',musG,{att:.05});
-    if([2,5,9,13,15].includes(s))tone(mf(ch[(s+bar)%4]+24),t,SD*3,.025,'triangle',musG,{att:.003});
-    const _=null,M=[[_,_,_,_,16,_,_,_,14,_,_,_,11,_,_,_],[12,_,_,_,_,_,_,_,7,_,_,_,_,_,_,_],[_,_,_,_,12,_,_,_,14,_,_,_,16,_,_,_],[19,_,_,_,_,_,_,_,17,_,_,_,_,_,_,_]],mel=M[bar][s];
-    if(mel!=null)tone(mf(60+mel),t,SD*6,.04,'sine',musG,{vib:4,att:.1})}},
-  // Whack-a-Mole : fanfare de fête foraine rebondissante (orgue, basse sautillante, grosse caisse)
-  // maze : synthé arcade mystérieux et pulsé (ruines néon) — basse en croches, arpège mineur, nappes
-  maze:{bpm:132,vol:.18,bars:[[57,60,64],[57,60,64],[53,57,60],[55,59,62],[57,60,64],[57,60,64],[50,53,57],[52,56,59]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.45,musG);if(s==4||s==12)noise(t,.12,.09,2600,'bandpass',musG,.9);if(s%2==1)noise(t,.03,.035,9000,'highpass',musG);
-    tone(mf(ch[0]-24+(s%4==2?12:0)),t,SD*.8,.11,'square',musG,{att:.004});
-    const ar=[0,1,2,1,2,0,1,2][s%8];if(s%2==0)tone(mf(ch[ar]+12),t,SD*.9,.035,'triangle',musG);
-    if(s==0)tone(mf(ch[2]+12),t,SD*14,.018,'sawtooth',musG,{att:.3});
-    const M=[[76,_m,_m,79,_m,_m,81,_m,79,_m,76,_m,74,_m,_m,_m],[72,_m,_m,76,_m,_m,77,_m,76,_m,72,_m,71,_m,_m,_m]][(bar>>1)%2],m=M[s];if(Math.floor(k/64)%2&&m!=null)tone(mf(m),t,SD*1.6,.04,'square',musG,{vib:4})}},
-  mole:{bpm:150,vol:.19,bars:[[60,64,67],[65,69,72],[67,71,74],[60,64,67],[60,64,67],[65,69,72],[67,71,74],[67,71,74]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%4==0)kick(t,.5,musG);if(s%4==2){noise(t,.06,.07,7000,'highpass',musG);tone(mf(ch[1]),t,SD*.6,.03,'square',musG);tone(mf(ch[2]),t,SD*.6,.03,'square',musG)}
-    if(s%4==0)tone(mf(ch[0]-12),t,SD*1.2,.13,'triangle',musG);if(s%8==4)noise(t,.1,.08,1800,'bandpass',musG,1);
-    const _=null,M=[[72,_,76,_,79,_,76,_,72,_,74,76,77,_,_,_],[77,_,81,_,84,_,81,_,77,_,79,81,82,_,_,_],[79,_,77,_,76,_,74,_,72,_,71,_,74,_,_,_],[72,_,_,79,_,_,76,_,72,_,_,_,_,_,_,_]][bar%4],m=M[s];
-    if(m!=null)tone(mf(m),t,SD*1.4,.05,'square',musG,{vib:5});if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.02,'triangle',musG)}},
-  // Lucky Claw : boîte à musique de fête foraine, mignonne et sautillante (glockenspiel, basse rebondissante, claps)
-  claw:{bpm:124,vol:.18,bars:[[60,64,67],[57,60,64],[65,69,72],[67,71,74],[60,64,67],[57,60,64],[62,65,69],[67,71,74]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s%8==0)kick(t,.4,musG);if(s==4||s==12)noise(t,.07,.07,2400,'bandpass',musG,1.4);if(s%2==1)noise(t,.02,.025,9500,'highpass',musG);
-    if([0,3,6,8,11,14].includes(s))tone(mf(ch[0]-12+(s==6||s==14?7:0)),t,SD*1.1,.11,'triangle',musG,{att:.004});
-    if(s%4==2){tone(mf(ch[1]),t,SD*.7,.025,'square',musG,{att:.003});tone(mf(ch[2]),t,SD*.7,.025,'square',musG,{att:.003})}
-    const M=[[84,_m,79,_m,76,_m,79,_m,81,_m,79,_m,76,_m,_m,_m],[81,_m,76,_m,72,_m,76,_m,79,_m,_m,77,76,_m,_m,_m],[77,_m,81,_m,84,_m,81,_m,77,_m,79,_m,81,_m,_m,_m],[79,_m,83,_m,86,_m,83,_m,79,_m,_m,_m,74,_m,_m,_m]][bar%4],m=M[s];
-    if(m!=null)tone(mf(m),t,SD*2.2,.045,'triangle',musG,{att:.002});if(m!=null&&Math.floor(k/128)%2)tone(mf(m+12),t,SD*.8,.012,'sine',musG,{att:.002})}},
-  // Bubble Pop : pop sucré et rebondissant (marimba, basse ronde, claquements de doigts)
-  bubble:{bpm:118,vol:.17,bars:[[65,69,72],[62,65,69],[58,62,65],[60,64,67]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s==0||s==8||s==11)kick(t,.35,musG);if(s==4||s==12)noise(t,.05,.05,3200,'bandpass',musG,2);if(s%4==2)noise(t,.015,.02,9000,'highpass',musG);
-    if(s%4==0)tone(mf(ch[0]-24),t,SD*2.6,.12,'sine',musG,{att:.006});if(s%4==3)tone(mf(ch[0]-12),t,SD*.8,.06,'triangle',musG,{att:.004});
-    const M=[[77,_m,81,84,_m,81,_m,77,_m,79,81,_m,77,_m,_m,_m],[74,_m,77,81,_m,77,_m,74,_m,76,77,_m,72,_m,_m,_m],[70,_m,74,77,_m,74,_m,72,_m,74,_m,70,69,_m,_m,_m],[72,_m,76,79,_m,84,_m,79,_m,76,_m,72,74,_m,76,_m]][bar],m=M[s];
-    if(m!=null){tone(mf(m),t,SD*1.4,.05,'triangle',musG,{att:.002});tone(mf(m+12),t,SD*.5,.014,'sine',musG,{att:.002})}
-    if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.018,'square',musG,{att:.002})}},
-  // Box Master : réflexion douce et chaleureuse (kalimba, basse ronde, petit shaker) — on réfléchit sans stress
-  boxes:{bpm:92,vol:.17,bars:[[53,57,60],[50,53,57],[46,50,53],[48,52,55],[53,57,60],[50,53,57],[46,50,55],[48,52,55]],
-   play(s,bar,t,SD,B,k){const ch=B[bar];if(s==0||s==10)kick(t,.28,musG);if(s==4||s==12)noise(t,.05,.035,2600,'bandpass',musG,1.6);if(s%2==1)noise(t,.02,.018,8000,'highpass',musG);
-    if(s==0||s==8)tone(mf(ch[0]-12),t,SD*6,.11,'triangle',musG,{att:.01});if(s==6||s==14)tone(mf(ch[0]-12+7),t,SD*2,.06,'triangle',musG,{att:.006});
-    const ar=[0,1,2,1,0,2,1,2][s%8];if(s%2==0)tone(mf(ch[ar]+12),t,SD*2.2,.035,'sine',musG,{att:.002});
-    const M=[[72,_m,_m,74,_m,77,_m,_m,76,_m,74,_m,72,_m,_m,_m],[69,_m,_m,72,_m,74,_m,_m,72,_m,_m,_m,69,_m,_m,_m],[70,_m,_m,74,_m,77,_m,_m,79,_m,77,_m,74,_m,_m,_m],[76,_m,_m,_m,74,_m,72,_m,67,_m,_m,_m,_m,_m,_m,_m]][bar%4],m=M[s];
-    if(m!=null&&Math.floor(k/128)%2==0)tone(mf(m),t,SD*2.6,.04,'triangle',musG,{att:.003,vib:4});if(m!=null&&Math.floor(k/128)%2==1)tone(mf(m+12),t,SD*1.4,.022,'sine',musG,{att:.002})}}
- };
- function sched(){if(!ctx||!theme)return;const T=THEMES[theme],SD=60/T.bpm/4;if(next<ctx.currentTime)next=ctx.currentTime+.05;
-  while(next<ctx.currentTime+.35){const s=step%16,bar=Math.floor(step/16)%T.bars.length;try{T.play(s,bar,next,SD,T.bars,step)}catch(e){}step++;next+=SD}}
  function llMusicOn(){try{return typeof musOn=='undefined'?true:!!musOn}catch(e){return true}}
- // baisse / rétablit la musique de Little Life pendant un mini-jeu
- function duck(on){ducked=on;try{if(typeof AC!='undefined'&&AC&&typeof mg!='undefined'&&mg){const v=on?0:(musOn?(typeof MTH!='undefined'&&MTH[curTh]?MTH[curTh].v:.32):0);mg.gain.cancelScheduledValues(AC.currentTime);mg.gain.setTargetAtTime(v,AC.currentTime,.15)}}catch(e){}}
  const api={
   ctx:()=>ensure(),
-  // musique d'un mini-jeu ; null pour l'arrêter
-  music(name){if(name===theme){api.level(musLevel);return}if(!ensure())return;theme=name;step=0;next=ctx.currentTime+.08;const T=THEMES[name];
-   musG.gain.cancelScheduledValues(ctx.currentTime);musG.gain.setValueAtTime(0,ctx.currentTime);if(name&&T){musG.gain.linearRampToValueAtTime(llMusicOn()?T.vol*musLevel:0,ctx.currentTime+.6);if(!timer)timer=setInterval(sched,90);duck(true);sched()}
-   else{clearInterval(timer);timer=null;duck(false)}},
-  stop(){if(!ctx){theme=null;return}musG.gain.cancelScheduledValues(ctx.currentTime);musG.gain.setTargetAtTime(0,ctx.currentTime,.12);theme=null;clearInterval(timer);timer=null;duck(false)},
+  // musique d'un mini-jeu (composée par le gestionnaire central) ; null ou stop() pour revenir à l'ambiance du lieu
+  music(name){ensure();theme=name||null;musLevel=1;if(typeof LLSON!='undefined'){LLSON.gameLevel(1);LLSON.game(theme)}},
+  stop(){theme=null;if(typeof LLSON!='undefined'){LLSON.gameLevel(1);LLSON.game(null)}},
   // volume relatif de la musique (pause, ralenti…)
-  level(v){musLevel=v;if(!ctx||!theme)return;musG.gain.setTargetAtTime(llMusicOn()?THEMES[theme].vol*v:0,ctx.currentTime,.15)},
+  level(v){musLevel=v;if(typeof LLSON!='undefined')LLSON.gameLevel(v)},
   playing:()=>theme,
   sfxLevel(v){if(!ensure())return;sfxG.gain.setTargetAtTime(.55*v,ctx.currentTime,.05)},
   // moteur : son continu dont la hauteur suit la vitesse
@@ -158,21 +37,16 @@ const JEUSON=(()=>{
   // son continu (roulement de boule…) : renvoie un réglage de volume
   loop(freq,type='lowpass'){if(!ensure())return null;const s=ctx.createBufferSource(),f=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuf();s.loop=true;f.type=type;f.frequency.value=freq;f.Q.value=.7;g.gain.value=0;s.connect(f);f.connect(g);g.connect(sfxG);s.start();
    return{set(v,fq){g.gain.setTargetAtTime(Math.max(0,v),ctx.currentTime,.05);if(fq)f.frequency.setTargetAtTime(fq,ctx.currentTime,.05)},stop(){try{g.gain.setTargetAtTime(0,ctx.currentTime,.05);s.stop(ctx.currentTime+.3)}catch(e){}}}},
-  _state:()=>({theme,ducked,step,ctx:!!ctx,mus:musG?musG.gain.value:0}),
+  _state:()=>{const L=typeof LLSON!='undefined'?LLSON.state():{};return{theme,ducked:false,ctx:!!ctx,mus:L.game&&L.cur===L.game?L.fade*L.lvl:0,cur:L.cur,phase:L.phase}},
   // rendu hors ligne d'une musique (et d'effets) en WAV : sert aux tests et à l'écoute
-  async render(name,sec,fxList){const sv=[ctx,master,musG,sfxG,nzBuf];const off=new OfflineAudioContext(1,Math.round(44100*sec),44100);ctx=off;nzBuf=null;master=off.createGain();master.connect(off.destination);
-   musG=off.createGain();musG.gain.value=name?THEMES[name].vol:0;musG.connect(master);sfxG=off.createGain();sfxG.gain.value=.55;sfxG.connect(master);
-   try{if(name){const T=THEMES[name],SD=60/T.bpm/4;let t=.05,k=0;while(t<sec-.2){T.play(k%16,Math.floor(k/16)%T.bars.length,t,SD,T.bars,k);k++;t+=SD}}
-    (fxList||[]).forEach(([n,at,kk])=>{try{api.FX[n](at,kk==null?1:kk)}catch(e){}})}finally{}
+  async render(name,sec,fxList){if(name&&typeof LLSON!='undefined'&&!(fxList&&fxList.length)){const r=await LLSON.render(name,sec,{wav:1});return{b64:r.b64,peak:r.peak,rms:r.rms}}
+   const sv=[ctx,master,musG,sfxG,nzBuf];const off=new OfflineAudioContext(1,Math.round(44100*sec),44100);ctx=off;nzBuf=null;master=off.createGain();master.connect(off.destination);
+   musG=off.createGain();musG.gain.value=0;musG.connect(master);sfxG=off.createGain();sfxG.gain.value=.55;sfxG.connect(master);
+   try{(fxList||[]).forEach(([n,at,kk])=>{try{api.FX[n](at,kk==null?1:kk)}catch(e){}})}finally{}
    const buf=await off.startRendering();[ctx,master,musG,sfxG,nzBuf]=sv;const d=buf.getChannelData(0),n=d.length,b=new ArrayBuffer(44+n*2),v=new DataView(b),w=(o,str)=>{for(let i=0;i<str.length;i++)v.setUint8(o+i,str.charCodeAt(i))};
    w(0,'RIFF');v.setUint32(4,36+n*2,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,44100,true);v.setUint32(28,88200,true);v.setUint16(32,2,true);v.setUint16(34,16,true);w(36,'data');v.setUint32(40,n*2,true);
    let peak=0,rms=0;for(let i=0;i<n;i++){const x=Math.max(-1,Math.min(1,d[i]));peak=Math.max(peak,Math.abs(x));rms+=x*x;v.setInt16(44+i*2,x*32767,true)}
    let bin='';const u=new Uint8Array(b);for(let i=0;i<u.length;i+=32768)bin+=String.fromCharCode.apply(null,u.subarray(i,i+32768));return{b64:btoa(bin),peak,rms:Math.sqrt(rms/n)}}};
- // garder la baisse de la musique de Little Life si son thème change pendant le mini-jeu
- try{if(typeof setTheme=='function'){const _st=setTheme;setTheme=function(th){_st(th);if(ducked)duck(true)}}}catch(e){}
- // suivre le bouton ♪ de Little Life
- try{const b=document.getElementById('bMus');if(b)b.addEventListener('click',()=>setTimeout(()=>{if(theme)api.level(musLevel);if(ducked)duck(true)},30))}catch(e){}
- document.addEventListener('visibilitychange',()=>{if(!ctx)return;if(document.hidden)ctx.suspend();else if(theme)ctx.resume()});
  return api})();
 // ---------- effets du bowling ----------
 Object.assign(JEUSON.FX,{

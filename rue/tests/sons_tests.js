@@ -15,8 +15,8 @@ const lvlMusic=()=>E(async()=>{const c=JEUSON.ctx(),an=c.createAnalyser();an.fft
 const fx=()=>E(()=>Object.assign({},window.__fx));const reset=()=>E(()=>{window.__fx={}});
 if(QUI=='bowling'||QUI=='tout'){
  await E(()=>{streetEnter();const b=STC.buildings.find(q=>q.id=='bowling');STV.px=b.x+b.door.x;N.mus=true;musOn=true;stInteract()});await W(1500);
- const m1=await E(()=>({th:JEUSON.playing(),st:JEUSON._state(),ll:typeof mg!='undefined'&&mg?mg.gain.value:null}));await W(800);const m2=await E(()=>JEUSON._state());
- ok('B1 musique du bowling lancée à l’entrée, musique de Little Life coupée',m1.th=='bowling'&&m1.st.ducked&&(m1.ll==null||m1.ll<.02)&&m2.step>m1.st.step&&m2.mus>.05,{m1,m2});
+ const m1=await E(()=>({th:JEUSON.playing(),st:JEUSON._state()}));await W(2200);const m2=await E(()=>JEUSON._state());
+ ok('B1 musique du bowling lancée à l’entrée, à la place de celle de la rue (gestionnaire central, jamais deux musiques)',m1.th=='bowling'&&m2.cur=='bowling'&&m2.mus>.05,{m1,m2});
  // une vraie partie : lancer réel, quilles, résultat
  await reset();await E(()=>{BW.view=1;BW.phase='aim';BW.aim=.1;BW.pw=0});const cv=await p.locator('#bwCv').boundingBox();
  await p.mouse.move(cv.x+cv.width*.53,cv.y+cv.height*.5);await p.mouse.down();await W(700);await p.mouse.up();
@@ -31,16 +31,16 @@ if(QUI=='bowling'||QUI=='tout'){
  await reset();await E(()=>{BW.rolls=Array(11).fill(10);BW.stats=BW.stats||{strikes:0,spares:0,gutters:0,first:[],opens:0,splits:0};BW.phase='end';bwEnd(true)});const f4=await fx();
  ok('B4 jingle de fin de partie',f4.bwEnd==1,f4);
  // sortie : musique arrêtée, musique de Little Life rétablie
- await E(()=>bwQuit());await W(900);const q=await E(()=>({th:JEUSON.playing(),st:JEUSON._state(),ll:typeof mg!='undefined'&&mg?mg.gain.value:null,musOn}));
- ok('B5 sortie du bowling : musique arrêtée, musique de Little Life rétablie',q.th==null&&!q.st.ducked&&q.st.mus<.01&&(q.ll==null||!q.musOn||q.ll>.05),q);
+ await E(()=>bwQuit());await W(3500);const q=await E(()=>({th:JEUSON.playing(),st:JEUSON._state(),L:LLSON.state()}));
+ ok('B5 sortie du bowling : musique du bowling arrêtée, musique de la rue rétablie',q.th==null&&q.st.mus<.01&&q.L.cur=='rue'&&q.L.fade>.05,q);
  // réglage ♪ coupé : pas de musique de mini-jeu (les effets restent)
- await E(()=>{musOn=false;const b=STC.buildings.find(q=>q.id=='bowling');STV.px=b.x+b.door.x;stInteract()});await W(1200);const mo=await E(()=>JEUSON._state());await E(()=>{bwQuit();musOn=true});await W(300);
- ok('B6 musique coupée dans Little Life : le bowling reste sans musique',mo.theme=='bowling'&&mo.mus<.01,mo);
+ await E(()=>{LLSON.set('m',0);const b=STC.buildings.find(q=>q.id=='bowling');STV.px=b.x+b.door.x;stInteract()});await W(1500);const mo=await E(()=>({st:JEUSON._state(),bus:LLSON.bus().musBus.gain.value,sfx:LLSON.bus().sfxBus.gain.value}));await E(()=>{bwQuit();LLSON.set('m',.8)});await W(300);
+ ok('B6 volume de la musique à zéro : le bowling reste sans musique, les effets restent audibles',mo.st.theme=='bowling'&&mo.bus<.01&&mo.sfx>.3,mo);
 }
 if(QUI=='pinball'||QUI=='tout'){
- await reset();await E(()=>{if(!STV.on)streetEnter();GAMES.arcade.open({x:500});ARC.sel=ARC.games.findIndex(g=>g.id=='pinball');arcOk();arcOk()});await W(1200);
+ await reset();await E(()=>{if(!STV.on)streetEnter();GAMES.arcade.open({x:500});ARC.sel=ARC.games.findIndex(g=>g.id=='pinball');arcOk();arcOk()});await W(2000);
  const m1=await E(()=>({th:JEUSON.playing(),st:JEUSON._state()}));
- ok('P1 musique arcade du flipper dès l’ouverture du jeu',/^pb_(dino|alien|city|space)$/.test(m1.th)&&m1.st.ducked&&m1.st.mus>.05,m1);
+ ok('P1 musique du flipper (propre à la table) dès l’ouverture du jeu',/^pb_(dino|alien|city|space)$/.test(m1.th)&&m1.st.cur==m1.th&&m1.st.mus>.05,m1);
  await p.keyboard.press('Enter');await W(300);await p.keyboard.down('Space');await W(400);await p.keyboard.up('Space');
  let peak=0;for(let i=0;i<30;i++){await W(100);if(i%6==0){await p.keyboard.down('ArrowLeft');await p.keyboard.down('ArrowRight');await W(80);await p.keyboard.up('ArrowLeft');await p.keyboard.up('ArrowRight')}peak=Math.max(peak,await E(()=>window.__lvl()))}
  // éléments touchés à coup sûr
@@ -53,10 +53,10 @@ if(QUI=='pinball'||QUI=='tout'){
  // pause : musique baissée ; sortie : musique coupée
  await E(()=>{const M=ARC.modules.pinball,P=M._state;if(P.phase=='select'||P.phase=='over'){if(P.over){P.over.t=1;P.osel=0}P.okN=P.okN||0;M.update(1/60,{okN:P.okN+1})}});await W(200);await E(()=>{const P=ARC.modules.pinball._state;P.paused=true});await W(500);const pz=await E(()=>JEUSON._state().mus);
  await E(()=>{ARC.modules.pinball._state.paused=false});await W(500);const rp=await E(()=>JEUSON._state().mus);
- await E(()=>arcBack());await W(700);const out=await E(()=>({th:JEUSON.playing(),st:JEUSON._state()}));
- ok('P4 pause : musique baissée puis rétablie ; retour au menu : musique du flipper arrêtée',pz<rp*.6&&out.th==null&&out.st.mus<.01,{pz,rp,out});
- await E(()=>arcQuit());await W(500);const ll=await E(()=>({d:JEUSON._state().ducked,ll:typeof mg!='undefined'&&mg?mg.gain.value:null}));
- ok('P5 sortie de la borne : musique de Little Life rétablie',!ll.d&&(ll.ll==null||ll.ll>.05),ll);
+ await E(()=>arcBack());await W(2500);const out=await E(()=>({th:JEUSON.playing(),st:JEUSON._state(),L:LLSON.state().cur}));
+ ok('P4 pause : musique baissée puis rétablie ; retour au menu de la borne : musique du flipper arrêtée, ambiance de la salle d’arcade',pz<rp*.6&&out.th==null&&out.st.mus<.01&&out.L=='arcade',{pz,rp,out});
+ await E(()=>arcQuit());await W(3500);const ll=await E(()=>LLSON.state());
+ ok('P5 sortie de la borne : musique de la rue rétablie',ll.cur=='rue'&&ll.fade>.05,ll);
 }
 ok('Z aucune erreur JavaScript',errs.length==0,errs);
 console.log(R.filter(r=>r.ok).length+'/'+R.length+' tests réussis');await b.close()})();
