@@ -1,0 +1,212 @@
+[
+{
+"n": 1,
+"nom": "PREMIÈRE CAISSE",
+"sol": "rrr",
+"poussees": 2,
+"deplacements": 3
+},
+{
+"n": 2,
+"nom": "LE VIRAGE",
+"sol": "rrurdd",
+"poussees": 4,
+"deplacements": 6
+},
+{
+"n": 3,
+"nom": "DEUX CAISSES",
+"sol": "dlulurddrrruuldrdl",
+"poussees": 4,
+"deplacements": 18
+},
+{
+"n": 4,
+"nom": "LA CROIX",
+"sol": "udlrrld",
+"poussees": 4,
+"deplacements": 7
+},
+{
+"n": 5,
+"nom": "ATTENTION AUX COINS",
+"sol": "uulddrrrdlll",
+"poussees": 4,
+"deplacements": 12
+},
+{
+"n": 6,
+"nom": "TROIS CAISSES",
+"sol": "rullrdlrrdll",
+"poussees": 5,
+"deplacements": 12
+},
+{
+"n": 7,
+"nom": "LE MOULIN",
+"sol": "uuldllddrrdrrurruull",
+"poussees": 4,
+"deplacements": 20
+},
+{
+"n": 8,
+"nom": "L'ENTREPÔT",
+"sol": "uuuldrddrrruullddlllluurrurdrddlluruuld",
+"poussees": 6,
+"deplacements": 39
+},
+{
+"n": 9,
+"nom": "DOUBLE RANGÉE",
+"sol": "uruuldllulddurrrd",
+"poussees": 7,
+"deplacements": 17
+},
+{
+"n": 10,
+"nom": "L'ESCALIER",
+"sol": "ruurrddlrrddllluuudrruullddddrudrruulll",
+"poussees": 8,
+"deplacements": 39
+},
+{
+"n": 11,
+"nom": "LE PEIGNE",
+"sol": "llluuluurdrrdddrrruuruuldlluldlldurrdurrrd",
+"poussees": 8,
+"deplacements": 42
+},
+{
+"n": 12,
+"nom": "LES ALCÔVES",
+"sol": "uululdrrrurdllddlldurrrrrddllllluurrrrdullllddrrrr",
+"poussees": 8,
+"deplacements": 50
+},
+{
+"n": 13,
+"nom": "ENCOMBREMENT",
+"sol": "lluurdurrddludlrrrldullddrr",
+"poussees": 6,
+"deplacements": 27
+},
+{
+"n": 14,
+"nom": "CASSE-TÊTE",
+"sol": "ruuululdrrdrruuldrdldldlllluurdldr",
+"poussees": 7,
+"deplacements": 34
+},
+{
+"n": 15,
+"nom": "LE MAGASIN",
+"sol": "ddrruuuullluldddduuurrdddddlllurrdruuu",
+"poussees": 11,
+"deplacements": 38
+},
+{
+"n": 16,
+"nom": "LA SALLE CARRÉE",
+"sol": "llluuuuuurrdlulddurrrrurrdllrdrddddllllllurrdrrurdruu",
+"poussees": 10,
+"deplacements": 53
+},
+{
+"n": 17,
+"nom": "LES ENGRENAGES",
+"sol": "uldludrrrrulrruululldlurrrdlrdduuullldrrurdrddlldllurrluurrrddlldlullluurrlddrrrrruulllluld",
+"poussees": 26,
+"deplacements": 91
+},
+{
+"n": 18,
+"nom": "LA FOURMILIÈRE",
+"sol": "lluuluururrlldlddrddrruuurrruuullddullldldrrluurrrddrruululddulllddddrdru",
+"poussees": 12,
+"deplacements": 73
+},
+{
+"n": 19,
+"nom": "LE PONT",
+"sol": "lluuulurrrurdurrrdlulldduurrdluldllldddrdruudlluuurrrrrdddllrruuulllllddddrru",
+"poussees": 14,
+"deplacements": 77
+},
+{
+"n": 20,
+"nom": "LE SERPENT",
+"sol": "luuuurrllddddrruuddlluurluuulldrurdrrurrdllllduulldrurd",
+"poussees": 14,
+"deplacements": 55
+},
+{
+"n": 21,
+"nom": "LES TIROIRS",
+"sol": "lllluuuuurrdluldddrrrrrruuulldllluldrrrrrurdlllddrrrddlludllllluurrrrrddllllulurddrrrruulld",
+"poussees": 15,
+"deplacements": 91
+},
+{
+"n": 22,
+"nom": "LA FORTERESSE",
+"sol": "uuuuululdrrddrruulrurrdluldrrddlldddllllulluurrllddrrrdrurdrurruuuullllulldrurd",
+"poussees": 17,
+"deplacements": 79
+},
+{
+"n": 23,
+"nom": "PETIT LABYRINTHE",
+"sol": "uurrrurrdlllluulldrldrddrrrruuluurdldllrrurrdlddlllluurrdullluurdldrrluurd",
+"poussees": 19,
+"deplacements": 74
+},
+{
+"n": 24,
+"nom": "LABYRINTHE DE CAISSES",
+"sol": "urruruuruullldlluldrrrurrdulldllldurrrurrdduulldllldduurrrddlruuurrddduuulldlllddduuurrrurrdlllluldrrrddlldrdrrulllrrrr",
+"poussees": 19,
+"deplacements": 119
+},
+{
+"n": 25,
+"nom": "LES COULISSES",
+"sol": "uruluuulldllulldduurrdddddlluluruuurrdrrurrdddlllrrruuulldllulldddddrruudddrruuddlluuurrllddlluuuuurrdrrurrdddddlruuuuulldllulldddddrruurrrlllddlluuuuurrddurrduurrdddlluullulldddddrrdrruudrrurul",
+"poussees": 23,
+"deplacements": 194
+},
+{
+"n": 26,
+"nom": "LE GRAND HALL",
+"sol": "llluluurduluurdrurdlllddrulurrrrlllddlddrrrrrrrruuuuullldlldurrdullllddlddruuulurrurdrrrrddrddluuurulluld",
+"poussees": 24,
+"deplacements": 105
+},
+{
+"n": 27,
+"nom": "L'ATELIER",
+"sol": "ddrdlldlluruuuluurdurrdlldurrdulldduurrdduullddduuurrddduuulldddrrrdrruuruulldlrurrddlddllullluuurrddurrurrddldlruruulldllulldddlddrrurldllurr",
+"poussees": 27,
+"deplacements": 142
+},
+{
+"n": 28,
+"nom": "LES QUAIS",
+"sol": "uuluullluldrrrrrrurdlllddllldllurrddrrruuuulllldlddrrurldllurrddrrruurrrllluurrrdrrddlullldluddlldlluruulldrurdldrrrrrdrruldlu",
+"poussees": 27,
+"deplacements": 126
+},
+{
+"n": 29,
+"nom": "DOUBLE CROIX",
+"sol": "drruullluldulldrrrrrurrddluruldlllllddlddruurrrrdrruuldrdlulllllddrulurrrrluurrdrddlullllluulurr",
+"poussees": 30,
+"deplacements": 96
+},
+{
+"n": 30,
+"nom": "LE MAÎTRE DES CAISSES",
+"sol": "ldldrrrurruruulddrdldddllllllluurrllddrudruurrlldlluruuluurdurrdulldduurrdduullddddlddrrrrrurruuuulllulllddddldrurlddrrrruuddlllluurrrlllddruluuuuurrrddlduruuldd",
+"poussees": 35,
+"deplacements": 161
+}
+]

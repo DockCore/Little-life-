@@ -1,0 +1,1223 @@
+[
+ {
+  "n": "1 Box Master dans la sélection de la borne (une fois, nom et vignette), fiche, JOUER → plein écran, aucun élément de Little Life par-dessus",
+  "ok": true,
+  "info": {
+   "cat": {
+    "i": 11,
+    "n": 1,
+    "name": "Box Master",
+    "art": true,
+    "mod": true,
+    "others": [
+     "pinball",
+     "maze",
+     "bubble",
+     "mole",
+     "racing",
+     "hockey",
+     "claw",
+     "boxes"
+    ]
+   },
+   "fiche": {
+    "st": "info",
+    "g": "boxes"
+   },
+   "fsx": {
+    "st": "game",
+    "cur": "boxes",
+    "cv": [
+     0,
+     0,
+     390,
+     844
+    ],
+    "W": 390,
+    "H": 844,
+    "full": true,
+    "top": true,
+    "ph": "title"
+   }
+  }
+ },
+ {
+  "n": "2 sélection : seul le niveau 1 est débloqué, un niveau verrouillé ne se lance pas (message), JOUER lance le niveau 1",
+  "ok": true,
+  "info": {
+   "s2": {
+    "ph": "title",
+    "lvl": 0,
+    "moves": 0,
+    "pushes": 0,
+    "p": null,
+    "boxes": [],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "m2": "TERMINE LE NIVEAU 4 POUR LE DÉBLOQUER",
+   "s2b": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     1,
+     1
+    ],
+    "boxes": [
+     [
+      3,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   }
+  }
+ },
+ {
+  "n": "3 clavier (flèches et ZQSD) : mur infranchissable (0 déplacement compté), pas, poussée, recul sans tirer la caisse, U annule",
+  "ok": true,
+  "info": {
+   "k0": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     1,
+     1
+    ],
+    "boxes": [
+     [
+      3,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "k1": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     1,
+     1
+    ],
+    "boxes": [
+     [
+      3,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "k2": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 1,
+    "pushes": 0,
+    "p": [
+     2,
+     1
+    ],
+    "boxes": [
+     [
+      3,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "k3": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     3,
+     1
+    ],
+    "boxes": [
+     [
+      4,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "k4": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 3,
+    "pushes": 1,
+    "p": [
+     2,
+     1
+    ],
+    "boxes": [
+     [
+      4,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "k5": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     3,
+     1
+    ],
+    "boxes": [
+     [
+      4,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 1,
+    "dlevel": 1,
+    "done": 0,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   }
+  }
+ },
+ {
+  "n": "4 victoire : animation puis fenêtre NIVEAU TERMINÉ (déplacements, NIVEAU SUIVANT, REJOUER), niveau 2 débloqué et sauvegardé, NIVEAU SUIVANT charge le niveau 2",
+  "ok": true,
+  "info": {
+   "v0": {
+    "ph": "play",
+    "lvl": 0,
+    "moves": 3,
+    "pushes": 2,
+    "p": [
+     4,
+     1
+    ],
+    "boxes": [
+     [
+      5,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": true,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 2,
+    "dlevel": 2,
+    "done": 1,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "v1": {
+    "ph": "won",
+    "lvl": 0,
+    "moves": 3,
+    "pushes": 2,
+    "p": [
+     4,
+     1
+    ],
+    "boxes": [
+     [
+      5,
+      1
+     ]
+    ],
+    "stuck": 0,
+    "won": true,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 2,
+    "dlevel": 2,
+    "done": 1,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "panel": {
+    "btns": [
+     "back",
+     "pause",
+     "undo",
+     "reset",
+     "next",
+     "replay"
+    ],
+    "fx": [
+     "bxStep",
+     "bxPush",
+     "bxStep",
+     "bxUndo",
+     "bxGoal",
+     "bxWin"
+    ]
+   },
+   "v2": {
+    "ph": "play",
+    "lvl": 1,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     1,
+     2
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 2,
+    "dlevel": 2,
+    "done": 1,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   }
+  }
+ },
+ {
+  "n": "5 pavé directionnel tactile : le niveau 2 se résout au doigt (un toucher = un pas), REJOUER relance le même niveau",
+  "ok": true,
+  "info": {
+   "t1": {
+    "ph": "play",
+    "lvl": 1,
+    "moves": 6,
+    "pushes": 4,
+    "p": [
+     4,
+     3
+    ],
+    "boxes": [
+     [
+      4,
+      4
+     ]
+    ],
+    "stuck": 0,
+    "won": true,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 3,
+    "dlevel": 3,
+    "done": 2,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "t1b": {
+    "ph": "won",
+    "lvl": 1,
+    "moves": 6,
+    "pushes": 4,
+    "p": [
+     4,
+     3
+    ],
+    "boxes": [
+     [
+      4,
+      4
+     ]
+    ],
+    "stuck": 0,
+    "won": true,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 3,
+    "dlevel": 3,
+    "done": 2,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "t2": {
+    "ph": "play",
+    "lvl": 1,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     1,
+     2
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 3,
+    "dlevel": 3,
+    "done": 2,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "len": 6
+  }
+ },
+ {
+  "n": "6 appui maintenu sur le pavé : plusieurs pas répétés automatiquement, arrêt net au relâchement",
+  "ok": true,
+  "info": {
+   "h0": 0,
+   "h1": 3,
+   "h2": 3,
+   "h3": 3
+  }
+ },
+ {
+  "n": "7 toucher une case de la pièce : le personnage y marche seul (plus court chemin, sans pousser) ; glisser le doigt : un pas",
+  "ok": true,
+  "info": {
+   "g0": {
+    "ph": "play",
+    "lvl": 10,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     5,
+     5
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      7,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 3,
+    "dlevel": 3,
+    "done": 2,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "g1": {
+    "ph": "play",
+    "lvl": 10,
+    "moves": 3,
+    "pushes": 0,
+    "p": [
+     2,
+     5
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      7,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 3,
+    "dlevel": 3,
+    "done": 2,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "g2": {
+    "ph": "play",
+    "lvl": 10,
+    "moves": 4,
+    "pushes": 0,
+    "p": [
+     3,
+     5
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      7,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 3,
+    "dlevel": 3,
+    "done": 2,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   }
+  }
+ },
+ {
+  "n": "8 collisions exactes : 3 600 pas au hasard sur 12 niveaux = modèle de référence (murs, poussées, jamais deux caisses, jamais de tirage), annuler jusqu’au bout = état de départ",
+  "ok": true,
+  "info": {
+   "steps": 3600,
+   "err": [],
+   "stuckSeen": 122,
+   "undoOk": 12,
+   "lv": 12
+  }
+ },
+ {
+  "n": "9 poussées : deux caisses alignées ne bougent pas, une caisse contre un mur non plus, reculer ne tire jamais la caisse",
+  "ok": true,
+  "info": {
+   "a": [
+    5,
+    4
+   ],
+   "r1": "blocked",
+   "b1": [
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     4,
+     4
+    ]
+   ],
+   "r2": "blocked",
+   "r3": "push",
+   "r4": "move",
+   "same": true,
+   "p": [
+    3,
+    3
+   ]
+  }
+ },
+ {
+  "n": "10 caisse coincée dans un coin : signalée tout de suite (bandeau, son), plus aucun pas accepté, ANNULER débloque, RECOMMENCER remet le niveau à zéro",
+  "ok": true,
+  "info": {
+   "c0": {
+    "ph": "play",
+    "lvl": 4,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     2,
+     2
+    ],
+    "boxes": [
+     [
+      2,
+      1
+     ],
+     [
+      5,
+      3
+     ]
+    ],
+    "stuck": 1,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 6,
+    "dlevel": 6,
+    "done": 3,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "c0b": {
+    "st": [
+     0
+    ],
+    "fx": [
+     "bxStep",
+     "bxPush",
+     "bxStuck"
+    ]
+   },
+   "c1": {
+    "ph": "play",
+    "lvl": 4,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     2,
+     2
+    ],
+    "boxes": [
+     [
+      2,
+      1
+     ],
+     [
+      5,
+      3
+     ]
+    ],
+    "stuck": 1,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 6,
+    "dlevel": 6,
+    "done": 3,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "c2": {
+    "ph": "play",
+    "lvl": 4,
+    "moves": 1,
+    "pushes": 0,
+    "p": [
+     2,
+     3
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ],
+     [
+      5,
+      3
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 6,
+    "dlevel": 6,
+    "done": 3,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "c3": {
+    "ph": "play",
+    "lvl": 4,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     2,
+     2
+    ],
+    "boxes": [
+     [
+      2,
+      1
+     ],
+     [
+      5,
+      3
+     ]
+    ],
+    "stuck": 1,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 6,
+    "dlevel": 6,
+    "done": 3,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "c4": {
+    "ph": "play",
+    "lvl": 4,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     3,
+     3
+    ],
+    "boxes": [
+     [
+      2,
+      2
+     ],
+     [
+      5,
+      3
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 6,
+    "dlevel": 6,
+    "done": 3,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   }
+  }
+ },
+ {
+  "n": "11 blocage « carré 2×2 » reconnu, positions libres non signalées ; les 30 solutions ne déclenchent jamais d’alerte",
+  "ok": true,
+  "info": {
+   "fr": {
+    "a": 2,
+    "b2": 0
+   },
+   "fausses": []
+  }
+ },
+ {
+  "n": "12 les 30 niveaux sont réellement résolubles dans le moteur du jeu (solutions rejouées pas à pas, victoire à la fin)",
+  "ok": true,
+  "info": "1:ok 3 2:ok 6 3:ok 18 4:ok 7 5:ok 12 6:ok 12 7:ok 20 8:ok 39 9:ok 17 10:ok 39 11:ok 42 12:ok 50 13:ok 27 14:ok 34 15:ok 38 16:ok 53 17:ok 91 18:ok 73 19:ok 77 20:ok 55 21:ok 91 22:ok 79 23:ok 74 24:ok 119 25:ok 194 26:ok 105 27:ok 142 28:ok 126 29:ok 96 30:ok 161"
+ },
+ {
+  "n": "13 30 niveaux faits main (autant de cibles que de caisses, pièces fermées, au plus 13×9 cases) ; difficulté croissante 1-5 / 6-10 / 11-20 / 21-30",
+  "ok": true,
+  "info": "1:2p 2:4p 3:4p 4:4p 5:4p 6:5p 7:4p 8:6p 9:7p 10:8p 11:8p 12:8p 13:6p 14:7p 15:11p 16:10p 17:26p 18:12p 19:14p 20:14p 21:15p 22:17p 23:19p 24:19p 25:23p 26:24p 27:27p 28:27p 29:30p 30:35p"
+ },
+ {
+  "n": "14 ANNULER maintenu enchaîne les annulations ; RECOMMENCER rend la position de départ exacte",
+  "ok": true,
+  "info": {
+   "a0": 12,
+   "a1": 6,
+   "a2": {
+    "ph": "play",
+    "lvl": 16,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     4,
+     5
+    ],
+    "boxes": [
+     [
+      3,
+      2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      5,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      5,
+      4
+     ],
+     [
+      6,
+      4
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 30,
+    "dlevel": 30,
+    "done": 30,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   }
+  }
+ },
+ {
+  "n": "15 pause : le jeu s’arrête (le pavé ne fait plus bouger), boutons REPRENDRE / SON / RECOMMENCER / CHOIX DU NIVEAU / RETOUR À LA BORNE, le son se coupe et se sauvegarde",
+  "ok": true,
+  "info": {
+   "pz": {
+    "ph": "play",
+    "lvl": 16,
+    "moves": 0,
+    "pushes": 0,
+    "p": [
+     4,
+     5
+    ],
+    "boxes": [
+     [
+      3,
+      2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      5,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      5,
+      4
+     ],
+     [
+      6,
+      4
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": true,
+    "tr": false,
+    "sel": 0,
+    "unl": 30,
+    "dlevel": 30,
+    "done": 30,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "pb": [
+    "back",
+    "pause",
+    "undo",
+    "reset",
+    "resume",
+    "mute",
+    "preset",
+    "levels",
+    "quit"
+   ],
+   "mu": {
+    "m": true,
+    "d": true
+   }
+  }
+ },
+ {
+  "n": "16 portrait et paysage (8 tailles × 2 niveaux) : pièce et commandes entièrement visibles, sans chevauchement, commandes ≥ 44 px ; rotation pendant un appui sans bloquer le toucher",
+  "ok": true,
+  "info": {
+   "orient": [
+    [
+     "390x844",
+     28,
+     28,
+     45,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "844x390",
+     28,
+     35,
+     44,
+     true,
+     "côtés",
+     2
+    ],
+    [
+     "320x568",
+     28,
+     23,
+     44,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "568x320",
+     28,
+     19,
+     44,
+     true,
+     "côtés",
+     2
+    ],
+    [
+     "768x1024",
+     28,
+     56,
+     48,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "1024x768",
+     28,
+     58,
+     44,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "412x915",
+     28,
+     29,
+     44,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "915x412",
+     28,
+     37,
+     44,
+     true,
+     "côtés",
+     2
+    ],
+    [
+     "390x844",
+     1,
+     52,
+     45,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "844x390",
+     1,
+     75,
+     44,
+     true,
+     "côtés",
+     2
+    ],
+    [
+     "320x568",
+     1,
+     43,
+     44,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "568x320",
+     1,
+     36,
+     44,
+     true,
+     "côtés",
+     2
+    ],
+    [
+     "768x1024",
+     1,
+     77,
+     48,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "1024x768",
+     1,
+     76,
+     44,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "412x915",
+     1,
+     55,
+     44,
+     true,
+     "bas",
+     2
+    ],
+    [
+     "915x412",
+     1,
+     76,
+     44,
+     true,
+     "côtés",
+     2
+    ]
+   ],
+   "ro": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "n": "17 sauvegarde automatique : partie en cours reprise à l’identique (REPRENDRE), niveaux débloqués, niveaux terminés et records conservés après rechargement complet",
+  "ok": true,
+  "info": {
+   "sv0": {
+    "ph": "play",
+    "lvl": 1,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     2,
+     3
+    ],
+    "boxes": [
+     [
+      3,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 0,
+    "unl": 30,
+    "dlevel": 30,
+    "done": 30,
+    "res": null,
+    "st": "game",
+    "cur": "boxes"
+   },
+   "sv2": {
+    "l": 1,
+    "h": "rd"
+   },
+   "sv3": {
+    "ph": "play",
+    "lvl": 1,
+    "moves": 2,
+    "pushes": 1,
+    "p": [
+     2,
+     3
+    ],
+    "boxes": [
+     [
+      3,
+      2
+     ]
+    ],
+    "stuck": 0,
+    "won": false,
+    "paused": false,
+    "tr": false,
+    "sel": 1,
+    "unl": 30,
+    "dlevel": 30,
+    "done": 30,
+    "res": {
+     "l": 1,
+     "h": "rd"
+    },
+    "st": "game",
+    "cur": "boxes"
+   },
+   "rl": {
+    "level": 30,
+    "done": 30,
+    "bm": 3,
+    "res": {
+     "l": 1,
+     "h": "rd"
+    },
+    "mute": false
+   },
+   "rl2": {
+    "u": 30,
+    "sel": 1,
+    "ph": "title"
+   }
+  }
+ },
+ {
+  "n": "18 retour exact à la borne d’arcade (bouton retour, Échap, pause → RETOUR À LA BORNE), module arrêté, les touches reviennent à la borne",
+  "ok": true,
+  "info": {
+   "q1": {
+    "st": "menu",
+    "cur": null,
+    "api": false,
+    "sel": 11
+   },
+   "q1b": 10,
+   "q2": {
+    "st": "menu",
+    "cur": null
+   },
+   "q3": {
+    "st": "menu",
+    "cur": null,
+    "on": true
+   }
+  }
+ },
+ {
+  "n": "19 ordinateur : pas de pavé tactile à l’écran, clavier ZQSD/flèches, Entrée valide, clic souris sur ANNULER et RECOMMENCER, R recommence",
+  "ok": true,
+  "info": {
+   "d0": {
+    "ph": "play",
+    "dpad": false,
+    "lvl": 0
+   },
+   "d1": 2,
+   "d2": 1,
+   "d3": 0,
+   "d4": 0
+  }
+ },
+ {
+  "n": "20 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

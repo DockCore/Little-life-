@@ -103,7 +103,14 @@ const JEUSON=(()=>{
     if(s%4==0)tone(mf(ch[0]-24),t,SD*2.6,.12,'sine',musG,{att:.006});if(s%4==3)tone(mf(ch[0]-12),t,SD*.8,.06,'triangle',musG,{att:.004});
     const M=[[77,_m,81,84,_m,81,_m,77,_m,79,81,_m,77,_m,_m,_m],[74,_m,77,81,_m,77,_m,74,_m,76,77,_m,72,_m,_m,_m],[70,_m,74,77,_m,74,_m,72,_m,74,_m,70,69,_m,_m,_m],[72,_m,76,79,_m,84,_m,79,_m,76,_m,72,74,_m,76,_m]][bar],m=M[s];
     if(m!=null){tone(mf(m),t,SD*1.4,.05,'triangle',musG,{att:.002});tone(mf(m+12),t,SD*.5,.014,'sine',musG,{att:.002})}
-    if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.018,'square',musG,{att:.002})}}
+    if(s%2==1&&Math.floor(k/64)%2)tone(mf(ch[(s>>1)%3]+12),t,SD*.5,.018,'square',musG,{att:.002})}},
+  // Box Master : réflexion douce et chaleureuse (kalimba, basse ronde, petit shaker) — on réfléchit sans stress
+  boxes:{bpm:92,vol:.17,bars:[[53,57,60],[50,53,57],[46,50,53],[48,52,55],[53,57,60],[50,53,57],[46,50,55],[48,52,55]],
+   play(s,bar,t,SD,B,k){const ch=B[bar];if(s==0||s==10)kick(t,.28,musG);if(s==4||s==12)noise(t,.05,.035,2600,'bandpass',musG,1.6);if(s%2==1)noise(t,.02,.018,8000,'highpass',musG);
+    if(s==0||s==8)tone(mf(ch[0]-12),t,SD*6,.11,'triangle',musG,{att:.01});if(s==6||s==14)tone(mf(ch[0]-12+7),t,SD*2,.06,'triangle',musG,{att:.006});
+    const ar=[0,1,2,1,0,2,1,2][s%8];if(s%2==0)tone(mf(ch[ar]+12),t,SD*2.2,.035,'sine',musG,{att:.002});
+    const M=[[72,_m,_m,74,_m,77,_m,_m,76,_m,74,_m,72,_m,_m,_m],[69,_m,_m,72,_m,74,_m,_m,72,_m,_m,_m,69,_m,_m,_m],[70,_m,_m,74,_m,77,_m,_m,79,_m,77,_m,74,_m,_m,_m],[76,_m,_m,_m,74,_m,72,_m,67,_m,_m,_m,_m,_m,_m,_m]][bar%4],m=M[s];
+    if(m!=null&&Math.floor(k/128)%2==0)tone(mf(m),t,SD*2.6,.04,'triangle',musG,{att:.003,vib:4});if(m!=null&&Math.floor(k/128)%2==1)tone(mf(m+12),t,SD*1.4,.022,'sine',musG,{att:.002})}}
  };
  function sched(){if(!ctx||!theme)return;const T=THEMES[theme],SD=60/T.bpm/4;if(next<ctx.currentTime)next=ctx.currentTime+.05;
   while(next<ctx.currentTime+.35){const s=step%16,bar=Math.floor(step/16)%T.bars.length;try{T.play(s,bar,next,SD,T.bars,step)}catch(e){}step++;next+=SD}}
@@ -302,3 +309,17 @@ Object.assign(JEUSON.FX,{
  bpSelect(t){JEUSON.tone(880,t,.05,.05,'triangle');JEUSON.tone(1320,t+.05,.07,.05,'triangle')},
  bpWin(t){[523,659,784,1047,784,1047,1319].forEach((f,i)=>JEUSON.tone(f,t+i*.09,.2,.06,'square'));JEUSON.tone(1568,t+.65,.7,.05,'triangle',null,{vib:6});JEUSON.noise(t+.6,.8,.04,6000,'highpass',null,1,{att:.1})},
  bpLose(t){[440,392,349,294,220].forEach((f,i)=>JEUSON.tone(f,t+i*.16,.26,.06,'triangle',null,{slide:.96}))}});
+// Box Master : pas, poussée, caisse sur une cible, choc contre un mur, annuler, recommencer, blocage, victoire, menus
+Object.assign(JEUSON.FX,{
+ bxStep(t,k){JEUSON.noise(t,.035,.035*k,900+k*500,'bandpass',null,2.5)},
+ bxPush(t){JEUSON.noise(t,.11,.09,420,'lowpass',null,1,{att:.01});JEUSON.tone(95,t,.1,.06,'triangle',null,{slide:.8})},
+ bxPushOn(t){JEUSON.noise(t,.1,.08,480,'lowpass',null,1,{att:.01});JEUSON.tone(120,t,.1,.05,'triangle',null,{slide:.85})},
+ bxGoal(t,k){JEUSON.noise(t,.08,.07,480,'lowpass');[784,988,1319].forEach((f,i)=>JEUSON.tone(f*k,t+.02+i*.055,.16,.05,'triangle',null,{vib:5}));JEUSON.tone(1976*k,t+.2,.25,.02,'sine')},
+ bxBump(t){JEUSON.noise(t,.06,.07,260,'lowpass');JEUSON.tone(70,t,.07,.06,'square',null,{slide:.7})},
+ bxUndo(t){JEUSON.tone(660,t,.06,.035,'triangle',null,{slide:.7});JEUSON.noise(t,.04,.02,2000,'bandpass',null,2)},
+ bxRestart(t){[523,392,330].forEach((f,i)=>JEUSON.tone(f,t+i*.05,.09,.04,'triangle'));JEUSON.noise(t,.25,.05,700,'bandpass',null,1,{sweep:2600})},
+ bxStuck(t){JEUSON.tone(233,t,.16,.06,'square',null,{slide:.9});JEUSON.tone(220,t+.15,.24,.06,'square',null,{slide:.85})},
+ bxWin(t){[523,659,784,1047,784,1047,1319,1568].forEach((f,i)=>JEUSON.tone(f,t+i*.085,.2,.055,'square'));JEUSON.tone(2093,t+.7,.8,.04,'triangle',null,{vib:6});JEUSON.noise(t+.65,.9,.04,6000,'highpass',null,1,{att:.1})},
+ bxSelect(t,k){JEUSON.tone(880*k,t,.05,.05,'triangle');JEUSON.tone(1320*k,t+.05,.07,.05,'triangle')},
+ bxTick(t){JEUSON.tone(1175,t,.03,.035,'square')},
+ bxLocked(t){JEUSON.tone(196,t,.09,.05,'square');JEUSON.tone(185,t+.09,.12,.05,'square')}});
