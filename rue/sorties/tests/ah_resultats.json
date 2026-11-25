@@ -165,19 +165,19 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 50,
+    "saved": 48,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 60,
+    "saved": 59,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
    },
    "difficile": {
-    "saved": 59,
+    "saved": 58,
     "shots": 60,
     "vmax": 2.67,
     "cap": 2.665
@@ -259,20 +259,20 @@
   }
  },
  {
-  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole, Maze Runner, Lucky Claw, Bubble Pop et Box Master prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
+  "n": "[tel] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole, Maze Runner, Lucky Claw, Bubble Pop, Box Master et Perfect Stack prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 3
+   "ms": 1
   }
  },
  {
   "n": "[tel] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 3.94,
+   "msParImage": 3.69,
    "errs": []
   }
  },
@@ -427,11 +427,11 @@
    "e": {
     "sc": [
      1,
-     2
+     1
     ],
     "sc0": [
      1,
-     2
+     1
     ],
     "ph": "jeu"
    }
@@ -442,13 +442,13 @@
   "ok": true,
   "info": {
    "facile": {
-    "saved": 55,
+    "saved": 52,
     "shots": 60,
     "vmax": 0.95,
     "cap": 0.95
    },
    "normal": {
-    "saved": 59,
+    "saved": 60,
     "shots": 60,
     "vmax": 1.67,
     "cap": 1.6674999999999998
@@ -487,7 +487,7 @@
     "wins": {
      "difficile": 1
     },
-    "games": 2,
+    "games": 5,
     "best": 970
    }
   }
@@ -536,20 +536,20 @@
   }
  },
  {
-  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole, Maze Runner, Lucky Claw, Bubble Pop et Box Master prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
+  "n": "[pc] 15 les 13 autres cases fonctionnent (Pinball, Mini Racing, Whack-a-Mole, Maze Runner, Lucky Claw, Bubble Pop, Box Master et Perfect Stack prêts, les autres en développement) ; 30 ouvertures/fermetures sans erreur",
   "ok": true,
   "info": {
    "ok": true,
    "n": 13,
    "st": "menu",
-   "ms": 4
+   "ms": 2
   }
  },
  {
   "n": "[pc] 16 boucle de jeu fluide et aucune erreur JavaScript",
   "ok": true,
   "info": {
-   "msParImage": 5.21,
+   "msParImage": 5.38,
    "errs": []
   }
  }

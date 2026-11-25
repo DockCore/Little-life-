@@ -1,0 +1,486 @@
+[
+ {
+  "n": "1 Perfect Stack dans la borne (nom, vignette), JOUER → plein écran, rendu net en haute densité (2x), toucher reçu par la borne, rien de Little Life par-dessus",
+  "ok": true,
+  "info": {
+   "cat": {
+    "n": 1,
+    "name": "Perfect Stack",
+    "art": true,
+    "mod": true,
+    "hires": true
+   },
+   "fs1": {
+    "st": "game",
+    "cur": "stack",
+    "hiShown": true,
+    "hiPx": [
+     781,
+     1688
+    ],
+    "dev": [
+     780,
+     1688
+    ],
+    "cover": true,
+    "top": true,
+    "scr": "home"
+   }
+  }
+ },
+ {
+  "n": "2 accueil : JOUER, COLLECTION, MISSIONS, retour, son, pièces, meilleur score, aperçu animé de la tour (qui se construit)",
+  "ok": true,
+  "info": {
+   "home": [
+    "play",
+    "coll",
+    "miss",
+    "quit",
+    "mute"
+   ],
+   "demo": 1,
+   "demo2": 2
+  }
+ },
+ {
+  "n": "3 toucher l’écran pose le bloc dans le même évènement (aucune latence) ; le bouton pause ne pose pas de bloc",
+  "ok": true,
+  "info": {
+   "lat": {
+    "h0": 0,
+    "h1": 1
+   },
+   "t1": {
+    "h": 2,
+    "over": false
+   },
+   "t2": {
+    "paused": true,
+    "h": 2
+   }
+  }
+ },
+ {
+  "n": "4 découpe mathématiquement exacte (500 poses) : bloc gardé = intersection, débris = écart, PERFECT si écart ≤ 2,5 exactement (2,5 oui, 2,5+10⁻⁹ non), bloc < 4 ou raté → fin",
+  "ok": true,
+  "info": {
+   "n": 500,
+   "err": [],
+   "perfect": 169,
+   "cut": 330,
+   "over": 1,
+   "tolIn": true,
+   "tolOut": false,
+   "minIn": false,
+   "minOut": true,
+   "miss": true
+  }
+ },
+ {
+  "n": "5 combos PERFECT x2, x3, x5, x10, PERFECT STREAK ; bloc agrandi à x3/x5/x10/série, pièces bonus, effets plus nombreux, ralenti seulement aux séries exceptionnelles",
+  "ok": true,
+  "info": {
+   "labs": [
+    "PERFECT",
+    "PERFECT x2",
+    "PERFECT x3",
+    "PERFECT x4",
+    "PERFECT x5",
+    "PERFECT x6",
+    "PERFECT x7",
+    "PERFECT x8",
+    "PERFECT x9",
+    "PERFECT x10",
+    "PERFECT STREAK",
+    "PERFECT STREAK",
+    "PERFECT STREAK",
+    "PERFECT STREAK",
+    "PERFECT STREAK"
+   ],
+   "grow": [
+    0,
+    0,
+    500,
+    0,
+    900,
+    0,
+    0,
+    0,
+    0,
+    1600,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "slow": [
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "part": [
+    14,
+    14,
+    32,
+    14,
+    50,
+    32,
+    32,
+    32,
+    32,
+    68,
+    50,
+    50,
+    50,
+    50,
+    68
+   ],
+   "coinsBonus": 40,
+   "maxCombo": 15
+  }
+ },
+ {
+  "n": "6 ralenti très court : la vitesse tombe (~×0,3) puis revient à la normale en moins d’une seconde",
+  "ok": true,
+  "info": {
+   "ts1": 0.32,
+   "ts2": 1
+  }
+ },
+ {
+  "n": "7 la vitesse augmente avec la hauteur (plafonnée), niveau tous les 10 étages",
+  "ok": true,
+  "info": {
+   "sp": {
+    "v0": 92,
+    "v20": 140,
+    "v50": 212,
+    "v200": 255
+   },
+   "mv": {
+    "d0": 9.200000000000003,
+    "d40": 18.799999999999997
+   }
+  }
+ },
+ {
+  "n": "8 fin de partie : chute, écran de résultat (score, record, pièces, missions), pièces créditées exactement, record de la borne, REJOUER relance tout de suite",
+  "ok": true,
+  "info": {
+   "ov": {
+    "score": 31,
+    "height": 10,
+    "perfects": 6,
+    "maxCombo": 6,
+    "coins": 31,
+    "coinH": 10,
+    "coinP": 11,
+    "coinEnd": 10,
+    "coinRec": 0,
+    "rec": false,
+    "prevBest": 35,
+    "recH": false,
+    "newM": [],
+    "newA": [
+     {
+      "id": "combo5",
+      "t": "Précision",
+      "d": "Réussis un PERFECT x5",
+      "k": "bestC",
+      "g": 5,
+      "r": 60
+     }
+    ]
+   },
+   "dc": 91,
+   "expCoins": 31,
+   "mrw": 60,
+   "c2": "play"
+  }
+ },
+ {
+  "n": "9 missions du jour : 3 missions variées, identiques toute la journée, renouvelées le jour suivant, progression réelle, récompenses créditées une seule fois",
+  "ok": true,
+  "info": {
+   "ids": [
+    "c3",
+    "p5",
+    "s40"
+   ],
+   "same": true,
+   "kinds": 3,
+   "newDay": "2026-11-25",
+   "done": 3,
+   "gained": 160,
+   "rew": 160,
+   "again": true,
+   "missions": 5
+  }
+ },
+ {
+  "n": "10 succès débloqués avec récompense (PERFECT x10 offre le bloc Arc-en-ciel) ; univers débloqués par la hauteur atteinte",
+  "ok": true,
+  "info": {
+   "newA": [
+    "first",
+    "h10",
+    "combo3",
+    "combo5",
+    "combo10"
+   ],
+   "rain": true,
+   "envs": [
+    "neon",
+    "sunset",
+    "ocean"
+   ],
+   "gained": 350,
+   "r2": [
+    "Tour de guet",
+    "Univers Ocean"
+   ]
+  }
+ },
+ {
+  "n": "11 collection : achat (pièces débitées, objet possédé et équipé), refus s’il manque des pièces, Arc-en-ciel seulement par succès, achat au doigt (carte puis ACHETER), univers acheté = fond et musique changés",
+  "ok": true,
+  "info": {
+   "co": {
+    "a": {
+     "ok": false,
+     "why": "pièces",
+     "manque": 50
+    },
+    "c1": 300,
+    "b2": {
+     "ok": true,
+     "ach": [
+      {
+       "id": "globe",
+       "t": "Globe-trotter",
+       "d": "Débloque 3 univers",
+       "k": "envs",
+       "g": 3,
+       "r": 100
+      }
+     ]
+    },
+    "c2": 50,
+    "eq1": "glass",
+    "c": "succès",
+    "e": true,
+    "env": "space",
+    "skin": "classic",
+    "own": [
+     "classic",
+     "glass"
+    ]
+   },
+   "ui2": {
+    "coins": 4880,
+    "eq": "candy",
+    "own": true
+   },
+   "mus": "stSpace"
+  }
+ },
+ {
+  "n": "12 effets de destruction réels (Chute, Éclats, Pixels, Étincelles, Confettis) ; débris et particules supprimés une fois tombés",
+  "ok": true,
+  "info": {
+   "fall": {
+    "debris": 1,
+    "parts": 0
+   },
+   "shatter": {
+    "debris": 6,
+    "parts": 0
+   },
+   "pixel": {
+    "debris": 40,
+    "parts": 0
+   },
+   "spark": {
+    "debris": 1,
+    "parts": 0
+   },
+   "confetti": {
+    "debris": 0,
+    "parts": 60
+   },
+   "clean": {
+    "n0": 8,
+    "n1": 0,
+    "p": 0
+   }
+  }
+ },
+ {
+  "n": "13 interruption : passage en arrière-plan → pause ; RETOUR À LA BORNE en pleine partie compte la partie (pièces, statistiques) ; toile haute résolution libérée",
+  "ok": true,
+  "info": {
+   "it": {
+    "pa": true
+   },
+   "it3": {
+    "st": "menu",
+    "games": 5,
+    "hi": true
+   }
+  }
+ },
+ {
+  "n": "14 sauvegarde dans celle de Little Life : pièces, objets, équipement, records, succès et missions identiques après rechargement",
+  "ok": true,
+  "info": {
+   "before": "{\"c\":5000,\"o\":{\"skin\":[\"classic\",\"glass\",\"candy\"],\"fx\":[\"fall\",\"shatter\",\"pixel\",\"spark\",\"confetti\"],\"env\":[\"neon\",\"sunset\",\"ocean\",\"space\"]},\"e\":{\"skin\":\"candy\",\"fx\":\"fall\",\"env\":\"space\"},\"s\":{\"games",
+   "same": true
+  }
+ },
+ {
+  "n": "15 portrait et paysage (8 tailles) : boutons dans l’écran, aucun chevauchement, boutons ≥ 44 px, toile nette à la bonne taille, toucher actif après chaque rotation",
+  "ok": true,
+  "info": [
+   [
+    "390x844",
+    true,
+    45,
+    1
+   ],
+   [
+    "844x390",
+    true,
+    45,
+    1
+   ],
+   [
+    "320x568",
+    true,
+    45,
+    1
+   ],
+   [
+    "568x320",
+    true,
+    45,
+    1
+   ],
+   [
+    "768x1024",
+    true,
+    45,
+    1
+   ],
+   [
+    "1024x768",
+    true,
+    45,
+    1
+   ],
+   [
+    "412x915",
+    true,
+    45,
+    1
+   ],
+   [
+    "915x412",
+    true,
+    45,
+    1
+   ]
+  ]
+ },
+ {
+  "n": "16 performance réelle (boucle du jeu, rendu logiciel sans carte graphique) : aucun ralentissement avec une tour de 300 étages (≥ 85 % de la cadence d’une tour basse), dézoom de fin fluide, caches bornés",
+  "ok": true,
+  "info": {
+   "h": 300,
+   "low": {
+    "fps": 55,
+    "p95": 33.3
+   },
+   "high": {
+    "fps": 50.4,
+    "p95": 33.4
+   },
+   "zoom": {
+    "fps": 37.7,
+    "p95": 50
+   },
+   "over": {
+    "fps": 50.7,
+    "p95": 33.4
+   },
+   "cache": 5,
+   "gpu": "aucune (rendu logiciel)"
+  }
+ },
+ {
+  "n": "17 sons au moment des actions : pose, PERFECT, découpe, combo, ralenti, fin",
+  "ok": true,
+  "info": {
+   "a": [
+    "stTap",
+    "stDrop",
+    "stPerfect"
+   ],
+   "b2": [
+    "stCutFall",
+    "stDrop",
+    "stCut"
+   ],
+   "combo": true,
+   "slow": true,
+   "over": true
+  }
+ },
+ {
+  "n": "18 retour exact à la borne (Échap), Perfect Stack arrêté, toile haute résolution masquée ; Box Master garde son rendu habituel",
+  "ok": true,
+  "info": {
+   "q": {
+    "st": "menu",
+    "cur": null,
+    "hi": true,
+    "api": false
+   },
+   "q2": {
+    "cur": "boxes",
+    "hi": true
+   }
+  }
+ },
+ {
+  "n": "19 ordinateur : Entrée lance, Espace et clic posent, P met en pause",
+  "ok": true,
+  "info": {
+   "k0": {
+    "scr": "play",
+    "h": 0
+   },
+   "k1": 1,
+   "k2": 2,
+   "k3": true
+  }
+ },
+ {
+  "n": "20 aucune erreur JavaScript",
+  "ok": true,
+  "info": []
+ }
+]

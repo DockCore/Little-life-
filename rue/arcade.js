@@ -177,10 +177,20 @@ function arcDrawOver(x){const S=AX.L.scr,cx=S.x+S.w/2,o=ARC.over,sc=axTW('PARTIE
  const w=Math.min(Math.floor((S.w-36)/2),bsc>1?110:90),h=bsc>1?24:16;arcPanelBtn(x,cx-w-6,y,w,h,'REJOUER','#2f7bff','#1a4ac0',ARC.overSel==0,bsc);arcPanelBtn(x,cx+6,y,w,h,'RETOUR','#9a6bff','#5a35b0',ARC.overSel==1,bsc);ARC.overBtns=[{x:cx-w-6,y,w,h},{x:cx+6,y,w,h}]}
 // écran occupé par un mini-jeu : tout l'écran (la borne disparaît) ; sinon l'écran de la borne
 function arcGS(){return ARC.state=='game'&&AX.L?AX.L.full:AX.L.scr}
-function arcDrawGame(){const L=AX.L,x=AX.x,S=L.full,M=ARC.cur&&ARC.modules[ARC.cur.id];axR(x,0,0,L.W,L.H,'#000000');if(!M)return;
+// option d'un mini-jeu (M.hires) : dessin à la résolution réelle de l'écran, sur une toile superposée qui ne capte pas le toucher.
+// Le jeu garde les mêmes coordonnées (pixels de la borne) ; seuls les jeux qui la demandent l'utilisent.
+// M.hires = true (densité réelle de l'écran) ou un nombre (densité maximale, ex. 2) ; k = pixels de la toile par pixel de la borne
+function arcHi(on,k){const H=AX.hi;if(!H)return null;if(!on){if(!H.hidden){H.hidden=true;H.width=H.height=1}return null}
+ const L=AX.L,cv=AX.cv,W=Math.round(L.W*k),Hh=Math.round(L.H*k);if(H.width!==W||H.height!==Hh){H.width=W;H.height=Hh}
+ if(H.style.width!==cv.style.width||H.style.left!==cv.style.left||H.style.top!==cv.style.top||H.style.height!==cv.style.height){H.style.width=cv.style.width;H.style.height=cv.style.height;H.style.left=cv.style.left;H.style.top=cv.style.top}
+ H.hidden=false;return H}
+function arcDrawGame(){const L=AX.L,x=AX.x,S=L.full,M=ARC.cur&&ARC.modules[ARC.cur.id];axR(x,0,0,L.W,L.H,'#000000');if(!M){arcHi(false);return}
+ if(M.hires){const dpr=window.devicePixelRatio||1,k=L.s*Math.min(1,(typeof M.hires=='number'?M.hires:dpr)/dpr),H=arcHi(true,k),hx=H.getContext('2d');hx.setTransform(1,0,0,1,0,0);hx.clearRect(0,0,H.width,H.height);hx.setTransform(k,0,0,k,S.x*k,S.y*k);hx.imageSmoothingEnabled=true;
+  try{M.draw&&M.draw(hx,S.w,S.h)}catch(e){console.error(e)}hx.setTransform(1,0,0,1,0,0);return}
+ arcHi(false);
  if(!AX.gameCv||AX.gameCv.width!=S.w||AX.gameCv.height!=S.h){AX.gameCv=document.createElement('canvas');AX.gameCv.width=S.w;AX.gameCv.height=S.h}
  const gx=AX.gameCv.getContext('2d');gx.imageSmoothingEnabled=false;try{M.draw&&M.draw(gx,S.w,S.h)}catch(e){console.error(e)}x.drawImage(AX.gameCv,S.x,S.y)}
-function arcDraw(){if(!ARC.on||!AX.L)return;if(ARC.state=='game'){arcDrawGame();return}const L=AX.L,x=AX.x,S=L.scr,t=ARC.t;if(!AX.bg)AX.bg=arcCabinet();x.drawImage(AX.bg,0,0);
+function arcDraw(){if(!ARC.on||!AX.L)return;if(ARC.state=='game'){arcDrawGame();return}arcHi(false);const L=AX.L,x=AX.x,S=L.scr,t=ARC.t;if(!AX.bg)AX.bg=arcCabinet();x.drawImage(AX.bg,0,0);
  // fronton rétroéclairé qui respire, néons des flancs
  x.globalAlpha=.08+.06*Math.sin(t*2);axR(x,L.marq.x,L.marq.y,L.marq.w,L.marq.h,'#ff9ad0');x.globalAlpha=1;
  const sh=((t*.35)%1.6)-.3;if(sh>0&&sh<1){x.globalAlpha=.08;const X=L.marq.x+sh*L.marq.w;for(let k=0;k<10;k++)axR(x,X+k-L.marq.h*.3,L.marq.y+1,2,L.marq.h-2,'#ffffff');x.globalAlpha=1}
@@ -230,14 +240,14 @@ function arcLoop(ts){if(!ARC.on)return;const dt=Math.min(.05,(ts-(ARC.last||ts))
 // ---------- ouverture / sortie ----------
 function arcOpen(o){o=o||{};ARC.back={x:typeof o.x=='number'?o.x:null,d:o.d||1};AX.root.hidden=false;ARC.on=true;ARC.state='menu';ARC.sel=0;ARC.t=0;ARC.trans=.6;ARC.stick='';C.st='arcade';C.path=null;
  arcLayout();show('arcade');if(N.street&&ARC.back.x!=null){N.street={x:Math.round(ARC.back.x),d:ARC.back.d,on:1};save()}ARC.last=0;requestAnimationFrame(arcLoop);try{AX.cv.focus({preventScroll:true})}catch(e){}}
-function arcQuit(){if(!ARC.on)return;arcPress('quit');if(ARC.state=='game')arcStop();ARC.on=false;ARC.holdD=null;clearTimeout(ARC.rep);AX.root.hidden=true;
+function arcQuit(){if(!ARC.on)return;arcPress('quit');if(ARC.state=='game')arcStop();ARC.on=false;ARC.holdD=null;clearTimeout(ARC.rep);arcHi(false);AX.root.hidden=true;
  if(typeof streetEnter=='function')streetEnter(ARC.back&&ARC.back.x!=null?ARC.back.x:undefined);else{place='home';show('home')}}
 // ---------- commandes : joystick et boutons de la borne (souris / tactile), écran tactile, clavier ----------
 function arcPt(e){const r=AX.cv.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*AX.L.W,y:(e.clientY-r.top)/r.height*AX.L.H}}
 const arcIn=(p,a)=>a&&p.x>=a.x&&p.x<a.x+a.w&&p.y>=a.y&&p.y<a.y+a.h;
 function arcHold(d){clearTimeout(ARC.rep);ARC.holdD=d;arcMove(d);let first=true;const go=()=>{ARC.rep=setTimeout(()=>{if(ARC.holdD!==d)return;arcMove(d);first=false;go()},first?380:150)};go()}
 function arcRelease(){ARC.holdD=null;clearTimeout(ARC.rep);ARC.stick='';['up','down','left','right'].forEach(k=>ARC.input[k]=0)}
-function arcInit(){const root=document.createElement('div');root.id='arcx';root.className='arcx';root.hidden=true;root.innerHTML='<canvas id="arcCv" tabindex="-1" aria-label="Borne d’arcade : 14 jeux"></canvas>';document.body.appendChild(root);AX.root=root;AX.cv=root.querySelector('canvas');
+function arcInit(){const root=document.createElement('div');root.id='arcx';root.className='arcx';root.hidden=true;root.innerHTML='<canvas id="arcCv" tabindex="-1" aria-label="Borne d’arcade : 14 jeux"></canvas><canvas id="arcHi" class="arcHi" hidden aria-hidden="true"></canvas>';document.body.appendChild(root);AX.root=root;AX.cv=root.querySelector('#arcCv');AX.hi=root.querySelector('#arcHi');
  let drag=null;
  AX.cv.addEventListener('pointerdown',e=>{if(!ARC.on)return;e.preventDefault();const p=arcPt(e),L=AX.L;
   // pendant un mini-jeu, tout l'écran appartient au jeu (la borne et ses commandes ne sont pas affichées)

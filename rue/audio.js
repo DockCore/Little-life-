@@ -19,7 +19,27 @@ const JEUSON=(()=>{
  function kick(t,v,dest){const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(40,t+.13);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+.22);o.connect(g);g.connect(dest);o.start(t);o.stop(t+.25)}
  // ---------- musiques (séquenceur pas à pas, 16 doubles-croches par mesure) ----------
  const _m=null;
+ // Perfect Stack : morceaux d'ambiance modernes (nappes, piano électrique, basse ronde, batterie légère), un par univers
+ function stTheme(o){return{bpm:o.bpm,vol:o.vol,bars:o.bars,play(s,bar,t,SD,B,k){const ch=B[bar],sec=Math.floor(k/128)%2;
+   if(s==0)ch.forEach((m,i)=>{tone(mf(m+12),t,SD*16.5,o.pad,'sine',musG,{att:.45});tone(mf(m+12)*1.004,t,SD*16.5,o.pad*.5,'triangle',musG,{att:.6})});
+   if(o.kick.includes(s))kick(t,o.kv,musG);if(o.snare.includes(s)){noise(t,.16,o.sv,1700,'bandpass',musG,.7);noise(t,.05,o.sv*.5,6000,'highpass',musG)}
+   if(o.hat&&s%o.hat==(o.hoff||0))noise(t,.035,o.hv*(s%4==2?1:.6),9500,'highpass',musG);
+   const bi=o.bass.indexOf(s);if(bi>=0)tone(mf(ch[0]-12+(o.bassN?o.bassN[bi]:0)),t,SD*(o.bl||2.2),o.bv,'sine',musG,{att:.01});
+   if(o.ep.includes(s))ch.forEach((m,i)=>{tone(mf(m+(i?12:24)),t,SD*3.2,o.ev,'sine',musG,{att:.006});tone(mf(m+(i?24:36)),t,SD*1.4,o.ev*.25,'sine',musG,{att:.004})});
+   const ml=(sec?o.ml2:o.ml)||[];for(const[st,ci,oc]of ml)if(st==s){const n=ch[ci%ch.length]+24+(oc||0);tone(mf(n),t,SD*(o.mlen||3),o.mv,'sine',musG,{att:.012,vib:4.5});tone(mf(n+12),t,SD*1.2,o.mv*.18,'sine',musG,{att:.006})}}}}
  const THEMES={
+  stNeon:stTheme({bpm:118,vol:.2,bars:[[57,60,64,67],[53,57,60,64],[55,59,62,65],[52,55,59,62],[57,60,64,67],[50,53,57,60],[53,57,60,64],[52,56,59,62]],pad:.022,kick:[0,4,8,12],kv:.32,snare:[4,12],sv:.03,hat:2,hoff:1,hv:.03,
+   bass:[0,3,6,10,14],bassN:[0,0,12,0,7],bv:.1,ep:[2,7,11],ev:.016,ml:[[0,2],[3,3],[6,1],[10,2],[14,0]],ml2:[[2,3,12],[6,2],[8,1],[12,3]],mv:.03}),
+  stSunset:stTheme({bpm:84,vol:.22,bars:[[53,57,60,64],[50,53,57,60],[46,50,53,57],[48,52,55,58],[53,57,60,64],[52,55,59,62],[50,53,57,60],[48,52,55,58]],pad:.024,kick:[0,7,10],kv:.3,snare:[4,12],sv:.035,hat:2,hv:.02,
+   bass:[0,7,10],bv:.11,bl:3,ep:[0,6,11],ev:.02,ml:[[2,2],[5,3],[8,1],[13,2]],ml2:[[0,3],[4,2],[9,0],[12,1]],mv:.032,mlen:4}),
+  stOcean:stTheme({bpm:76,vol:.22,bars:[[50,57,62,64],[47,54,59,62],[43,50,55,59],[45,52,57,61],[50,57,62,66],[47,54,59,62],[43,50,55,59],[45,52,57,64]],pad:.03,kick:[0],kv:.18,snare:[],sv:0,hat:4,hoff:2,hv:.012,
+   bass:[0,10],bv:.09,bl:5,ep:[4,12],ev:.014,ml:[[0,3],[3,2],[6,1],[9,2],[12,3]],ml2:[[2,1],[8,3],[14,2]],mv:.026,mlen:5}),
+  stSpace:stTheme({bpm:70,vol:.22,bars:[[45,52,57,60],[41,48,53,57],[43,50,55,59],[40,47,52,55],[45,52,57,64],[41,48,53,60],[38,45,50,57],[40,47,52,59]],pad:.034,kick:[],kv:0,snare:[],sv:0,hat:0,hv:0,
+   bass:[0],bv:.1,bl:14,ep:[8],ev:.012,ml:[[0,3],[6,2],[12,1]],ml2:[[4,2,12],[10,3]],mv:.024,mlen:7}),
+  stCrystal:stTheme({bpm:96,vol:.2,bars:[[60,64,67,71],[57,60,64,67],[53,57,60,64],[55,59,62,67],[60,64,67,72],[57,60,64,69],[53,57,60,65],[55,59,62,65]],pad:.02,kick:[0,10],kv:.22,snare:[8],sv:.02,hat:2,hoff:1,hv:.014,
+   bass:[0,10],bv:.08,ep:[0,3,6,9,12,15],ev:.011,ml:[[1,1],[4,2],[7,3],[10,2],[13,1]],ml2:[[0,3,12],[5,2],[11,1]],mv:.024}),
+  stCyber:stTheme({bpm:122,vol:.2,bars:[[45,52,57,60],[45,52,57,60],[41,48,53,57],[43,50,55,59],[45,52,57,60],[48,55,60,64],[41,48,53,57],[43,50,55,62]],pad:.018,kick:[0,4,8,12],kv:.36,snare:[4,12],sv:.045,hat:2,hoff:1,hv:.03,
+   bass:[0,2,4,6,8,10,12,14],bassN:[0,12,0,12,0,12,0,12],bv:.08,bl:1.4,ep:[3,11],ev:.015,ml:[[0,2],[2,3],[4,1],[8,2],[11,3],[14,1]],ml2:[[0,3,12],[6,2,12],[12,1]],mv:.028,mlen:2}),
   // bowling : groove disco-funk détendu, comme dans une salle de bowling un samedi soir
   bowling:{bpm:112,vol:.24,bars:[[45,52,57,60],[43,50,55,59],[41,48,53,57],[40,47,52,56]],
    play(s,bar,t,SD,B){const ch=B[bar];if(s%4==0)kick(t,.5,musG);if(s==4||s==12){noise(t,.14,.13,1800,'bandpass',musG,.8);noise(t,.06,.08,5000,'highpass',musG)}
@@ -323,3 +343,21 @@ Object.assign(JEUSON.FX,{
  bxSelect(t,k){JEUSON.tone(880*k,t,.05,.05,'triangle');JEUSON.tone(1320*k,t+.05,.07,.05,'triangle')},
  bxTick(t){JEUSON.tone(1175,t,.03,.035,'square')},
  bxLocked(t){JEUSON.tone(196,t,.09,.05,'square');JEUSON.tone(185,t+.09,.12,.05,'square')}});
+// Perfect Stack : pose, PERFECT (carillon qui monte avec le combo), découpe, chute, combos, ralenti, fin, pièces, collection
+Object.assign(JEUSON.FX,{
+ stDrop(t,k){JEUSON.tone(330*k,t,.12,.07,'sine',null,{slide:.6});JEUSON.noise(t,.04,.05,2400,'bandpass',null,2)},
+ stPerfect(t,k){const P=[0,2,4,7,9],n=72+P[(k-1)%5]+12*Math.floor((k-1)/5);[0,7,12].forEach((d,i)=>JEUSON.tone(440*Math.pow(2,(n+d-69)/12),t+i*.03,.6-i*.12,.06-i*.015,'sine'));JEUSON.tone(440*Math.pow(2,(n+24-69)/12),t,.25,.015,'triangle')},
+ stCut(t){JEUSON.noise(t,.09,.08,3200,'bandpass',null,1.2,{sweep:900});JEUSON.tone(180,t,.08,.04,'triangle',null,{slide:.7})},
+ stCutFall(t){JEUSON.noise(t+.05,.35,.04,900,'lowpass',null,1,{att:.05,sweep:200})},
+ stFall(t){JEUSON.noise(t,.6,.07,1400,'lowpass',null,1,{att:.02,sweep:150});JEUSON.tone(220,t,.6,.05,'sine',null,{slide:.3})},
+ stCombo(t){[0,4,7,12,16].forEach((d,i)=>JEUSON.tone(440*Math.pow(2,(64+d-69)/12),t+i*.05,.5,.04,'sine'));JEUSON.noise(t,.5,.03,5000,'highpass',null,1,{att:.08})},
+ stStreak(t){[0,4,7,11,14,19,23,26].forEach((d,i)=>JEUSON.tone(440*Math.pow(2,(60+d-69)/12),t+i*.045,.7,.045,i%2?'triangle':'sine'));JEUSON.noise(t,1,.05,800,'bandpass',null,.8,{att:.2,sweep:7000})},
+ stSlow(t){JEUSON.tone(600,t,.5,.035,'sine',null,{slide:.4});JEUSON.noise(t,.5,.03,2000,'lowpass',null,1,{att:.05,sweep:300})},
+ stOver(t){[67,63,60,55].forEach((n,i)=>JEUSON.tone(440*Math.pow(2,(n-69)/12),t+i*.13,.45,.05,'sine'))},
+ stCoin(t){JEUSON.tone(1319,t,.1,.045,'sine');JEUSON.tone(1760,t+.07,.22,.045,'sine')},
+ stBuy(t){[72,76,79,84,88].forEach((n,i)=>JEUSON.tone(440*Math.pow(2,(n-69)/12),t+i*.05,.3,.045,'sine'));JEUSON.noise(t+.2,.4,.025,7000,'highpass',null,1,{att:.05})},
+ stTap(t){JEUSON.tone(880,t,.05,.035,'sine');JEUSON.noise(t,.02,.02,4000,'bandpass',null,2)},
+ stEquip(t){JEUSON.tone(660,t,.08,.04,'sine');JEUSON.tone(990,t+.06,.14,.04,'sine')},
+ stDeny(t){JEUSON.tone(220,t,.1,.05,'triangle');JEUSON.tone(196,t+.1,.16,.05,'triangle')},
+ stLevel(t){JEUSON.tone(784,t,.18,.04,'sine');JEUSON.tone(1175,t+.1,.3,.04,'sine')},
+ stPop(t){JEUSON.noise(t,.12,.08,3000,'bandpass',null,1.5);JEUSON.tone(500,t,.1,.04,'sine',null,{slide:2})}});
