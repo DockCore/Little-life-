@@ -18,7 +18,7 @@ const MODE=process.argv[2]||'tel';
  ok('1 dix tenues complètes, trois associations de couleurs chacune, pièces définies pour homme et femme',cat.n==10&&cat.pals&&cat.parts&&cat.noOld,cat);
 
  // 2-4. rendu de toutes les images, toutes tenues, deux personnages
- const R=await E(()=>{window.CAPDBG={};const fr=Object.keys(SPR).filter(k=>!k.startsWith('F_')&&!/^(tb_|s\d|si|dc|tl)/.test(k));const out={frames:fr.length,checked:0,head:[],hands:[],eyes:[],bare:[],speck:[],miss:[],err:[]};
+ const R=await E(()=>{window.CAPDBG={};const fr=Object.keys(SPR).filter(k=>!k.startsWith('F_')&&!/^(tb_|s\d|si|dc|tl)/.test(k));const out={frames:fr.length,checked:0,head:[],hands:[],eyes:[],bare:[],speck:[],miss:[],skin:[],err:[]};
   const grab=(nm,L)=>{if(!drawFrame(nm,L))return null;return pcx.getImageData(0,0,CW,CH).data};
   const comps=d=>{const N=CW*CH,s=new Uint8Array(N);let small=0;for(let p=0;p<N;p++){if(s[p]||d[p*4+3]<128)continue;const q=[p];s[p]=1;let c=0;while(q.length){const a=q.pop();c++;const x=a%CW;for(const j of[x>0?a-1:-1,x<CW-1?a+1:-1,a-CW,a+CW,x>0?a-CW-1:-1,x<CW-1?a-CW+1:-1,x>0?a+CW-1:-1,x<CW-1?a+CW+1:-1]){if(j<0||j>=N||s[j]||d[j*4+3]<128)continue;s[j]=1;q.push(j)}}if(c<12)small++}return small};
   ['m','f'].forEach(g=>{const base=Object.assign({},N.look,{g,lf:0,nu:0,wd:{cheveux:'nat|0'},tn:null});wSync(base);
@@ -40,12 +40,15 @@ const MODE=process.argv[2]||'tel';
       {let tc=0,tt=0,lc=0,lt=0,ac=0,at=0;const long=!/^t_(short|shortj)$/.test((tnParts(t,g).bas||'')),sl=['street','elegant','sport','hiver','skate','casual','soiree','urbain','detente'].includes(t.id);
        for(let p=0;p<CW*CH;p++){if(!b0[p*4+3])continue;const i=p*4,ch=d[i]!=b0[i]||d[i+1]!=b0[i+1]||d[i+2]!=b0[i+2];const q=F.P[p];
         if(q>=3&&q<=5){tt++;if(ch)tc++}if((q==10||q==11)&&G.leg[p]>=0&&G.leg[p]<.85){lt++;if(ch)lc++}if((q==7||q==8)&&G.arm[p]>=0&&G.arm[p]<.6){at++;if(ch)ac++}}
+       {let bare=0;for(let p=0;p<CW*CH;p++){const i=p*4;if(!d[i+3]||!lab||lab[p]!=1||F.P[p]<3||F.P[p]>6)continue;if(d[i]==b0[i]&&d[i+1]==b0[i+1]&&d[i+2]==b0[i+2])bare++}
+        if(bare&&!(t.id=='estival'&&g=='f'))out.skin.push([t.id,g,nm,bare])}
        if(tt>15&&tc/tt<.8)out.miss.push([t.id,g,nm,'torse',Math.round(tc/tt*100)]);if(long&&lt>15&&lc/lt<.8)out.miss.push([t.id,g,nm,'jambes',Math.round(lc/lt*100)]);if(sl&&at>12&&ac/at<.75)out.miss.push([t.id,g,nm,'manches',Math.round(ac/at*100)])}
       if(head&&t.id!='skate')out.head.push([t.id,g,nm,head]);if(hand)out.hands.push([t.id,g,nm,hand]);if(diff<40)out.bare.push([t.id,g,nm,diff]);
       if(comps(d)>comps(b0))out.speck.push([t.id,g,nm])}catch(e){out.err.push([t.id,g,nm,e.message])}})})})});
   return out});
  ok('2 chaque tenue est redessinée sur toutes les images (face, profil, dos, 3/4, marche, course, assis, bureau, sport, cinéma, canapé…), homme et femme, sans erreur',R.err.length==0&&R.checked>2000&&R.bare.length==0,{frames:R.frames,rendus:R.checked,err:R.err.slice(0,3),nonHabille:R.bare.slice(0,5)});
  ok('2b chaque vêtement est présent sur chaque image : torse, jambes (pantalons longs) et manches (manches longues) couverts, rien ne disparaît',R.miss.length==0,{n:R.miss.length,ex:R.miss.slice(0,12)});
+ ok('2c jonction cou / torse : seul le vrai cou (1 ligne sous la tête) reste en peau ; aucune peau du haut du buste visible sous le col ou la veste',R.skin.length==0,{n:R.skin.length,ex:R.skin.slice(0,10)});
  ok('3 tête, visage et cheveux jamais modifiés (seule la casquette retire les mèches cachées dessous) ; yeux jamais couverts ; mains toujours visibles, jamais couvertes par les manches',R.head.length==0&&R.hands.length==0&&R.eyes.length==0,{tete:R.head.slice(0,5),mains:R.hands.slice(0,8),yeux:R.eyes.slice(0,8)});
  ok('4 aucun pixel flottant ajouté',R.speck.length==0,R.speck.slice(0,6));
 

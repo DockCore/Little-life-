@@ -74,10 +74,20 @@ wDetails=function(S,G,m,set,col,o){for(let p=0;p<n;p++)if(m[p]&&!o[p*4+3])m[p]=0
 // images du cinéma : sur la carte d'origine, les bras posés sur l'accoudoir sont marqués « tête » ; on les rend aux bras
 // (seule la zone de la tête reliée aux cheveux reste « tête »), pour que les manches suivent aussi ces images
 const _wGeo=wGeo;
-wGeo=function(nm){if(!WGEO[nm]&&/^(F_)?(cs|cn)\d/.test(nm)&&FGAR[nm]&&!FGAR[nm]._fix){const P=FGAR[nm].P,seen=new Uint8Array(n),comps=[];
+// jonction cou / torse : sur la carte d'origine, la zone « cou » descend jusqu'au haut de la poitrine (4 à 5 lignes, très large de profil),
+// et aucun vêtement ne couvre le cou -> une grande plaque de peau restait visible sous la tête. Le vrai cou ne garde que les pixels
+// directement sous la tête (1 pixel) ; le reste redevient du haut du torse, donc couvert par le haut et la veste comme le reste du buste.
+function neckFix(nm){const F=FGAR[nm];if(!F||F._nk)return;const P=F.P,H=new Uint8Array(n);for(let p=0;p<n;p++)if(P[p]==1)H[p]=1;const tor=[];
+ for(let p=0;p<n;p++){if(P[p]!=2)continue;const x=p%CW,y=(p/CW)|0;let near=false;
+  for(let dy=-2;dy<=2&&!near;dy++)for(let dx=-2;dx<=2;dx++){if(dx*dx+dy*dy>2)continue;const xx=x+dx,yy=y+dy;if(xx<0||xx>=CW||yy<0||yy>=CH)continue;if(H[yy*CW+xx]){near=true;break}}
+  if(!near)tor.push(p)}
+ tor.forEach(p=>P[p]=3);F._nk=1}
+// orientation : « coucou » et « boire » sont de trois-quarts face comme le repos (mêmes détails devant) ; le vélo est de profil
+const ORI=nm=>{const k=nm.replace(/^F_/,'');return /^(wave|drink)$/.test(k)?'F':/^bk\d/.test(k)?'S':null};
+wGeo=function(nm){const fresh=!WGEO[nm];if(fresh){cineFix(nm);neckFix(nm)}const G0=_wGeo(nm);if(fresh&&G0){const o=ORI(nm);if(o=='F'){G0.side=false;G0.back=false}else if(o=='S'){G0.side=true;G0.back=false}}return G0};
+function cineFix(nm){if(/^(F_)?(cs|cn)\d/.test(nm)&&FGAR[nm]&&!FGAR[nm]._fix){const P=FGAR[nm].P,seen=new Uint8Array(n),comps=[];
   for(let p=0;p<n;p++){if(P[p]!=1||seen[p])continue;const q=[p],c=[];seen[p]=1;while(q.length){const a=q.pop();c.push(a);const x=a%CW;for(const j of[x>0?a-1:-1,x<CW-1?a+1:-1,a-CW,a+CW]){if(j<0||j>=n||seen[j]||P[j]!=1)continue;seen[j]=1;q.push(j)}}comps.push(c)}
-  comps.sort((a,b)=>b.length-a.length);const L=LAB[nm];comps.slice(1).forEach(c=>{const hair=L?c.filter(p=>L[p]==2).length:0;if(hair<c.length*.3)c.forEach(p=>P[p]=7)});FGAR[nm]._fix=1}
- return _wGeo(nm)};
+  comps.sort((a,b)=>b.length-a.length);const L=LAB[nm];comps.slice(1).forEach(c=>{const hair=L?c.filter(p=>L[p]==2).length:0;if(hair<c.length*.3)c.forEach(p=>P[p]=7)});FGAR[nm]._fix=1}}
 // ---------- 2. composition : couleurs directes « pièce|#principal|#accent|#accent2 » ----------
 const parseV=v=>{const a=String(v).split('|');return{id:a[0],ci:a[1]&&a[1][0]=='#'?0:(+a[1]||0),hx:a[1]&&a[1][0]=='#'?a[1]:null,h2:a[2]||null,h3:a[3]||null}};
 wCompose=function(out,f,L,nm){const G=wGeo(nm);if(!G)return out;const o=out.data,src=new Uint8ClampedArray(o);const W=L.wd||{};
