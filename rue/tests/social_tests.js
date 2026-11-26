@@ -101,11 +101,11 @@ await closeAll();
 const lock=await E(()=>{SOCIAL.rel('rose').pts=30;return SOCIAL.canInvite(SOCIAL.HB('rose'),'maison')});
 await E(()=>{SOCIAL.rel('rose').pts=45;SOCIAL.rel('rose').ask=0;const b=STC.buildings.find(x=>x.id=='maison');STV.px=stDoorX(b)-60;STV.cam=Math.max(0,STV.px-150)});const invH=await E(()=>SOCIAL.invite('rose','maison'));
 for(let i=0;i<400&&!(await E(()=>place=='home'&&SOCIAL.VS.on&&SOCIAL.VS.st=='talk'));i++){await run(10);await W(20)}await W(300);await shot('14_visite');
-const vis=await E(()=>({st:SOCIAL.VS.st,say:document.querySelector('#socOver .socSay').textContent,btns:[...document.querySelectorAll('#socOver [data-v]')].map(b=>b.textContent),cpIn:SOCIAL.CP.u>1}));
+const vis=await E(()=>({st:SOCIAL.VS.st,say:document.querySelector('#socOver .socSay').textContent,btns:[...document.querySelectorAll('#socOver [data-v]')].map(b=>b.textContent),cpIn:SOCIAL.CP.u>1&&aniBoxes().some(b=>b.n=='SComp')}));
 const share=await E(()=>{const s0=N.stock[0];document.querySelector('#socOver [data-v="tour"]').click();const t=document.querySelector('#socOver .socSay').textContent;document.querySelector('#socOver [data-v="eat"]').click();return{t,s0,s1:N.stock[0]}});
 await E(()=>document.querySelector('#socOver [data-v="bye"]').click());for(let i=0;i<300&&!(await E(()=>!SOCIAL.VS.on));i++){await run(10);await W(10)}await W(300);
 const endH=await E(()=>({txt:(document.querySelector('#socOver .socRes')||{}).textContent,mem:SOCIAL.rel('rose').mem[0]||{},cp:SOCIAL.CP.on}));
-ok('14 visite à domicile : réservée aux amis, arrivée à la porte, dialogue propre, visite et repas partagé, départ et souvenir',!lock.ok&&invH.ok&&vis.st=='talk'&&vis.cpIn&&vis.btns.length>=3&&share.s1==share.s0-1&&/réussie/.test(endH.txt||'')&&endH.mem.k=='maison'&&!endH.cp,{lock,invH,vis,share,endH});
+ok('14 visite à domicile : réservée aux amis, arrivée à la porte, l’ami est bien là dans la pièce, dialogue propre, visite et repas partagé, départ et souvenir',!lock.ok&&invH.ok&&vis.st=='talk'&&vis.cpIn&&vis.btns.length>=3&&share.s1==share.s0-1&&/réussie/.test(endH.txt||'')&&endH.mem.k=='maison'&&!endH.cp,{lock,invH,vis,share,endH});
 await closeAll();
 // ---- 15. un bon ami vient de lui-même frapper à la porte ----
 const hv=await E(()=>{SOCIAL.rel('malik',true).pts=70;const S=SOCIAL.SO();S.hv=null;let got=null;const r0=Math.random;Math.random=()=>.1;for(let i=0;i<1300&&!got;i++){update();if(SOCIAL.VS.on)got=SOCIAL.VS.id}Math.random=r0;if(got){SOCIAL.VS.on=false;SOCIAL.CP.on=false;SOCIAL.OUT=null}return{got,cur:curV,place}});

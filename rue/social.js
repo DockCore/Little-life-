@@ -274,6 +274,8 @@ function cpDraw(f){if(!CP.on||!OUT)return;const mv=!!CP.path||CP.enter>0,nm=mv?'
  if(CP.bub){const X=Math.round(p[0]),Y=Math.round(p[1])-130;bubble(rx,X,Y,CP.bub)}}
 PLD.SComp=cpDraw;
 function cpEntry(){if(!CP.on||CP.hide)return null;return{n:'SComp',s:0,x:CP.u,y:CP.v,w:0,h:.6}}
+// à la maison, le décor vient des meubles du joueur : l'ami invité y est ajouté comme les animaux (trié en profondeur avec les meubles)
+try{const _ab=aniBoxes;aniBoxes=function(){const L=_ab()||[];if(VS.on&&CP.on&&place=='home'){const e=cpEntry();if(e)return L.concat([e])}return L}}catch(e){}
 // visite : le joueur est à la maison avec son invité (arrivée, discussion, départ)
 const VS={on:false};
 function visitStart(id){const h=HB(id);if(!OUT)OUT={id,k:'maison',ph:'go',did:false,t:0,dist:0,base:snapOut()};VS.on=true;VS.id=id;VS.st='knock';VS.t=0;VS.n=0;sfx('rsDoor',.8);say('Toc toc ! '+h.nom+' arrive à la porte.');

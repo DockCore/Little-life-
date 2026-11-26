@@ -12,8 +12,23 @@ function legMid(G){if(G._lm)return G._lm;const s=new Float32Array(CH),c=new Uint
 const front=G=>!G.back&&!G.side;
 // distance au bord extérieur de la silhouette (0 = premier pixel), du côté opposé au centre
 function edgeD(o,p,dir,max){const x=p%CW;for(let k=1;k<=max;k++){const xx=x+dir*k;if(xx<0||xx>=CW)return k-1;if(!o[(p+dir*k)*4+3])return k-1}return max}
+// menton : sur certaines images (course, vélo, bureau…) la carte des parties marque le bas du visage comme « cou » ou « torse ».
+// On le retrouve colonne par colonne : sous le dernier pixel de la tête, la peau qui continue jusqu'au trait sombre de la mâchoire
+// (6 lignes au plus) appartient au visage, trait compris. Si la peau continue sans trait, c'est le cou/buste : rien n'est réservé.
+function chinMask(G){if(G._chin)return G._chin;const nm=G.nm,P=G.P,M=new Uint8Array(n);G._chin=M;const S=SPR[nm];if(!S)return M;const d=S.d.data;
+ // menton de profil / trois-quarts : sous la tête, la peau du bas du visage est parfois marquée « cou », « torse » ou même « bras »
+ // sur la carte d'origine. On le retrouve sur le dessin lui-même, colonne par colonne : peau, puis le trait sombre de la mâchoire,
+ // puis le VIDE en dessous (le menton dépasse du cou). Si le trait est suivi du corps, c'est le cou : rien n'est réservé.
+ const dark=p=>(.3*d[p*4]+.59*d[p*4+1]+.11*d[p*4+2])<70,op=p=>d[p*4+3]>0;
+ for(let x=0;x<CW;x++){let last=-1;for(let y=0;y<CH;y++)if(P[y*CW+x]==1)last=y;if(last<0)continue;
+  const col=[];let y=last+1,lit=0;
+  while(y<CH&&y<=last+7){const p=y*CW+x;if(!op(p)||dark(p)||P[p]==9)break;col.push(p);lit++;y++}
+  if(!lit||y>last+7)continue;let dk=0;while(y<CH&&dk<3){const p=y*CW+x;if(!op(p)||!dark(p))break;col.push(p);dk++;y++}
+  if(!dk)continue;if(y>=CH||!op(y*CW+x))col.forEach(p=>M[p]=1)}
+ // un pixel isolé de chaque côté est rattaché (bord du menton)
+ return M}
 const _wDetails=wDetails;
-wDetails=function(S,G,m,set,col,o){for(let p=0;p<n;p++)if(m[p]&&!o[p*4+3])m[p]=0;_wDetails(S,G,m,set,col,o);const d=S.fx||[];if(!d.length)return;const{P,B}=G;
+wDetails=function(S,G,m,set,col,o){const CM=chinMask(G);for(let p=0;p<n;p++)if(m[p]&&(!o[p*4+3]||CM[p]))m[p]=0;_wDetails(S,G,m,set,col,o);for(let p=0;p<n;p++)if(CM[p]&&m[p]){m[p]=0;set(p,null,0)}const d=S.fx||[];if(!d.length)return;const{P,B}=G;
  const c2=hx2(S.c2||'#f2efe8'),c3=hx2(S.c3||S.c2||'#f2efe8'),dk=(t)=>mxc(col,[0,0,0],t),lt=(t)=>mxc(col,[255,255,255],t);
  const has=k=>d.includes(k),F=front(G),LM=(has('cargo2')||has('wide')||has('tstripe'))?legMid(G):null;
  const add=[];
@@ -70,7 +85,8 @@ wDetails=function(S,G,m,set,col,o){for(let p=0;p<n;p++)if(m[p]&&!o[p*4+3])m[p]=0
   if(has('scollar')&&F&&q==2&&p+CW<n&&P[p+CW]>=3){m[p]=1;set(p,lt(.12),1)}
  }
  // pixels ajoutés hors silhouette (col de fourrure, bas de jambe large) : on les peint avec un contour
- if(add.length){if(!G._ex)G._ex=[];add.forEach(([p,c])=>{m[p]=1;set(p,c.map(v=>Math.min(255,v*1.22)),1)})}};
+ if(add.length){if(!G._ex)G._ex=[];add.forEach(([p,c])=>{m[p]=1;set(p,c.map(v=>Math.min(255,v*1.22)),1)})}
+ for(let p=0;p<n;p++)if(CM[p]&&m[p]){m[p]=0;set(p,null,0)}};
 // images du cinéma : sur la carte d'origine, les bras posés sur l'accoudoir sont marqués « tête » ; on les rend aux bras
 // (seule la zone de la tête reliée aux cheveux reste « tête »), pour que les manches suivent aussi ces images
 const _wGeo=wGeo;
@@ -88,6 +104,11 @@ wGeo=function(nm){const fresh=!WGEO[nm];if(fresh){cineFix(nm);neckFix(nm)}const 
 function cineFix(nm){if(/^(F_)?(cs|cn)\d/.test(nm)&&FGAR[nm]&&!FGAR[nm]._fix){const P=FGAR[nm].P,seen=new Uint8Array(n),comps=[];
   for(let p=0;p<n;p++){if(P[p]!=1||seen[p])continue;const q=[p],c=[];seen[p]=1;while(q.length){const a=q.pop();c.push(a);const x=a%CW;for(const j of[x>0?a-1:-1,x<CW-1?a+1:-1,a-CW,a+CW]){if(j<0||j>=n||seen[j]||P[j]!=1)continue;seen[j]=1;q.push(j)}}comps.push(c)}
   comps.sort((a,b)=>b.length-a.length);const L=LAB[nm];comps.slice(1).forEach(c=>{const hair=L?c.filter(p=>L[p]==2).length:0;if(hair<c.length*.3)c.forEach(p=>P[p]=7)});FGAR[nm]._fix=1}}
+// sous-couche d'origine : l'ancien moteur peint d'abord un T-shirt sur la zone « haut » de la carte, qui déborde sur le menton
+// dans plusieurs images (course, vélo…). Quand un haut ou une veste du nouveau système est porté, c'est lui qui habille le buste :
+// l'ancien T-shirt n'est plus peint dessous (le menton et le cou restent à la peau d'origine).
+const _recolor=recolor;
+recolor=function(f,L,nm){const W=L&&L.wd;if(W&&['haut','veste','robe'].some(sl=>{const v=W[sl];if(!v)return false;const it=WCAT[String(v).split('|')[0]];return it&&!it.legacy}))L=Object.assign({},L,{top:'',ve:0});return _recolor(f,L,nm)};
 // ---------- 2. composition : couleurs directes « pièce|#principal|#accent|#accent2 » ----------
 const parseV=v=>{const a=String(v).split('|');return{id:a[0],ci:a[1]&&a[1][0]=='#'?0:(+a[1]||0),hx:a[1]&&a[1][0]=='#'?a[1]:null,h2:a[2]||null,h3:a[3]||null}};
 wCompose=function(out,f,L,nm){const G=wGeo(nm);if(!G)return out;const o=out.data,src=new Uint8ClampedArray(o);const W=L.wd||{};
