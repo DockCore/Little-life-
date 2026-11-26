@@ -327,7 +327,16 @@ Object.assign(JEUSON.FX,{
   rsSizzle(t,k){N(t,.9,.025*k,5000,'highpass',null,.7,{att:.1})},
   rsPay(t,k){[[84,0],[91,.07],[88,.13],[96,.2]].forEach(([n,d])=>{T(nf(n),t+d,.3,.035*k,'triangle');T(nf(n)*2.2,t+d,.12,.01*k,'sine')});N(t,.05,.04*k,6000,'highpass',null,1)},
   rsPage(t){N(t,.12,.04,2400,'bandpass',null,.9,{sweep:4200})},
-  rsTick(t){T(1500,t,.04,.025,'sine');T(2200,t+.03,.05,.02,'sine')}})})();
+  rsTick(t){T(1500,t,.04,.025,'sine');T(2200,t+.03,.05,.02,'sine')},
+  // café : tasse posée sur la soucoupe, moulin, vapeur de la buse à lait, liquide versé, murmures, cartes, pièces de jeu, téléphone
+  cfCup(t,k){T(2400+Math.random()*500,t,.12,.018*k,'sine');T(3600,t+.01,.08,.008*k,'sine');N(t,.03,.02*k,4200,'bandpass',null,2)},
+  cfGrind(t,k){N(t,.9,.035*k,1800,'bandpass',null,1.5,{att:.05});T(90,t,.9,.02*k,'sawtooth',null,{att:.05})},
+  cfSteam(t,k){N(t,1.2,.03*k,5200,'highpass',null,.8,{att:.15,sweep:3000})},
+  cfPour(t,k){N(t,.7,.025*k,1200,'bandpass',null,3,{att:.08,sweep:1900})},
+  cfMurmur(t,k){for(let i=0;i<5;i++){const d=i*.16+Math.random()*.08;T(160+Math.random()*120,t+d,.14,.006*k,'triangle',null,{slide:.9});N(t+d,.12,.008*k,700,'bandpass',null,2)}},
+  cfCard(t,k){N(t,.05,.05*k,3200,'bandpass',null,1.5);N(t+.05,.04,.03*k,2600,'bandpass',null,1.5)},
+  cfChess(t,k){T(420,t,.06,.05*k,'triangle');N(t,.03,.05*k,1500,'bandpass',null,2)},
+  cfPhone(t,k){[88,93].forEach((n,i)=>T(nf(n),t+i*.09,.08,.025*k,'sine'))}})})();
 // ---------- Salle de sport : rythme, impacts, répétitions, résultats ----------
 (function(){const T=(...a)=>JEUSON.tone(...a),N=(...a)=>JEUSON.noise(...a),nf=n=>440*Math.pow(2,(n-69)/12);
  Object.assign(JEUSON.FX,{

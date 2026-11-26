@@ -15,7 +15,7 @@ const HAB=[
   faits:['Je travaille en cuisine au restaurant de la rue.','Mon plat préféré ? Tout ce qui pique un peu !','Je collectionne les vieux livres de recettes.','Mon anniversaire tombe le 12 du mois.','Le dimanche, je fais goûter mes desserts aux voisins.']},
  {id:'camille',nom:'Camille',g:'f',perso:'artiste',trait:'Créative et un peu rêveuse',bio:'Illustratrice, elle dessine les passants depuis la terrasse.',
   look:{g:'f',sk:0,hc:4,wd:{cheveux:'mi|4',haut:'pull|5',bas:'plisse|1',chaussures:'bottine|1'}},col:'#b04ad0',anniv:5,
-  sched:{matin:'mode',jour:'rue',soir:'cinema',nuit:'maison'},fav:['cinema','mode'],sorties:['promenade','resto','maison'],
+  sched:{matin:'mode',jour:'rue',soir:'cinema',nuit:'maison'},fav:['cinema','mode'],sorties:['promenade','cafe','resto','maison'],
   gout:{love:['Miroir','Plante'],like:['Lampe','Tapis','Pomme'],hate:['Piment','Télé']},
   faits:['Je suis illustratrice : je dessine tout le quartier.','Les couleurs du soir sur la rue, c’est ma plus grande source d’inspiration.','Je ne rate jamais un film d’animation au cinéma.','Mon anniversaire, c’est le 5.','Je rêve d’exposer mes dessins un jour.']},
  {id:'theo',nom:'Théo',g:'m',perso:'geek',trait:'Passionné de jeux vidéo',bio:'Développeur le jour, champion de la salle d’arcade le soir.',
@@ -25,7 +25,7 @@ const HAB=[
   faits:['Je développe des petits jeux pendant mon temps libre.','Mon record au flipper ? Personne ne l’a jamais battu.','Je suis un vrai oiseau de nuit.','Mon anniversaire, c’est le 21.','Un jour, je créerai mon propre jeu d’arcade.']},
  {id:'rose',nom:'Rose',g:'f',perso:'reveuse',trait:'Douce et poétique',bio:'Fleuriste à mi-temps, elle écrit des poèmes sur des carnets.',
   look:{g:'f',sk:1,hc:5,wd:{cheveux:'long|5',haut:'blouse|3',bas:'jupe|2',chaussures:'ballerine|1'}},col:'#ff6a9a',anniv:3,
-  sched:{matin:'rue',jour:'rue',soir:'maison',nuit:'maison'},fav:['rue','maison'],sorties:['promenade','maison','resto'],
+  sched:{matin:'rue',jour:'rue',soir:'maison',nuit:'maison'},fav:['rue','maison'],sorties:['promenade','cafe','maison','resto'],
   gout:{love:['Aquarium','Plante'],like:['Pomme','Tapis','Lampe'],hate:['Télé','Piment']},
   faits:['Je travaille chez une fleuriste le matin.','J’écris un poème par jour dans mon carnet.','Les poissons me fascinent, ils ont l’air si paisibles.','Mon anniversaire, c’est le 3.','Je rêve d’une maison avec un grand jardin.']},
  {id:'marcel',nom:'Marcel',g:'m',perso:'bougon',trait:'Bougon au grand cœur',bio:'Retraité, ancien champion de bowling du quartier, il connaît tout le monde.',
@@ -45,7 +45,7 @@ const HAB=[
   faits:['Je donne des cours de boxe aux ados le mercredi.','Ma grand-mère cuisinait le meilleur poisson épicé du monde.','Le bowling, c’est ma façon de me détendre.','Mon anniversaire, c’est le 16.','Je veille sur le quartier, on ne sait jamais.']},
  {id:'zoe',nom:'Zoé',g:'f',perso:'zen',trait:'Calme et bienveillante',bio:'Professeure de yoga, elle prend le temps pour tout le monde.',
   look:{g:'f',sk:5,hc:1,wd:{cheveux:'long|1',haut:'tee|2',bas:'legging|2',chaussures:'basket|1',tete:'bandeau|0'}},col:'#1fa8a0',anniv:24,
-  sched:{matin:'sport',jour:'rue',soir:'rue',nuit:'maison'},fav:['sport','rue'],sorties:['promenade','sport','maison'],
+  sched:{matin:'sport',jour:'rue',soir:'rue',nuit:'maison'},fav:['sport','rue'],sorties:['promenade','cafe','sport','maison'],
   gout:{love:['Plante','Aquarium'],like:['Pomme','Tapis','Lampe'],hate:['Télé','Piment']},
   faits:['J’enseigne le yoga à la salle de sport.','Je médite dix minutes chaque matin.','Une plante dans une pièce, ça change tout.','Mon anniversaire, c’est le 24.','J’aimerais ouvrir un petit studio près du parc.']}];
 const HB=id=>HAB.find(h=>h.id==id);
@@ -93,6 +93,7 @@ const SORT={resto:{n:'Restaurant',b:'resto',ok:()=>!!(STC.buildings.find(b=>b.id
  arcade:{n:'Arcade',b:'arcade',ok:()=>!!(STC.buildings.find(b=>b.id=='arcade')||{}).available,txt:'Une partie à la salle d’arcade'},
  bowling:{n:'Bowling',b:'bowling',ok:()=>!!(STC.buildings.find(b=>b.id=='bowling')||{}).available,txt:'Quelques boules au bowling'},
  sport:{n:'Salle de sport',b:'sport',ok:()=>!!(STC.buildings.find(b=>b.id=='sport')||{}).available,txt:'S’entraîner ensemble'},
+ cafe:{n:'Café',b:'cafe',ok:()=>!!(STC.buildings.find(b=>b.id=='cafe')||{}).available,txt:'Prendre un verre ensemble au café'},
  promenade:{n:'Promenade',b:null,ok:()=>true,txt:'Marcher ensemble dans la rue'},
  maison:{n:'Visite à domicile',b:'maison',ok:()=>true,txt:'L’inviter chez toi',min:40}};
 function line(h,kind){const r=rel(h.id,true),D=DL[h.perso],t=Math.min(2,Math.floor(tierOf(r.pts)/1.5)),pool=[];
@@ -135,7 +136,7 @@ function conclude(cancel){const o=OUT;if(!o)return;OUT=null;const h=HB(o.id),r=r
  if(cancel){note('Sortie avec '+h.nom+' annulée.');return}
  if(!o.did){const g=gain(o.id,1);showEnd(h,false,g,'La sortie a tourné court… '+h.nom+' : « Une autre fois peut-être ! »');return}
  if(r.out.d!=day)r.out={d:day,n:0};const k=[1,.5,.3][Math.min(2,r.out.n)];r.out.n++;const fav=h.sorties.includes(o.k)||h.fav.includes(SORT[o.k].b);const g=gain(o.id,(fav?15:11)*k);
- const T={resto:'Dîner au restaurant',arcade:'Partie à la salle d’arcade',bowling:'Partie de bowling',sport:'Séance de sport à deux',promenade:'Promenade dans la rue',maison:'Visite à la maison'}[o.k];mem(o.id,o.k,T+(o.extra?' : '+o.extra:''));
+ const T={cafe:'Moment au café',resto:'Dîner au restaurant',arcade:'Partie à la salle d’arcade',bowling:'Partie de bowling',sport:'Séance de sport à deux',promenade:'Promenade dans la rue',maison:'Visite à la maison'}[o.k];mem(o.id,o.k,T+(o.extra?' : '+o.extra:''));
  SO().stats=SO().stats||{};SO().stats.sorties=(SO().stats.sorties||0)+1;save();showEnd(h,true,g,pick(['Merci, c’était super !','Quelle bonne idée tu as eue !','On recommence quand tu veux !','J’ai passé un très bon moment.']))}
 // ---------- habitants dans la rue ----------
 const ST={list:[],seen:{},t:0,chat:null,lastP:null};
@@ -332,4 +333,4 @@ function cpBadge(on){let b=document.getElementById('socBadge');if(!on){if(b)b.hi
 (function init(){const cv=document.getElementById('stCv');if(cv)cv.addEventListener('pointerdown',stTapS,true);
  const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="amis"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='amis';t.innerHTML='<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5M15 14.6c2.8-.3 5.6 1.3 6.3 4.9"/></svg>Mes amis<small>Habitants rencontrés</small>';out.appendChild(t);t.onclick=e=>{e.stopPropagation();openMenu()}}
  addEventListener('keydown',e=>{if(!STV.on||UI.open||STV.modal)return;if(e.code=='KeyT'){const w=nearW();if(w){e.preventDefault();openCard(w.id)}}})})();
-window.SOCIAL={HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();
+window.SOCIAL={mem,note,rel2:rel,HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();

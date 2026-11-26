@@ -337,7 +337,8 @@ def('store',{sty:'pop',bpm:108,key:53,mode:'maj',ext:9,prog:{I:[1,1,2,2],A:[1,2,
 def('clothes',{sty:'house',bpm:124,key:50,mode:'dor',prog:{I:[1,1,7,7],A:[1,3,4,7],B:[4,7,1,1],C:[6,7,4,4]},mel:{i:'vox',v:'lead',k:'pluck',br:2000},ch:{i:'stab',br:2200},ar:{i:'pluck',br:2400}});
 def('grocery',{sty:'trop',bpm:106,key:55,mode:'maj',prog:{I:[1,5,1,5],A:[1,5,4,5],B:[4,1,5,1],C:[6,4,5,5]},mel:{i:'marimba',v:'flute',k:'kalimba'},ch:{i:'marimba'},ar:{i:'kalimba'}});
 def('pets',{sty:'trop',bpm:100,key:60,mode:'maj',prog:{I:[1,4,1,5],A:[1,6,4,5],B:[4,5,3,6],C:[2,5,1,1]},mel:{i:'flute',v:'kalimba',k:'marimba'},ch:{i:'marimba'},ar:{i:'pluck',br:1800}});
-def('cafe',{sty:'funk',bpm:100,key:51,mode:'maj',ext:9,prog:{I:[2,5,1,1],A:[2,5,1,6],B:[4,3,2,5],C:[4,4,3,6]},mel:{i:'vox',v:'keys',k:'kalimba'},ch:{i:'keys',br:1500},ar:{i:'kalimba'}});
+// —— café : lo-fi feutré (piano électrique, kalimba, voix douce), tempo lent, groove souple
+def('cafe',{sty:'chill',bpm:78,key:51,mode:'maj',ext:9,prog:{I:[2,5,1,6],A:[4,3,2,5],B:[2,5,1,1],C:[4,4,3,6]},mel:{i:'keys',v:'kalimba',k:'vox',c:'flute',br:1200},ch:{i:'keys',br:1250},ar:{i:'kalimba'}});
 def('gym',{sty:'synth',bpm:126,key:57,mode:'min',prog:{I:[1,1,6,6],A:[1,6,7,5],B:[6,7,1,1],C:[4,4,6,7]},mel:{i:'lead',v:'pluck',k:'pluck',br:2600},ch:{i:'stab',br:2600},ar:{i:'pluck',br:3000}});
 // —— restaurant : lounge feutré (piano électrique, flûte, voix douce), groove souple, jamais relancé pendant la visite
 def('resto',{sty:'chill',bpm:88,key:56,mode:'maj',ext:9,prog:{I:[2,5,1,6],A:[2,5,1,6],B:[4,3,6,2],C:[4,5,3,6]},mel:{i:'keys',v:'flute',k:'vox',c:'kalimba',br:1300},ch:{i:'keys',br:1350},ar:{i:'kalimba',br:1500}});

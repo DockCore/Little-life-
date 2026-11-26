@@ -19,10 +19,10 @@ const MODE=process.argv[2]||'tel';
  const tiles=await E(()=>[...document.querySelectorAll('#v-out [data-go]')].map(t=>t.dataset.go));
  const names=await E(()=>[...document.querySelectorAll('#v-out .tile')].map(t=>t.childNodes[1]&&t.childNodes[1].textContent||t.textContent));
  ok('1 panneau Sortie : plus aucun bouton Boutique déco, Épicerie, Vêtements ou Café (ni dans la liste, ni masqué)',!['store','grocery','clothes','cafe'].some(k=>tiles.includes(k))&&!names.some(s=>/Boutique déco|Épicerie|Vêtements|Café/.test(s)),{tiles,names});
- ok('2 panneau Sortie : La rue, Travail, Animalerie, Sport, Mes amis et Rester sont là',['street','office','pets','gym','amis'].every(k=>tiles.includes(k))&&!!(await E(()=>document.getElementById('outStay'))),tiles);
+ ok('2 panneau Sortie : La rue, Travail, Animalerie, Mes amis et Rester sont là ; plus de bouton Sport',['street','office','pets','amis'].every(k=>tiles.includes(k))&&!tiles.includes('gym')&&!!(await E(()=>document.getElementById('outStay'))),tiles);
  // règle générale : aucun lieu de la rue (hors exceptions) dans le panneau
  const rule=await E(()=>{const S=stStreetPlaces();return{rue:[...S],doublons:[...document.querySelectorAll('#v-out [data-go]')].map(t=>t.dataset.go).filter(d=>S.has(d))}});
- ok('3 règle de la ville : aucun lieu ayant une porte dans la rue n’est proposé dans le panneau',rule.doublons.length==0&&['cafe','grocery','store','clothes'].every(k=>rule.rue.includes(k)),rule);
+ ok('3 règle de la ville : aucun lieu ayant une porte dans la rue n’est proposé dans le panneau',rule.doublons.length==0&&['cafe','grocery','store','clothes','gym'].every(k=>rule.rue.includes(k)),rule);
  // une ancienne navigation directe passe par la rue
  const old=await E(()=>{chooseDest('cafe');return C.dest||null});await until(()=>place=='street'||STV.on,900);
  ok('4 ancienne navigation directe vers le café : redirigée vers la rue, sans erreur',await E(()=>STV.on),{dest:old});
@@ -39,9 +39,10 @@ const MODE=process.argv[2]||'tel';
  const inC=await E(()=>({place,curV,furn:PLACES.cafe.furn.length,menu:document.querySelectorAll('#cafeG .tile').length}));
  ok('6 entrée du café depuis la rue : vrai intérieur isométrique (meubles, comptoir) et carte des boissons',panel=='cafe'&&inC.place=='cafe'&&inC.furn>=6&&inC.menu>=3,{panel,inC});
  await until(()=>C.st=='idle'||C.st=='walk',300);
- await E(()=>cafeOrder(0));const drank=await until(()=>C.st=='cafe',900);await until(()=>C.st!='cafe',900);
- ok('7 au café : commander, aller au comptoir, s’asseoir et boire',drank&&await E(()=>(N.cafe||0)>=1),await E(()=>({cafe:N.cafe,coins:N.coins})));
- await E(()=>document.getElementById('cafeHome').click());await until(()=>STV.on,900);
+ await E(()=>{N.coins=Math.max(N.coins,50);CAFE.placeOrder([CAFE.CK.espresso])});await until(()=>(CAFE.me().hand||[]).length>0,2500);await E(()=>CAFE.placeMe());await until(()=>C.st=='csit'&&!CAFE.R.sit,1500);
+ let drank=false;for(let k=0;k<6&&!drank;k++){await E(()=>{if(!CAFE.me().eat)CAFE.consume()});await until(()=>!CAFE.me().eat,600);drank=await E(()=>(N.cafe||0)>=1)}
+ ok('7 au café : commander, récupérer sa commande, s’asseoir et boire',drank,await E(()=>({cafe:N.cafe,coins:N.coins})));
+ await E(()=>document.getElementById('cafeHome').click());await until(()=>STV.on,2500);
  const back=await E(()=>{const b=STC.buildings.find(q=>q.id=='cafe');return{on:STV.on,dx:Math.round(STV.px-stDoorX(b))}});
  ok('8 en sortant du café, on se retrouve dans la rue devant sa porte',back.on&&Math.abs(back.dx)<12,back);
 
@@ -54,9 +55,9 @@ const MODE=process.argv[2]||'tel';
 
  // 12. autres destinations du panneau
  await E(()=>{const b=STC.buildings.find(q=>q.id=='maison');STV.px=stDoorX(b);stPanel(true)});await E(()=>stInteract());await until(()=>place=='home'&&C.st=='idle',900);
- const dests={};for(const d of ['office','pets','gym']){await E(()=>{if(place!='home'){C.st='idle';arrive('home')}});await until(()=>place=='home'&&!tripOn&&['idle','walk'].includes(C.st),1200);await E(()=>goOut());await until(()=>curV=='out',900);
+ const dests={};for(const d of ['office','pets']){await E(()=>{if(place!='home'){C.st='idle';arrive('home')}});await until(()=>place=='home'&&!tripOn&&['idle','walk'].includes(C.st),1200);await E(()=>goOut());await until(()=>curV=='out',900);
   await E(d=>document.querySelector(`#v-out [data-go="${d}"]`).click(),d);await until(d=>place==d&&!tripOn,1500,d);dests[d]=await E(()=>place)}
- ok('10 Travail, Animalerie et Sport fonctionnent toujours depuis le panneau',dests.office=='office'&&dests.pets=='pets'&&dests.gym=='gym',dests);
+ ok('10 Travail et Animalerie fonctionnent toujours depuis le panneau',dests.office=='office'&&dests.pets=='pets',dests);
  await E(()=>{C.st='idle';arrive('home')});await until(()=>place=='home'&&!tripOn&&['idle','walk'].includes(C.st),1500);await E(()=>goOut());await until(()=>curV=='out',900);
  await E(()=>document.querySelector('#v-out [data-go="amis"]').click());await W(400);const amis=await E(()=>!!document.querySelector('#socOver:not([hidden])'));
  await E(()=>{try{SOCIAL.closeCard()}catch(e){}const o=document.getElementById('socOver');if(o)o.hidden=true});

@@ -428,8 +428,8 @@ document.getElementById('stEnter').onclick=stInteract;
 // ===== RÈGLE DE LA VILLE =====
 // Un lieu qui possède une porte dans la rue ne figure jamais dans le panneau « Sortie » : on y entre à pied, depuis la rue.
 // La règle se calcule à partir de STREETS : tout futur commerce ajouté à la rue quitte automatiquement le panneau.
-// Exceptions demandées explicitement : « Maison » (rentrer chez soi) et « Sport ».
-const OUT_EXC=['home','gym'];
+// Exception : « Maison » (rentrer chez soi depuis le travail ou l'animalerie).
+const OUT_EXC=['home'];
 function stStreetPlaces(){const S=new Set();Object.values(STREETS).forEach(R=>R.buildings.forEach(b=>{if(b.go&&b.go.place&&!OUT_EXC.includes(b.go.place))S.add(b.go.place)}));return S}
 function outRule(){const S=stStreetPlaces();document.querySelectorAll('#v-out [data-go]').forEach(t=>{if(S.has(t.dataset.go))t.remove()})}
 // toute ancienne navigation directe vers un commerce de la rue passe désormais par la rue
