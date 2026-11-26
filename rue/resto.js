@@ -333,7 +333,7 @@ function eatTick(d){const e=d.eat;if(!e)return;e.t2++;if(--e.dt>0)return;const p
 const dnF=(e,t)=>{if(!e||!e.seq[e.dq])return t%150<118?'dn0':'dn7';const s=e.seq[e.dq],ph=s[0],k=1-e.dt/s[1];if(ph=='reach')return k<.5?'dn1':'dn2';if(ph=='eat')return k<.4?'dn2':'dn3';if(ph=='chew')return Math.floor(t/10)%2?'dn4':'dn3';if(ph=='drink')return'dn6';return'dn0'};
 // ---------- clients ----------
 let NID=0;
-function newClient(seat,mid){const i=pick(CLIENTS.filter(c=>!R.npc.some(n=>n.i==c)))||pick(CLIENTS);const d={id:++NID,i,u:ENTRY[0],v:ENTRY[1],t:0,fl:false,seat,st:'in',order:[],a:0,fr:'dn0',bt:0,ct:60};seat.res=d;
+function newClient(seat,mid,li){const i=li!=null?li:pick(CLIENTS.filter(c=>!R.npc.some(n=>n.i==c)))||pick(CLIENTS);const d={id:++NID,i,u:ENTRY[0],v:ENTRY[1],t:0,fl:false,seat,st:'in',order:[],a:0,fr:'dn0',bt:0,ct:60};seat.res=d;
  if(mid){// déjà installé quand on arrive : en plein repas
   seat.who=d;seat.res=null;d.st='table';d.a=1;const p=pick(MENU.filter(m=>m.c=='p')),b=pick(MENU.filter(m=>m.c=='b'));d.order=[mkItem(b),mkItem(p)];d.order.forEach(it=>{it.st='served';it.tk=true});d.order[1].por=rnd(.3,.9);d.ct=rnd(60,300)}
  R.npc.push(d);return d}
@@ -485,4 +485,4 @@ function rsUI(){const g=document.getElementById('rsG'),info=document.getElementB
 // ---------- objectif ----------
 try{if(typeof GOALS!='undefined'&&!GOALS.some(g=>g.id=='resto'))GOALS.push({id:'resto',t:'Manger au restaurant',r:10,ok:()=>((N.resto&&N.resto.repas)||0)>=1})}catch(e){}
 try{LINES.resto=['Mmm, ça a l’air délicieux !','Rien de tel qu’un bon repas au restaurant.','Le chef est vraiment doué.','J’adore l’ambiance ici.']}catch(e){}
-window.RESTO={R,MENU,MK,CATS,SEATS,FIX,ST,sitAt,standUp,openMenu,closeMenu,order,openBill,closeBill,pay,askBill,leave,eatNext,placeMe,rsUI,unpaid,pending,newClient,art,me,task}})();
+window.RESTO={R,LOOKS,nImg,MENU,MK,CATS,SEATS,FIX,ST,sitAt,standUp,openMenu,closeMenu,order,openBill,closeBill,pay,askBill,leave,eatNext,placeMe,rsUI,unpaid,pending,newClient,art,me,task}})();

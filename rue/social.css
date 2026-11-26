@@ -1,0 +1,30 @@
+/* système social : carte d'habitant, cadeaux, sorties, profil, « Mes amis » (mobile d'abord) */
+#v-street .stTalk,.stTalk{min-height:36px;padding:4px 12px;border-radius:12px;border:2px solid #2b2430;background:#fff4d6;color:#2b2430;font:800 13px system-ui;box-shadow:0 2px 0 #2b2430}
+.stTalk.soc{background:#fff}.stTalk[hidden]{display:none}
+.socOver{position:fixed;inset:0;z-index:2147483050;display:flex;align-items:flex-end;justify-content:center;padding:max(10px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:rgba(20,14,28,.45);opacity:0;transition:opacity .2s;touch-action:manipulation}
+.socOver.on{opacity:1}.socOver[hidden]{display:none}
+.socCard{display:flex;flex-direction:column;gap:10px;width:min(520px,100%);max-height:min(88dvh,100%);overflow-y:auto;overscroll-behavior:contain;padding:14px;border-radius:20px;background:#fffaf2;color:#2b2430;font-family:system-ui,sans-serif;box-shadow:0 12px 40px rgba(0,0,0,.4),0 0 0 3px #2b2430 inset;transform:translateY(20px);transition:transform .22s cubic-bezier(.2,.9,.3,1.2)}
+.socOver.on .socCard{transform:none}
+@media (min-height:600px) and (min-width:700px){.socOver{align-items:center}}
+.socHead{display:flex;align-items:center;gap:10px}.socHead>div:nth-child(2),.socHead>div:first-child:not(.socPor){flex:1;min-width:0}
+.socHead b{display:block;font:900 19px system-ui}.socHead small{display:block;font:600 12px system-ui;color:#6b5a62}
+.socPor{flex-shrink:0;display:inline-flex}.socPor canvas{display:block;border-radius:50%;box-shadow:0 0 0 3px #2b2430;image-rendering:pixelated}
+.socGauge{margin-top:5px}.socGauge i,.socF i{display:block;height:8px;border-radius:4px;background:#eadfcf;overflow:hidden}.socGauge u,.socF u{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#ff7a9a,#ff4f6a)}.socGauge span{display:block;margin-top:2px;font:700 11px system-ui;color:#8a3a4a}
+.socOver .socX{flex-shrink:0;align-self:flex-start;width:38px;height:38px;border-radius:50%;border:2px solid #2b2430;background:#fff;color:#2b2430;font:800 15px system-ui;box-shadow:none}
+.socSay{margin:0;padding:10px 12px;border-radius:14px;background:#fff;border:2px solid #eadfcf;font:500 14px/1.4 system-ui;position:relative}
+.socSay i{color:#8a7a82;font-size:12px}
+.socBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px}.socOver .socBtns button{min-height:46px;padding:6px 8px;border-radius:14px;border:2px solid #2b2430;background:#fff;color:#2b2430;font:800 13px system-ui;box-shadow:0 3px 0 #2b2430}
+.socOver .socBtns button.wide{grid-column:1/-1}.socOver .socBtns button.go{background:#ff4f6a;border-color:#8a1f30;color:#fff;box-shadow:0 3px 0 #8a1f30}.socOver .socBtns button:disabled{opacity:.5}
+.socList{display:grid;gap:6px}.socOver .socList button{display:flex;flex-direction:column;align-items:flex-start;min-height:48px;padding:7px 12px;border-radius:12px;border:2px solid #eadfcf;background:#fff;color:#2b2430;text-align:left;box-shadow:none}
+.socList button b{font:800 14px system-ui}.socList button small{font:600 11px system-ui;color:#6b5a62}.socOver .socList button:disabled{opacity:.55}
+.socHint{margin:0;font:600 12px/1.4 system-ui;color:#8a7a82}
+.socProf{display:flex;flex-direction:column;gap:4px;font:500 13px/1.4 system-ui}.socProf h4{margin:6px 0 0;font:800 13px system-ui;color:#8a3a4a}.socProf p{margin:0}.socProf ul{margin:0;padding-left:18px}.socBio{font-style:italic}
+.socTag{display:inline-block;margin:2px 2px 0 0;padding:2px 8px;border-radius:10px;font:700 11px system-ui;background:#eef0f2}.socTag.love{background:#ffe0e6}.socTag.like{background:#e3f6e8}.socTag.hate{background:#ece6e6;color:#8a5a5a}
+.socRes{margin:0;padding:8px 12px;border-radius:12px;background:#eef0f2;font:800 13px system-ui}.socRes.ok{background:#e3f6e8;color:#1f6a3a}
+.socFriends{display:grid;gap:8px}.socOver .socF{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;border:2px solid #eadfcf;background:#fff;color:#2b2430;text-align:left;box-shadow:none;min-height:60px}
+.socFT{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0}.socFT b{font:800 14px system-ui}.socFT small{font:600 11px system-ui;color:#6b5a62;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.socNotes{margin:0;padding-left:18px;font:500 12px/1.4 system-ui;color:#5a4a52}.socCard h4{margin:4px 0 0;font:800 13px system-ui}
+.socBadge{position:fixed;z-index:2147483300;left:50%;top:max(8px,env(safe-area-inset-top));transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:24px;background:rgba(255,250,242,.95);box-shadow:0 2px 10px rgba(0,0,0,.35);font:800 12px system-ui;color:#2b2430;pointer-events:none}
+.socBadge canvas{border-radius:50%;image-rendering:pixelated}.socBadge[hidden]{display:none}
+@media (orientation:landscape) and (max-height:560px){.socCard{max-height:94dvh;padding:10px}.socBtns{grid-template-columns:1fr 1fr 1fr}.socOver{align-items:center}}
+.stSoc{display:flex;gap:8px;margin:6px 0 2px}.stSoc .stTalk{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stSoc .stTalk.soc{flex:0 0 auto}

@@ -206,6 +206,7 @@ function stTick(){if(!STV.on)return;
   if(!STV.cars.some(c=>c.lane==lane&&Math.abs(c.x-x)<len+60))STV.cars.push({x,d,lane,k,sc,len,v:(lane?5.2:4.4)+Math.random()*1.8,c:k=='taxi'?'#ffd23f':cols[Math.random()*cols.length|0],passed:false})}
  STV.cars.forEach(c=>{c.x+=c.d*c.v;const mid=c.x+c.len/2;if(!c.passed&&Math.abs(mid-STV.px)<c.v*1.5){c.passed=true;try{if(typeof JEUSON!='undefined')JEUSON.fx('carPass',c.lane?1:.7,.25)}catch(e){}}});
  STV.cars=STV.cars.filter(c=>c.x>STV.cam-c.len-80&&c.x<STV.cam+STV.W+80);
+ if(window.SOC_ST)try{SOC_ST.tick()}catch(e){}
  if(STV.mv&&tick-STV.lastSave>300){STV.lastSave=tick;N.street={x:Math.round(STV.px),d:C.d,on:1};save()}
  stPanel()}
 // --- rendu ---
@@ -295,10 +296,14 @@ function streetDraw(){if(!STV.on||!STV.cv)return;const x=STV.x,W=STV.W,n=night,d
  STC.props.forEach(p=>{const X=p.x-STV.cam;if(X>-60&&X<W+60)stProp(x,p,false)});stWork(x,false);
  // voitures
 
+ // habitants sur le trottoir du fond (derrière le personnage)
+ if(window.SOC_ST)try{SOC_ST.draw(x,0)}catch(e){}
  // personnage du jeu (sprite + vêtements, mêmes proportions)
  const PX=Math.round(STV.px-STV.cam);x.fillStyle='rgba(20,14,28,.28)';x.fillRect(PX-12,ST_WALK-2,24,3);x.fillRect(PX-9,ST_WALK-3,18,1);
  const dA=STV.door?Math.max(0,1-Math.max(0,STV.door.t-14)/16):STV.doorOut?Math.min(1,STV.doorOut.t/14):1;x.globalAlpha=dA;
  if(typeof sc2!='undefined'&&sc2){x.save();if(SP.fl){x.translate(PX,0);x.scale(-1,1);x.drawImage(sc2,0,0,CW,CH,-40,ST_WALK-127,CW,CH)}else x.drawImage(sc2,0,0,CW,CH,PX-40,ST_WALK-127,CW,CH);x.restore()}x.globalAlpha=1;
+ // habitants côté route (devant le personnage)
+ if(window.SOC_ST)try{SOC_ST.draw(x,1)}catch(e){}
  // circulation (devant le trottoir et le personnage)
  stCars(x,n);
  // lumières

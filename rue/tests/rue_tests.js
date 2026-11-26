@@ -33,7 +33,7 @@ const still=await E(()=>spName);
 ok('3 marche de profil (w0..w3), tournée selon la direction, immobile à l’arrêt',fr.every(f=>/^w[0-3]$/.test(f))&&new Set(fr).size>=3&&fl.every(f=>/^w[0-3]<$/.test(f))&&still=='idle',{fr,fl,still});
 
 // 4. Personnage identique au jeu (sprite + vêtements, échelle 1:1, sans déformation)
-const px=await E(()=>{spKey='';spUpdate();streetDraw();const X=Math.round(STV.px-STV.cam),Y=ST_WALK-127+STV.oy,d=STV.x.getImageData(X-40,Y,CW,CH).data,s=sc2.getContext('2d').getImageData(0,0,CW,CH).data;let n=0,diff=0;for(let i=0;i<s.length;i+=4)if(s[i+3]==255){n++;if(d[i]!=s[i]||d[i+1]!=s[i+1]||d[i+2]!=s[i+2])diff++}return{n,diff,haut:N.look.wd&&N.look.wd.haut,name:spName}});
+const px=await E(()=>{const hab=window.SOCIAL?SOCIAL.ST.list.splice(0):[],cars=STV.cars.splice(0);spKey='';spUpdate();streetDraw();if(window.SOCIAL)SOCIAL.ST.list.push(...hab);STV.cars.push(...cars);const X=Math.round(STV.px-STV.cam),Y=ST_WALK-127+STV.oy,d=STV.x.getImageData(X-40,Y,CW,CH).data,s=sc2.getContext('2d').getImageData(0,0,CW,CH).data;let n=0,diff=0;for(let i=0;i<s.length;i+=4)if(s[i+3]==255){n++;if(d[i]!=s[i]||d[i+1]!=s[i+1]||d[i+2]!=s[i+2])diff++}return{n,diff,haut:N.look.wd&&N.look.wd.haut,name:spName}});
 ok('4 personnage rendu au pixel près (garde-robe incluse)',px.n>1500&&px.diff==0,px);
 
 // 5. Caméra : suit le personnage, bornée au début de la rue
