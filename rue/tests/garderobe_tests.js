@@ -18,19 +18,35 @@ const MODE=process.argv[2]||'tel';
  ok('1 dix tenues complètes, trois associations de couleurs chacune, pièces définies pour homme et femme',cat.n==10&&cat.pals&&cat.parts&&cat.noOld,cat);
 
  // 2-4. rendu de toutes les images, toutes tenues, deux personnages
- const R=await E(()=>{const fr=Object.keys(SPR).filter(k=>!k.startsWith('F_')&&!/^(tb_|s\d|si|dc|tl)/.test(k));const out={frames:fr.length,checked:0,head:[],hands:[],bare:[],speck:[],err:[]};
+ const R=await E(()=>{window.CAPDBG={};const fr=Object.keys(SPR).filter(k=>!k.startsWith('F_')&&!/^(tb_|s\d|si|dc|tl)/.test(k));const out={frames:fr.length,checked:0,head:[],hands:[],eyes:[],bare:[],speck:[],miss:[],err:[]};
   const grab=(nm,L)=>{if(!drawFrame(nm,L))return null;return pcx.getImageData(0,0,CW,CH).data};
   const comps=d=>{const N=CW*CH,s=new Uint8Array(N);let small=0;for(let p=0;p<N;p++){if(s[p]||d[p*4+3]<128)continue;const q=[p];s[p]=1;let c=0;while(q.length){const a=q.pop();c++;const x=a%CW;for(const j of[x>0?a-1:-1,x<CW-1?a+1:-1,a-CW,a+CW,x>0?a-CW-1:-1,x<CW-1?a-CW+1:-1,x>0?a+CW-1:-1,x<CW-1?a+CW+1:-1]){if(j<0||j>=N||s[j]||d[j*4+3]<128)continue;s[j]=1;q.push(j)}}if(c<12)small++}return small};
   ['m','f'].forEach(g=>{const base=Object.assign({},N.look,{g,lf:0,nu:0,wd:{cheveux:'nat|0'},tn:null});wSync(base);
    const B={};fr.forEach(nm=>{B[nm]=grab(nm,base)});
    TN.forEach(t=>{t.pals.forEach((P,pi)=>{if(pi>0&&!['street','skate','urbain'].includes(t.id))return;const L=Object.assign({},base,{wd:Object.assign({cheveux:'nat|0'},tnWd(t.id,g,pi,{}))});wSync(L);
     fr.forEach(nm=>{try{const d=grab(nm,L),b0=B[nm];if(!d||!b0)return;out.checked++;const real=(g=='f'&&SPR['F_'+nm])?'F_'+nm:nm,F=FGAR[real];if(!F)return;let head=0,hand=0,diff=0;
-      for(let p=0;p<CW*CH;p++){const i=p*4,dd=d[i]!=b0[i]||d[i+1]!=b0[i+1]||d[i+2]!=b0[i+2]||d[i+3]!=b0[i+3];if(!dd)continue;diff++;if(F.P[p]==1)head++;if(F.P[p]==9)hand++}
+      const lab=LAB[real],G=wGeo(real);let eye=0;const eyMin=G.hy0+Math.min((G.hy1-G.hy0)*.45,15);
+      // vraies mains : pixels « main » reliés au bras (la carte d'origine marque parfois une mèche comme « main »)
+      const HA=new Uint8Array(CW*CH),q=[];for(let p=0;p<CW*CH;p++){if(F.P[p]!=9)continue;const x=p%CW;if([x>0?p-1:-1,x<CW-1?p+1:-1,p-CW,p+CW].some(j=>j>=0&&j<CW*CH&&(F.P[j]==7||F.P[j]==8))){HA[p]=1;q.push(p)}}
+      while(q.length){const a=q.pop(),x=a%CW;for(const j of[x>0?a-1:-1,x<CW-1?a+1:-1,a-CW,a+CW]){if(j<0||j>=CW*CH||HA[j]||F.P[j]!=9)continue;HA[j]=1;q.push(j)}}
+      for(let p=0;p<CW*CH;p++){const i=p*4,dd=d[i]!=b0[i]||d[i+1]!=b0[i+1]||d[i+2]!=b0[i+2]||d[i+3]!=b0[i+3];if(!dd)continue;diff++;if(F.P[p]==1)head++;
+       // main : la main elle-même et le bout du bras en peau (poignet compris)
+       if(HA[p]||((F.P[p]==7||F.P[p]==8)&&G.arm[p]>=.8&&lab&&lab[p]==1))hand++;
+       // yeux : pixels sombres encadrés de peau au-dessus et au-dessous
+       // visage sous la visière (yeux, joues, bouche) : jamais touché par la casquette
+       const cd=CAPDBG[real];if(cd&&t.id=='skate'&&b0[i+3]&&lab&&lab[p]!=2&&(F.P[p]==1)){const v=(p%CW-cd.hx)*(cd.rx||1)+(((p/CW)|0)-cd.hy)*(cd.ry||0),w=(p%CW-cd.hx)*(cd.ux||0)+(((p/CW)|0)-cd.hy)*(cd.uy==null?-1:cd.uy);if(w<cd.eTopV+.5&&cd.face)eye++}}
+      if(eye)out.eyes.push([t.id,g,nm,eye]);
+      // le vêtement est bien là : torse couvert, jambes couvertes (pantalons longs), bras couverts (manches longues)
+      {let tc=0,tt=0,lc=0,lt=0,ac=0,at=0;const long=!/^t_(short|shortj)$/.test((tnParts(t,g).bas||'')),sl=['street','elegant','sport','hiver','skate','casual','soiree','urbain','detente'].includes(t.id);
+       for(let p=0;p<CW*CH;p++){if(!b0[p*4+3])continue;const i=p*4,ch=d[i]!=b0[i]||d[i+1]!=b0[i+1]||d[i+2]!=b0[i+2];const q=F.P[p];
+        if(q>=3&&q<=5){tt++;if(ch)tc++}if((q==10||q==11)&&G.leg[p]>=0&&G.leg[p]<.85){lt++;if(ch)lc++}if((q==7||q==8)&&G.arm[p]>=0&&G.arm[p]<.6){at++;if(ch)ac++}}
+       if(tt>15&&tc/tt<.8)out.miss.push([t.id,g,nm,'torse',Math.round(tc/tt*100)]);if(long&&lt>15&&lc/lt<.8)out.miss.push([t.id,g,nm,'jambes',Math.round(lc/lt*100)]);if(sl&&at>12&&ac/at<.75)out.miss.push([t.id,g,nm,'manches',Math.round(ac/at*100)])}
       if(head&&t.id!='skate')out.head.push([t.id,g,nm,head]);if(hand)out.hands.push([t.id,g,nm,hand]);if(diff<40)out.bare.push([t.id,g,nm,diff]);
       if(comps(d)>comps(b0))out.speck.push([t.id,g,nm])}catch(e){out.err.push([t.id,g,nm,e.message])}})})})});
   return out});
  ok('2 chaque tenue est redessinée sur toutes les images (face, profil, dos, 3/4, marche, course, assis, bureau, sport, cinéma, canapé…), homme et femme, sans erreur',R.err.length==0&&R.checked>2000&&R.bare.length==0,{frames:R.frames,rendus:R.checked,err:R.err.slice(0,3),nonHabille:R.bare.slice(0,5)});
- ok('3 tête, visage, yeux, cheveux et mains jamais modifiés par les vêtements (la casquette du skateur exceptée)',R.head.length==0&&R.hands.length==0,{tete:R.head.slice(0,5),mains:R.hands.slice(0,5)});
+ ok('2b chaque vêtement est présent sur chaque image : torse, jambes (pantalons longs) et manches (manches longues) couverts, rien ne disparaît',R.miss.length==0,{n:R.miss.length,ex:R.miss.slice(0,12)});
+ ok('3 tête, visage et cheveux jamais modifiés (seule la casquette retire les mèches cachées dessous) ; yeux jamais couverts ; mains toujours visibles, jamais couvertes par les manches',R.head.length==0&&R.hands.length==0&&R.eyes.length==0,{tete:R.head.slice(0,5),mains:R.hands.slice(0,8),yeux:R.eyes.slice(0,8)});
  ok('4 aucun pixel flottant ajouté',R.speck.length==0,R.speck.slice(0,6));
 
  // 5. recoloration par élément
