@@ -13,7 +13,10 @@ const STREETS={
    {id:'cinema',le:'Le cinéma',name:'Cinéma',type:'leisure',facade:'cinema',w:204,h:190,door:{x:102,w:46},go:{place:'cine_hall'},available:true},
    {id:'sport',name:'Salle de sport',type:'sport',facade:'gym',w:204,h:160,door:{x:160,w:40},go:{place:'gym'},available:true},
    {id:'resto',le:'Le restaurant',name:'Restaurant',type:'food',facade:'restaurant',w:176,h:150,door:{x:136,w:34},go:{place:'resto'},doorAnim:1,available:true},
-   {id:'mode',name:'Boutique de vêtements',type:'shop',facade:'boutique',w:176,h:166,door:{x:132,w:36},go:{place:'clothes'},available:true}
+   {id:'cafe',le:'Le café',name:'Café',type:'food',facade:'cafe',w:168,h:162,door:{x:128,w:34},go:{place:'cafe'},available:true},
+   {id:'mode',name:'Boutique de vêtements',type:'shop',facade:'boutique',w:176,h:166,door:{x:132,w:36},go:{place:'clothes'},available:true},
+   {id:'epicerie',le:'L’épicerie',name:'Épicerie',type:'shop',facade:'epicerie',w:172,h:172,door:{x:40,w:34},go:{place:'grocery'},available:true},
+   {id:'deco',le:'La boutique déco',name:'Boutique déco',type:'shop',facade:'deco',w:188,h:172,door:{x:146,w:36},go:{place:'store'},available:true}
   ]}
 };
 let STC=STREETS.centre;
@@ -152,7 +155,74 @@ const FACADES={
   man(vx+14,'#e85d75','#2d4c8a','#ffd166');man(vx+44,'#4ec9b0','#f5f5f5');man(vx+72,'#ffd166','#7a5c99','#e85d75');
   r(vx+2,vy+2,vw-4,2,'rgba(255,255,255,.6)');
   // porte vitrée dorée
-  const dx=b.door.x-18,dy=h-86;box(dx-3,dy-3,42,89,'#d4af37');box(dx,dy,36,86,'#fdf2f5','#b98f2a');e(dx+3,dy+3,30,80,'#f7dfe7','#ffe9c0');r(dx+28,dy+40,2,14,'#b98f2a');txt('OUVERT',dx+1,dy+14,'#c0577a')}
+  const dx=b.door.x-18,dy=h-86;box(dx-3,dy-3,42,89,'#d4af37');box(dx,dy,36,86,'#fdf2f5','#b98f2a');e(dx+3,dy+3,30,80,'#f7dfe7','#ffe9c0');r(dx+28,dy+40,2,14,'#b98f2a');txt('OUVERT',dx+1,dy+14,'#c0577a')},
+ // café : rez-de-chaussée en bois sombre, étage crème, auvent vert et crème, grande vitrine sur le comptoir, petite terrasse
+ cafe(P,b){const{w,h}=b,{r,e,txt,box,stripes,win}=P,top=12;
+  r(0,top,w,h-top,ST_OL);r(1,top+1,w-2,h-top-1,'#efe0c4');for(let j=top+6;j<top+60;j+=6)r(1,j,w-2,1,'#e3d1b0');r(0,top,w,6,'#5a3a28');r(0,top+6,w,2,'#3e2619');
+  // fenêtres de l'étage avec jardinières
+  [[14,top+14],[62,top+14],[110,top+14]].forEach(([X,Y],i)=>{win(X,Y,26,24,'#5a3a28','#a8d3ea',i==1?'#ffd98a':'#ffc56b');r(X-2,Y+24,30,4,'#4f8a3a');[3,10,17,24].forEach(k=>r(X+k,Y+22,3,3,['#e85d75','#ffffff','#ffd166','#f4a6c0'][k%4]))});
+  // rez-de-chaussée en boiserie
+  const gy=top+62;r(1,gy,w-2,h-gy-1,'#6b4430');for(let i=1;i<w-1;i+=12)r(i,gy,1,h-gy-1,'#5a3826');r(1,gy,w-2,2,'#8a5a3c');
+  // enseigne suspendue
+  box(14,gy+3,86,22,'#2f5a46');r(16,gy+5,82,1,'#d4af37');r(16,gy+22,82,1,'#d4af37');txt('CAFÉ',(14+(86-stTextW('CAFÉ',2))/2)|0,gy+7,'#f6e7c0',2,'#fff4d0');
+  // tasse fumante (enseigne drapeau)
+  r(w-10,gy+4,8,2,'#3a2a20');box(w-22,gy+8,18,16,'#f6efe2','#2f5a46');r(w-19,gy+13,10,7,'#7a4a2c');r(w-9,gy+14,3,4,'#7a4a2c');[w-17,w-13].forEach(X=>{r(X,gy+9,1,3,'#c9b8a0')});
+  // auvent rayé vert / crème
+  const ay=gy+30,ax=8,aw=104;stripes(ax,ay,aw,12,'#2f7a58','#f6efe2',8);for(let i=0;i<aw;i+=8){r(ax+i,ay+12,4,3,'#2f7a58');r(ax+i+4,ay+12,4,2,'#f6efe2')}r(ax,ay-2,aw,2,'#1f5a40');
+  // grande vitrine : comptoir, machine à expresso, tasses, lumière chaude
+  const vx=12,vy=ay+18,vw=96,vh=h-vy-10;box(vx,vy,vw,vh,'#3e2619');e(vx+2,vy+2,vw-4,vh-4,'#f2d7a8','#ffd88a');
+  r(vx+2,vy+vh-16,vw-4,14,'#7a4a2c');r(vx+2,vy+vh-16,vw-4,2,'#9a6a44');
+  box(vx+10,vy+vh-30,16,14,'#b8bcc4','#4a4e56');r(vx+13,vy+vh-27,10,3,'#2a2a30');r(vx+16,vy+vh-22,3,4,'#2a2a30');
+  [vx+36,vx+46,vx+56].forEach((X,i)=>{r(X,vy+vh-21,6,5,'#ffffff');r(X+6,vy+vh-20,2,3,'#ffffff');r(X+1,vy+vh-21,4,1,['#7a4a2c','#c48a5a','#7a4a2c'][i])});
+  [vx+70,vx+82].forEach(X=>{r(X,vy+8,1,6,'#3e2619');e(X-3,vy+14,7,4,'#3e2619','#3e2619');e(X-2,vy+18,5,2,'#fff2c0','#ffffff')});
+  r(vx+2,vy+2,vw-4,2,'rgba(255,255,255,.5)');r(vx+vw/2|0,vy,2,vh-16,'#3e2619');
+  // porte vitrée en bois
+  const dx=b.door.x-17,dy=h-86;box(dx-3,dy-3,40,89,'#3e2619');box(dx,dy,34,86,'#7a4a2c');e(dx+5,dy+6,24,40,'#f2d7a8','#ffd88a');r(dx+16,dy+6,2,40,'#7a4a2c');r(dx+26,dy+52,3,7,'#d4af37');box(dx+6,dy+56,22,8,'#f6efe2','#3e2619');r(dx+9,dy+59,16,2,'#2f5a46');
+  // ardoise
+  box(vx-2,h-34,16,24,'#2b2b2b');r(vx+1,h-31,10,1,'#e8e8e8');r(vx+1,h-27,8,1,'#e8e8e8');r(vx+1,h-23,10,1,'#f3d27a')},
+ // épicerie : façade verte, auvent rayé, étals de fruits et légumes en caisses devant la vitrine
+ epicerie(P,b){const{w,h}=b,{r,e,txt,box,stripes,bricks,win}=P,top=16;
+  r(0,top,w,h-top,ST_OL);bricks(1,top+1,w-2,h-top-1,'#d9c9a8','#c7b48f');r(0,top,w,6,'#3f7a4a');r(0,top+6,w,2,'#2c5a36');
+  [[16,top+14],[70,top+14],[124,top+14]].forEach(([X,Y])=>win(X,Y,26,22,'#f4efe6','#a8d3ea','#ffd98a','#4f8a3a'));
+  // enseigne
+  const gy=top+44;box(10,gy,w-20,20,'#3f7a4a');r(12,gy+2,w-24,1,'#f6efe2');r(12,gy+17,w-24,1,'#f6efe2');txt('ÉPICERIE',(w-stTextW('ÉPICERIE'))/2|0,gy+7,'#fff6d6',1,'#ffffff');
+  // pomme (enseigne)
+  r(16,gy+6,8,8,'#d64545');r(19,gy+4,2,3,'#3a2a20');r(21,gy+4,3,2,'#4f8a3a');r(w-24,gy+6,8,8,'#f2b134');r(w-21,gy+4,2,3,'#3a2a20');
+  // auvent rayé vert / blanc
+  const ay=gy+24,ax=b.door.x+22,aw=w-ax-6;stripes(ax,ay,aw,12,'#4f9a5a','#f6efe2',8);for(let i=0;i<aw;i+=8){r(ax+i,ay+12,4,3,'#4f9a5a');r(ax+i+4,ay+12,4,2,'#f6efe2')}r(ax,ay-2,aw,2,'#2c5a36');
+  // porte vitrée à gauche
+  const dx=b.door.x-17,dy=h-86;box(dx-3,dy-3,40,89,'#2c5a36');box(dx,dy,34,86,'#3f7a4a');e(dx+4,dy+5,26,48,'#d8ecd2','#ffe3a0');r(dx+26,dy+58,3,7,'#d4af37');box(dx+6,dy+60,22,8,'#fff6d6','#2c5a36');r(dx+9,dy+63,16,2,'#3f7a4a');
+  // vitrine : rayons
+  const vx=dx+44,vy=ay+18,vw=w-vx-8,vh=h-vy-30;box(vx,vy,vw,vh,'#2c5a36');e(vx+2,vy+2,vw-4,vh-4,'#eaf3e2','#ffe7a8');
+  [vy+12,vy+24].forEach(Y=>{r(vx+2,Y,vw-4,2,'#8a6a44');for(let X=vx+5;X<vx+vw-6;X+=7){r(X,Y-6,5,6,['#e85d75','#ffd166','#4ec9b0','#f4a261','#7a5c99'][(X+Y)%5])}});
+  r(vx+2,vy+2,vw-4,2,'rgba(255,255,255,.55)');
+  // étals : caisses de fruits et légumes
+  const cy=h-28,crate=(X,c,c2)=>{box(X,cy+6,26,18,'#b98a52','#6b4a2a');r(X+2,cy+12,22,1,'#8a6a3a');r(X+2,cy+18,22,1,'#8a6a3a');for(let i=0;i<4;i++){r(X+2+i*6,cy+1,5,5,i%2?c:c2);r(X+3+i*6,cy+1,2,1,'rgba(255,255,255,.5)')}for(let i=0;i<3;i++)r(X+5+i*6,cy-3,5,5,i%2?c2:c)};
+  crate(vx,'#d64545','#e85d5d');crate(vx+30,'#f2b134','#f6c85a');crate(vx+60,'#5aa04a','#7cbf5a');if(vx+90+26<w)crate(vx+90,'#e07a2a','#f09a4a')},
+ // boutique déco : façade bleu ardoise, grande vitrine-salon (canapé, lampe, plante, cadre), enseigne « DÉCO MAISON »
+ deco(P,b){const{w,h}=b,{r,e,txt,box,stripes,win}=P,top=8;
+  r(0,top,w,h-top,ST_OL);r(1,top+1,w-2,h-top-1,'#5d7487');for(let i=8;i<w;i+=20)r(i,top+1,2,h-top-1,'#536a7c');r(0,top,w,6,'#e8e0d0');r(0,top+6,w,2,'#b8ad98');
+  [[14,top+16],[78,top+16],[142,top+16]].forEach(([X,Y],i)=>{win(X,Y,30,26,'#e8e0d0','#a8d3ea','#ffd98a',i==1?'#c97a93':'#e8c47a')});
+  // enseigne
+  const gy=top+48;box(12,gy,124,30,'#f6efe2','#b8ad98');txt('DÉCO',(12+(124-stTextW('DÉCO',2))/2)|0,gy+4,'#3e5568',2);txt('MAISON',(12+(124-stTextW('MAISON'))/2)|0,gy+20,'#c0577a');
+  // petite lampe suspendue (enseigne drapeau)
+  r(w-30,gy+2,14,2,'#3a3a40');r(w-24,gy+4,2,6,'#3a3a40');box(w-31,gy+10,16,10,'#e8c47a','#8a6a3a');e(w-27,gy+20,8,3,'#fff2c0','#fff6d6');
+  // auvent bleu nuit
+  const ay=gy+36,ax=8,aw=112;stripes(ax,ay,aw,10,'#2e4458','#e8e0d0',10);r(ax,ay+10,aw,2,'#1f3040');r(ax,ay-2,aw,2,'#1f3040');
+  // vitrine-salon
+  const vx=12,vy=ay+16,vw=108,vh=h-vy-8;box(vx,vy,vw,vh,'#d4af37');e(vx+2,vy+2,vw-4,vh-4,'#f3ece0','#ffe2a8');
+  const fy=vy+vh-4;r(vx+2,fy-2,vw-4,2,'#b8946a');
+  // tapis, canapé, coussins
+  r(vx+18,fy-4,62,2,'#c97a93');r(vx+20,fy-18,50,10,'#4f7fa8');r(vx+16,fy-24,6,16,'#3f6f98');r(vx+68,fy-24,6,16,'#3f6f98');r(vx+20,fy-26,50,8,'#5d8fb8');r(vx+26,fy-24,8,6,'#ffd166');r(vx+56,fy-24,8,6,'#e85d75');r(vx+22,fy-8,2,4,'#3a2a20');r(vx+66,fy-8,2,4,'#3a2a20');
+  // cadre au mur
+  box(vx+34,vy+8,22,16,'#d4af37');r(vx+36,vy+10,18,12,'#a8d3ea');r(vx+38,vy+16,14,6,'#5aa04a');r(vx+46,vy+12,4,4,'#ffd166');
+  // lampadaire
+  r(vx+80,fy-36,2,34,'#3a3a40');r(vx+76,fy-4,10,2,'#3a3a40');box(vx+74,fy-46,14,10,'#e8c47a','#8a6a3a');e(vx+76,fy-36,10,2,'#fff2c0','#fff6d6');
+  // plante en pot
+  r(vx+92,fy-12,10,10,'#b5674b');r(vx+90,fy-24,14,12,'#4f8a3a');r(vx+93,fy-30,8,7,'#5aa04a');r(vx+88,fy-19,4,6,'#5aa04a');
+  r(vx+2,vy+2,vw-4,2,'rgba(255,255,255,.6)');
+  // porte vitrée
+  const dx=b.door.x-18,dy=h-86;box(dx-3,dy-3,42,89,'#d4af37');box(dx,dy,36,86,'#e8e0d0','#8a7a5a');e(dx+3,dy+3,30,80,'#dfe7ee','#ffe9c0');r(dx+28,dy+40,2,14,'#8a7a5a');txt('OUVERT',dx+1,dy+14,'#3e5568')}
 };
 const STFC=new Map();
 function stFacade(b,lvl){const k=b.id+'|'+lvl;let c=STFC.get(k);if(c)return c;
@@ -355,5 +425,15 @@ document.getElementById('stEnter').onclick=stInteract;
  new ResizeObserver(()=>stFit()).observe(document.getElementById('street'));
  // tuile « La rue » dans le choix de destination
  const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="street"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='street';t.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 21V9l5-3v15M8 21V4l8 3v14M16 21v-9l5 2v7M2 21h20"/></svg>La rue<small>Se promener</small>';out.insertBefore(t,out.firstChild);t.onclick=()=>chooseDest('street')}}
+// ===== RÈGLE DE LA VILLE =====
+// Un lieu qui possède une porte dans la rue ne figure jamais dans le panneau « Sortie » : on y entre à pied, depuis la rue.
+// La règle se calcule à partir de STREETS : tout futur commerce ajouté à la rue quitte automatiquement le panneau.
+// Exceptions demandées explicitement : « Maison » (rentrer chez soi) et « Sport ».
+const OUT_EXC=['home','gym'];
+function stStreetPlaces(){const S=new Set();Object.values(STREETS).forEach(R=>R.buildings.forEach(b=>{if(b.go&&b.go.place&&!OUT_EXC.includes(b.go.place))S.add(b.go.place)}));return S}
+function outRule(){const S=stStreetPlaces();document.querySelectorAll('#v-out [data-go]').forEach(t=>{if(S.has(t.dataset.go))t.remove()})}
+// toute ancienne navigation directe vers un commerce de la rue passe désormais par la rue
+{const _cd=chooseDest;chooseDest=function(d){if(stStreetPlaces().has(d))d='street';return _cd(d)}}
 stInit();
+outRule();
 setTimeout(()=>{try{if(N.street&&N.street.on&&!creating&&place=='home'&&!tripOn&&curV=='home'&&typeof N.street.x=='number')streetEnter(N.street.x)}catch(e){}},700);
