@@ -1,0 +1,42 @@
+/* salle de sport : panneau du bas (profil, activités, objectifs, records, récompenses), mini-jeux et résultats */
+#v-gym .gmUI{display:flex;flex-direction:column;gap:8px;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:2px 2px 10px;font-family:system-ui,sans-serif;color:#2b2430}
+.gmProf{display:grid;gap:4px;padding:8px 10px;border-radius:12px;background:#1d2026;color:#e8edf1}
+.gmStat{display:grid;grid-template-columns:20px 1fr auto;grid-template-areas:'i n l' 'i b b' 'i x x';align-items:center;column-gap:6px}
+.gmStat .gmI{grid-area:i;font-size:15px}.gmStat b{grid-area:n;font:800 12px system-ui}.gmStat em{grid-area:l;font:800 12px system-ui;font-style:normal;color:#f5c84c}
+.gmStat i,.gmObj i,.gmXP i{grid-area:b;display:block;height:7px;border-radius:4px;background:#3a414c;overflow:hidden}.gmStat u,.gmObj u,.gmXP u{display:block;height:100%;border-radius:4px;background:#9be84a;transition:width .5s}
+.gmStat small{grid-area:x;font:600 10px system-ui;color:#9aa4ae;text-align:right}
+.gmTabs{display:flex;gap:4px}.gmUI .gmTabs button{flex:1;min-height:36px;padding:4px 2px;border-radius:10px;border:2px solid #d9cbb8;background:#fffaf2;color:#5a4a52;font:700 12px system-ui;box-shadow:none}
+.gmUI .gmTabs button.act{background:#1d2026;border-color:#1d2026;color:#fff}
+.gmBody{display:flex;flex-direction:column;gap:6px}
+.gmGrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.gmUI .gmTile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:52px;padding:7px 9px;border-radius:12px;border:2px solid #2b2430;background:#fff;color:#2b2430;text-align:left;cursor:pointer;box-shadow:0 3px 0 #2b2430}
+.gmUI .gmTile b{font:800 13px system-ui}.gmUI .gmTile small{font:600 11px system-ui;color:#6b5a62}.gmUI .gmTile:disabled{opacity:.5}
+.gmTile.z-card{border-left:6px solid #3fc0f0}.gmTile.z-musc{border-left:6px solid #ff9a3a}.gmTile.z-boxe{border-left:6px solid #ff4fa3}.gmTile.z-étir{border-left:6px solid #9be84a}.gmTile.z-repo{border-left:6px solid #9aa4ae}
+.gmHint{margin:2px 2px;font:600 11px/1.35 system-ui;color:#6b5a62}
+.gmH{margin:6px 2px 0;font:800 13px system-ui;color:#2b2430}
+.gmObj{display:grid;gap:3px;padding:7px 9px;border-radius:10px;background:#fff;border:2px solid #eadfcf}.gmObj b{font:700 12px system-ui}.gmObj small{font:600 10px system-ui;color:#6b5a62}.gmObj.ok{border-color:#2f9a5a;background:#f0faf3}.gmObj u{background:#2f9a5a}
+.gmRecs,.gmRws{display:grid;gap:4px}.gmRec{display:flex;justify-content:space-between;gap:8px;padding:6px 9px;border-radius:8px;background:#fff;font:600 12px system-ui}.gmRec b{white-space:nowrap;color:#c0392b}
+.gmRw{display:flex;flex-direction:column;padding:6px 9px;border-radius:8px;background:#f3ece2;font:700 12px system-ui;color:#8a7a82}.gmRw small{font:600 10px system-ui}.gmRw.ok{background:#fff;color:#2b2430;border:2px solid #f5c84c}
+.gmPre{display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:12px;background:#fff;border:2px solid #2b2430}.gmPre h3{margin:0;font:800 17px system-ui}.gmPre h3 small{font:600 12px system-ui;color:#6b5a62}.gmPre p{margin:0;font:500 13px/1.4 system-ui;color:#3a3036}
+.gmSay{padding:8px 10px;border-radius:10px;background:#eef6ff;font-style:italic}
+.gmDiff{display:flex;gap:6px}.gmUI .gmDiff button{flex:1;display:flex;flex-direction:column;align-items:center;min-height:46px;border-radius:10px;border:2px solid #d9cbb8;background:#fffaf2;color:#2b2430;font:800 13px system-ui;box-shadow:none}
+.gmUI .gmDiff button small{font:600 10px system-ui;color:#6b5a62}.gmUI .gmDiff button.act{border-color:#c0392b;background:#fff0ec}.gmUI .gmDiff button:disabled{opacity:.45}
+.gmBtns{display:flex;gap:8px;flex-wrap:wrap}.gmUI .gmBtns button{flex:1 1 40%;min-height:44px;border-radius:12px;border:2px solid #2b2430;background:#fff;color:#2b2430;font:800 14px system-ui;box-shadow:0 3px 0 #2b2430}
+.gmUI .gmBtns .gmGo{background:#c0392b;border-color:#7a1f18;color:#fff;box-shadow:0 3px 0 #7a1f18}
+.gmGame{display:flex;flex-direction:column;gap:6px}.gmTop{display:flex;align-items:center;gap:8px;font:800 14px system-ui}.gmTop .gmSc{flex:1;color:#c0392b}.gmTop .gmTm{color:#2b2430}
+.gmUI .gmStop{min-height:34px;padding:2px 12px;border-radius:10px;border:2px solid #2b2430;background:#fff;color:#2b2430;font:700 12px system-ui;box-shadow:none}
+.gmCvW{position:relative}#gmCv{display:block;width:100%;height:clamp(150px,26vh,240px);border-radius:12px;background:#1d2026;touch-action:none}
+.gmCount{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font:900 34px system-ui;color:#fff;text-shadow:0 2px 0 #000;pointer-events:none}
+.gmInst{margin:0;font:600 11px/1.35 system-ui;color:#6b5a62}
+.gmCtl{display:grid;gap:8px}.gmCtl.n1{grid-template-columns:1fr}.gmCtl.n2{grid-template-columns:1fr 1fr}.gmCtl.n3{grid-template-columns:1fr 1fr 1fr}
+.gmUI .gmCtl button{min-height:64px;border-radius:14px;border:3px solid #15181d;background:#2f343c;color:#fff;font:900 16px system-ui;touch-action:none;-webkit-user-select:none;user-select:none;box-shadow:0 4px 0 #15181d}
+.gmUI .gmCtl button.on{transform:translateY(3px);box-shadow:0 1px 0 #15181d;background:#c0392b}
+.gmUI .gmCtl button[data-b="L"],.gmUI .gmCtl button[data-b="J"]{background:#1f6f8b}.gmUI .gmCtl button[data-b="R"],.gmUI .gmCtl button[data-b="C"]{background:#8b1f5a}.gmUI .gmCtl button[data-b="D"]{background:#8b6a1f}
+.gmRes{display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:12px;background:#fff;border:2px solid #2b2430}.gmRes h3{margin:0;font:800 16px system-ui}
+.gmBig{font:900 34px system-ui;color:#c0392b;line-height:1}.gmBig small{margin-left:6px;font:700 13px system-ui;color:#6b5a62}
+.gmBadge{padding:6px 9px;border-radius:10px;background:#fff4d6;border:2px solid #f5c84c;font:800 12px system-ui}.gmBadge.ko{background:#fdecea;border-color:#e0533d}
+.gmLines{display:grid;gap:3px}.gmLines div,.gmXP div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;font:600 12px system-ui}.gmXP{display:grid;gap:6px}.gmXP i{flex-basis:100%}.gmXP em{font-style:normal;color:#2f9a5a;font-weight:900}
+.gmRw2{font:700 12px system-ui;color:#8a6418}
+@media (orientation:landscape) and (max-height:560px){#gmCv{height:clamp(120px,38vh,200px)}.gmUI .gmCtl button{min-height:54px}}
+#v-gym.gmPlay>.opts{display:none}
+@media (max-height:820px){.gmUI .gmCtl button{min-height:54px}}

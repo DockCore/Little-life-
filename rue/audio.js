@@ -328,3 +328,22 @@ Object.assign(JEUSON.FX,{
   rsPay(t,k){[[84,0],[91,.07],[88,.13],[96,.2]].forEach(([n,d])=>{T(nf(n),t+d,.3,.035*k,'triangle');T(nf(n)*2.2,t+d,.12,.01*k,'sine')});N(t,.05,.04*k,6000,'highpass',null,1)},
   rsPage(t){N(t,.12,.04,2400,'bandpass',null,.9,{sweep:4200})},
   rsTick(t){T(1500,t,.04,.025,'sine');T(2200,t+.03,.05,.02,'sine')}})})();
+// ---------- Salle de sport : rythme, impacts, répétitions, résultats ----------
+(function(){const T=(...a)=>JEUSON.tone(...a),N=(...a)=>JEUSON.noise(...a),nf=n=>440*Math.pow(2,(n-69)/12);
+ Object.assign(JEUSON.FX,{
+  gmCount(t){[0,.6,1.2].forEach(d=>T(880,t+d,.12,.05,'square'));T(1320,t+1.8,.3,.06,'square')},
+  gmGo(t){T(1500,t,.25,.05,'square',null,{vib:30});N(t,.25,.04,3000,'bandpass',null,2)},
+  gmPerfect(t,k){T(nf(88),t,.08,.04*k,'triangle');T(nf(95),t+.04,.12,.035*k,'triangle')},
+  gmGood(t,k){T(nf(84),t,.08,.035*k,'triangle')},
+  gmMiss(t,k){T(180,t,.15,.05*k,'sawtooth',null,{slide:.6});N(t,.08,.03*k,600,'lowpass')},
+  gmStep(t,k){N(t,.05,.05*k,900,'lowpass',null,1);T(90,t,.06,.05*k,'sine',null,{slide:.6})},
+  gmPedal(t,k){N(t,.06,.03*k,1800,'bandpass',null,3);T(220,t,.05,.02*k,'triangle')},
+  gmRow(t,k){N(t,.35,.06*k,700,'lowpass',null,.8,{sweep:1500});N(t+.05,.3,.03*k,3000,'highpass',null,.7)},
+  gmRep(t,k){N(t,.06,.07*k,500,'lowpass',null,1.2);T(nf(76),t+.1,.15,.03*k,'triangle')},
+  gmClank(t,k){[0,.02].forEach(d=>{T(1200+d*900,t+d,.25,.035*k,'square');T(2400,t+d,.15,.015*k,'sine')});N(t,.05,.06*k,3000,'bandpass',null,2)},
+  gmPunch(t,k){N(t,.12,.14*k,260,'lowpass',null,.9);T(70,t,.12,.12*k,'sine',null,{slide:.5});N(t,.03,.05*k,3000,'highpass',null,1)},
+  gmBreathIn(t,k){N(t,1.2,.025*k,900,'bandpass',null,1.2,{sweep:1600,att:.5})},
+  gmBreathOut(t,k){N(t,1.4,.025*k,1400,'bandpass',null,1.2,{sweep:600,att:.2})},
+  gmEnd(t){[72,76,79].forEach((n,i)=>T(nf(n),t+i*.09,.3,.045,'triangle'))},
+  gmLevel(t,k){[72,76,79,84].forEach((n,i)=>T(nf(n),t+i*.08,.35,.05*(k||1),'square'));T(nf(88),t+.34,.6,.04*(k||1),'triangle')},
+  gmRecord(t){[76,80,83,88,91].forEach((n,i)=>T(nf(n),t+i*.07,.3,.05,'triangle'));N(t+.35,.6,.03,6000,'highpass',null,.7)}})})();
