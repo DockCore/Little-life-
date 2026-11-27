@@ -8,3 +8,11 @@
 .tnas{display:flex;gap:6px;flex-wrap:wrap}.tnas button{flex:1;height:30px;font-size:12px;padding:0 8px}
 .tnrow{display:flex;flex-direction:column;gap:2px}.tnrow .wsw{justify-content:flex-start}
 .tncol>button{height:30px;font-size:12px;align-self:flex-start;padding:0 12px}
+
+/* couleur des cheveux : palettes en dégradé (bandes continues, une case = une nuance) */
+.hrbox{margin-bottom:8px}
+.hrgr{display:flex;height:30px;border-radius:9px;overflow:hidden;border:2px solid rgba(0,0,0,.18);margin:2px 0 4px}
+.hrgr button{flex:1 1 0;min-width:0;height:100%;padding:0;margin:0;border:0;border-radius:0;box-shadow:none;cursor:pointer}
+.hrgr button.sel{outline:3px solid #fff;outline-offset:-3px;box-shadow:inset 0 0 0 5px rgba(0,0,0,.45);position:relative;z-index:1}
+.st-opts .stgr{grid-column:1/-1;flex:0 0 100%;width:100%;height:34px}
+.st-opts .stgr button.hg{min-height:0;aspect-ratio:auto}

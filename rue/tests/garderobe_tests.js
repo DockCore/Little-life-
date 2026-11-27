@@ -74,7 +74,7 @@ const MODE=process.argv[2]||'tel';
  // 9-11. garde-robe
  await E(()=>arrive('home'));await W(2500);await E(()=>show('dress'));await W(700);await shot('03_garderobe');
  const dr=await E(()=>({tabs:[...document.querySelectorAll('#drSeg button')].map(b=>b.dataset.m),cards:document.querySelectorAll('#drList .tnc').length,locked:document.querySelectorAll('#drList .tnc.lock').length}));
- ok('9 garde-robe : les 10 tenues (possédées en premier), onglets Mes tenues, Couleurs, Favoris, Coiffure',dr.cards==10&&dr.locked==7&&['tn','col','fav','hair'].every(k=>dr.tabs.includes(k)),dr);
+ ok('9 garde-robe : les 10 tenues (possédées en premier), onglets Mes tenues, Couleurs, Favoris ; plus d’onglet Coiffure (coupe d’origine, seule la couleur change)',dr.cards==10&&dr.locked==7&&['tn','col','fav'].every(k=>dr.tabs.includes(k))&&!dr.tabs.includes('hair'),dr);
  await E(()=>document.querySelector('#drList .tnc[data-tn=casual] button').click());await W(300);
  const one=await E(()=>N.look.tn&&N.look.tn.id);
  await E(()=>document.querySelector('#drSeg button[data-m=col]').click());await W(300);

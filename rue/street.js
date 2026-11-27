@@ -424,7 +424,7 @@ document.getElementById('stEnter').onclick=stInteract;
   if(my>ST_BASE-10)STV.auto={x:Math.max(STC.minX,Math.min(STC.maxX,mx2)),then:null}});
  new ResizeObserver(()=>stFit()).observe(document.getElementById('street'));
  // tuile « La rue » dans le choix de destination
- const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="street"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='street';t.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 21V9l5-3v15M8 21V4l8 3v14M16 21v-9l5 2v7M2 21h20"/></svg>La rue<small>Se promener</small>';out.insertBefore(t,out.firstChild);t.onclick=()=>chooseDest('street')}}
+ const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="street"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='street';t.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 21V9l5-3v15M8 21V4l8 3v14M16 21v-9l5 2v7M2 21h20"/></svg>En ville<small>Se promener</small>';out.insertBefore(t,out.firstChild);t.onclick=()=>chooseDest('street')}}
 // ===== RÈGLE DE LA VILLE =====
 // Un lieu qui possède une porte dans la rue ne figure jamais dans le panneau « Sortie » : on y entre à pied, depuis la rue.
 // La règle se calcule à partir de STREETS : tout futur commerce ajouté à la rue quitte automatiquement le panneau.

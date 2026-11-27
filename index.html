@@ -464,6 +464,14 @@ main[data-v="bowling"] #zmUI,main[data-v="bowling"] .bub{display:none!important}
 .tnas{display:flex;gap:6px;flex-wrap:wrap}.tnas button{flex:1;height:30px;font-size:12px;padding:0 8px}
 .tnrow{display:flex;flex-direction:column;gap:2px}.tnrow .wsw{justify-content:flex-start}
 .tncol>button{height:30px;font-size:12px;align-self:flex-start;padding:0 12px}
+
+/* couleur des cheveux : palettes en dégradé (bandes continues, une case = une nuance) */
+.hrbox{margin-bottom:8px}
+.hrgr{display:flex;height:30px;border-radius:9px;overflow:hidden;border:2px solid rgba(0,0,0,.18);margin:2px 0 4px}
+.hrgr button{flex:1 1 0;min-width:0;height:100%;padding:0;margin:0;border:0;border-radius:0;box-shadow:none;cursor:pointer}
+.hrgr button.sel{outline:3px solid #fff;outline-offset:-3px;box-shadow:inset 0 0 0 5px rgba(0,0,0,.45);position:relative;z-index:1}
+.st-opts .stgr{grid-column:1/-1;flex:0 0 100%;width:100%;height:34px}
+.st-opts .stgr button.hg{min-height:0;aspect-ratio:auto}
 /* café : panneau, carte, habitants, jeux, journal, téléphone (réutilise les fenêtres du restaurant) */
 #v-cafe{overflow:hidden}
 .cfOver .rsHead{background:linear-gradient(#3e2618,#2a1a10);color:#f3d27a}
@@ -5777,7 +5785,7 @@ document.getElementById('stEnter').onclick=stInteract;
   if(my>ST_BASE-10)STV.auto={x:Math.max(STC.minX,Math.min(STC.maxX,mx2)),then:null}});
  new ResizeObserver(()=>stFit()).observe(document.getElementById('street'));
  // tuile « La rue » dans le choix de destination
- const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="street"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='street';t.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 21V9l5-3v15M8 21V4l8 3v14M16 21v-9l5 2v7M2 21h20"/></svg>La rue<small>Se promener</small>';out.insertBefore(t,out.firstChild);t.onclick=()=>chooseDest('street')}}
+ const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="street"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='street';t.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 21V9l5-3v15M8 21V4l8 3v14M16 21v-9l5 2v7M2 21h20"/></svg>En ville<small>Se promener</small>';out.insertBefore(t,out.firstChild);t.onclick=()=>chooseDest('street')}}
 // ===== RÈGLE DE LA VILLE =====
 // Un lieu qui possède une porte dans la rue ne figure jamais dans le panneau « Sortie » : on y entre à pied, depuis la rue.
 // La règle se calcule à partir de STREETS : tout futur commerce ajouté à la rue quitte automatiquement le panneau.
@@ -11853,6 +11861,21 @@ function cpBadge(on){let b=document.getElementById('socBadge');if(!on){if(b)b.hi
  addEventListener('keydown',e=>{if(!STV.on||UI.open||STV.modal)return;if(e.code=='KeyT'){const w=nearW();if(w){e.preventDefault();openCard(w.id)}}})})();
 window.SOCIAL={hLook,mem,note,rel2:rel,HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();
 
+// ===== Couleurs de cheveux : la coupe d'origine reste celle du personnage, seule la couleur change =====
+// palette en dégradé ajoutée à la suite des 14 couleurs de base (indices 14 à 61, sauvegardés comme les autres)
+const HRG0=HRP.length,HRGN=24;
+(function(){if(HRP.length>HRG0+1)return;const hx=h=>{const v=parseInt(h.slice(1),16);return[v>>16,(v>>8)&255,v&255]},to=c=>'#'+c.map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+ const NAT=['#141218','#2b1d18','#45301f','#62402a','#7d4b2c','#9a5430','#b5652e','#c98238','#d9a441','#e4c06a','#edd892','#f2e7c4','#e8e4da','#c6c3be','#9c9ca6'];
+ for(let i=0;i<HRGN;i++){const t=i/(HRGN-1)*(NAT.length-1),k=Math.min(NAT.length-2,Math.floor(t)),f=t-k,a=hx(NAT[k]),b=hx(NAT[k+1]);HRP.push(to(a.map((v,j)=>v+(b[j]-v)*f)));HRN.push('Dégradé naturel '+(i+1))}
+ const hsl=(h,s,l)=>{const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q,f=t=>{t=(t+1)%1;return 255*(t<1/6?p+(q-p)*6*t:t<.5?q:t<2/3?p+(q-p)*(2/3-t)*6:p)};return[f(h+1/3),f(h),f(h-1/3)]};
+ for(let i=0;i<HRGN;i++){HRP.push(to(hsl(i/HRGN,.62,.52)));HRN.push('Dégradé couleur '+(i+1))}
+ try{Object.values(WCAT).forEach(it=>{if(it.slot=='cheveux')it.pal=HRP.map((c,i)=>[HRN[i],c])})}catch(e){}})();
+// création du personnage : les nuances en dégradé sont présentées en deux bandes continues sous les 14 couleurs classiques
+try{const _st=stDraw;stDraw=function(){_st();const o=document.getElementById('stOpts');if(!o)return;const bs=[...o.querySelectorAll('button.sw')];if(bs.length!=HRP.length||bs.length<=HRG0)return;
+ [[HRG0,'Dégradé naturel'],[HRG0+HRGN,'Dégradé couleur']].forEach(([a,n])=>{const g=document.createElement('div');g.className='hrgr stgr';g.setAttribute('aria-label',n);bs.slice(a,a+HRGN).forEach(b=>{b.className='hg'+(b.classList.contains('on')?' sel':'');g.append(b)});o.append(g)})}}catch(e){}
+// les coupes ajoutées ne sont plus proposées : le joueur (et ses tenues enregistrées) reprend la coupe d'origine, en gardant sa couleur
+try{const fix=W=>{if(W&&W.cheveux&&String(W.cheveux).split('|')[0]!='nat'){W.cheveux='nat|'+(parseInt(String(W.cheveux).split('|')[1],10)||0);return 1}return 0};
+ let ch=fix(N.look&&N.look.wd);(N.outf2||[]).forEach(o=>{if(o&&fix(o.wd))ch=1});if(ch){spKey='';save()}}catch(e){}
 // Couleur de cheveux propre à chaque personnage : un PNJ la tire de SA coiffure (wd.cheveux), jamais du joueur
 function lkOwnHr(L){const c=L&&L.wd&&L.wd.cheveux;if(c){const ci=parseInt(String(c).split('|')[1],10);if(ci>=0&&ci<HRP.length)L.hr=ci}return L}
 // ===== GARDE-ROBE : 10 TENUES COMPLÈTES (homme et femme) =====
@@ -11861,6 +11884,13 @@ function lkOwnHr(L){const c=L&&L.wd&&L.wd.cheveux;if(c){const ci=parseInt(String
 // Le corps, la tête, le visage, les cheveux et les mains ne sont jamais modifiés : seuls les vêtements sont posés dessus.
 // Une couleur = une teinte principale (recolorable librement) + des teintes d'accent fixées par l'association choisie.
 (function(){
+function hrSet(ci){const L=N.look,W=L.wd||(L.wd={});L.hr=ci;W.cheveux='nat|'+ci;try{wSync(L)}catch(e){}TRY=null;spKey='';save()}
+function hairBox(){const box=el('div','tncol hrbox'),cur=N.look.hr||0;box.append(el('b','tnt','Couleur des cheveux · '+(HRN[cur]||'')));
+ const sw=el('div','wsw');for(let i=0;i<HRG0;i++){const d=el('i');d.style.background=HRP[i];d.title=HRN[i];if(i==cur)d.className='on';d.onclick=()=>{hrSet(i);say2('Cheveux : '+HRN[i].toLowerCase()+'.');drDraw()};sw.append(d)}
+ box.append(el('small','tnl','Classiques'),sw);
+ [['Dégradé naturel',HRG0],['Dégradé couleur',HRG0+HRGN]].forEach(([n,o])=>{const g=el('div','hrgr');g.setAttribute('role','group');g.setAttribute('aria-label',n);
+  for(let i=0;i<HRGN;i++){const ci=o+i,b=el('button',ci==cur?'sel':'');b.style.background=HRP[ci];b.title=HRN[ci];b.setAttribute('aria-label',HRN[ci]);b.onclick=()=>{hrSet(ci);say2('Nouvelle couleur de cheveux.');drDraw()};g.append(b)}
+  box.append(el('small','tnl',n),g)});return box}
 // ---------- 1. moteur : nouveaux détails de vêtements ----------
 const n=CW*CH,DK=[22,14,18];
 // centre des jambes ligne par ligne (pour savoir quel bord est « extérieur »)
@@ -12192,10 +12222,10 @@ const say2=t=>{try{say(t)}catch(e){}};
 // --- magasin ---
 const clPi={};let clMode='tn';
 clDraw=function(){const L=document.getElementById('clList');if(!L)return;const seg=document.getElementById('clSeg'),home=document.getElementById('clHome');
- seg.innerHTML=`<button data-m="tn" class="${clMode=='tn'?'on':''}">Tenues complètes</button><button data-m="hair" class="${clMode=='hair'?'on':''}">Coiffures</button>`;if(home)seg.append(home);
+ seg.innerHTML=`<button data-m="tn" class="on">Tenues complètes</button>`;if(home)seg.append(home);
  seg.onclick=e=>{const b=e.target.closest('button[data-m]');if(!b)return;clMode=b.dataset.m;TRY=null;spKey='';clDraw()};
  L.innerHTML='';L.className='wdg';tnS();
- if(clMode=='hair'){wItems('cheveux').forEach(it=>L.append(wCard(it,'shop')));return}
+ if(clMode!='tn')clMode='tn';
  L.append(el('p','hint tnh','Touche une tenue pour l’essayer · les pastilles changent les couleurs'));
  TN.forEach(t=>{const own=tnOwn(t.id),pi=clPi[t.id]!=null?clPi[t.id]:(own?tnCus(t.id).pi:tnDef(t,N.look.g)),cc=own&&clPi[t.id]==null?tnCus(t.id).c:{};
   const d=el('div','wdc tnc'+(worn(t.id)?' on':'')+(own?'':' lock'));d.dataset.tn=t.id;d.append(tnIcon(t.id,pi,cc));
@@ -12214,7 +12244,7 @@ let drMode='tn';
 const OLDT=[['haut','Hauts'],['bas','Bas'],['robe','Robes'],['veste','Vestes'],['chaussures','Chaussures'],['acc','Accessoires']];
 const oldOwned=()=>Object.values(WCAT).filter(it=>!it.piece&&it.slot!='cheveux'&&it.p>0&&wOwn(it.id)&&wFor(it,N.look.g));
 drDraw=function(){const L=document.getElementById('drList');if(!L||curV!='dress')return;const seg=document.getElementById('drSeg');const T=tnS();
- const tabs=[['tn','Mes tenues'],['col','Couleurs'],['fav','Favoris'],['hair','Coiffure'],['acc','Lunettes'],].concat(oldOwned().length?[['old','Anciens vêtements']]:[]);
+ const tabs=[['tn','Mes tenues'],['col','Couleurs'],['fav','Favoris'],['acc','Lunettes'],].concat(oldOwned().length?[['old','Anciens vêtements']]:[]);
  if(!tabs.some(x=>x[0]==drMode))drMode='tn';
  seg.innerHTML=tabs.map(([k,n])=>`<button data-m="${k}" class="${k==drMode?'on':''}">${n}</button>`).join('');
  seg.onclick=e=>{const b=e.target.closest('button[data-m]');if(!b)return;drMode=b.dataset.m;TRY=null;spKey='';drDraw()};
@@ -12225,7 +12255,7 @@ drDraw=function(){const L=document.getElementById('drList');if(!L||curV!='dress'
    const m=el('div','wdm');m.append(el('b','',t.n),el('small','',o?t.pals[k.pi].n+(Object.keys(k.c).length?' · personnalisée':''):'Au magasin · '+t.p+' pièces'));const b=el('button');
    if(!o){b.textContent='Au magasin';b.disabled=true}else if(worn(t.id)){b.textContent='Couleurs';b.onclick=e=>{e.stopPropagation();drMode='col';drDraw()}}else{b.textContent='Porter';b.className='on';b.onclick=e=>{e.stopPropagation();tnWear(t.id);drDraw()}}
    d.onclick=()=>{if(!o){tnTry(t.id,k.pi,k.c);say2('Essayage : « '+t.n+' » (en vente au magasin).');return}if(!worn(t.id)){tnWear(t.id);drDraw()}};d.append(m,b);L.append(d)});return}
- if(drMode=='col'){const w=N.look.tn;if(!w||!TNI[w.id]){L.append(el('p','hint tnh','Mets d’abord une tenue (onglet « Mes tenues ») pour changer ses couleurs.'));return}
+ if(drMode=='col'){L.append(hairBox());const w=N.look.tn;if(!w||!TNI[w.id]){L.append(el('p','hint tnh','Mets une tenue (onglet « Mes tenues ») pour changer aussi ses couleurs.'));return}
   const t=TNI[w.id],box=el('div','tncol');box.append(el('b','tnt','Tenue « '+t.n+' »'));
   const row=el('div','tnas');t.pals.forEach((P,i)=>{const b=el('button',i==w.pi&&!Object.keys(w.c||{}).length?'on':'',P.n);b.onclick=()=>{tnWear(t.id,i,{});drDraw()};row.append(b)});box.append(el('small','tnl','Associations'),row);
   const P=tnParts(t,N.look.g);Object.keys(P).forEach(sl=>{const cur=tnCol(t,N.look.g,w.pi,w.c,sl)[0];const r=el('div','tnrow');r.append(el('small','tnl',TSN[sl]||sl));const sw=el('div','wsw');
@@ -12238,7 +12268,6 @@ drDraw=function(){const L=document.getElementById('drList');if(!L||curV!='dress'
    const bx=el('div','ob'),sv=el('button','','Enregistrer'),we=el('button','on','Porter');sv.disabled=!N.look.tn;we.disabled=!ok;
    sv.onclick=()=>{const w=N.look.tn;if(!w)return;T.fav[i]={id:w.id,pi:w.pi|0,c:Object.assign({},w.c||{})};save();say2('Favori '+(i+1)+' : « '+TNI[w.id].n+' ».');drDraw()};
    we.onclick=()=>{tnWear(f.id,f.pi,f.c);drDraw()};bx.append(sv,we);d.append(m,bx);L.append(d)}return}
- if(drMode=='hair'){wItems('cheveux').forEach(it=>L.append(wCard(it,'dress')));return}
  if(drMode=='acc'){wItems('acc').filter(it=>it.slot=='yeux'&&wOwn(it.id)).forEach(it=>L.append(wCard(it,'dress')));if(!L.children.length)L.append(el('p','hint tnh','Aucune paire de lunettes.'));return}
  if(drMode=='old'){L.append(el('p','hint tnh','Tes vêtements achetés avant les tenues complètes : ils restent à toi.'));oldOwned().forEach(it=>L.append(wCard(it,'dress')))}};
 // l'ancien bouton « Tout retirer » : on garde, mais on oublie la tenue portée
