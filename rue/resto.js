@@ -68,7 +68,7 @@ const LOOKS=[
  {g:'m',sk:1,hc:2,wd:{cheveux:'nat|2',haut:'pull|3',bas:'jean|0',veste:'blazer|1',chaussures:'mocass|0'}},{g:'f',sk:2,hc:0,wd:{cheveux:'mi|2',haut:'mari|0',bas:'shortj|0',chaussures:'sandale|1'}}];
 const CLIENTS=[5,6,7,8,9,10,11,12];
 const NCC=new Map();let prepQ=[];
-function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)})}
+function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)}))}
 const nImg=(i,nm)=>{const c=NCC.get(i+'|'+nm);if(!c&&!prepQ.some(q=>q[0]==i&&q[1]==nm))prepQ.push([i,nm]);return c};
 function prepTick(n){let did=false;while(n-->0&&prepQ.length){const[i,nm]=prepQ.shift();const k=i+'|'+nm;if(NCC.has(k))continue;try{if(drawFrame(nm,nLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;const g=c.getContext('2d');g.drawImage(sc2,0,0);if(i==2||i==3)toque(c,g);NCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 // toque blanche des cuisiniers, posée sur le haut de la tête
@@ -485,4 +485,4 @@ function rsUI(){const g=document.getElementById('rsG'),info=document.getElementB
 // ---------- objectif ----------
 try{if(typeof GOALS!='undefined'&&!GOALS.some(g=>g.id=='resto'))GOALS.push({id:'resto',t:'Manger au restaurant',r:10,ok:()=>((N.resto&&N.resto.repas)||0)>=1})}catch(e){}
 try{LINES.resto=['Mmm, ça a l’air délicieux !','Rien de tel qu’un bon repas au restaurant.','Le chef est vraiment doué.','J’adore l’ambiance ici.']}catch(e){}
-window.RESTO={R,LOOKS,nImg,MENU,MK,CATS,SEATS,FIX,ST,sitAt,standUp,openMenu,closeMenu,order,openBill,closeBill,pay,askBill,leave,eatNext,placeMe,rsUI,unpaid,pending,newClient,art,me,task}})();
+window.RESTO={nLook,R,LOOKS,nImg,MENU,MK,CATS,SEATS,FIX,ST,sitAt,standUp,openMenu,closeMenu,order,openBill,closeBill,pay,askBill,leave,eatNext,placeMe,rsUI,unpaid,pending,newClient,art,me,task}})();

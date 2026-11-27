@@ -1,3 +1,5 @@
+// Couleur de cheveux propre à chaque personnage : un PNJ la tire de SA coiffure (wd.cheveux), jamais du joueur
+function lkOwnHr(L){const c=L&&L.wd&&L.wd.cheveux;if(c){const ci=parseInt(String(c).split('|')[1],10);if(ci>=0&&ci<HRP.length)L.hr=ci}return L}
 // ===== GARDE-ROBE : 10 TENUES COMPLÈTES (homme et femme) =====
 // Chaque tenue = plusieurs calques indépendants (haut, veste, bas, chaussures, accessoires) redessinés sur la carte
 // des parties du corps de CHAQUE image (face, profil, dos, trois-quarts, marche, course, assis, canapé, bureau, sport…).

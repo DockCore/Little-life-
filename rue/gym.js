@@ -56,7 +56,7 @@ const NPCS=[
  {i:4,nom:'Zoé',role:'Yoga et étirements',acts:['stretch','stretch','row','rest'],defi:'stretch'},
  {i:5,nom:'Sam',role:'Coach (accueil)',acts:[],defi:'bench',coach:1}];
 const NCC=new Map();let prepQ=[];
-function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)})}
+function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)}))}
 const nImg=(i,nm)=>{const c=NCC.get(i+'|'+nm);if(!c&&!prepQ.some(q=>q[0]==i&&q[1]==nm))prepQ.push([i,nm]);return c};
 function prepTick(n){let did=false;while(n-->0&&prepQ.length){const[i,nm]=prepQ.shift();const k=i+'|'+nm;if(NCC.has(k))continue;try{if(drawFrame(nm,nLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 const isF=i=>i<0?N.look.g=='f':LOOKS[i].g=='f';
@@ -249,6 +249,6 @@ function npcAt(mx2,my){// clic sur un sportif : on regarde la silhouette (hauteu
  let f=null;for(let k=0;k<=90&&!f;k+=6){const[a,b]=isoInv(mx2,my+k);f=F.find(o=>o.s&&a>=o.x-.15&&a<=o.x+o.w+.15&&b>=o.y-.15&&b<=o.y+o.h+.15&&(k<=54||['GSac','GCable','GLock','GDesk','GBench'].includes(o.n)))}
  if(f){if(GYM.tapFurn&&GYM.tapFurn(f))return}
  if(tu<0||tv<0||tu>RN||tv>RN)return;C.st=C.st=='gym'?'idle':C.st;goto(tu*12,88+tv*5)}}
-window.GYM=Object.assign(window.GYM||{},{F,ST,STB,NPCS,LOOKS,S,isF,nImg,seatDraw,gloves,bubble,free,P,
+window.GYM=Object.assign(window.GYM||{},{nLook,F,ST,STB,NPCS,LOOKS,S,isF,nImg,seatDraw,gloves,bubble,free,P,
  speed:()=>1,rowSlide:()=>0,press:()=>0,coachPose:()=>S.coach.wave>0?(Math.floor(tick/12)%2?'wave':'idle'):'idle',
  bagSwing:id=>S.bags[id]||{a:0,hit:0},hitBag:(id,k)=>{const b=S.bags[id];if(!b)return;b.va+=.05*(k||1);b.hit=10}})})();

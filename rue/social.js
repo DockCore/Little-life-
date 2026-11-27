@@ -63,7 +63,7 @@ const mday=()=>((N.day||1)-1)%30+1;
 const isBday=h=>h.anniv==mday();
 // ---------- images des habitants (garde-robe du jeu, mêmes proportions que le joueur) ----------
 const NCC=new Map();let prepQ=[];
-function hLook(h){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,h.look,{wd:Object.assign({},h.look.wd)})}
+function hLook(h){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,h.look,{wd:Object.assign({},h.look.wd)}))}
 const img=(id,nm)=>{const k=id+'|'+nm,c=NCC.get(k);if(!c&&!prepQ.some(q=>q[0]==id&&q[1]==nm))prepQ.push([id,nm]);return c};
 function prepTick(n){let did=false;while(n-->0&&prepQ.length){const[id,nm]=prepQ.shift(),k=id+'|'+nm;if(NCC.has(k))continue;try{if(drawFrame(nm,hLook(HB(id)))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 // portrait : la tête du personnage (image du jeu), agrandie en pixel art
@@ -333,4 +333,4 @@ function cpBadge(on){let b=document.getElementById('socBadge');if(!on){if(b)b.hi
 (function init(){const cv=document.getElementById('stCv');if(cv)cv.addEventListener('pointerdown',stTapS,true);
  const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="amis"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='amis';t.innerHTML='<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5M15 14.6c2.8-.3 5.6 1.3 6.3 4.9"/></svg>Mes amis<small>Habitants rencontrés</small>';out.appendChild(t);t.onclick=e=>{e.stopPropagation();openMenu()}}
  addEventListener('keydown',e=>{if(!STV.on||UI.open||STV.modal)return;if(e.code=='KeyT'){const w=nearW();if(w){e.preventDefault();openCard(w.id)}}})})();
-window.SOCIAL={mem,note,rel2:rel,HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();
+window.SOCIAL={hLook,mem,note,rel2:rel,HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();

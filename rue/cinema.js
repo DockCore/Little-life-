@@ -124,7 +124,7 @@ function isoIlot(f){const{x,y,w,h}=f;fshadow(f);B3(x,y,w,h,0,20,'#3a3f4a',{t:'#4
 const NPCL=[{g:'f',sk:2,hc:3,wd:{cheveux:'bun|1',haut:'blouse|2',bas:'jupe|1',chaussures:'bottine|0'}},{g:'m',sk:1,hc:0,wd:{cheveux:'mi|0',haut:'polo|3',bas:'cargo|1',chaussures:'running|2'}},
  {g:'f',sk:0,hc:1,wd:{cheveux:'tails|2',haut:'hoodie|4',bas:'legging|0',chaussures:'basket|3'}},{g:'m',sk:2,hc:2,wd:{cheveux:'top|1',haut:'tee|5',bas:'jean|1',veste:'vjean|0',chaussures:'basket|0'}},
  {g:'f',sk:1,hc:0,wd:{cheveux:'long|1',haut:'pull|1',bas:'plisse|2',chaussures:'mocass|1'}},{g:'m',sk:0,hc:4,wd:{cheveux:'nat|0',haut:'flan|2',bas:'chino|0',chaussures:'bottes|1',tete:'bonnet|2'}}];
-const NPCC=new Map();function npcLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,NPCL[i%NPCL.length],{wd:Object.assign({},NPCL[i%NPCL.length].wd)})}
+const NPCC=new Map();function npcLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,NPCL[i%NPCL.length],{wd:Object.assign({},NPCL[i%NPCL.length].wd)}))}
 function npcPrep(list){let did=false;for(const[i,nm]of list){const k=i+'|'+nm;if(NPCC.has(k))continue;try{if(drawFrame(nm,npcLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NPCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 const npcImg=(i,nm)=>NPCC.get(i+'|'+nm);
 function isoVisiteur(f){const n=CI.npc;if(!n)return;const u=BASINS[n.b],img=npcImg(n.i||0,n.w?(Math.floor(tick/7)%2?'cu2':'cu1'):'idle');if(!img)return;const p=P3(u,WASHV,0),a=Math.min(1,Math.min(n.T-n.t,n.t)/25);

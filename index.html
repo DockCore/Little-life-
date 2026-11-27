@@ -10094,7 +10094,7 @@ function isoIlot(f){const{x,y,w,h}=f;fshadow(f);B3(x,y,w,h,0,20,'#3a3f4a',{t:'#4
 const NPCL=[{g:'f',sk:2,hc:3,wd:{cheveux:'bun|1',haut:'blouse|2',bas:'jupe|1',chaussures:'bottine|0'}},{g:'m',sk:1,hc:0,wd:{cheveux:'mi|0',haut:'polo|3',bas:'cargo|1',chaussures:'running|2'}},
  {g:'f',sk:0,hc:1,wd:{cheveux:'tails|2',haut:'hoodie|4',bas:'legging|0',chaussures:'basket|3'}},{g:'m',sk:2,hc:2,wd:{cheveux:'top|1',haut:'tee|5',bas:'jean|1',veste:'vjean|0',chaussures:'basket|0'}},
  {g:'f',sk:1,hc:0,wd:{cheveux:'long|1',haut:'pull|1',bas:'plisse|2',chaussures:'mocass|1'}},{g:'m',sk:0,hc:4,wd:{cheveux:'nat|0',haut:'flan|2',bas:'chino|0',chaussures:'bottes|1',tete:'bonnet|2'}}];
-const NPCC=new Map();function npcLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,NPCL[i%NPCL.length],{wd:Object.assign({},NPCL[i%NPCL.length].wd)})}
+const NPCC=new Map();function npcLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,NPCL[i%NPCL.length],{wd:Object.assign({},NPCL[i%NPCL.length].wd)}))}
 function npcPrep(list){let did=false;for(const[i,nm]of list){const k=i+'|'+nm;if(NPCC.has(k))continue;try{if(drawFrame(nm,npcLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NPCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 const npcImg=(i,nm)=>NPCC.get(i+'|'+nm);
 function isoVisiteur(f){const n=CI.npc;if(!n)return;const u=BASINS[n.b],img=npcImg(n.i||0,n.w?(Math.floor(tick/7)%2?'cu2':'cu1'):'idle');if(!img)return;const p=P3(u,WASHV,0),a=Math.min(1,Math.min(n.T-n.t,n.t)/25);
@@ -10503,7 +10503,7 @@ const LOOKS=[
  {g:'m',sk:1,hc:2,wd:{cheveux:'nat|2',haut:'pull|3',bas:'jean|0',veste:'blazer|1',chaussures:'mocass|0'}},{g:'f',sk:2,hc:0,wd:{cheveux:'mi|2',haut:'mari|0',bas:'shortj|0',chaussures:'sandale|1'}}];
 const CLIENTS=[5,6,7,8,9,10,11,12];
 const NCC=new Map();let prepQ=[];
-function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)})}
+function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)}))}
 const nImg=(i,nm)=>{const c=NCC.get(i+'|'+nm);if(!c&&!prepQ.some(q=>q[0]==i&&q[1]==nm))prepQ.push([i,nm]);return c};
 function prepTick(n){let did=false;while(n-->0&&prepQ.length){const[i,nm]=prepQ.shift();const k=i+'|'+nm;if(NCC.has(k))continue;try{if(drawFrame(nm,nLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;const g=c.getContext('2d');g.drawImage(sc2,0,0);if(i==2||i==3)toque(c,g);NCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 // toque blanche des cuisiniers, posée sur le haut de la tête
@@ -10920,7 +10920,7 @@ function rsUI(){const g=document.getElementById('rsG'),info=document.getElementB
 // ---------- objectif ----------
 try{if(typeof GOALS!='undefined'&&!GOALS.some(g=>g.id=='resto'))GOALS.push({id:'resto',t:'Manger au restaurant',r:10,ok:()=>((N.resto&&N.resto.repas)||0)>=1})}catch(e){}
 try{LINES.resto=['Mmm, ça a l’air délicieux !','Rien de tel qu’un bon repas au restaurant.','Le chef est vraiment doué.','J’adore l’ambiance ici.']}catch(e){}
-window.RESTO={R,LOOKS,nImg,MENU,MK,CATS,SEATS,FIX,ST,sitAt,standUp,openMenu,closeMenu,order,openBill,closeBill,pay,askBill,leave,eatNext,placeMe,rsUI,unpaid,pending,newClient,art,me,task}})();
+window.RESTO={nLook,R,LOOKS,nImg,MENU,MK,CATS,SEATS,FIX,ST,sitAt,standUp,openMenu,closeMenu,order,openBill,closeBill,pay,askBill,leave,eatNext,placeMe,rsUI,unpaid,pending,newClient,art,me,task}})();
 
 // ===== SALLE DE SPORT : nouvel intérieur (5 zones), machines, sportifs PNJ =====
 // Cardio (tapis, vélos, rameurs) · Musculation (haltères, banc de développé, poulie, disques) · Boxe (sacs, ring)
@@ -10980,7 +10980,7 @@ const NPCS=[
  {i:4,nom:'Zoé',role:'Yoga et étirements',acts:['stretch','stretch','row','rest'],defi:'stretch'},
  {i:5,nom:'Sam',role:'Coach (accueil)',acts:[],defi:'bench',coach:1}];
 const NCC=new Map();let prepQ=[];
-function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)})}
+function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,LOOKS[i],{wd:Object.assign({},LOOKS[i].wd)}))}
 const nImg=(i,nm)=>{const c=NCC.get(i+'|'+nm);if(!c&&!prepQ.some(q=>q[0]==i&&q[1]==nm))prepQ.push([i,nm]);return c};
 function prepTick(n){let did=false;while(n-->0&&prepQ.length){const[i,nm]=prepQ.shift();const k=i+'|'+nm;if(NCC.has(k))continue;try{if(drawFrame(nm,nLook(i))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 const isF=i=>i<0?N.look.g=='f':LOOKS[i].g=='f';
@@ -11173,7 +11173,7 @@ function npcAt(mx2,my){// clic sur un sportif : on regarde la silhouette (hauteu
  let f=null;for(let k=0;k<=90&&!f;k+=6){const[a,b]=isoInv(mx2,my+k);f=F.find(o=>o.s&&a>=o.x-.15&&a<=o.x+o.w+.15&&b>=o.y-.15&&b<=o.y+o.h+.15&&(k<=54||['GSac','GCable','GLock','GDesk','GBench'].includes(o.n)))}
  if(f){if(GYM.tapFurn&&GYM.tapFurn(f))return}
  if(tu<0||tv<0||tu>RN||tv>RN)return;C.st=C.st=='gym'?'idle':C.st;goto(tu*12,88+tv*5)}}
-window.GYM=Object.assign(window.GYM||{},{F,ST,STB,NPCS,LOOKS,S,isF,nImg,seatDraw,gloves,bubble,free,P,
+window.GYM=Object.assign(window.GYM||{},{nLook,F,ST,STB,NPCS,LOOKS,S,isF,nImg,seatDraw,gloves,bubble,free,P,
  speed:()=>1,rowSlide:()=>0,press:()=>0,coachPose:()=>S.coach.wave>0?(Math.floor(tick/12)%2?'wave':'idle'):'idle',
  bagSwing:id=>S.bags[id]||{a:0,hit:0},hitBag:(id,k)=>{const b=S.bags[id];if(!b)return;b.va+=.05*(k||1);b.hit=10}})})();
 
@@ -11581,7 +11581,7 @@ const mday=()=>((N.day||1)-1)%30+1;
 const isBday=h=>h.anniv==mday();
 // ---------- images des habitants (garde-robe du jeu, mêmes proportions que le joueur) ----------
 const NCC=new Map();let prepQ=[];
-function hLook(h){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return Object.assign(B,h.look,{wd:Object.assign({},h.look.wd)})}
+function hLook(h){const B=Object.assign({},N.look);delete B.nu;delete B.lf;return lkOwnHr(Object.assign(B,h.look,{wd:Object.assign({},h.look.wd)}))}
 const img=(id,nm)=>{const k=id+'|'+nm,c=NCC.get(k);if(!c&&!prepQ.some(q=>q[0]==id&&q[1]==nm))prepQ.push([id,nm]);return c};
 function prepTick(n){let did=false;while(n-->0&&prepQ.length){const[id,nm]=prepQ.shift(),k=id+'|'+nm;if(NCC.has(k))continue;try{if(drawFrame(nm,hLook(HB(id)))){const c=document.createElement('canvas');c.width=CW;c.height=CH;c.getContext('2d').drawImage(sc2,0,0);NCC.set(k,c);did=true}}catch(e){}}if(did)spKey=''}
 // portrait : la tête du personnage (image du jeu), agrandie en pixel art
@@ -11851,8 +11851,10 @@ function cpBadge(on){let b=document.getElementById('socBadge');if(!on){if(b)b.hi
 (function init(){const cv=document.getElementById('stCv');if(cv)cv.addEventListener('pointerdown',stTapS,true);
  const out=document.querySelector('#v-out .gog');if(out&&!out.querySelector('[data-go="amis"]')){const t=document.createElement('button');t.className='tile';t.dataset.go='amis';t.innerHTML='<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.6"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5M15 14.6c2.8-.3 5.6 1.3 6.3 4.9"/></svg>Mes amis<small>Habitants rencontrés</small>';out.appendChild(t);t.onclick=e=>{e.stopPropagation();openMenu()}}
  addEventListener('keydown',e=>{if(!STV.on||UI.open||STV.modal)return;if(e.code=='KeyT'){const w=nearW();if(w){e.preventDefault();openCard(w.id)}}})})();
-window.SOCIAL={mem,note,rel2:rel,HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();
+window.SOCIAL={hLook,mem,note,rel2:rel,HAB,HB,SO,rel,tierOf,tierName,gain,talk,know,gifts,give,invite,conclude,openCard,closeCard,openMenu,period,mday,isBday,isFete,EV,evTick,ST,CP,VS,visitStart,visitAct,line,portrait,prefOf,SORT,canInvite,UI,get OUT(){return OUT},set OUT(v){OUT=v},nearW,img,act,endWalk}})();
 
+// Couleur de cheveux propre à chaque personnage : un PNJ la tire de SA coiffure (wd.cheveux), jamais du joueur
+function lkOwnHr(L){const c=L&&L.wd&&L.wd.cheveux;if(c){const ci=parseInt(String(c).split('|')[1],10);if(ci>=0&&ci<HRP.length)L.hr=ci}return L}
 // ===== GARDE-ROBE : 10 TENUES COMPLÈTES (homme et femme) =====
 // Chaque tenue = plusieurs calques indépendants (haut, veste, bas, chaussures, accessoires) redessinés sur la carte
 // des parties du corps de CHAQUE image (face, profil, dos, trois-quarts, marche, course, assis, canapé, bureau, sport…).
@@ -12317,7 +12319,7 @@ const LOOKS=[
  {g:'f',sk:3,hc:2,wd:{cheveux:'long|2',haut:'pull|5',bas:'jean|1',chaussures:'bottine|1'}},{g:'m',sk:2,hc:5,wd:{cheveux:'mi|5',haut:'hoodie|1',bas:'jog|0',chaussures:'basket|2'}}];
 const CLIENTS=[2,3,4,5,6,7,8,9,10,11];
 const NCC=new Map();let prepQ=[];
-function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;delete B.tn;const L=LOOKS[i];return Object.assign(B,{g:L.g,sk:L.sk,hc:L.hc},{wd:Object.assign({},L.wd)})}
+function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;delete B.tn;const L=LOOKS[i];return lkOwnHr(Object.assign(B,{g:L.g,sk:L.sk,hc:L.hc},{wd:Object.assign({},L.wd)}))}
 // image d'un personnage : client, équipe (indice) ou habitant (« h:identifiant »)
 const nImg=(i,nm)=>{if(typeof i=='string'&&i.startsWith('h:'))return window.SOCIAL?SOCIAL.img(i.slice(2),nm):null;const c=NCC.get(i+'|'+nm);if(!c&&!prepQ.some(q=>q[0]==i&&q[1]==nm))prepQ.push([i,nm]);return c};
 function apron(c,g,nm,col){try{const real=nm[1],G0=wGeo(real);if(!G0)return;const d=g.getImageData(0,0,CW,CH),o=d.data,P=G0.P,lab=LAB[real],ac=hx2(col);
@@ -12766,7 +12768,7 @@ try{cafeOrder=function(){goCounter(()=>UI().menu&&UI().menu())}}catch(e){}
 // ---------- objectif ----------
 try{if(typeof GOALS!='undefined'&&!GOALS.some(g=>g.id=='cafeAmi'))GOALS.push({id:'cafeAmi',t:'Prendre un verre au café avec un ami',r:10,ok:()=>(N.cafe2&&N.cafe2.amis||0)>=1})}catch(e){}
 try{LINES.cafeLieu=['Ça sent bon le café fraîchement moulu.','On se pose un moment ?','J’adore l’ambiance de ce café.','Un petit cappuccino, ça te dit ?']}catch(e){}
-window.CAFE={R,CM,CK,FIX,SEATS,SV,me,sitAt,standUp,placeMe,placeOrder,takeOrder,goCounter,consume,startAct,stopAct,cfUI,leave,friendIn,friendShared,mates,tableOf,seatName,bestSeat,habToday,CEV,order,effect,QUEUE,PICK,CAISSE,nImg,isC}})();
+window.CAFE={nLook,R,CM,CK,FIX,SEATS,SV,me,sitAt,standUp,placeMe,placeOrder,takeOrder,goCounter,consume,startAct,stopAct,cfUI,leave,friendIn,friendShared,mates,tableOf,seatName,bestSeat,habToday,CEV,order,effect,QUEUE,PICK,CAISSE,nImg,isC}})();
 
 // ===== LE CAFÉ : fenêtres (carte, habitants, jeux, journal, téléphone) =====
 // Plein écran par-dessus la scène, sans jamais la déplacer ; boutons tactiles larges ; tout est enregistré dans N.cafe2.

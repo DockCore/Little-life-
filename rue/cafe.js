@@ -70,7 +70,7 @@ const LOOKS=[
  {g:'f',sk:3,hc:2,wd:{cheveux:'long|2',haut:'pull|5',bas:'jean|1',chaussures:'bottine|1'}},{g:'m',sk:2,hc:5,wd:{cheveux:'mi|5',haut:'hoodie|1',bas:'jog|0',chaussures:'basket|2'}}];
 const CLIENTS=[2,3,4,5,6,7,8,9,10,11];
 const NCC=new Map();let prepQ=[];
-function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;delete B.tn;const L=LOOKS[i];return Object.assign(B,{g:L.g,sk:L.sk,hc:L.hc},{wd:Object.assign({},L.wd)})}
+function nLook(i){const B=Object.assign({},N.look);delete B.nu;delete B.lf;delete B.tn;const L=LOOKS[i];return lkOwnHr(Object.assign(B,{g:L.g,sk:L.sk,hc:L.hc},{wd:Object.assign({},L.wd)}))}
 // image d'un personnage : client, équipe (indice) ou habitant (« h:identifiant »)
 const nImg=(i,nm)=>{if(typeof i=='string'&&i.startsWith('h:'))return window.SOCIAL?SOCIAL.img(i.slice(2),nm):null;const c=NCC.get(i+'|'+nm);if(!c&&!prepQ.some(q=>q[0]==i&&q[1]==nm))prepQ.push([i,nm]);return c};
 function apron(c,g,nm,col){try{const real=nm[1],G0=wGeo(real);if(!G0)return;const d=g.getImageData(0,0,CW,CH),o=d.data,P=G0.P,lab=LAB[real],ac=hx2(col);
@@ -519,4 +519,4 @@ try{cafeOrder=function(){goCounter(()=>UI().menu&&UI().menu())}}catch(e){}
 // ---------- objectif ----------
 try{if(typeof GOALS!='undefined'&&!GOALS.some(g=>g.id=='cafeAmi'))GOALS.push({id:'cafeAmi',t:'Prendre un verre au café avec un ami',r:10,ok:()=>(N.cafe2&&N.cafe2.amis||0)>=1})}catch(e){}
 try{LINES.cafeLieu=['Ça sent bon le café fraîchement moulu.','On se pose un moment ?','J’adore l’ambiance de ce café.','Un petit cappuccino, ça te dit ?']}catch(e){}
-window.CAFE={R,CM,CK,FIX,SEATS,SV,me,sitAt,standUp,placeMe,placeOrder,takeOrder,goCounter,consume,startAct,stopAct,cfUI,leave,friendIn,friendShared,mates,tableOf,seatName,bestSeat,habToday,CEV,order,effect,QUEUE,PICK,CAISSE,nImg,isC}})();
+window.CAFE={nLook,R,CM,CK,FIX,SEATS,SV,me,sitAt,standUp,placeMe,placeOrder,takeOrder,goCounter,consume,startAct,stopAct,cfUI,leave,friendIn,friendShared,mates,tableOf,seatName,bestSeat,habToday,CEV,order,effect,QUEUE,PICK,CAISSE,nImg,isC}})();
